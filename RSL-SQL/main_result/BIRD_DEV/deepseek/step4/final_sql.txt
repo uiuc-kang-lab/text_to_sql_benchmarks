@@ -1,0 +1,1534 @@
+SELECT MAX(`frpm`.`free meal count (k-12)` / `frpm`.`enrollment (k-12)`) AS highest_eligible_free_rate FROM `frpm` JOIN `schools` ON `frpm`.`cdscode` = `schools`.`cdscode` WHERE `schools`.`county` = 'Alameda'
+SELECT `frpm`.`free meal count (ages 5-17)` / `frpm`.`enrollment (ages 5-17)` AS eligible_free_rate FROM `frpm` INNER JOIN `schools` ON `frpm`.`cdscode` = `schools`.`cdscode` WHERE `frpm`.`school type` = 'Continuation Schools' ORDER BY eligible_free_rate LIMIT 3
+SELECT DISTINCT `schools`.`Zip` FROM `frpm` INNER JOIN `schools` ON `frpm`.`CDSCode` = `schools`.`CDSCode` WHERE `frpm`.`County Name` = 'Fresno' AND `frpm`.`District Name` = 'Fresno County Office of Education' AND `frpm`.`Charter School (Y/N)` = 1
+SELECT `schools`.`mailstreet` FROM `schools` INNER JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` ORDER BY `frpm`.`frpm count (k-12)` DESC LIMIT 1
+SELECT DISTINCT `schools`.`phone` FROM `schools` INNER JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` WHERE `frpm`.`charter funding type` = 'Directly funded' AND `schools`.`opendate` > '2000-01-01' AND `frpm`.`charter school (y/n)` = 1
+SELECT COUNT(*) FROM `schools` INNER JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` WHERE `satscores`.`avgscrmath` > 400 AND `schools`.`virtual` = 'F'
+SELECT `schools`.`school` FROM `schools` INNER JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` WHERE `satscores`.`numtsttakr` > 500 AND `schools`.`magnet` = 1
+SELECT `schools`.`phone` FROM `schools` INNER JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` ORDER BY `satscores`.`numge1500` DESC LIMIT 1
+SELECT satscores.`numtsttakr` FROM satscores JOIN schools ON satscores.`cds` = schools.`cdscode` JOIN frpm ON schools.`cdscode` = frpm.`cdscode` ORDER BY frpm.`frpm count (k-12)` DESC LIMIT 1
+SELECT COUNT(DISTINCT `satscores`.`cds`) FROM `satscores` INNER JOIN `schools` ON `satscores`.`cds` = `schools`.`CDSCode` WHERE `satscores`.`AvgScrMath` > 560 AND `schools`.`Charter` = 1 AND `schools`.`FundingType` = 'Directly funded'
+SELECT T2.`frpm count (ages 5-17)` FROM satscores AS T1 INNER JOIN schools AS T3 ON T1.`cds` = T3.`cdscode` INNER JOIN frpm AS T2 ON T3.`cdscode` = T2.`cdscode` ORDER BY T1.`avgscrread` DESC LIMIT 1
+SELECT `frpm`.`CDSCode` FROM `frpm` INNER JOIN `schools` ON `frpm`.`CDSCode` = `schools`.`CDSCode` WHERE (`frpm`.`Enrollment (K-12)` + `frpm`.`Enrollment (Ages 5-17)`) > 500
+SELECT MAX(frpm.`free meal count (ages 5-17)` / frpm.`enrollment (ages 5-17)`) FROM satscores INNER JOIN schools ON satscores.`cds` = schools.`cdscode` INNER JOIN frpm ON schools.`cdscode` = frpm.`cdscode` WHERE satscores.`numge1500` / satscores.`numtsttakr` > 0.3
+SELECT `schools`.`phone` FROM `schools` INNER JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` ORDER BY (`satscores`.`numge1500` / `satscores`.`numtsttakr`) DESC LIMIT 3
+SELECT T1.`ncesschool` FROM schools AS T1 INNER JOIN frpm AS T2 ON T2.`cdscode` = T1.`cdscode` ORDER BY T2.`enrollment (ages 5-17)` DESC LIMIT 5
+SELECT T.district FROM ( SELECT S.district, AVG(SS.avgscrread) AS avg_score FROM satscores AS SS INNER JOIN schools AS S ON SS.cds = S.cdscode WHERE S.statustype = 'Active' GROUP BY S.district ) T ORDER BY T.avg_score DESC LIMIT 1
+SELECT COUNT(*) FROM `schools` INNER JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` WHERE `schools`.`county` = 'Alameda' AND `satscores`.`numtsttakr` < 100
+SELECT `schools`.`CharterNum`, AVG(`satscores`.`AvgScrWrite`) AS avg_write_score FROM `satscores` INNER JOIN `schools` ON `satscores`.`cds` = `schools`.`CDSCode` WHERE `satscores`.`AvgScrWrite` > 499 AND `schools`.`CharterNum` IS NOT NULL GROUP BY `schools`.`CharterNum` ORDER BY avg_write_score DESC
+SELECT COUNT(`schools`.`cdscode`) FROM `schools` INNER JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` WHERE `schools`.`city` = 'Fresno' AND `schools`.`fundingtype` = 'Directly funded' AND `satscores`.`numtsttakr` <= 250
+SELECT `schools`.`phone` FROM `schools` JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` ORDER BY `satscores`.`avgscrmath` DESC LIMIT 1
+SELECT COUNT(DISTINCT `schools`.`cdscode`) FROM `schools` JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` WHERE `schools`.`county` = 'Amador' AND `frpm`.`low grade` = '9' AND `frpm`.`high grade` = '12'
+SELECT COUNT(DISTINCT `schools`.`cdscode`) FROM `frpm` JOIN `schools` ON `frpm`.`cdscode` = `schools`.`cdscode` WHERE `schools`.`county` = 'Los Angeles' AND `frpm`.`free meal count (k-12)` > 500 AND `frpm`.`frpm count (k-12)` < 700
+SELECT `schools`.`school` FROM `schools` JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` WHERE `schools`.`county` = 'Contra Costa' ORDER BY `satscores`.`numtsttakr` DESC LIMIT 1
+SELECT `schools`.`school`, `schools`.`street` FROM `schools` INNER JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` WHERE (`frpm`.`enrollment (k-12)` - `frpm`.`enrollment (ages 5-17)`) > 30
+SELECT DISTINCT `frpm`.`school name` FROM `frpm` INNER JOIN `schools` ON `frpm`.`cdscode` = `schools`.`cdscode` INNER JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` WHERE (`frpm`.`free meal count (k-12)` / `frpm`.`enrollment (k-12)`) > 0.1 AND `satscores`.`numge1500` > 0
+SELECT `schools`.`school`, `schools`.`fundingtype` FROM `schools` INNER JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` WHERE `schools`.`county` = 'Riverside' GROUP BY `schools`.`school` HAVING AVG(`satscores`.`avgscrmath`) > 400
+SELECT `schools`.`school`, `schools`.`street`, `schools`.`city`, `schools`.`state`, `schools`.`zip` FROM `schools` INNER JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` WHERE `schools`.`city` = 'Monterey' AND `frpm`.`school type` LIKE '%High Schools (Public)%' AND `frpm`.`free meal count (ages 5-17)` > 800
+SELECT `schools`.`school`, `satscores`.`avgscrwrite`, `schools`.`phone` FROM `schools` INNER JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` WHERE `schools`.`opendate` > '1991-01-01' OR `schools`.`closeddate` < '2000-01-01'
+SELECT `schools`.`School`, `schools`.`DOCType` FROM `frpm` INNER JOIN `schools` ON `frpm`.`CDSCode` = `schools`.`CDSCode` WHERE (`frpm`.`Enrollment (K-12)` - `frpm`.`Enrollment (Ages 5-17)`) > (SELECT AVG(`Enrollment (K-12)` - `Enrollment (Ages 5-17)`) FROM `frpm` WHERE `schools`.`FundingType` = 'Locally funded') AND `schools`.`FundingType` = 'Locally funded'
+SELECT `schools`.`opendate` FROM `schools` JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` ORDER BY `frpm`.`enrollment (k-12)` DESC LIMIT 1
+SELECT `schools`.`City`, MIN(`frpm`.`Enrollment (K-12)`) AS `MinEnrollment` FROM `frpm` INNER JOIN `schools` ON `frpm`.`CDSCode` = `schools`.`CDSCode` GROUP BY `schools`.`City` ORDER BY `MinEnrollment` ASC LIMIT 5
+SELECT `frpm`.`free meal count (k-12)` / `frpm`.`enrollment (k-12)` AS eligible_free_rate FROM `frpm` ORDER BY `frpm`.`enrollment (k-12)` DESC LIMIT 2 OFFSET 8
+SELECT `schools`.`School`, (`frpm`.`FRPM Count (K-12)` / `frpm`.`Enrollment (K-12)`) AS `Eligible Free or Reduced Price Meal Rate` FROM `frpm` INNER JOIN `schools` ON `frpm`.`CDSCode` = `schools`.`CDSCode` WHERE `schools`.`SOC` = 66 ORDER BY `frpm`.`FRPM Count (K-12)` DESC LIMIT 5
+SELECT `schools`.`school`, `schools`.`website` FROM `frpm` INNER JOIN `schools` ON `frpm`.`cdscode` = `schools`.`cdscode` WHERE `frpm`.`free meal count (ages 5-17)` BETWEEN 1900 AND 2000
+SELECT `frpm`.`free meal count (ages 5-17)` / `frpm`.`enrollment (ages 5-17)` AS free_rate FROM `frpm` INNER JOIN `schools` ON `frpm`.`cdscode` = `schools`.`cdscode` WHERE `schools`.`admfname1` = 'Kacey' AND `schools`.`admlname1` = 'Gibson'
+SELECT `schools`.`admemail1` FROM `schools` INNER JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` WHERE `frpm`.`charter school (y/n)` = 1 ORDER BY `frpm`.`enrollment (k-12)` ASC LIMIT 1
+SELECT `schools`.`admfname1`, `schools`.`admlname1`, `schools`.`admfname2`, `schools`.`admlname2`, `schools`.`admfname3`, `schools`.`admlname3` FROM `schools` INNER JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` ORDER BY `satscores`.`numge1500` DESC LIMIT 1
+SELECT `schools`.`street`, `schools`.`city`, `schools`.`zip`, `schools`.`state` FROM `schools` INNER JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` ORDER BY (`satscores`.`numge1500` / `satscores`.`numtsttakr`) ASC LIMIT 1
+SELECT `schools`.`website` FROM `schools` JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` WHERE `schools`.`county` = 'Los Angeles' AND `satscores`.`numtsttakr` BETWEEN 2000 AND 3000
+SELECT AVG(satscores.`numtsttakr`) FROM schools INNER JOIN satscores ON schools.`cdscode` = satscores.`cds` WHERE schools.`county` = 'Fresno' AND schools.`opendate` BETWEEN '1980-01-01' AND '1980-12-31'
+SELECT `schools`.`phone` FROM `satscores` JOIN `schools` ON `satscores`.`cds` = `schools`.`cdscode` WHERE `schools`.`district` = 'Fresno Unified' ORDER BY `satscores`.`avgscrread` ASC LIMIT 1
+SELECT T1.school FROM schools AS T1 INNER JOIN satscores AS T2 ON T1.cdscode = T2.cds WHERE T1.virtual = 'F' ORDER BY T2.avgscrread DESC LIMIT 5
+SELECT `frpm`.`educational option type` FROM `satscores` INNER JOIN `schools` ON `satscores`.`cds` = `schools`.`cdscode` INNER JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` ORDER BY `satscores`.`avgscrmath` DESC LIMIT 1
+SELECT `satscores`.`avgscrmath`, `schools`.`county` FROM `satscores` INNER JOIN `schools` ON `satscores`.`cds` = `schools`.`cdscode` ORDER BY (`satscores`.`avgscrmath` + `satscores`.`avgscrread` + `satscores`.`avgscrwrite`) ASC LIMIT 1
+SELECT `schools`.`city`, `satscores`.`avgscrwrite` FROM `satscores` JOIN `schools` ON `satscores`.`cds` = `schools`.`cdscode` ORDER BY `satscores`.`numge1500` DESC LIMIT 1
+SELECT `schools`.`school`, AVG(`satscores`.`avgscrwrite`) AS avg_writing_score FROM `schools` JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` WHERE `schools`.`admfname1` = 'Ricci' AND `schools`.`admlname1` = 'Ulrich' GROUP BY `schools`.`school`
+SELECT `schools`.`school`, SUM(`frpm`.`enrollment (k-12)`) AS total_enrollment FROM `schools` JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` WHERE `schools`.`doc` = '31' GROUP BY `schools`.`school` ORDER BY total_enrollment DESC LIMIT 1
+SELECT COUNT(`cdscode`) / 12.0 FROM `schools` WHERE `county` = 'Alameda' AND `doc` = '52' AND strftime('%Y', `opendate`) = '1980'
+SELECT (SELECT COUNT(*) FROM `schools` JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` WHERE `schools`.`doc` = '54' AND `frpm`.`county name` = 'Orange' AND `schools`.`statustype` = 'Merged') * 1.0 / (SELECT COUNT(*) FROM `schools` JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` WHERE `schools`.`doc` = '52' AND `frpm`.`county name` = 'Orange' AND `schools`.`statustype` = 'Merged') AS ratio
+SELECT `county`, `school`, `closeddate` FROM `schools` WHERE `statustype` = 'Closed' ORDER BY `county`
+SELECT `schools`.`street`, `schools`.`school` FROM `schools` INNER JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` ORDER BY `satscores`.`avgscrmath` DESC LIMIT 1 OFFSET 6
+SELECT `schools`.`mailstreet`, `schools`.`school` FROM `satscores` INNER JOIN `schools` ON `satscores`.`cds` = `schools`.`cdscode` ORDER BY `satscores`.`avgscrread` ASC LIMIT 1
+SELECT COUNT(*) FROM `satscores` JOIN `schools` ON `satscores`.`cds` = `schools`.`cdscode` WHERE (`satscores`.`avgscrread` + `satscores`.`avgscrwrite` + `satscores`.`avgscrmath`) >= 1500 AND `schools`.`mailcity` = 'Lakeport'
+SELECT SUM(satscores.`numtsttakr`) FROM schools JOIN satscores ON schools.`cdscode` = satscores.`cds` WHERE schools.`mailcity` = 'Fresno'
+SELECT `school`, `mailzip` FROM `schools` WHERE `admfname1` = 'Avetik' AND `admlname1` = 'Atoian'
+SELECT CAST(COUNT(CASE WHEN `schools`.`county` = 'Colusa' THEN `schools`.`cdscode` ELSE NULL END) AS REAL) / COUNT(CASE WHEN `schools`.`county` = 'Humboldt' THEN `schools`.`cdscode` ELSE NULL END) AS Ratio FROM `schools` WHERE `schools`.`mailstate` = 'CA'
+SELECT COUNT(*) FROM `schools` WHERE `mailstate` = 'CA' AND `city` = 'San Joaquin' AND `statustype` = 'Active'
+SELECT `schools`.`phone`, `schools`.`ext` FROM `schools` JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` ORDER BY `satscores`.`avgscrwrite` DESC LIMIT 1 OFFSET 332
+SELECT `school`, `phone`, `ext` FROM `schools` WHERE `zip` = '95203-3704'
+SELECT `website` FROM `schools` WHERE (`admfname1` = 'Mike' AND `admlname1` = 'Larson') OR (`admfname2` = 'Dante' AND `admlname2` = 'Alvarez')
+SELECT `website` FROM `schools` WHERE `virtual` = 'P' AND `charter` = 1 AND `city` = 'San Joaquin'
+SELECT COUNT(*) FROM `schools` WHERE `charter` = 1 AND `city` = 'Hickman' AND `doc` = '52'
+SELECT COUNT(*) FROM schools INNER JOIN frpm ON schools.`cdscode` = frpm.`cdscode` WHERE schools.`charter` = 0 AND schools.`county` = 'Los Angeles' AND (frpm.`free meal count (k-12)` * 100.0 / frpm.`enrollment (k-12)`) < 0.18
+SELECT `admfname1`, `admlname1`, `admfname2`, `admlname2`, `school`, `city` FROM `schools` WHERE `charter` = 1 AND `charternum` = '00D2'
+SELECT COUNT(*) FROM `schools` WHERE `mailcity` = 'Hickman' AND `charternum` = '00D4'
+SELECT CAST(SUM(CASE WHEN `schools`.`fundingtype` = 'locally funded' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `schools` WHERE `schools`.`county` = 'Santa Clara'
+SELECT COUNT(`cdscode`) FROM `schools` WHERE `fundingtype` = 'Directly funded' AND `opendate` BETWEEN '2000-01-01' AND '2005-12-31' AND `county` = 'Stanislaus'
+SELECT COUNT(*) FROM `schools` WHERE `statustype` = 'Closed' AND `closeddate` LIKE '1989-%' AND `city` = 'San Francisco'
+SELECT `county` FROM `schools` WHERE `closeddate` BETWEEN '1980-01-01' AND '1989-12-31' AND `soc` = 11 GROUP BY `county` ORDER BY COUNT(`closeddate`) DESC LIMIT 1
+SELECT `ncesdist` FROM `schools` WHERE `soc` = 31
+SELECT COUNT(DISTINCT `cdscode`) FROM `schools` WHERE `county` = 'Alpine' AND (`statustype` = 'Active' OR `statustype` = 'Closed') AND `district` = 'District Community Day Schools'
+SELECT `district` FROM `schools` WHERE `magnet` = 0 AND `city` = 'Fresno'
+SELECT SUM(`frpm`.`enrollment (ages 5-17)`) FROM `schools` INNER JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` WHERE `schools`.`city` = 'Fremont' AND `schools`.`edopscode` = 'SSS' AND `frpm`.`academic year` = '2014-2015'
+SELECT `frpm`.`frpm count (ages 5-17)` FROM `schools` INNER JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` WHERE `schools`.`school` = 'Youth Authority School' AND `schools`.`mailstreet` = 'PO Box 1040'
+SELECT `frpm`.`low grade` FROM `schools` INNER JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` WHERE `schools`.`edopscode` = 'SPECON' AND `schools`.`ncesdist` = '0613360' ORDER BY `frpm`.`low grade` ASC LIMIT 1
+SELECT `frpm`.`school name` FROM `frpm` INNER JOIN `schools` ON `frpm`.`cdscode` = `schools`.`cdscode` WHERE `frpm`.`nslp provision status` = 'Breakfast Provision 2' AND `frpm`.`county code` = '37'
+SELECT schools.`city` FROM schools INNER JOIN frpm ON schools.`cdscode` = frpm.`cdscode` WHERE schools.`eilcode` = 'HS' AND frpm.`nslp provision status` = 'Lunch Provision 2' AND frpm.`low grade` = '9' AND frpm.`high grade` = '12' AND frpm.`county name` = 'Merced'
+SELECT `schools`.`school`, (`frpm`.`frpm count (ages 5-17)` / `frpm`.`enrollment (ages 5-17)` * 100) AS `Percent (%) Eligible FRPM (Ages 5-17)` FROM `schools` JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` WHERE `schools`.`county` = 'Los Angeles' AND `schools`.`gsoffered` = 'K-9'
+SELECT `gsoffered` FROM `schools` WHERE `city` = 'Adelanto' GROUP BY `gsoffered` ORDER BY COUNT(*) DESC LIMIT 1
+SELECT `county`, COUNT(`virtual`) AS `number_of_schools` FROM `schools` WHERE `virtual` = 'F' AND `county` IN ('San Diego', 'Santa Barbara') GROUP BY `county` ORDER BY `number_of_schools` DESC LIMIT 1
+SELECT T1.`school type`, T2.`school`, T2.`latitude`, T2.`longitude` FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.cdscode = T2.cdscode ORDER BY T2.`latitude` DESC LIMIT 1
+SELECT schools.`city`, schools.`school`, frpm.`low grade` FROM schools INNER JOIN frpm ON schools.`cdscode` = frpm.`CDSCode` WHERE schools.`state` = 'CA' ORDER BY schools.`latitude` ASC LIMIT 1
+SELECT `gsoffered` FROM `schools` ORDER BY ABS(`longitude`) DESC LIMIT 1
+SELECT COUNT(DISTINCT `schools`.`city`) AS `number_of_cities`, `schools`.`city`, COUNT(`schools`.`school`) AS `number_of_schools` FROM `schools` INNER JOIN `frpm` ON `schools`.`cdscode` = `frpm`.`cdscode` WHERE `schools`.`magnet` = 1 AND `schools`.`gsoffered` = 'K-8' AND `frpm`.`nslp provision status` = 'Multiple Provision Types' GROUP BY `schools`.`city`
+SELECT `admfname1`, `district`, COUNT(`admfname1`) AS name_count FROM `schools` WHERE `admfname1` IS NOT NULL GROUP BY `admfname1`, `district` ORDER BY name_count DESC LIMIT 2
+SELECT `frpm`.`percent (%) eligible free (k-12)`, `frpm`.`district code` FROM `frpm` JOIN `schools` ON `frpm`.`cdscode` = `schools`.`cdscode` WHERE `schools`.`admfname1` = 'Alusine'
+SELECT `admlname1`, `district`, `county`, `school` FROM `schools` WHERE `charternum` = '40'
+SELECT `admemail1`, `admemail2` FROM `schools` WHERE `county` = 'San Bernardino' AND `district` = 'San Bernardino City Unified' AND `opendate` BETWEEN '2009-01-01' AND '2010-12-31' AND (`soc` = 62 OR `doc` = 54)
+SELECT `schools`.`admemail1`, `schools`.`school` FROM `schools` INNER JOIN `satscores` ON `schools`.`cdscode` = `satscores`.`cds` ORDER BY `satscores`.`numge1500` DESC LIMIT 1
+SELECT COUNT(`account`.`account_id`) FROM `account` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `account`.`frequency` = 'POPLATEK PO OBRATU' AND `district`.`a3` = 'east Bohemia'
+SELECT COUNT(DISTINCT `account`.`account_id`) FROM `account` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` INNER JOIN `loan` ON `account`.`account_id` = `loan`.`account_id` WHERE `district`.`a3` = 'Prague' AND `loan`.`status` IN ('A', 'C')
+SELECT CASE WHEN AVG(district.`A12`) > AVG(district.`A13`) THEN '1995' ELSE '1996' END AS higher_unemployment_year FROM district
+SELECT COUNT(DISTINCT `district`.`district_id`) FROM `district` JOIN `client` ON `district`.`district_id` = `client`.`district_id` WHERE `client`.`gender` = 'F' AND `district`.`a11` > 6000 AND `district`.`a11` < 10000
+SELECT COUNT(client.`client_id`) FROM client INNER JOIN district ON client.`district_id` = district.`district_id` WHERE client.`gender` = 'M' AND district.`a3` = 'north Bohemia' AND district.`a11` > 8000
+SELECT T2.`account_id`, (MAX(T3.`a11`) - MIN(T3.`a11`)) AS gap FROM `client` AS T1 INNER JOIN `disp` AS T2 ON T1.`client_id` = T2.`client_id` INNER JOIN `district` AS T3 ON T1.`district_id` = T3.`district_id` WHERE T1.`gender` = 'F' GROUP BY T2.`account_id` ORDER BY T1.`birth_date` ASC, T3.`a11` ASC LIMIT 1
+SELECT `account`.`account_id` FROM `client` INNER JOIN `district` ON `client`.`district_id` = `district`.`district_id` INNER JOIN `account` ON `client`.`client_id` = `account`.`account_id` ORDER BY `client`.`birth_date` DESC, `district`.`A11` DESC LIMIT 1
+SELECT COUNT(DISTINCT `disp`.`client_id`) FROM `disp` INNER JOIN `account` ON `disp`.`account_id` = `account`.`account_id` WHERE `account`.`frequency` = 'POPLATEK TYDNE' AND `disp`.`type` = 'OWNER'
+SELECT T1.`client_id` FROM client AS T1 INNER JOIN disp AS T2 ON T1.`client_id` = T2.`client_id` INNER JOIN account AS T3 ON T2.`account_id` = T3.`account_id` WHERE T3.`frequency` = 'POPLATEK PO OBRATU' AND T2.`type` = 'DISPONENT'
+SELECT `account`.`account_id`, `account`.`district_id`, `account`.`frequency`, `account`.`date` FROM `loan` INNER JOIN `account` ON `loan`.`account_id` = `account`.`account_id` WHERE `loan`.`date` BETWEEN '1997-01-01' AND '1997-12-31' AND `account`.`frequency` = 'POPLATEK TYDNE' ORDER BY `loan`.`amount` ASC LIMIT 1
+SELECT `account`.`account_id`, `loan`.`amount` FROM `loan` INNER JOIN `account` ON `loan`.`account_id` = `account`.`account_id` WHERE `loan`.`duration` > 12 AND STRFTIME('%Y', `account`.`date`) = '1993' ORDER BY `loan`.`amount` DESC LIMIT 1
+SELECT COUNT(`client`.`client_id`) FROM `client` INNER JOIN `account` ON `client`.`district_id` = `account`.`district_id` INNER JOIN `district` ON `client`.`district_id` = `district`.`district_id` WHERE `client`.`gender` = 'F' AND `client`.`birth_date` < '1950-01-01' AND `district`.`a2` = 'Sokolov'
+SELECT `account`.`account_id` FROM `account` INNER JOIN `trans` ON `account`.`account_id` = `trans`.`account_id` WHERE strftime('%Y', `trans`.`date`) = '1995' ORDER BY `trans`.`date` ASC LIMIT 1
+SELECT DISTINCT `account`.`account_id` FROM `account` INNER JOIN `trans` ON `account`.`account_id` = `trans`.`account_id` WHERE `account`.`date` < '1997-01-01' AND `trans`.`amount` > 3000
+SELECT `client`.`client_id` FROM `card` INNER JOIN `disp` ON `card`.`disp_id` = `disp`.`disp_id` INNER JOIN `client` ON `disp`.`client_id` = `client`.`client_id` WHERE `card`.`issued` = '1994-03-03'
+SELECT `account`.`date` FROM `trans` INNER JOIN `account` ON `trans`.`account_id` = `account`.`account_id` WHERE `trans`.`amount` = 840 AND `trans`.`date` = '1998-10-14'
+SELECT `account`.`district_id` FROM `loan` INNER JOIN `account` ON `loan`.`account_id` = `account`.`account_id` WHERE `loan`.`date` = '1994-08-25'
+SELECT MAX(T3.amount) FROM card AS T1 INNER JOIN disp AS T2 ON T1.disp_id = T2.disp_id INNER JOIN trans AS T3 ON T2.account_id = T3.account_id WHERE T1.issued = '1996-10-21'
+SELECT `client`.`gender` FROM `client` INNER JOIN `account` ON `client`.`district_id` = `account`.`district_id` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` ORDER BY `client`.`birth_date`, `district`.`a11` DESC LIMIT 1
+SELECT T2.amount FROM loan AS T1 JOIN trans AS T2 ON T1.account_id = T2.account_id WHERE T1.loan_id = (SELECT loan_id FROM loan ORDER BY amount DESC LIMIT 1) AND T2.date > (SELECT date FROM account WHERE account_id = T1.account_id) ORDER BY T2.date ASC LIMIT 1
+SELECT COUNT(`client`.`client_id`) FROM `client` INNER JOIN `account` ON `client`.`district_id` = `account`.`district_id` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `district`.`A2` = 'Jesenik' AND `client`.`gender` = 'F'
+SELECT `disp`.`disp_id` FROM `trans` INNER JOIN `disp` ON `trans`.`account_id` = `disp`.`account_id` WHERE `trans`.`amount` = 5100 AND `trans`.`date` = '1998-09-02'
+SELECT COUNT(`account`.`account_id`) FROM `account` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `district`.`a2` = 'Litomerice' AND STRFTIME('%Y', `account`.`date`) = '1996'
+SELECT district.`a2` FROM client INNER JOIN disp ON client.`client_id` = disp.`client_id` INNER JOIN account ON disp.`account_id` = account.`account_id` INNER JOIN district ON account.`district_id` = district.`district_id` WHERE client.`gender` = 'F' AND client.`birth_date` = '1976-01-29'
+SELECT client.`birth_date` FROM client INNER JOIN disp ON client.`client_id` = disp.`client_id` INNER JOIN account ON disp.`account_id` = account.`account_id` INNER JOIN loan ON account.`account_id` = loan.`account_id` WHERE loan.`amount` = 98832 AND loan.`date` = '1996-01-03'
+SELECT T1.`account_id` FROM account AS T1 INNER JOIN district AS T2 ON T1.`district_id` = T2.`district_id` WHERE T2.`A3` = 'Prague' ORDER BY T1.`date` LIMIT 1
+SELECT CAST(SUM(CASE WHEN `client`.`gender` = 'M' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`client`.`client_id`) FROM `client` INNER JOIN `district` ON `client`.`district_id` = `district`.`district_id` WHERE `district`.`a3` = 'south Bohemia' ORDER BY CAST(`district`.`a4` AS INTEGER) DESC LIMIT 1
+SELECT ((SELECT balance FROM trans WHERE account_id = (SELECT account_id FROM loan WHERE date = '1998-12-27' AND status = 'A' ORDER BY date ASC LIMIT 1) AND date = '1998-12-27' ORDER BY date DESC LIMIT 1) - (SELECT balance FROM trans WHERE account_id = (SELECT account_id FROM loan WHERE date = '1993-07-05' AND status = 'A' ORDER BY date ASC LIMIT 1) AND date = '1993-03-22' ORDER BY date DESC LIMIT 1)) * 100.0 / (SELECT balance FROM trans WHERE account_id = (SELECT account_id FROM loan WHERE date = '1993-07-05' AND status = 'A' ORDER BY date ASC LIMIT 1) AND date = '1993-03-22' ORDER BY date DESC LIMIT 1) AS increase_rate
+SELECT (SUM(CASE WHEN `loan`.`status` = 'A' THEN `loan`.`amount` ELSE 0 END) * 100.0 / SUM(`loan`.`amount`)) AS percentage_fully_paid FROM `loan`
+SELECT CAST(SUM(IIF(loan.`status` = 'C', 1, 0)) AS REAL) * 100 / COUNT(loan.`loan_id`) FROM loan WHERE loan.`amount` < 100000
+SELECT `account`.`account_id`, `district`.`a2`, `district`.`a3` FROM `account` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `account`.`date` LIKE '1993-%' AND `account`.`frequency` = 'POPLATEK PO OBRATU'
+SELECT `account`.`account_id`, `account`.`frequency` FROM `account` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `district`.`a3` = 'east Bohemia' AND `account`.`date` BETWEEN '1995-01-01' AND '2000-12-31'
+SELECT `account`.`account_id`, `account`.`date` FROM `account` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `district`.`a2` = 'Prachatice'
+SELECT `district`.`a2`, `district`.`a3` FROM `loan` INNER JOIN `account` ON `loan`.`account_id` = `account`.`account_id` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `loan`.`loan_id` = '4990'
+SELECT loan.`account_id`, district.`a2`, district.`a3` FROM loan JOIN account ON loan.`account_id` = account.`account_id` JOIN district ON account.`district_id` = district.`district_id` WHERE loan.`amount` > 300000
+SELECT loan.`loan_id`, district.`a2`, district.`a11` FROM loan INNER JOIN account ON loan.`account_id` = account.`account_id` INNER JOIN district ON account.`district_id` = district.`district_id` WHERE loan.`duration` = 60
+SELECT `district`.`a2`, ((`district`.`a13` - `district`.`a12`) / `district`.`a12`) * 100 AS unemployment_increment FROM `loan` INNER JOIN `account` ON `loan`.`account_id` = `account`.`account_id` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `loan`.`status` = 'D'
+SELECT CAST(COUNT(CASE WHEN `district`.`a2` = 'Decin' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(`account`.`account_id`) FROM `account` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `account`.`date` LIKE '1993-%'
+SELECT `account_id` FROM `account` WHERE `frequency` = 'POPLATEK MESICNE'
+SELECT `district`.`a2`, COUNT(`client`.`client_id`) AS `female_account_holders` FROM `district` JOIN `client` ON `district`.`district_id` = `client`.`district_id` JOIN `account` ON `district`.`district_id` = `account`.`district_id` WHERE `client`.`gender` = 'F' GROUP BY `district`.`a2` ORDER BY `female_account_holders` DESC LIMIT 9
+SELECT d.`A2`, SUM(t.`amount`) AS total_withdrawals FROM `trans` AS t INNER JOIN `account` AS a ON t.`account_id` = a.`account_id` INNER JOIN `district` AS d ON a.`district_id` = d.`district_id` WHERE t.`type` = 'VYDAJ' AND t.`date` LIKE '1996-01%' GROUP BY d.`A2` ORDER BY total_withdrawals DESC LIMIT 10
+SELECT COUNT(DISTINCT `account`.`account_id`) FROM `account` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` LEFT JOIN `disp` ON `account`.`account_id` = `disp`.`account_id` LEFT JOIN `card` ON `disp`.`disp_id` = `card`.`disp_id` WHERE `district`.`a3` = 'South Bohemia' AND `card`.`card_id` IS NULL
+SELECT `district`.`a3` FROM `loan` INNER JOIN `account` ON `loan`.`account_id` = `account`.`account_id` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `loan`.`status` IN ('C', 'D') GROUP BY `district`.`a3` ORDER BY COUNT(`loan`.`loan_id`) DESC LIMIT 1
+SELECT AVG(`loan`.`amount`) FROM `loan` INNER JOIN `disp` ON `loan`.`account_id` = `disp`.`account_id` INNER JOIN `client` ON `disp`.`client_id` = `client`.`client_id` WHERE `client`.`gender` = 'M'
+SELECT `district_id`, `a2` FROM `district` ORDER BY `a13` DESC
+SELECT COUNT(`account`.`account_id`) FROM `district` INNER JOIN `account` ON `district`.`district_id` = `account`.`district_id` WHERE `district`.`a16` = (SELECT MAX(`a16`) FROM `district`)
+SELECT COUNT(DISTINCT `trans`.`account_id`) FROM `trans` INNER JOIN `account` ON `trans`.`account_id` = `account`.`account_id` WHERE `trans`.`operation` = 'VYBER KARTOU' AND `trans`.`balance` < 0 AND `account`.`frequency` = 'POPLATEK MESICNE'
+SELECT COUNT(DISTINCT loan.`loan_id`) FROM loan INNER JOIN account ON loan.`account_id` = account.`account_id` WHERE loan.`date` BETWEEN '1995-01-01' AND '1997-12-31' AND loan.`amount` >= 250000 AND account.`frequency` = 'POPLATEK MESICNE'
+SELECT COUNT(DISTINCT `loan`.`account_id`) FROM `loan` INNER JOIN `account` ON `loan`.`account_id` = `account`.`account_id` WHERE `loan`.`status` IN ('C', 'D') AND `account`.`district_id` = 1
+SELECT COUNT(`client`.`client_id`) FROM `district` INNER JOIN `client` ON `district`.`district_id` = `client`.`district_id` WHERE `client`.`gender` = 'M' AND `district`.`district_id` = (SELECT `district_id` FROM `district` ORDER BY `a15` DESC LIMIT 1 OFFSET 1)
+SELECT COUNT(card.`card_id`) FROM card INNER JOIN disp ON card.`disp_id` = disp.`disp_id` WHERE card.`type` = 'gold' AND disp.`type` = 'OWNER'
+SELECT COUNT(`account`.`account_id`) FROM `account` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `district`.`a2` = 'Pisek'
+SELECT `district`.`a2` FROM `trans` INNER JOIN `account` ON `trans`.`account_id` = `account`.`account_id` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `trans`.`amount` > 10000 AND `trans`.`date` LIKE '1997-%' GROUP BY `district`.`a2`
+SELECT `order`.`account_id` FROM `order` INNER JOIN `account` ON `order`.`account_id` = `account`.`account_id` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `order`.`k_symbol` = 'SIPO' AND `district`.`a2` = 'Pisek'
+SELECT DISTINCT `account`.`account_id` FROM `account` INNER JOIN `disp` ON `account`.`account_id` = `disp`.`account_id` INNER JOIN `card` ON `disp`.`disp_id` = `card`.`disp_id` WHERE `card`.`type` = 'gold'
+SELECT AVG(trans.`amount`) FROM `trans` JOIN `account` ON trans.`account_id` = account.`account_id` JOIN `disp` ON account.`account_id` = disp.`account_id` JOIN `card` ON disp.`disp_id` = card.`disp_id` WHERE trans.`operation` = 'VYBER KARTOU' AND STRFTIME('%Y', trans.`date`) = '2021'
+SELECT DISTINCT `account`.`account_id` FROM `account` INNER JOIN `disp` ON `account`.`account_id` = `disp`.`account_id` INNER JOIN `card` ON `disp`.`disp_id` = `card`.`disp_id` INNER JOIN `trans` ON `account`.`account_id` = `trans`.`account_id` WHERE `trans`.`operation` = 'VYBER KARTOU' AND STRFTIME('%Y', `trans`.`date`) = '1998' AND `trans`.`amount` < (SELECT AVG(`amount`) FROM `trans` WHERE `operation` = 'VYBER KARTOU' AND STRFTIME('%Y', `date`) = '1998')
+SELECT DISTINCT c.`client_id` FROM `client` c INNER JOIN `disp` d ON c.`client_id` = d.`client_id` INNER JOIN `card` cd ON d.`disp_id` = cd.`disp_id` INNER JOIN `loan` l ON d.`account_id` = l.`account_id` WHERE c.`gender` = 'F' AND d.`type` = 'OWNER'
+SELECT COUNT(DISTINCT `client`.`client_id`) FROM `client` INNER JOIN `district` ON `client`.`district_id` = `district`.`district_id` WHERE `client`.`gender` = 'F' AND `district`.`a3` = 'south Bohemia'
+SELECT `account`.`account_id` FROM `account` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` INNER JOIN `disp` ON `account`.`account_id` = `disp`.`account_id` WHERE `district`.`A2` = 'Tabor' AND `disp`.`type` = 'OWNER'
+SELECT `disp`.`type` FROM `disp` INNER JOIN `account` ON `disp`.`account_id` = `account`.`account_id` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `disp`.`type` != 'OWNER' AND `district`.`A11` > 8000 AND `district`.`A11` <= 9000
+SELECT COUNT(DISTINCT `account`.`account_id`) FROM `account` INNER JOIN `trans` ON `account`.`account_id` = `trans`.`account_id` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `district`.`a3` = 'North Bohemia' AND `trans`.`bank` = 'AB'
+SELECT DISTINCT `district`.`a2` FROM `district` INNER JOIN `account` ON `district`.`district_id` = `account`.`district_id` INNER JOIN `trans` ON `account`.`account_id` = `trans`.`account_id` WHERE `trans`.`type` = 'VYDAJ'
+SELECT AVG(T1.`a15`) FROM `district` AS T1 INNER JOIN `account` AS T2 ON T1.`district_id` = T2.`district_id` WHERE T1.`a15` > 4000 AND T2.`date` >= '1997-01-01' GROUP BY T1.`a3`
+SELECT COUNT(DISTINCT card.`card_id`) FROM card JOIN disp ON card.`disp_id` = disp.`disp_id` JOIN account ON disp.`account_id` = account.`account_id` WHERE card.`type` = 'classic' AND disp.`type` = 'OWNER'
+SELECT COUNT(`client`.`client_id`) FROM `client` INNER JOIN `district` ON `client`.`district_id` = `district`.`district_id` WHERE `district`.`a2` = 'Hl.m. Praha' AND `client`.`gender` = 'M'
+SELECT (COUNT(*) * 100.0 / (SELECT COUNT(*) FROM card)) AS PercentOfGold FROM card WHERE type = 'gold' AND issued < '1998-01-01'
+SELECT `client`.`client_id`, `client`.`gender`, `client`.`birth_date` FROM `loan` INNER JOIN `account` ON `loan`.`account_id` = `account`.`account_id` INNER JOIN `disp` ON `account`.`account_id` = `disp`.`account_id` INNER JOIN `client` ON `disp`.`client_id` = `client`.`client_id` WHERE `disp`.`type` = 'OWNER' ORDER BY `loan`.`amount` DESC LIMIT 1
+SELECT `district`.`a15` FROM `account` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `account`.`account_id` = 532
+SELECT `account`.`district_id` FROM `order` INNER JOIN `account` ON `order`.`account_id` = `account`.`account_id` WHERE `order`.`order_id` = 33333
+SELECT `trans`.`trans_id`, `trans`.`amount`, `trans`.`date` FROM `trans` INNER JOIN `disp` ON `trans`.`account_id` = `disp`.`account_id` INNER JOIN `client` ON `disp`.`client_id` = `client`.`client_id` WHERE `client`.`client_id` = 3356 AND `trans`.`operation` = 'VYBER'
+SELECT COUNT(DISTINCT `account`.`account_id`) FROM `account` INNER JOIN `loan` ON `account`.`account_id` = `loan`.`account_id` WHERE `account`.`frequency` = 'POPLATEK TYDNE' AND `loan`.`amount` < 200000
+SELECT `card`.`type` FROM `card` INNER JOIN `disp` ON `card`.`disp_id` = `disp`.`disp_id` WHERE `disp`.`client_id` = 13539
+SELECT `district`.`a3` FROM `client` INNER JOIN `district` ON `client`.`district_id` = `district`.`district_id` WHERE `client`.`client_id` = 3541
+SELECT T1.`a2` FROM district AS T1 INNER JOIN account AS T2 ON T1.`district_id` = T2.`district_id` INNER JOIN loan AS T3 ON T2.`account_id` = T3.`account_id` WHERE T3.`status` = 'A' GROUP BY T1.`a2` ORDER BY COUNT(T2.`account_id`) DESC LIMIT 1
+SELECT T3.gender, T3.birth_date FROM `order` AS T1 INNER JOIN `disp` AS T2 ON T1.account_id = T2.account_id INNER JOIN `client` AS T3 ON T2.client_id = T3.client_id WHERE T1.order_id = 32423
+SELECT `trans`.`trans_id`, `trans`.`account_id`, `trans`.`date`, `trans`.`type`, `trans`.`operation`, `trans`.`amount`, `trans`.`balance`, `trans`.`k_symbol`, `trans`.`bank`, `trans`.`account` FROM `trans` INNER JOIN `account` ON `trans`.`account_id` = `account`.`account_id` WHERE `account`.`district_id` = 5
+SELECT COUNT(`account`.`account_id`) FROM `account` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `district`.`a2` = 'Jesenik'
+SELECT T2.client_id FROM card AS T1 INNER JOIN disp AS T2 ON T1.disp_id = T2.disp_id WHERE T1.type = 'junior' AND T1.issued >= '1997-01-01'
+SELECT CAST(SUM(CASE WHEN `client`.`gender` = 'F' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`client`.`client_id`) FROM `client` INNER JOIN `account` ON `client`.`district_id` = `account`.`district_id` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `district`.`a11` > 10000
+SELECT (SUM(CASE WHEN STRFTIME('%Y', loan.`date`) = '1997' THEN loan.`amount` ELSE 0 END) - SUM(CASE WHEN STRFTIME('%Y', loan.`date`) = '1996' THEN loan.`amount` ELSE 0 END)) * 100.0 / SUM(CASE WHEN STRFTIME('%Y', loan.`date`) = '1996' THEN loan.`amount` ELSE 0 END) AS growth_rate FROM loan INNER JOIN account ON loan.`account_id` = account.`account_id` INNER JOIN disp ON account.`account_id` = disp.`account_id` INNER JOIN client ON disp.`client_id` = client.`client_id` WHERE client.`gender` = 'M' AND STRFTIME('%Y', loan.`date`) IN ('1996', '1997')
+SELECT COUNT(*) FROM `trans` WHERE `operation` = 'VYBER KARTOU' AND `date` > '1995-12-31'
+SELECT (SELECT `A16` FROM `district` WHERE `A3` = 'north Bohemia') - (SELECT `A16` FROM `district` WHERE `A3` = 'east Bohemia') AS difference
+SELECT COUNT(DISTINCT disp.`disp_id`) FROM disp INNER JOIN account ON disp.`account_id` = account.`account_id` WHERE disp.`type` IN ('OWNER', 'DISPONENT') AND account.`account_id` BETWEEN 1 AND 10
+SELECT COUNT(DISTINCT `trans`.`date`) AS statement_frequency, `trans`.`k_symbol` AS purpose FROM `trans` INNER JOIN `account` ON `trans`.`account_id` = `account`.`account_id` WHERE `account`.`account_id` = 3 AND `trans`.`amount` = 3539 GROUP BY `trans`.`k_symbol`
+SELECT `client`.`birth_date` FROM `client` INNER JOIN `disp` ON `client`.`client_id` = `disp`.`client_id` WHERE `disp`.`disp_id` = 130 AND `disp`.`type` = 'OWNER'
+SELECT COUNT(DISTINCT `account`.`account_id`) FROM `account` INNER JOIN `disp` ON `account`.`account_id` = `disp`.`account_id` INNER JOIN `trans` ON `account`.`account_id` = `trans`.`account_id` WHERE `disp`.`type` = 'OWNER' AND `account`.`frequency` = 'POPLATEK PO OBRATU'
+SELECT l.`amount`, l.`payments`, l.`status` FROM `loan` l JOIN `disp` d ON l.`account_id` = d.`account_id` JOIN `client` c ON d.`client_id` = c.`client_id` WHERE c.`client_id` = 992
+SELECT SUM(T1.`amount`), T4.`gender` FROM `trans` AS T1 INNER JOIN `account` AS T2 ON T1.`account_id` = T2.`account_id` INNER JOIN `disp` AS T3 ON T2.`account_id` = T3.`account_id` INNER JOIN `client` AS T4 ON T3.`client_id` = T4.`client_id` WHERE T3.`client_id` = 4 AND T1.`trans_id` > 851 AND T3.`type` = 'OWNER' GROUP BY T4.`gender`
+SELECT DISTINCT `card`.`type` FROM `card` INNER JOIN `disp` ON `card`.`disp_id` = `disp`.`disp_id` WHERE `disp`.`client_id` = 9
+SELECT SUM(`trans`.`amount`) FROM `trans` INNER JOIN `disp` ON `trans`.`account_id` = `disp`.`account_id` INNER JOIN `client` ON `disp`.`client_id` = `client`.`client_id` WHERE `client`.`client_id` = 617 AND `trans`.`date` LIKE '1998-%'
+SELECT `client`.`client_id` FROM `client` JOIN `disp` ON `client`.`client_id` = `disp`.`client_id` JOIN `account` ON `disp`.`account_id` = `account`.`account_id` JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `client`.`birth_date` BETWEEN '1983-01-01' AND '1987-12-31' AND `district`.`a3` = 'east Bohemia'
+SELECT client.`client_id` FROM client INNER JOIN disp ON client.`client_id` = disp.`client_id` INNER JOIN loan ON disp.`account_id` = loan.`account_id` WHERE client.`gender` = 'F' ORDER BY loan.`amount` DESC LIMIT 3
+SELECT COUNT(DISTINCT disp.`client_id`) FROM disp INNER JOIN client ON disp.`client_id` = client.`client_id` INNER JOIN `order` ON disp.`account_id` = `order`.`account_id` WHERE client.`gender` = 'M' AND client.`birth_date` BETWEEN '1974-01-01' AND '1976-12-31' AND `order`.`k_symbol` = 'SIPO' AND `order`.`amount` > 4000
+SELECT COUNT(DISTINCT `account`.`account_id`) FROM `account` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `district`.`a2` = 'Beroun' AND `account`.`date` > '1996-01-01'
+SELECT COUNT(client.`client_id`) FROM client INNER JOIN disp ON client.`client_id` = disp.`client_id` INNER JOIN card ON disp.`disp_id` = card.`disp_id` WHERE client.`gender` = 'F' AND card.`type` = 'junior'
+SELECT CAST(COUNT(CASE WHEN `client`.`gender` = 'F' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(*) FROM `client` INNER JOIN `account` ON `client`.`client_id` = `account`.`account_id` INNER JOIN `district` ON `account`.`district_id` = `district`.`district_id` WHERE `district`.`A3` = 'Prague'
+SELECT CAST(SUM(CASE WHEN `client`.`gender` = 'M' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`client`.`gender`) FROM `client` INNER JOIN `account` ON `client`.`client_id` = `account`.`account_id` WHERE `account`.`frequency` = 'POPLATEK TYDNE'
+SELECT COUNT(*) FROM `disp` INNER JOIN `account` ON `disp`.`account_id` = `account`.`account_id` WHERE `disp`.`type` = 'OWNER' AND `account`.`frequency` = 'POPLATEK TYDNE'
+SELECT `loan`.`account_id`, `loan`.`amount` FROM `loan` INNER JOIN `account` ON `loan`.`account_id` = `account`.`account_id` WHERE `loan`.`duration` > 24 AND `account`.`date` < '1997-01-01' ORDER BY `loan`.`amount` ASC LIMIT 1
+SELECT `account`.`account_id` FROM `client` INNER JOIN `disp` ON `client`.`client_id` = `disp`.`client_id` INNER JOIN `account` ON `disp`.`account_id` = `account`.`account_id` INNER JOIN `district` ON `client`.`district_id` = `district`.`district_id` WHERE `client`.`gender` = 'F' ORDER BY `client`.`birth_date`, `district`.`a11` LIMIT 1
+SELECT COUNT(`client`.`client_id`) FROM `client` INNER JOIN `district` ON `client`.`district_id` = `district`.`district_id` WHERE `client`.`birth_date` LIKE '1920-%' AND `district`.`a3` = 'east Bohemia'
+SELECT COUNT(`loan`.`account_id`) FROM `loan` INNER JOIN `account` ON `loan`.`account_id` = `account`.`account_id` WHERE `loan`.`duration` = 24 AND `account`.`frequency` = 'POPLATEK TYDNE'
+SELECT AVG(`loan`.`amount`) FROM `loan` JOIN `account` ON `loan`.`account_id` = `account`.`account_id` WHERE `loan`.`status` = 'C' AND `account`.`frequency` = 'POPLATEK PO OBRATU'
+SELECT `client`.`client_id`, `client`.`district_id` FROM `client` INNER JOIN `disp` ON `client`.`client_id` = `disp`.`client_id` WHERE `disp`.`type` = 'OWNER'
+SELECT T1.`client_id`, strftime('%Y', 'now') - strftime('%Y', T1.`birth_date`) AS age FROM `client` AS T1 INNER JOIN `disp` AS T2 ON T1.`client_id` = T2.`client_id` INNER JOIN `card` AS T3 ON T2.`disp_id` = T3.`disp_id` WHERE T3.`type` = 'gold' AND T2.`type` = 'OWNER'
+SELECT `bond_type` FROM `bond` GROUP BY `bond_type` ORDER BY COUNT(`bond_type`) DESC LIMIT 1
+SELECT COUNT(DISTINCT `molecule`.`molecule_id`) FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `molecule`.`label` = '-' AND `atom`.`element` = 'cl'
+SELECT CAST(SUM(CASE WHEN `atom`.`element` = 'o' THEN 1 ELSE 0 END) AS REAL) / COUNT(DISTINCT `bond`.`molecule_id`) FROM `bond` JOIN `atom` ON `bond`.`molecule_id` = `atom`.`molecule_id` WHERE `bond`.`bond_type` = '-'
+SELECT CAST(SUM(CASE WHEN `bond`.`bond_type` = '-' THEN 1 ELSE 0 END) AS REAL) / COUNT(DISTINCT `atom`.`atom_id`) AS average_single_bonded FROM `molecule` INNER JOIN `bond` ON `molecule`.`molecule_id` = `bond`.`molecule_id` INNER JOIN `atom` ON `bond`.`molecule_id` = `atom`.`molecule_id` WHERE `molecule`.`label` = '+' GROUP BY `molecule`.`molecule_id`
+SELECT COUNT(DISTINCT `molecule`.`molecule_id`) FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `atom`.`element` = 'na' AND `molecule`.`label` = '-'
+SELECT DISTINCT `bond`.`molecule_id` FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `bond`.`bond_type` = '#' AND `molecule`.`label` = '+'
+SELECT SUM(CASE WHEN `atom`.`element` = 'c' THEN 1 ELSE 0 END) * 1.0 / COUNT(`atom`.`atom_id`) AS percentage FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` INNER JOIN `atom` ON `connected`.`atom_id` = `atom`.`atom_id` WHERE `bond`.`bond_type` = '='
+SELECT COUNT(`bond_id`) FROM `bond` WHERE `bond_type` = '#'
+SELECT COUNT(`atom_id`) FROM `atom` WHERE `element` != 'br'
+SELECT COUNT(`molecule_id`) FROM `molecule` WHERE `molecule_id` BETWEEN 'TR000' AND 'TR099' AND `label` = '+'
+SELECT DISTINCT `molecule`.`molecule_id` FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `atom`.`element` = 'c'
+SELECT T1.element, T2.element FROM atom AS T1 INNER JOIN connected ON T1.atom_id = connected.atom_id INNER JOIN atom AS T2 ON T2.atom_id = connected.atom_id2 WHERE connected.bond_id = 'TR004_8_9'
+SELECT DISTINCT `atom`.`element` FROM `bond` JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` JOIN `atom` ON `connected`.`atom_id` = `atom`.`atom_id` WHERE `bond`.`bond_type` = '='
+SELECT `molecule`.`label` FROM `atom` INNER JOIN `molecule` ON `atom`.`molecule_id` = `molecule`.`molecule_id` WHERE `atom`.`element` = 'h' GROUP BY `molecule`.`label` ORDER BY COUNT(`molecule`.`label`) DESC LIMIT 1
+SELECT DISTINCT `bond`.`bond_type` FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` INNER JOIN `atom` ON `connected`.`atom_id` = `atom`.`atom_id` WHERE `atom`.`element` = 'cl'
+SELECT T1.atom_id, T2.atom_id2 FROM bond AS T1 INNER JOIN connected AS T2 ON T1.bond_id = T2.bond_id WHERE T1.bond_type = '-'
+SELECT T1.`atom_id`, T2.`atom_id2` FROM `atom` AS T1 INNER JOIN `connected` AS T2 ON T1.`atom_id` = T2.`atom_id` INNER JOIN `molecule` AS T3 ON T1.`molecule_id` = T3.`molecule_id` WHERE T3.`label` = '-'
+SELECT T1.element FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T2.label = '-' GROUP BY T1.element ORDER BY COUNT(T1.element) ASC LIMIT 1
+SELECT `bond`.`bond_type` FROM `connected` INNER JOIN `bond` ON `connected`.`bond_id` = `bond`.`bond_id` WHERE (`connected`.`atom_id` = 'TR004_8' AND `connected`.`atom_id2` = 'TR004_20') OR (`connected`.`atom_id` = 'TR004_20' AND `connected`.`atom_id2` = 'TR004_8')
+SELECT DISTINCT `molecule`.`label` FROM `molecule` WHERE `molecule`.`label` NOT IN (SELECT `molecule`.`label` FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `atom`.`element` = 'sn')
+SELECT COUNT(DISTINCT `atom`.`atom_id`) FROM `atom` INNER JOIN `connected` ON `atom`.`atom_id` = `connected`.`atom_id` OR `atom`.`atom_id` = `connected`.`atom_id2` INNER JOIN `bond` ON `connected`.`bond_id` = `bond`.`bond_id` WHERE `bond`.`bond_type` = '-' AND (`atom`.`element` = 'i' OR `atom`.`element` = 's')
+SELECT DISTINCT `connected`.`atom_id`, `connected`.`atom_id2` FROM `connected` INNER JOIN `bond` ON `connected`.`bond_id` = `bond`.`bond_id` WHERE `bond`.`bond_type` = '#'
+SELECT DISTINCT T3.atom_id FROM molecule AS T1 INNER JOIN atom AS T2 ON T1.molecule_id = T2.molecule_id INNER JOIN connected AS T3 ON T2.atom_id = T3.atom_id OR T2.atom_id = T3.atom_id2 WHERE T1.molecule_id = 'TR181'
+SELECT CAST(COUNT(DISTINCT CASE WHEN `atom`.`element` != 'f' THEN `atom`.`molecule_id` END) AS REAL) * 100 / COUNT(DISTINCT `atom`.`molecule_id`) FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `molecule`.`label` = '+'
+SELECT CAST(SUM(CASE WHEN `bond`.`bond_type` = '#' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`bond`.`bond_id`) AS percent FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `molecule`.`label` = '+'
+SELECT `element` FROM `atom` WHERE `molecule_id` = 'TR000' ORDER BY `element` ASC LIMIT 3
+SELECT T1.atom_id, T2.atom_id2 FROM connected AS T1 INNER JOIN connected AS T2 ON T1.bond_id = T2.bond_id WHERE T1.bond_id = 'TR001_2_6' AND T1.atom_id <> T2.atom_id2
+SELECT SUM(CASE WHEN `label` = '+' THEN 1 ELSE 0 END) - SUM(CASE WHEN `label` = '-' THEN 1 ELSE 0 END) AS difference FROM `molecule`
+SELECT T1.atom_id, T1.atom_id2 FROM connected AS T1 WHERE T1.bond_id = 'TR000_2_5'
+SELECT `connected`.`bond_id` FROM `connected` WHERE `connected`.`atom_id2` = 'TR000_2'
+SELECT T1.molecule_id FROM bond AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.bond_type = '=' ORDER BY T2.molecule_id ASC LIMIT 5
+SELECT CAST(SUM(CASE WHEN `bond`.`bond_type` = '=' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`bond`.`bond_id`) AS percent FROM `bond` WHERE `bond`.`molecule_id` = 'TR008'
+SELECT CAST(SUM(CASE WHEN `molecule`.`label` = '+' THEN 1 ELSE 0 END) AS REAL) / COUNT(`molecule`.`molecule_id`) * 100 AS percent FROM `molecule`
+SELECT CAST(SUM(CASE WHEN `atom`.`element` = 'h' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`atom`.`atom_id`) AS percent FROM `atom` WHERE `atom`.`molecule_id` = 'TR206'
+SELECT `bond`.`bond_type` FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `molecule`.`molecule_id` = 'TR000'
+SELECT `atom`.`element`, `molecule`.`label` FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `molecule`.`molecule_id` = 'TR060'
+SELECT bond.`bond_type`, molecule.`label` FROM bond INNER JOIN molecule ON bond.`molecule_id` = molecule.`molecule_id` WHERE bond.`molecule_id` = 'TR010' GROUP BY bond.`bond_type` ORDER BY COUNT(bond.`bond_type`) DESC LIMIT 1
+SELECT DISTINCT `molecule`.`molecule_id` FROM `molecule` INNER JOIN `bond` ON `molecule`.`molecule_id` = `bond`.`molecule_id` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` WHERE `molecule`.`label` = '-' AND `bond`.`bond_type` = '-' ORDER BY `molecule`.`molecule_id` ASC LIMIT 3
+SELECT `bond_id` FROM `bond` WHERE `molecule_id` = 'TR006' ORDER BY `bond_id` ASC LIMIT 2
+SELECT COUNT(`bond`.`bond_id`) FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` WHERE (`connected`.`atom_id` = 'TR009_12' OR `connected`.`atom_id2` = 'TR009_12') AND `bond`.`molecule_id` = 'TR009'
+SELECT COUNT(DISTINCT `molecule`.`molecule_id`) FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `molecule`.`label` = '+' AND `atom`.`element` = 'br'
+SELECT bond.`bond_type`, atom1.`element` AS atom1_element, atom2.`element` AS atom2_element FROM bond INNER JOIN connected ON bond.`bond_id` = connected.`bond_id` INNER JOIN atom AS atom1 ON connected.`atom_id` = atom1.`atom_id` INNER JOIN atom AS atom2 ON connected.`atom_id2` = atom2.`atom_id` WHERE bond.`bond_id` = 'TR001_6_9'
+SELECT `molecule`.`molecule_id`, `molecule`.`label` FROM `atom` INNER JOIN `molecule` ON `atom`.`molecule_id` = `molecule`.`molecule_id` WHERE `atom`.`atom_id` = 'TR001_10'
+SELECT COUNT(DISTINCT `bond`.`molecule_id`) FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `bond`.`bond_type` = '#'
+SELECT COUNT(`connected`.`bond_id`) FROM `connected` WHERE `connected`.`atom_id` LIKE 'TR%_19' OR `connected`.`atom_id2` LIKE 'TR%_19'
+SELECT `atom`.`element` FROM `atom` WHERE `atom`.`molecule_id` = 'TR004'
+SELECT COUNT(`molecule_id`) FROM `molecule` WHERE `label` = '-'
+SELECT DISTINCT `molecule`.`molecule_id` FROM `atom` INNER JOIN `molecule` ON `atom`.`molecule_id` = `molecule`.`molecule_id` WHERE SUBSTR(`atom`.`atom_id`, 7, 2) BETWEEN '21' AND '25' AND `molecule`.`label` = '+'
+SELECT DISTINCT `bond`.`bond_id` FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` INNER JOIN `atom` AS `atom1` ON `connected`.`atom_id` = `atom1`.`atom_id` INNER JOIN `atom` AS `atom2` ON `connected`.`atom_id2` = `atom2`.`atom_id` WHERE (`atom1`.`element` = 'p' AND `atom2`.`element` = 'n') OR (`atom1`.`element` = 'n' AND `atom2`.`element` = 'p')
+SELECT T2.label FROM bond AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.bond_type = '=' GROUP BY T1.molecule_id ORDER BY COUNT(T1.bond_id) DESC LIMIT 1
+SELECT CAST(COUNT(DISTINCT `connected`.`bond_id`) AS REAL) / COUNT(DISTINCT `atom`.`atom_id`) FROM `atom` INNER JOIN `connected` ON `atom`.`atom_id` = `connected`.`atom_id` OR `atom`.`atom_id` = `connected`.`atom_id2` WHERE `atom`.`element` = 'i'
+SELECT `bond`.`bond_type`, `bond`.`bond_id` FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` WHERE SUBSTR(`connected`.`atom_id`, 7, 2) + 0 = 45
+SELECT DISTINCT `atom`.`element` FROM `atom` WHERE `atom`.`atom_id` NOT IN (SELECT `connected`.`atom_id` FROM `connected`)
+SELECT T3.element FROM bond AS T1 INNER JOIN connected AS T2 ON T1.bond_id = T2.bond_id INNER JOIN atom AS T3 ON T2.atom_id = T3.atom_id WHERE T1.bond_type = '#' AND T1.molecule_id = 'TR041'
+SELECT T1.element FROM atom AS T1 INNER JOIN connected AS T2 ON T1.atom_id = T2.atom_id WHERE T2.bond_id = 'TR144_8_19'
+SELECT T1.`molecule_id`, COUNT(T2.`bond_id`) AS DoubleBondCount FROM `molecule` AS T1 INNER JOIN `bond` AS T2 ON T1.`molecule_id` = T2.`molecule_id` WHERE T1.`label` = '+' AND T2.`bond_type` = '=' GROUP BY T1.`molecule_id` ORDER BY DoubleBondCount DESC LIMIT 1
+SELECT `atom`.`element` FROM `atom` INNER JOIN `molecule` ON `atom`.`molecule_id` = `molecule`.`molecule_id` WHERE `molecule`.`label` = '+' GROUP BY `atom`.`element` ORDER BY COUNT(`atom`.`atom_id`) ASC LIMIT 1
+SELECT DISTINCT `connected`.`atom_id2` FROM `atom` INNER JOIN `connected` ON `atom`.`atom_id` = `connected`.`atom_id` WHERE `atom`.`element` = 'pb'
+SELECT DISTINCT `atom`.`element` FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` INNER JOIN `atom` ON `connected`.`atom_id` = `atom`.`atom_id` WHERE `bond`.`bond_type` = '#'
+SELECT CAST(COUNT(`bond`.`bond_id`) AS REAL) * 100 / (SELECT COUNT(`bond`.`bond_id`) FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` INNER JOIN `atom` AS `atom1` ON `connected`.`atom_id` = `atom1`.`atom_id` INNER JOIN `atom` AS `atom2` ON `connected`.`atom_id2` = `atom2`.`atom_id` GROUP BY `atom1`.`element`, `atom2`.`element` ORDER BY COUNT(`bond`.`bond_id`) DESC LIMIT 1) AS 'percentage' FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` INNER JOIN `atom` AS `atom1` ON `connected`.`atom_id` = `atom1`.`atom_id` INNER JOIN `atom` AS `atom2` ON `connected`.`atom_id2` = `atom2`.`atom_id` WHERE (`atom1`.`element`, `atom2`.`element`) = (SELECT `atom1`.`element`, `atom2`.`element` FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` INNER JOIN `atom` AS `atom1` ON `connected`.`atom_id` = `atom1`.`atom_id` INNER JOIN `atom` AS `atom2` ON `connected`.`atom_id2` = `atom2`.`atom_id` GROUP BY `atom1`.`element`, `atom2`.`element` ORDER BY COUNT(`bond`.`bond_id`) DESC LIMIT 1)
+SELECT CAST(SUM(CASE WHEN T2.label = '+' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.bond_id) AS proportion FROM bond AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.bond_type = '-'
+SELECT COUNT(*) FROM `atom` WHERE `element` IN ('c', 'h')
+SELECT `connected`.`atom_id2` FROM `atom` INNER JOIN `connected` ON `atom`.`atom_id` = `connected`.`atom_id` WHERE `atom`.`element` = 's'
+SELECT `bond`.`bond_type` FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` INNER JOIN `atom` ON `connected`.`atom_id` = `atom`.`atom_id` WHERE `atom`.`element` = 'sn'
+SELECT COUNT(DISTINCT `atom`.`element`) FROM `bond` INNER JOIN `atom` ON `bond`.`molecule_id` = `atom`.`molecule_id` WHERE `bond`.`bond_type` = '-'
+SELECT COUNT(DISTINCT `atom`.`atom_id`) FROM `atom` JOIN `connected` ON `atom`.`atom_id` = `connected`.`atom_id` OR `atom`.`atom_id` = `connected`.`atom_id2` JOIN `bond` ON `connected`.`bond_id` = `bond`.`bond_id` WHERE `bond`.`bond_type` = '#' AND (`atom`.`element` = 'p' OR `atom`.`element` = 'br')
+SELECT `bond`.`bond_id` FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `molecule`.`label` = '+'
+SELECT `bond`.`molecule_id` FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `bond`.`bond_type` = '-' AND `molecule`.`label` = '-'
+SELECT CAST(SUM(CASE WHEN T1.element = 'cl' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.atom_id) AS percentage FROM atom AS T1 INNER JOIN connected AS T2 ON T1.atom_id = T2.atom_id OR T1.atom_id = T2.atom_id2 INNER JOIN bond AS T3 ON T2.bond_id = T3.bond_id WHERE T3.bond_type = '-'
+SELECT `label` FROM `molecule` WHERE `molecule_id` IN ('TR000', 'TR001', 'TR002')
+SELECT `molecule_id` FROM `molecule` WHERE `label` = '-'
+SELECT COUNT(`molecule`.`molecule_id`) FROM `molecule` WHERE `molecule`.`label` = '+' AND `molecule`.`molecule_id` BETWEEN 'TR000' AND 'TR030'
+SELECT bond.`bond_type` FROM bond INNER JOIN molecule ON bond.`molecule_id` = molecule.`molecule_id` WHERE bond.`molecule_id` BETWEEN 'TR000' AND 'TR050'
+SELECT T1.`element` FROM `atom` AS T1 INNER JOIN `connected` AS T2 ON T1.`atom_id` = T2.`atom_id` WHERE T2.`bond_id` = 'TR001_10_11'
+SELECT COUNT(DISTINCT `connected`.`bond_id`) FROM `connected` JOIN `atom` ON `connected`.`atom_id` = `atom`.`atom_id` OR `connected`.`atom_id2` = `atom`.`atom_id` WHERE `atom`.`element` = 'i'
+SELECT MAX(`molecule`.`label`) FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `atom`.`element` = 'ca'
+SELECT CASE WHEN EXISTS (SELECT 1 FROM `bond` JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` JOIN `atom` AS `atom1` ON `connected`.`atom_id` = `atom1`.`atom_id` JOIN `atom` AS `atom2` ON `connected`.`atom_id2` = `atom2`.`atom_id` WHERE `bond`.`bond_id` = 'TR001_1_8' AND (`atom1`.`element` = 'cl' OR `atom2`.`element` = 'cl') AND (`atom1`.`element` = 'c' OR `atom2`.`element` = 'c')) THEN 'Yes' ELSE 'No' END AS `has_both_elements`
+SELECT DISTINCT T1.`molecule_id` FROM `molecule` AS T1 INNER JOIN `bond` AS T2 ON T1.`molecule_id` = T2.`molecule_id` INNER JOIN `atom` AS T3 ON T1.`molecule_id` = T3.`molecule_id` WHERE T2.`bond_type` = '#' AND T1.`label` = '-' AND T3.`element` = 'c' LIMIT 2
+SELECT CAST(SUM(CASE WHEN `atom`.`element` = 'cl' THEN 1 ELSE 0 END) AS REAL) / COUNT(DISTINCT `atom`.`molecule_id`) AS percentage FROM `atom` INNER JOIN `molecule` ON `atom`.`molecule_id` = `molecule`.`molecule_id` WHERE `molecule`.`label` = '+'
+SELECT `atom`.`element` FROM `atom` WHERE `atom`.`molecule_id` = 'TR001'
+SELECT `bond`.`molecule_id` FROM `bond` WHERE `bond`.`bond_type` = '='
+SELECT `connected`.`atom_id`, `connected`.`atom_id2` FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` WHERE `bond`.`bond_type` = '#'
+SELECT T1.element FROM atom AS T1 INNER JOIN connected AS T2 ON T1.atom_id = T2.atom_id OR T1.atom_id = T2.atom_id2 WHERE T2.bond_id = 'TR000_1_2'
+SELECT COUNT(DISTINCT `bond`.`molecule_id`) FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `bond`.`bond_type` = '-' AND `molecule`.`label` = '-'
+SELECT `molecule`.`label` FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `bond`.`bond_id` = 'TR001_10_11'
+SELECT `bond`.`bond_id`, `molecule`.`label` FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `bond`.`bond_type` = '#'
+SELECT `atom`.`element`, COUNT(`atom`.`atom_id`) AS `count` FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `molecule`.`label` = '+' AND SUBSTR(`atom`.`atom_id`, 7, 1) = '4' GROUP BY `atom`.`element`
+SELECT CAST(SUM(CASE WHEN `atom`.`element` = 'h' THEN 1 ELSE 0 END) AS REAL) / COUNT(`atom`.`element`) AS ratio, `molecule`.`label` FROM `atom` INNER JOIN `molecule` ON `atom`.`molecule_id` = `molecule`.`molecule_id` WHERE `atom`.`molecule_id` = 'TR006' GROUP BY `molecule`.`label`
+SELECT DISTINCT `molecule`.`label` FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `atom`.`element` = 'ca'
+SELECT `bond`.`bond_type` FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` INNER JOIN `atom` ON `connected`.`atom_id` = `atom`.`atom_id` WHERE `atom`.`element` = 'c'
+SELECT T1.element AS Element1, T2.element AS Element2 FROM connected AS T3 INNER JOIN atom AS T1 ON T3.atom_id = T1.atom_id INNER JOIN atom AS T2 ON T3.atom_id2 = T2.atom_id WHERE T3.bond_id = 'TR001_10_11'
+SELECT CAST(COUNT(CASE WHEN `bond`.`bond_type` = '#' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(DISTINCT `bond`.`molecule_id`) FROM `bond`
+SELECT CAST(SUM(CASE WHEN `bond`.`bond_type` = '=' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`bond`.`bond_id`) AS percent FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `bond`.`molecule_id` = 'TR047'
+SELECT `molecule`.`label` FROM `atom` INNER JOIN `molecule` ON `atom`.`molecule_id` = `molecule`.`molecule_id` WHERE `atom`.`atom_id` = 'TR001_1'
+SELECT `label` FROM `molecule` WHERE `molecule_id` = 'TR151'
+SELECT `atom`.`element` FROM `atom` INNER JOIN `molecule` ON `atom`.`molecule_id` = `molecule`.`molecule_id` WHERE `molecule`.`molecule_id` = 'TR151' AND `atom`.`element` IN ('cl', 'br', 'i', 'sn', 'pb', 'te')
+SELECT COUNT(DISTINCT `molecule_id`) FROM `molecule` WHERE `label` = '+'
+SELECT `atom_id` FROM `atom` WHERE `molecule_id` LIKE 'TR%' AND substr(`molecule_id`, 3, 3) >= 10 AND substr(`molecule_id`, 3, 3) <= 50 AND `element` = 'c'
+SELECT COUNT(`atom`.`atom_id`) FROM `atom` INNER JOIN `molecule` ON `atom`.`molecule_id` = `molecule`.`molecule_id` WHERE `molecule`.`label` = '+'
+SELECT `bond`.`bond_id` FROM `bond` JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `bond`.`bond_type` = '=' AND `molecule`.`label` = '+'
+SELECT COUNT(`atom`.`atom_id`) FROM `atom` INNER JOIN `molecule` ON `atom`.`molecule_id` = `molecule`.`molecule_id` WHERE `atom`.`element` = 'h' AND `molecule`.`label` = '+'
+SELECT T1.molecule_id FROM bond AS T1 INNER JOIN connected AS T2 ON T1.bond_id = T2.bond_id WHERE T1.bond_id = 'TR000_1_2' AND T2.atom_id = 'TR000_1'
+SELECT `atom`.`atom_id` FROM `atom` INNER JOIN `molecule` ON `atom`.`molecule_id` = `molecule`.`molecule_id` WHERE `atom`.`element` = 'c' AND `molecule`.`label` = '-'
+SELECT CAST(SUM(CASE WHEN `atom`.`element` = 'h' AND `molecule`.`label` = '+' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(DISTINCT `molecule`.`molecule_id`) FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id`
+SELECT `label` FROM `molecule` WHERE `molecule_id` = 'TR124'
+SELECT `atom`.`atom_id`, `atom`.`element` FROM `atom` WHERE `atom`.`molecule_id` = 'TR186'
+SELECT `bond_type` FROM `bond` WHERE `bond_id` = 'TR007_4_19'
+SELECT T1.element FROM atom AS T1 INNER JOIN connected AS T2 ON T1.atom_id = T2.atom_id OR T1.atom_id = T2.atom_id2 WHERE T2.bond_id = 'TR001_2_4'
+SELECT COUNT(bond.`bond_id`), molecule.`label` FROM bond INNER JOIN molecule ON bond.`molecule_id` = molecule.`molecule_id` WHERE bond.`bond_type` = '=' AND bond.`molecule_id` = 'TR006' GROUP BY molecule.`label`
+SELECT `molecule`.`molecule_id`, `atom`.`element` FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `molecule`.`label` = '+'
+SELECT `bond`.`bond_id`, `atom1`.`element` AS `atom1_element`, `atom2`.`element` AS `atom2_element` FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` INNER JOIN `atom` AS `atom1` ON `connected`.`atom_id` = `atom1`.`atom_id` INNER JOIN `atom` AS `atom2` ON `connected`.`atom_id2` = `atom2`.`atom_id` WHERE `bond`.`bond_type` = '-'
+SELECT DISTINCT `molecule`.`molecule_id`, `atom`.`element` FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` INNER JOIN `atom` ON `bond`.`molecule_id` = `atom`.`molecule_id` WHERE `bond`.`bond_type` = '#'
+SELECT T1.element FROM atom AS T1 INNER JOIN connected AS T2 ON T1.atom_id = T2.atom_id OR T1.atom_id = T2.atom_id2 WHERE T2.bond_id = 'TR000_2_3'
+SELECT COUNT(`bond`.`bond_id`) FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` INNER JOIN `atom` AS `atom1` ON `connected`.`atom_id` = `atom1`.`atom_id` INNER JOIN `atom` AS `atom2` ON `connected`.`atom_id2` = `atom2`.`atom_id` WHERE `atom1`.`element` = 'cl' OR `atom2`.`element` = 'cl'
+SELECT `atom`.`atom_id`, COUNT(DISTINCT `bond`.`bond_type`) AS bond_type_count FROM `atom` LEFT JOIN `bond` ON `atom`.`molecule_id` = `bond`.`molecule_id` WHERE `atom`.`molecule_id` = 'TR346' GROUP BY `atom`.`atom_id`
+SELECT COUNT(DISTINCT `bond`.`molecule_id`) AS TotalMoleculesWithDoubleBond, SUM(CASE WHEN `molecule`.`label` = '+' THEN 1 ELSE 0 END) AS CarcinogenicMolecules FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `bond`.`bond_type` = '='
+SELECT COUNT(DISTINCT `molecule`.`molecule_id`) FROM `molecule` LEFT JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` LEFT JOIN `bond` ON `molecule`.`molecule_id` = `bond`.`molecule_id` WHERE `atom`.`element` != 's' AND (`bond`.`bond_type` != ' = ' OR `bond`.`bond_type` IS NULL)
+SELECT `molecule`.`label` FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `bond`.`bond_id` = 'TR001_2_4'
+SELECT COUNT(`atom`.`atom_id`) FROM `atom` WHERE `atom`.`molecule_id` = 'TR001'
+SELECT COUNT(*) FROM `bond` WHERE `bond_type` = '-'
+SELECT DISTINCT `molecule`.`molecule_id` FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `atom`.`element` = 'cl' AND `molecule`.`label` = '+'
+SELECT DISTINCT `molecule`.`molecule_id` FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `atom`.`element` = 'c' AND `molecule`.`label` = '-'
+SELECT CAST(SUM(CASE WHEN `molecule`.`label` = '+' AND `atom`.`element` = 'cl' THEN 1 ELSE 0 END) AS REAL) / COUNT(DISTINCT `molecule`.`molecule_id`) AS percentage FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id`
+SELECT `molecule`.`molecule_id` FROM `bond` JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `bond`.`bond_id` = 'TR001_1_7'
+SELECT COUNT(DISTINCT `atom`.`element`) FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` INNER JOIN `atom` ON `connected`.`atom_id` = `atom`.`atom_id` OR `connected`.`atom_id2` = `atom`.`atom_id` WHERE `bond`.`bond_id` = 'TR001_3_4'
+SELECT `bond`.`bond_type` FROM `connected` INNER JOIN `bond` ON `connected`.`bond_id` = `bond`.`bond_id` WHERE `connected`.`atom_id` = 'TR000_1' AND `connected`.`atom_id2` = 'TR000_2'
+SELECT T2.label FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.atom_id IN ('TR000_2', 'TR000_4') GROUP BY T2.label HAVING COUNT(DISTINCT T1.atom_id) = 2
+SELECT `element` FROM `atom` WHERE `atom_id` = 'TR000_1'
+SELECT `label` FROM `molecule` WHERE `molecule_id` = 'TR000'
+SELECT CAST(SUM(CASE WHEN `bond`.`bond_type` = '-' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `bond` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id`
+SELECT COUNT(DISTINCT `molecule`.`molecule_id`) FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `molecule`.`label` = '+' AND `atom`.`element` = 'n'
+SELECT DISTINCT `molecule`.`label`, `molecule`.`molecule_id` FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` INNER JOIN `bond` ON `atom`.`molecule_id` = `bond`.`molecule_id` INNER JOIN `connected` ON `bond`.`bond_id` = `connected`.`bond_id` WHERE `atom`.`element` = 's' AND `bond`.`bond_type` = '='
+SELECT `molecule`.`molecule_id` FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `molecule`.`label` = '-' GROUP BY `molecule`.`molecule_id` HAVING COUNT(`atom`.`atom_id`) > 5
+SELECT DISTINCT `atom`.`element` FROM `bond` INNER JOIN `atom` ON `bond`.`molecule_id` = `atom`.`molecule_id` WHERE `bond`.`bond_type` = '=' AND `bond`.`molecule_id` = 'TR024'
+SELECT `molecule`.`molecule_id`, COUNT(`atom`.`atom_id`) AS atom_count FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` WHERE `molecule`.`label` = '+' GROUP BY `molecule`.`molecule_id` ORDER BY atom_count DESC LIMIT 1
+SELECT CAST(SUM(CASE WHEN `molecule`.`label` = '+' THEN 1 ELSE 0 END) AS REAL) * 100.0 / COUNT(`molecule`.`molecule_id`) FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` INNER JOIN `bond` ON `molecule`.`molecule_id` = `bond`.`molecule_id` WHERE `atom`.`element` = 'h' AND `bond`.`bond_type` = '#'
+SELECT COUNT(DISTINCT `molecule_id`) FROM `molecule` WHERE `label` = '+'
+SELECT COUNT(DISTINCT `molecule`.`molecule_id`) FROM `molecule` INNER JOIN `bond` ON `molecule`.`molecule_id` = `bond`.`molecule_id` WHERE `molecule`.`molecule_id` BETWEEN 'TR004' AND 'TR010' AND `bond`.`bond_type` = '-'
+SELECT COUNT(`atom`.`atom_id`) FROM `atom` WHERE `atom`.`molecule_id` = 'TR008' AND `atom`.`element` = 'c'
+SELECT `atom`.`element` FROM `atom` INNER JOIN `molecule` ON `atom`.`molecule_id` = `molecule`.`molecule_id` WHERE `atom`.`atom_id` = 'TR004_7' AND `molecule`.`label` = '-'
+SELECT COUNT(DISTINCT `molecule`.`molecule_id`) FROM `molecule` INNER JOIN `bond` ON `molecule`.`molecule_id` = `bond`.`molecule_id` INNER JOIN `atom` ON `bond`.`molecule_id` = `atom`.`molecule_id` WHERE `bond`.`bond_type` = '=' AND `atom`.`element` = 'o'
+SELECT COUNT(`molecule`.`molecule_id`) FROM `bond` INNER JOIN `molecule` ON `bond`.`molecule_id` = `molecule`.`molecule_id` WHERE `bond`.`bond_type` = '#' AND `molecule`.`label` = '-'
+SELECT `atom`.`element`, `bond`.`bond_type` FROM `molecule` INNER JOIN `atom` ON `molecule`.`molecule_id` = `atom`.`molecule_id` INNER JOIN `bond` ON `molecule`.`molecule_id` = `bond`.`molecule_id` WHERE `molecule`.`molecule_id` = 'TR002'
+SELECT `atom`.`atom_id` FROM `bond` JOIN `atom` ON `bond`.`molecule_id` = `atom`.`molecule_id` WHERE `bond`.`bond_type` = '=' AND `atom`.`element` = 'c' AND `bond`.`molecule_id` = 'TR012'
+SELECT `atom`.`atom_id` FROM `atom` INNER JOIN `molecule` ON `atom`.`molecule_id` = `molecule`.`molecule_id` WHERE `molecule`.`label` = '+' AND `atom`.`element` = 'o'
+SELECT `name` FROM `cards` WHERE `cardkingdomfoilid` IS NOT NULL AND `cardkingdomid` IS NOT NULL
+SELECT `name` FROM `cards` WHERE `bordercolor` = 'borderless' AND (`cardkingdomfoilid` IS NULL OR `cardkingdomfoilid` NOT IN (SELECT `cardkingdomfoilid` FROM `cards` WHERE `cardkingdomid` IS NOT NULL))
+SELECT `cards`.`name` FROM `cards` WHERE `cards`.`faceconvertedmanacost` = (SELECT MAX(`cards`.`faceconvertedmanacost`) FROM `cards`)
+SELECT `name` FROM `cards` WHERE `frameversion` = '2015' AND `edhrecrank` < 100
+SELECT `cards`.`name` FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `cards`.`rarity` = 'mythic' AND `legalities`.`status` = 'Banned' AND `legalities`.`format` = 'gladiator'
+SELECT `cards`.`name`, `legalities`.`status` FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `cards`.`types` = 'Artifact' AND `cards`.`side` IS NULL AND `legalities`.`format` = 'vintage'
+SELECT DISTINCT `cards`.`id`, `cards`.`artist` FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE (`cards`.`power` IS NULL OR `cards`.`power` = '*') AND `legalities`.`format` = 'commander' AND `legalities`.`status` = 'Legal'
+SELECT `cards`.`id`, `cards`.`hascontentwarning`, `rulings`.`text` FROM `cards` INNER JOIN `rulings` ON `cards`.`uuid` = `rulings`.`uuid` WHERE `cards`.`artist` = 'Stephen Daniele'
+SELECT r.`date`, r.`text` FROM `cards` AS c INNER JOIN `rulings` AS r ON c.`uuid` = r.`uuid` WHERE c.`name` = 'Sublime Epiphany' AND c.`number` = '74s'
+SELECT T1.`name`, T1.`artist`, T1.`ispromo` FROM cards AS T1 INNER JOIN rulings AS T2 ON T1.`uuid` = T2.`uuid` GROUP BY T1.`uuid` ORDER BY COUNT(T2.`uuid`) DESC LIMIT 1
+SELECT `foreign_data`.`language` FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `cards`.`name` = 'Annul' AND `cards`.`number` = '29'
+SELECT `cards`.`name` FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `foreign_data`.`language` = 'Japanese'
+SELECT CAST(SUM(CASE WHEN T2.language = 'Chinese Simplified' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.id) FROM cards AS T1 INNER JOIN foreign_data AS T2 ON T1.uuid = T2.uuid
+SELECT sets.`code`, sets.`totalsetsize` FROM sets JOIN set_translations ON sets.`code` = set_translations.`setcode` WHERE set_translations.`language` = 'Italian'
+SELECT COUNT(DISTINCT `cards`.`types`) FROM `cards` WHERE `cards`.`artist` = 'Aaron Boyd'
+SELECT `keywords` FROM `cards` WHERE `name` = 'Angel of Mercy'
+SELECT COUNT(*) FROM `cards` WHERE `power` = '*'
+SELECT `promotypes` FROM `cards` WHERE `name` = 'Duress'
+SELECT `bordercolor` FROM `cards` WHERE `name` = 'Ancestor''s Chosen'
+SELECT `originaltype` FROM `cards` WHERE `name` = 'Ancestor''s Chosen'
+SELECT DISTINCT `set_translations`.`language` FROM `cards` JOIN `sets` ON `cards`.`setcode` = `sets`.`code` JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `cards`.`name` = 'Angel of Mercy'
+SELECT COUNT(*) FROM `cards` JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `legalities`.`status` = 'restricted' AND `cards`.`istextless` = 0
+SELECT r.`text` FROM `rulings` AS r INNER JOIN `cards` AS c ON r.`uuid` = c.`uuid` WHERE c.`name` = 'Condemn'
+SELECT COUNT(`cards`.`id`) FROM `cards` JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `legalities`.`status` = 'restricted' AND `cards`.`isstarter` = 1
+SELECT T2.`status` FROM `cards` AS T1 INNER JOIN `legalities` AS T2 ON T1.`uuid` = T2.`uuid` WHERE T1.`name` = 'Cloudchaser Eagle'
+SELECT `type` FROM `cards` WHERE `name` = 'Benalish Knight'
+SELECT `legalities`.`format` FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `cards`.`name` = 'Benalish Knight'
+SELECT DISTINCT `cards`.`artist` FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `foreign_data`.`language` = 'Phyrexian'
+SELECT CAST(COUNT(CASE WHEN `borderColor` = 'borderless' THEN `id` ELSE NULL END) AS REAL) * 100 / COUNT(`id`) FROM `cards`
+SELECT COUNT(*) FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `foreign_data`.`language` = 'German' AND `cards`.`isreprint` = 1
+SELECT COUNT(DISTINCT `cards`.`uuid`) FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `cards`.`bordercolor` = 'borderless' AND `foreign_data`.`language` = 'Russian'
+SELECT CAST(SUM(CASE WHEN `foreign_data`.`language` = 'French' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`cards`.`id`) FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `cards`.`isStorySpotlight` = 1
+SELECT COUNT(`id`) FROM `cards` WHERE `toughness` = 99
+SELECT `cards`.`name` FROM `cards` WHERE `cards`.`artist` = 'Aaron Boyd'
+SELECT COUNT(`id`) FROM `cards` WHERE `borderColor` = 'black' AND `availability` = 'mtgo'
+SELECT `cards`.`id` FROM `cards` WHERE `cards`.`convertedmanacost` = 0
+SELECT DISTINCT `layout` FROM `cards` WHERE `keywords` LIKE '%Flying%'
+SELECT COUNT(*) FROM `cards` WHERE `originaltype` = 'Summon - Angel' AND `subtypes` NOT LIKE '%Angel%'
+SELECT DISTINCT `cards`.`id` FROM `cards` WHERE `cards`.`cardkingdomfoilid` IS NOT NULL AND `cards`.`cardkingdomid` IS NOT NULL
+SELECT `cards`.`id` FROM `cards` WHERE `cards`.`dueldeck` = 'a'
+SELECT `edhrecRank` FROM `cards` WHERE `frameVersion` = '2015'
+SELECT DISTINCT `cards`.`artist` FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `foreign_data`.`language` = 'Chinese Simplified'
+SELECT `cards`.`name` FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `cards`.`availability` = 'paper' AND `foreign_data`.`language` = 'Japanese'
+SELECT COUNT(`cards`.`id`) FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `legalities`.`status` = 'Banned' AND `cards`.`borderColor` = 'white'
+SELECT `cards`.`uuid`, `foreign_data`.`language` FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `legalities`.`format` = 'legacy'
+SELECT rulings.`text` FROM rulings INNER JOIN cards ON rulings.`uuid` = cards.`uuid` WHERE cards.`name` = 'Beacon of Immortality'
+SELECT COUNT(DISTINCT `cards`.`uuid`), `legalities`.`status` FROM `cards` JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `cards`.`frameversion` = 'future' GROUP BY `legalities`.`status`
+SELECT `cards`.`name`, `cards`.`colors` FROM `cards` INNER JOIN `sets` ON `cards`.`setcode` = `sets`.`code` WHERE `sets`.`code` = 'OGW'
+SELECT `cards`.`name`, `set_translations`.`language` FROM `cards` INNER JOIN `set_translations` ON `cards`.`setcode` = `set_translations`.`setcode` WHERE `cards`.`setcode` = '10E' AND `cards`.`convertedmanacost` = 5
+SELECT `cards`.`name`, `rulings`.`date` FROM `cards` INNER JOIN `rulings` ON `cards`.`uuid` = `rulings`.`uuid` WHERE `cards`.`originaltype` = 'Creature - Elf'
+SELECT `cards`.`colors`, `legalities`.`format` FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `cards`.`id` BETWEEN 1 AND 20
+SELECT `cards`.`id`, `cards`.`name`, `cards`.`originaltype`, `cards`.`colors`, `foreign_data`.`language`, `foreign_data`.`name`, `foreign_data`.`text` FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `cards`.`originaltype` = 'Artifact' AND `cards`.`colors` = 'B'
+SELECT T1.`name` FROM `cards` AS T1 INNER JOIN `rulings` AS T2 ON T1.`uuid` = T2.`uuid` WHERE T1.`rarity` = 'uncommon' ORDER BY T2.`date` ASC LIMIT 3
+SELECT COUNT(*) FROM `cards` WHERE `artist` = 'John Avon' AND `cardKingdomFoilId` IS NULL
+SELECT COUNT(*) FROM `cards` WHERE `bordercolor` = 'white' AND `cardkingdomfoilid` IS NOT NULL AND `cardkingdomid` IS NOT NULL
+SELECT COUNT(*) FROM `cards` WHERE `artist` = 'UDON' AND `availability` LIKE '%mtgo%' AND `hand` = -1
+SELECT COUNT(`id`) FROM `cards` WHERE `frameVersion` = '1993' AND `availability` = 'paper' AND `hasContentWarning` = 1
+SELECT `manacost` FROM `cards` WHERE `layout` = 'normal' AND `frameversion` = 2003 AND `bordercolor` = 'black' AND `availability` = 'mtgo,paper'
+SELECT SUM(CAST(SUBSTR(`manacost`, 2, INSTR(`manacost`, '}') - 2) AS INTEGER)) FROM `cards` WHERE `artist` = 'Rob Alexander'
+SELECT DISTINCT `cards`.`type` FROM `cards` WHERE `cards`.`availability` = 'arena'
+SELECT DISTINCT `set_translations`.`setcode` FROM `set_translations` WHERE `set_translations`.`language` = 'Spanish'
+SELECT (COUNT(`cards`.`id`) * 1.0 / (SELECT COUNT(`cards`.`id`) FROM `cards` WHERE `frameEffects` = 'legendary')) * 100 AS percentage FROM `cards` WHERE `frameEffects` = 'legendary' AND `isOnlineOnly` = 1
+SELECT CAST(SUM(CASE WHEN `cards`.`isstoryspotlight` = 1 AND `cards`.`istextless` = 0 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`cards`.`id`) FROM `cards`
+SELECT CAST(COUNT(CASE WHEN `foreign_data`.`language` = 'Spanish' THEN `cards`.`uuid` ELSE NULL END) AS REAL) * 100 / COUNT(`cards`.`uuid`) FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` ORDER BY `cards`.`name`
+SELECT DISTINCT `set_translations`.`language` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `sets`.`basesetsize` = 309
+SELECT COUNT(DISTINCT `sets`.`code`) FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `sets`.`block` = 'Commander' AND `set_translations`.`language` = 'Portuguese (Brasil)'
+SELECT `cards`.`id` FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `cards`.`types` = 'Creature' AND `legalities`.`status` = 'Legal'
+SELECT DISTINCT `foreign_data`.`type` FROM `foreign_data` JOIN `cards` ON `foreign_data`.`uuid` = `cards`.`uuid` WHERE `foreign_data`.`language` = 'German' AND `cards`.`subtypes` IS NOT NULL AND `cards`.`supertypes` IS NOT NULL
+SELECT COUNT(`id`) FROM `cards` WHERE (`power` IS NULL OR `power` = '*') AND `text` LIKE '%triggered ability%'
+SELECT COUNT(*) FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` INNER JOIN `rulings` ON `cards`.`uuid` = `rulings`.`uuid` WHERE `legalities`.`format` = 'premodern' AND `rulings`.`text` = 'This is a triggered mana ability.' AND `cards`.`side` IS NULL
+SELECT `cards`.`id` FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `cards`.`artist` = 'Erica Yang' AND `legalities`.`format` = 'pauper' AND `cards`.`availability` = 'paper'
+SELECT `cards`.`artist` FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `foreign_data`.`text` LIKE '%Das perfekte Gegenmittel zu einer dichten Formation%'
+SELECT foreign_data.`name` FROM cards INNER JOIN foreign_data ON cards.`uuid` = foreign_data.`uuid` WHERE cards.`layout` = 'normal' AND cards.`bordercolor` = 'black' AND cards.`artist` = 'Matthew D. Wilson' AND foreign_data.`language` = 'French'
+SELECT COUNT(DISTINCT `cards`.`id`) FROM `cards` INNER JOIN `rulings` ON `cards`.`uuid` = `rulings`.`uuid` WHERE `cards`.`rarity` = 'rare' AND `rulings`.`date` = '2007-02-01'
+SELECT DISTINCT `set_translations`.`language` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `sets`.`basesetsize` = 180 AND `sets`.`block` = 'Ravnica'
+SELECT CAST(SUM(CASE WHEN `cards`.`hascontentwarning` = 0 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`cards`.`id`) FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `legalities`.`format` = 'commander' AND `legalities`.`status` = 'Legal'
+SELECT CAST(SUM(CASE WHEN `foreign_data`.`language` = 'French' AND (`cards`.`power` IS NULL OR `cards`.`power` = '*') THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(CASE WHEN `cards`.`power` IS NULL OR `cards`.`power` = '*' THEN 1 END) FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid`
+SELECT CAST(SUM(CASE WHEN `sets`.`type` = 'expansion' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`set_translations`.`id`) FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `set_translations`.`language` = 'Japanese'
+SELECT DISTINCT `availability` FROM `cards` WHERE `artist` = 'Daren Bader'
+SELECT COUNT(`id`) FROM `cards` WHERE `bordercolor` = 'borderless' AND `edhrecrank` > 12000
+SELECT COUNT(`cards`.`id`) FROM `cards` WHERE `cards`.`isoversized` = 1 AND `cards`.`isreprint` = 1 AND `cards`.`ispromo` = 1
+SELECT `name` FROM `cards` WHERE (`power` IS NULL OR `power` = '*') AND `promotypes` = 'arenaleague' ORDER BY `name` ASC LIMIT 3
+SELECT `language` FROM `foreign_data` WHERE `multiverseid` = 149934
+SELECT `cards`.`id` FROM `cards` WHERE `cards`.`cardkingdomfoilid` IS NOT NULL AND `cards`.`cardkingdomid` IS NOT NULL ORDER BY `cards`.`cardkingdomfoilid` ASC LIMIT 3
+SELECT CAST(COUNT(CASE WHEN `cards`.`istextless` = 1 AND `cards`.`layout` = 'normal' THEN `cards`.`id` ELSE NULL END) AS REAL) * 100 / COUNT(`cards`.`id`) FROM `cards`
+SELECT `number` FROM `cards` WHERE `side` IS NULL AND (`subtypes` LIKE '%Angel%' AND `subtypes` LIKE '%Wizard%')
+SELECT `name` FROM `sets` WHERE `mtgocode` IS NULL OR `mtgocode` = '' ORDER BY `name` ASC LIMIT 3
+SELECT `set_translations`.`language` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `sets`.`mcmname` = 'Archenemy' AND `sets`.`code` = 'ARC'
+SELECT `sets`.`name`, `set_translations`.`translation` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `sets`.`id` = 5
+SELECT `sets`.`type`, `set_translations`.`language` FROM `sets` INNER JOIN `set_translations` ON `sets`.`id` = `set_translations`.`id` WHERE `sets`.`id` = 206
+SELECT `sets`.`id`, `sets`.`code` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `set_translations`.`language` = 'Italian' AND `sets`.`block` = 'Shadowmoor' ORDER BY `sets`.`code` ASC LIMIT 2
+SELECT `sets`.`id` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `sets`.`isforeignonly` = 1 AND `sets`.`isfoilonly` = 1 AND `set_translations`.`language` = 'Japanese'
+SELECT `sets`.`name`, `sets`.`baseSetSize` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setCode` WHERE `set_translations`.`language` = 'Russian' ORDER BY `sets`.`baseSetSize` DESC LIMIT 1
+SELECT CAST(SUM(CASE WHEN `set_translations`.`language` = 'Chinese Simplified' AND `cards`.`isonlineonly` = 1 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(DISTINCT `cards`.`id`) FROM `cards` INNER JOIN `set_translations` ON `cards`.`setcode` = `set_translations`.`setcode` WHERE `cards`.`isonlineonly` = 1
+SELECT COUNT(*) FROM `sets` AS s INNER JOIN `set_translations` AS st ON s.`code` = st.`setCode` WHERE st.`language` = 'Japanese' AND (s.`mtgoCode` IS NULL OR s.`mtgoCode` = '')
+SELECT `id` FROM `cards` WHERE `bordercolor` = 'black'
+SELECT `id` FROM `cards` WHERE `frameeffects` = 'extendedart'
+SELECT `name` FROM `cards` WHERE `bordercolor` = 'black' AND `isfullart` = 1
+SELECT `set_translations`.`language` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `sets`.`id` = 174
+SELECT `name` FROM `sets` WHERE `code` = 'ALL'
+SELECT `foreign_data`.`language` FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `cards`.`name` = 'A Pedra Fellwar'
+SELECT `code` FROM `sets` WHERE `releasedate` = '2007-07-13'
+SELECT `baseSetSize`, `code` FROM `sets` WHERE `block` IN ('Masques', 'Mirage')
+SELECT `sets`.`code` FROM `sets` WHERE `sets`.`type` = 'expansion'
+SELECT foreign_data.`name`, cards.`type` FROM cards INNER JOIN foreign_data ON cards.`uuid` = foreign_data.`uuid` WHERE cards.`watermark` = 'boros'
+SELECT `foreign_data`.`language`, `foreign_data`.`flavortext`, `cards`.`type` FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `cards`.`watermark` = 'colorpie'
+SELECT CAST(SUM(CASE WHEN `cards`.`convertedmanacost` = 10 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`cards`.`id`) FROM `cards` INNER JOIN `sets` ON `cards`.`setcode` = `sets`.`code` WHERE `sets`.`name` = 'Abyssal Horror'
+SELECT `sets`.`code` FROM `sets` WHERE `sets`.`type` = 'commander'
+SELECT `foreign_data`.`name`, `cards`.`type` FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `cards`.`watermark` = 'abzan'
+SELECT `foreign_data`.`language`, `cards`.`type` FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `cards`.`watermark` = 'azorius'
+SELECT COUNT(*) FROM `cards` WHERE `artist` = 'Aaron Miller' AND `cardkingdomfoilid` IS NOT NULL AND `cardkingdomid` IS NOT NULL
+SELECT COUNT(`id`) FROM `cards` WHERE `availability` LIKE '%paper%' AND `hand` = '3'
+SELECT `name` FROM `cards` WHERE `istextless` = 0
+SELECT `manacost` FROM `cards` WHERE `name` = 'Ancestor`s Chosen'
+SELECT COUNT(cards.`id`) FROM cards WHERE cards.`bordercolor` = 'white' AND (cards.`power` = '*' OR cards.`power` IS NULL)
+SELECT `cards`.`name` FROM `cards` WHERE `cards`.`ispromo` = 1 AND `cards`.`side` IS NOT NULL
+SELECT `subtypes`, `supertypes` FROM `cards` WHERE `name` = 'Molimo, Maro-Sorcerer'
+SELECT `purchaseurls` FROM `cards` WHERE `promotypes` = 'bundle'
+SELECT COUNT(DISTINCT `artist`) FROM `cards` WHERE `bordercolor` = 'black' AND `availability` LIKE '%arena,mtgo%'
+SELECT `name`, `convertedmanacost` FROM `cards` WHERE `name` IN ('Serra Angel', 'Shrine Keeper') ORDER BY `convertedmanacost` DESC LIMIT 1
+SELECT `artist` FROM `cards` WHERE `flavorname` = 'Battra, Dark Destroyer'
+SELECT `name` FROM `cards` WHERE `frameversion` = '2003' ORDER BY `convertedmanacost` DESC LIMIT 3
+SELECT `set_translations`.`translation` FROM `cards` INNER JOIN `sets` ON `cards`.`setCode` = `sets`.`code` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setCode` WHERE `cards`.`name` = 'Ancestor''s Chosen' AND `set_translations`.`language` = 'Italian'
+SELECT COUNT(DISTINCT `set_translations`.`language`) FROM `cards` INNER JOIN `set_translations` ON `cards`.`setCode` = `set_translations`.`setCode` WHERE `cards`.`name` = 'Angel of Mercy'
+SELECT `cards`.`name` FROM `cards` INNER JOIN `set_translations` ON `cards`.`setCode` = `set_translations`.`setCode` WHERE `set_translations`.`translation` = 'Hauptset Zehnte Edition'
+SELECT EXISTS (SELECT 1 FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `cards`.`name` = 'Ancestor''s Chosen' AND `foreign_data`.`language` = 'Korean')
+SELECT COUNT(*) FROM `cards` INNER JOIN `set_translations` ON `cards`.`setcode` = `set_translations`.`setcode` WHERE `set_translations`.`translation` = 'Hauptset Zehnte Edition' AND `cards`.`artist` = 'Adam Rex'
+SELECT `sets`.`basesetsize` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setCode` WHERE `set_translations`.`translation` = 'Hauptset Zehnte Edition'
+SELECT `set_translations`.`translation` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `sets`.`name` = 'Eighth Edition' AND `set_translations`.`language` = 'Chinese Simplified'
+SELECT EXISTS (SELECT 1 FROM `cards` INNER JOIN `sets` ON `cards`.`name` = `sets`.`name` WHERE `cards`.`name` = 'Angel of Mercy' AND `sets`.`mtgocode` IS NOT NULL) AS `appeared_on_mtgo`
+SELECT sets.`releasedate` FROM sets INNER JOIN cards ON sets.`code` = cards.`setcode` WHERE cards.`name` = 'Ancestor''s Chosen'
+SELECT `sets`.`type` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setCode` WHERE `set_translations`.`translation` = 'Hauptset Zehnte Edition'
+SELECT COUNT(*) FROM `sets` AS T1 INNER JOIN `set_translations` AS T2 ON T1.`code` = T2.`setCode` WHERE T1.`block` = 'Ice Age' AND T2.`language` = 'Italian' AND T2.`translation` IS NOT NULL
+SELECT `sets`.`isforeignonly` FROM `sets` INNER JOIN `cards` ON `sets`.`code` = `cards`.`setcode` WHERE `cards`.`name` = 'Adarkar Valkyrie'
+SELECT COUNT(*) FROM `set_translations` AS st INNER JOIN `sets` AS s ON st.`setcode` = s.`code` WHERE st.`language` = 'Italian' AND s.`basesetsize` < 100
+SELECT COUNT(`cards`.`id`) FROM `cards` INNER JOIN `sets` ON `cards`.`setcode` = `sets`.`code` WHERE `sets`.`name` = 'Coldsnap' AND `cards`.`bordercolor` = 'black'
+SELECT `cards`.`name` FROM `cards` INNER JOIN `sets` ON `cards`.`setcode` = `sets`.`code` WHERE `sets`.`name` = 'Coldsnap' ORDER BY `cards`.`convertedmanacost` DESC LIMIT 1
+SELECT DISTINCT `cards`.`artist` FROM `cards` INNER JOIN `sets` ON `cards`.`setCode` = `sets`.`code` WHERE `sets`.`name` = 'Coldsnap' AND `cards`.`artist` IN ('Jeremy Jarvis', 'Aaron Miller', 'Chippy')
+SELECT `cards`.`name` FROM `cards` INNER JOIN `sets` ON `cards`.`setcode` = `sets`.`code` WHERE `sets`.`name` = 'Coldsnap' AND `cards`.`number` = 4
+SELECT COUNT(*) FROM `cards` INNER JOIN `sets` ON `cards`.`setcode` = `sets`.`code` WHERE `cards`.`convertedmanacost` > 5 AND `sets`.`name` = 'Coldsnap' AND (`cards`.`power` = '*' OR `cards`.`power` IS NULL)
+SELECT `foreign_data`.`flavortext` FROM `foreign_data` JOIN `cards` ON `foreign_data`.`uuid` = `cards`.`uuid` WHERE `foreign_data`.`language` = 'Italian' AND `cards`.`name` = 'Ancestor''s Chosen'
+SELECT DISTINCT `foreign_data`.`language` FROM `foreign_data` INNER JOIN `cards` ON `foreign_data`.`uuid` = `cards`.`uuid` WHERE `cards`.`name` = 'Ancestor''s Chosen' AND `foreign_data`.`flavortext` IS NOT NULL
+SELECT foreign_data.`type` FROM cards INNER JOIN foreign_data ON cards.`uuid` = foreign_data.`uuid` WHERE cards.`name` = 'Ancestor''s Chosen' AND foreign_data.`language` = 'German'
+SELECT foreign_data.`text` FROM cards INNER JOIN foreign_data ON cards.`uuid` = foreign_data.`uuid` INNER JOIN sets ON cards.`setcode` = sets.`code` WHERE sets.`name` = 'Coldsnap' AND foreign_data.`language` = 'Italian'
+SELECT fd.`name` FROM cards AS c JOIN foreign_data AS fd ON c.`uuid` = fd.`uuid` JOIN sets AS s ON c.`setcode` = s.`code` WHERE s.`name` = 'Coldsnap' AND fd.`language` = 'Italian' ORDER BY c.`convertedmanacost` DESC LIMIT 1
+SELECT rulings.`date` FROM rulings INNER JOIN cards ON rulings.`uuid` = cards.`uuid` WHERE cards.`name` = 'Reminisce'
+SELECT CAST(SUM(CASE WHEN `cards`.`convertedmanacost` = 7 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `cards` INNER JOIN `sets` ON `cards`.`setcode` = `sets`.`code` WHERE `sets`.`name` = 'Coldsnap'
+SELECT CAST(SUM(CASE WHEN `cards`.`cardkingdomfoilid` IS NOT NULL AND `cards`.`cardkingdomid` IS NOT NULL THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `cards` INNER JOIN `sets` ON `cards`.`id` = `sets`.`id` WHERE `sets`.`name` = 'Coldsnap'
+SELECT `code` FROM `sets` WHERE `releasedate` = '2017-07-14'
+SELECT `keyruneCode` FROM `sets` WHERE `code` = 'PKHC'
+SELECT `mcmid` FROM `sets` WHERE `code` = 'SS2'
+SELECT `mcmname` FROM `sets` WHERE `releasedate` = '2017-06-09'
+SELECT `sets`.`type` FROM `sets` WHERE `sets`.`name` = 'From the Vault: Lore'
+SELECT `parentcode` FROM `sets` WHERE `name` = 'Commander 2014 Oversized'
+SELECT cards.`id`, cards.`artist`, cards.`hascontentwarning`, rulings.`text` FROM cards JOIN rulings ON cards.`uuid` = rulings.`uuid` WHERE cards.`artist` = 'Jim Pavelec'
+SELECT sets.`releasedate` FROM sets INNER JOIN cards ON sets.`code` = cards.`setcode` WHERE cards.`name` = 'Evacuation'
+SELECT `sets`.`baseSetSize` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setCode` WHERE `set_translations`.`translation` = 'Rinascita di Alara'
+SELECT `sets`.`type` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setCode` WHERE `set_translations`.`translation` = 'Huitième édition'
+SELECT `foreign_data`.`name` FROM `set_translations` INNER JOIN `sets` ON `set_translations`.`setcode` = `sets`.`code` INNER JOIN `cards` ON `sets`.`code` = `cards`.`setcode` INNER JOIN `foreign_data` ON `cards`.`id` = `foreign_data`.`id` WHERE `set_translations`.`translation` = 'Tendo Ice Bridge' AND `foreign_data`.`language` = 'French'
+SELECT COUNT(DISTINCT `set_translations`.`translation`) FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `sets`.`name` = 'Tenth Edition'
+SELECT set_translations.`translation` FROM cards INNER JOIN sets ON cards.`setcode` = sets.`code` INNER JOIN set_translations ON sets.`code` = set_translations.`setcode` WHERE cards.`name` = 'Fellwar Stone' AND set_translations.`language` = 'Japanese'
+SELECT `cards`.`name` FROM `cards` INNER JOIN `sets` ON `cards`.`setcode` = `sets`.`code` WHERE `sets`.`name` = 'Journey into Nyx Hero''s Path' ORDER BY `cards`.`convertedmanacost` DESC LIMIT 1
+SELECT sets.`releasedate` FROM sets INNER JOIN set_translations ON sets.`code` = set_translations.`setcode` WHERE set_translations.`translation` = 'Ola de frío'
+SELECT DISTINCT `sets`.`type` FROM `cards` INNER JOIN `sets` ON `cards`.`setcode` = `sets`.`code` WHERE `cards`.`name` = 'Samite Pilgrim'
+SELECT COUNT(`cards`.`id`) FROM `cards` INNER JOIN `sets` ON `cards`.`setcode` = `sets`.`code` WHERE `sets`.`name` = 'World Championship Decks 2004' AND `cards`.`convertedmanacost` = 3
+SELECT `set_translations`.`translation` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setCode` WHERE `sets`.`name` = 'Mirrodin' AND `set_translations`.`language` = 'Chinese Simplified'
+SELECT CAST(SUM(CASE WHEN `sets`.`isnonfoilonly` = 1 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `set_translations`.`language` = 'Japanese'
+SELECT CAST(SUM(CASE WHEN `cards`.`isonlineonly` = 1 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`cards`.`uuid`) FROM `cards` INNER JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `foreign_data`.`language` = 'Portuguese (Brazil)'
+SELECT `cards`.`availability` FROM `cards` WHERE `cards`.`artist` = 'Aleksi Briclot' AND `cards`.`isTextless` = 1
+SELECT `id` FROM `sets` ORDER BY `basesetsize` DESC LIMIT 1
+SELECT `artist` FROM `cards` WHERE `side` IS NULL ORDER BY `convertedmanacost` DESC LIMIT 1
+SELECT `cards`.`frameeffects` FROM `cards` WHERE `cards`.`cardkingdomid` IS NOT NULL AND `cards`.`cardkingdomfoilid` IS NOT NULL GROUP BY `cards`.`frameeffects` ORDER BY COUNT(`cards`.`frameeffects`) DESC LIMIT 1
+SELECT COUNT(`cards`.`id`) FROM `cards` WHERE (`cards`.`power` IS NULL OR `cards`.`power` = '*') AND `cards`.`hasfoil` = 0 AND `cards`.`dueldeck` = 'a'
+SELECT `id` FROM `sets` WHERE `type` = 'commander' ORDER BY `totalSetSize` DESC LIMIT 1
+SELECT `cards`.`name`, `cards`.`manaCost` FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `legalities`.`format` = 'duel' ORDER BY `cards`.`manaCost` DESC LIMIT 10
+SELECT T1.originalreleasedate, T2.format FROM cards AS T1 INNER JOIN legalities AS T2 ON T1.uuid = T2.uuid WHERE T1.rarity = 'mythic' AND T2.status = 'legal' ORDER BY T1.originalreleasedate ASC LIMIT 1
+SELECT COUNT(*) FROM `cards` AS T1 INNER JOIN `foreign_data` AS T2 ON T1.`uuid` = T2.`uuid` WHERE T1.`artist` = 'Volkan Baǵa' AND T2.`language` = 'French'
+SELECT COUNT(cards.`id`) FROM cards JOIN legalities ON cards.`uuid` = legalities.`uuid` WHERE cards.`rarity` = 'rare' AND cards.`types` = 'Enchantment' AND cards.`name` = 'Abundance' AND legalities.`status` = 'Legal'
+SELECT `legalities`.`format`, `cards`.`name` FROM `legalities` INNER JOIN `cards` ON `legalities`.`uuid` = `cards`.`uuid` WHERE `legalities`.`status` = 'Banned' GROUP BY `legalities`.`format` HAVING COUNT(`legalities`.`status`) = (SELECT MAX(banned_count) FROM (SELECT COUNT(`status`) AS banned_count FROM `legalities` WHERE `status` = 'Banned' GROUP BY `format`))
+SELECT `set_translations`.`language` FROM `set_translations` INNER JOIN `sets` ON `set_translations`.`setcode` = `sets`.`code` WHERE `sets`.`name` = 'Battlebond'
+SELECT `cards`.`artist`, `legalities`.`format` FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` GROUP BY `cards`.`artist` ORDER BY COUNT(`cards`.`uuid`) ASC LIMIT 1
+SELECT legalities.`status` FROM cards INNER JOIN legalities ON cards.`uuid` = legalities.`uuid` WHERE cards.`frameversion` = '1997' AND cards.`artist` = 'D. Alexander Gregory' AND legalities.`format` = 'legacy' AND cards.`hascontentwarning` = 1
+SELECT `cards`.`name`, `legalities`.`format` FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `cards`.`edhrecRank` = 1 AND `legalities`.`status` = 'Banned'
+SELECT AVG(sets.`id`) AS annual_average, (SELECT language FROM set_translations GROUP BY language ORDER BY COUNT(language) DESC LIMIT 1) AS common_language FROM sets WHERE sets.`releasedate` BETWEEN '2012-01-01' AND '2015-12-31'
+SELECT DISTINCT `cards`.`artist` FROM `cards` WHERE `cards`.`bordercolor` = 'black' AND `cards`.`availability` = 'arena'
+SELECT `cards`.`uuid` FROM `legalities` JOIN `cards` ON `legalities`.`uuid` = `cards`.`uuid` WHERE `legalities`.`format` = 'oldschool' AND (`legalities`.`status` = 'banned' OR `legalities`.`status` = 'restricted')
+SELECT COUNT(*) FROM `cards` WHERE `artist` = 'Matthew D. Wilson' AND `availability` = 'paper'
+SELECT r.`text`, r.`date` FROM `cards` AS c JOIN `rulings` AS r ON c.`uuid` = r.`uuid` WHERE c.`artist` = 'Kev Walker' ORDER BY r.`date` DESC
+SELECT `cards`.`name`, `legalities`.`format` FROM `cards` INNER JOIN `sets` ON `cards`.`setCode` = `sets`.`code` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `sets`.`name` = 'Hour of Devastation' AND `legalities`.`status` = 'Legal'
+SELECT `sets`.`name` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `set_translations`.`language` = 'Korean' INTERSECT SELECT `sets`.`name` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setcode` WHERE `set_translations`.`language` != 'Japanese'
+SELECT DISTINCT `cards`.`frameversion`, `cards`.`name`, `cards`.`artist`, `legalities`.`status` FROM `cards` LEFT JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `cards`.`artist` = 'Allen Williams' OR `legalities`.`status` = 'Banned'
+SELECT `displayname`, `reputation` FROM `users` WHERE `displayname` IN ('Harlan', 'Jarrod Dixon') ORDER BY `reputation` DESC LIMIT 1
+SELECT `displayname` FROM `users` WHERE STRFTIME('%Y', `creationdate`) = '2011'
+SELECT COUNT(users.`Id`) FROM users WHERE users.`LastAccessDate` > '2014-09-01'
+SELECT `displayname` FROM `users` ORDER BY `views` DESC LIMIT 1
+SELECT COUNT(users.`id`) FROM users WHERE users.`upvotes` > 100 AND users.`downvotes` > 1
+SELECT COUNT(`users`.`Id`) FROM `users` WHERE `users`.`Views` > 10 AND strftime('%Y', `users`.`CreationDate`) > '2013'
+SELECT COUNT(`posts`.`id`) FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `users`.`displayname` = 'csgillespie'
+SELECT `posts`.`title` FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `users`.`displayname` = 'csgillespie'
+SELECT `users`.`displayname` FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `posts`.`title` = 'Eliciting priors from experts'
+SELECT `posts`.`title` FROM `users` INNER JOIN `posts` ON `users`.`id` = `posts`.`owneruserid` WHERE `users`.`displayname` = 'csgillespie' ORDER BY `posts`.`viewcount` DESC LIMIT 1
+SELECT `users`.`displayname` FROM `users` JOIN `posts` ON `users`.`id` = `posts`.`owneruserid` ORDER BY `posts`.`favoritecount` DESC LIMIT 1
+SELECT SUM(`posts`.`commentcount`) FROM `users` INNER JOIN `posts` ON `users`.`id` = `posts`.`owneruserid` WHERE `users`.`displayname` = 'csgillespie'
+SELECT MAX(`posts`.`answercount`) FROM `posts` JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `users`.`displayname` = 'csgillespie'
+SELECT `users`.`displayname` FROM `posts` INNER JOIN `users` ON `posts`.`lasteditoruserid` = `users`.`id` WHERE `posts`.`title` = 'Examples for teaching: Correlation does not mean causation'
+SELECT COUNT(`posts`.`id`) FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `users`.`displayname` = 'csgillespie' AND `posts`.`parentid` IS NULL
+SELECT DISTINCT `users`.`displayname` FROM `users` JOIN `posts` ON `users`.`id` = `posts`.`owneruserid` WHERE `posts`.`closeddate` IS NOT NULL
+SELECT COUNT(*) FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `users`.`age` > 65 AND `posts`.`score` >= 20
+SELECT users.`location` FROM posts INNER JOIN users ON posts.`owneruserid` = users.`id` WHERE posts.`title` = 'Eliciting priors from experts'
+SELECT `posts`.`body` FROM `tags` INNER JOIN `posts` ON `tags`.`excerptpostid` = `posts`.`id` WHERE `tags`.`tagname` = 'bayesian'
+SELECT `posts`.`body` FROM `tags` INNER JOIN `posts` ON `tags`.`excerptpostid` = `posts`.`id` ORDER BY `tags`.`count` DESC LIMIT 1
+SELECT COUNT(badges.`id`) FROM badges JOIN users ON badges.`userid` = users.`id` WHERE users.`displayname` = 'csgillespie'
+SELECT `badges`.`name` FROM `users` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` WHERE `users`.`displayname` = 'csgillespie';
+SELECT COUNT(`badges`.`id`) FROM `users` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` WHERE `users`.`displayname` = 'csgillespie' AND strftime('%Y', `badges`.`date`) = '2011'
+SELECT `users`.`displayname` FROM `users` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` GROUP BY `users`.`id` ORDER BY COUNT(`badges`.`id`) DESC LIMIT 1
+SELECT AVG(`posts`.`score`) FROM `users` INNER JOIN `posts` ON `users`.`id` = `posts`.`owneruserid` WHERE `users`.`displayname` = 'csgillespie'
+SELECT AVG(badge_count) FROM (SELECT COUNT(`badges`.`id`) AS badge_count FROM `users` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` WHERE `users`.`views` > 200 GROUP BY `users`.`id`) AS badge_counts
+SELECT (COUNT(DISTINCT CASE WHEN T2.Age > 65 THEN T1.Id END) * 100.0 / COUNT(DISTINCT T1.Id)) AS percentage FROM posts AS T1 INNER JOIN users AS T2 ON T1.OwnerUserId = T2.Id WHERE T1.Score > 5
+SELECT COUNT(`votes`.`id`) FROM `votes` WHERE `votes`.`userid` = 58 AND `votes`.`creationdate` = '2010-07-19'
+SELECT `creationdate` FROM `votes` GROUP BY `creationdate` ORDER BY COUNT(`id`) DESC LIMIT 1;
+SELECT COUNT(`id`) FROM `badges` WHERE `name` = 'Revival'
+SELECT `posts`.`title` FROM `comments` INNER JOIN `posts` ON `comments`.`postid` = `posts`.`id` ORDER BY `comments`.`score` DESC LIMIT 1
+SELECT `posts`.`commentcount` FROM `posts` WHERE `posts`.`viewcount` = 1910
+SELECT `posts`.`FavoriteCount` FROM `comments` INNER JOIN `posts` ON `comments`.`PostId` = `posts`.`Id` WHERE `comments`.`UserId` = 3025 AND `comments`.`CreationDate` = '2014-04-23 20:29:39.0'
+SELECT `comments`.`text` FROM `posts` INNER JOIN `comments` ON `posts`.`id` = `comments`.`postid` WHERE `posts`.`parentid` = 107829 AND `posts`.`commentcount` = 1
+SELECT `posts`.`closeddate` FROM `comments` INNER JOIN `posts` ON `comments`.`postid` = `posts`.`id` WHERE `comments`.`userid` = '23853' AND `comments`.`creationdate` = '2013-07-12 09:08:18.0'
+SELECT `users`.`reputation` FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `posts`.`id` = 65041
+SELECT COUNT(`posts`.`id`) FROM `users` INNER JOIN `posts` ON `users`.`id` = `posts`.`owneruserid` WHERE `users`.`displayname` = 'Tiago Pasqualini'
+SELECT users.`displayname` FROM votes INNER JOIN users ON votes.`userid` = users.`id` WHERE votes.`id` = '6347'
+SELECT COUNT(`votes`.`id`) FROM `votes` JOIN `posts` ON `votes`.`postid` = `posts`.`id` WHERE `posts`.`title` LIKE '%data visualization%';
+SELECT `badges`.`name` FROM `users` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` WHERE `users`.`displayname` = 'DatEpicCoderGuyWhoPrograms'
+SELECT COUNT(`posts`.`id`) / COUNT(`votes`.`id`) FROM `posts` LEFT JOIN `votes` ON `posts`.`id` = `votes`.`postid` WHERE `posts`.`owneruserid` = 24 GROUP BY `posts`.`owneruserid`
+SELECT `viewcount` FROM `posts` WHERE `title` = 'Integration of Weka and/or RapidMiner into Informatica PowerCenter/Developer'
+SELECT `comments`.`text` FROM `comments` WHERE `comments`.`score` = 17
+SELECT `displayname` FROM `users` WHERE `websiteurl` = 'http://stackoverflow.com'
+SELECT DISTINCT badges.`name` FROM users INNER JOIN badges ON users.`id` = badges.`userid` WHERE users.`displayname` = 'SilentGhost'
+SELECT `users`.`displayname` FROM `comments` INNER JOIN `users` ON `comments`.`userid` = `users`.`id` WHERE `comments`.`text` = 'thank you user93!'
+SELECT `comments`.`text` FROM `comments` JOIN `users` ON `comments`.`userid` = `users`.`id` WHERE `users`.`displayname` = 'A Lion'
+SELECT `users`.`displayname`, `users`.`reputation` FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `posts`.`title` = 'Understanding what Dassault iSight is doing?'
+SELECT `comments`.`text` FROM `comments` INNER JOIN `posts` ON `comments`.`postid` = `posts`.`id` WHERE `posts`.`title` = 'How does gentle boosting differ from AdaBoost?'
+SELECT `users`.`displayname` FROM `users` JOIN `badges` ON `users`.`id` = `badges`.`userid` WHERE `badges`.`name` = 'Necromancer' LIMIT 10
+SELECT `users`.`displayname` FROM `posts` INNER JOIN `users` ON `posts`.`lasteditoruserid` = `users`.`id` WHERE `posts`.`title` = 'Open source tools for visualizing multi-dimensional data?'
+SELECT `posts`.`title` FROM `posts` INNER JOIN `users` ON `posts`.`lasteditoruserid` = `users`.`id` WHERE `users`.`displayname` = 'Vebjorn Ljosa'
+SELECT SUM(`posts`.`score`), `users`.`websiteurl` FROM `posts` INNER JOIN `users` ON `posts`.`lasteditoruserid` = `users`.`id` WHERE `users`.`displayname` = 'Yevgeny'
+SELECT `comments`.`text` FROM `comments` INNER JOIN `posthistory` ON `comments`.`userid` = `posthistory`.`userid` INNER JOIN `posts` ON `posthistory`.`postid` = `posts`.`id` WHERE `posts`.`title` = 'Why square the difference instead of taking the absolute value in standard deviation?'
+SELECT SUM(`votes`.`bountyamount`) FROM `posts` INNER JOIN `votes` ON `posts`.`id` = `votes`.`postid` WHERE `posts`.`title` LIKE '%data%'
+SELECT `users`.`displayname` FROM `users` JOIN `votes` ON `users`.`id` = `votes`.`userid` JOIN `posts` ON `votes`.`postid` = `posts`.`id` WHERE `votes`.`bountyamount` = 50 AND `posts`.`title` LIKE '%variance%'
+SELECT `posts`.`title`, `comments`.`text`, AVG(`posts`.`viewcount`) AS avg_view_count FROM `posts` LEFT JOIN `comments` ON `posts`.`id` = `comments`.`postid` WHERE `posts`.`tags` LIKE '%<humor>%' GROUP BY `posts`.`id`
+SELECT COUNT(`comments`.`id`) FROM `comments` WHERE `comments`.`userid` = 13
+SELECT `Id` FROM `users` ORDER BY `Reputation` DESC LIMIT 1
+SELECT `id` FROM `users` ORDER BY `views` LIMIT 1
+SELECT COUNT(DISTINCT `badges`.`userid`) FROM `badges` INNER JOIN `users` ON `badges`.`userid` = `users`.`id` WHERE `badges`.`name` = 'Supporter' AND strftime('%Y', `badges`.`date`) = '2011'
+SELECT COUNT(DISTINCT `users`.`id`) FROM `users` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` GROUP BY `users`.`id` HAVING COUNT(`badges`.`name`) > 5
+SELECT COUNT(DISTINCT `users`.`id`) FROM `users` INNER JOIN `badges` AS `teacher_badge` ON `users`.`id` = `teacher_badge`.`userid` INNER JOIN `badges` AS `supporter_badge` ON `users`.`id` = `supporter_badge`.`userid` WHERE `users`.`location` = 'New York' AND `teacher_badge`.`name` = 'Teacher' AND `supporter_badge`.`name` = 'Supporter'
+SELECT `users`.`reputation` FROM `posts` JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `posts`.`id` = 1
+SELECT T1.`Id`, T1.`DisplayName` FROM `users` AS T1 INNER JOIN `postHistory` AS T2 ON T1.`Id` = T2.`UserId` INNER JOIN `posts` AS T3 ON T2.`PostId` = T3.`Id` WHERE T1.`Views` >= 1000 GROUP BY T2.`PostId`, T2.`UserId` HAVING COUNT(T2.`PostId`) = 1
+SELECT `users`.`id`, `users`.`displayname`, `badges`.`name` FROM `users` INNER JOIN `comments` ON `users`.`id` = `comments`.`userid` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` GROUP BY `users`.`id` ORDER BY COUNT(`comments`.`id`) DESC LIMIT 1
+SELECT COUNT(DISTINCT `users`.`id`) FROM `users` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` WHERE `users`.`location` = 'India' AND `badges`.`name` = 'Teacher'
+SELECT (CAST(SUM(CASE WHEN strftime('%Y', `badges`.`Date`) = '2010' THEN 1 ELSE 0 END) AS REAL) / COUNT(*) * 100 - CAST(SUM(CASE WHEN strftime('%Y', `badges`.`Date`) = '2011' THEN 1 ELSE 0 END) AS REAL) / COUNT(*) * 100) AS percentage_difference FROM `badges` WHERE `badges`.`Name` = 'Student'
+SELECT DISTINCT posthistory.`posthistorytypeid`, COUNT(DISTINCT comments.`userid`) FROM posthistory LEFT JOIN comments ON posthistory.`postid` = comments.`postid` WHERE posthistory.`postid` = 3720 GROUP BY posthistory.`posthistorytypeid`
+SELECT `posts`.`Id`, `posts`.`Title`, `posts`.`ViewCount` AS Popularity FROM `posts` INNER JOIN `postLinks` ON `posts`.`Id` = `postLinks`.`RelatedPostId` WHERE `postLinks`.`PostId` = 61217
+SELECT `posts`.`score`, `postlinks`.`linktypeid` FROM `posts` INNER JOIN `postlinks` ON `posts`.`id` = `postlinks`.`postid` WHERE `posts`.`id` = 395
+SELECT `posts`.`id`, `posts`.`owneruserid` FROM `posts` WHERE `posts`.`score` > 60
+SELECT SUM(`posts`.`favoritecount`) FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `users`.`id` = 686 AND strftime('%Y', `posts`.`creaiondate`) = '2011'
+SELECT SUM(`users`.`upvotes`) / COUNT(`users`.`id`) AS `average_upvotes`, SUM(`users`.`age`) / COUNT(`users`.`id`) AS `average_age` FROM `users` INNER JOIN `posts` ON `users`.`id` = `posts`.`owneruserid` GROUP BY `users`.`id` HAVING COUNT(`posts`.`id`) > 10
+SELECT COUNT(DISTINCT `badges`.`UserId`) FROM `badges` WHERE `badges`.`Name` = 'Announcer'
+SELECT `badges`.`name` FROM `badges` WHERE `badges`.`date` = '2010-07-19 19:39:08.0'
+SELECT COUNT(`id`) FROM `comments` WHERE `score` > 60
+SELECT `comments`.`text` FROM `comments` WHERE `comments`.`creationdate` = '2010-07-19 19:25:47.0'
+SELECT COUNT(*) FROM posts WHERE score = 10
+SELECT DISTINCT badges.`name` FROM badges INNER JOIN users ON badges.`userid` = users.`id` WHERE users.`reputation` = (SELECT MAX(users.`reputation`) FROM users)
+SELECT `users`.`reputation` FROM `users` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` WHERE `badges`.`date` = '2010-07-19 19:39:08.0'
+SELECT DISTINCT T1.name FROM badges AS T1 INNER JOIN users AS T2 ON T1.userid = T2.id WHERE T2.displayname = 'Pierre'
+SELECT `badges`.`date` FROM `badges` JOIN `users` ON `badges`.`userid` = `users`.`id` WHERE `users`.`location` = 'Rochester, NY'
+SELECT CAST(SUM(CASE WHEN badges.`name` = 'Teacher' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(DISTINCT badges.`userid`) AS percentage FROM badges
+SELECT CAST(COUNT(CASE WHEN `users`.`age` BETWEEN 13 AND 18 THEN 1 END) AS REAL) * 100 / COUNT(`users`.`id`) FROM `badges` INNER JOIN `users` ON `badges`.`userid` = `users`.`id` WHERE `badges`.`name` = 'Organizer'
+SELECT `comments`.`score` FROM `comments` INNER JOIN `posts` ON `comments`.`postid` = `posts`.`id` WHERE `posts`.`creaiondate` = '2010-07-19 19:19:56.0'
+SELECT `comments`.`text` FROM `comments` INNER JOIN `posts` ON `comments`.`postid` = `posts`.`id` WHERE `posts`.`creaiondate` = '2010-07-19 19:37:33.0'
+SELECT `users`.`age` FROM `users` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` WHERE `users`.`location` = 'Vienna, Austria'
+SELECT COUNT(DISTINCT `users`.`id`) FROM `users` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` WHERE `users`.`age` BETWEEN 19 AND 65 AND `badges`.`name` = 'Supporter'
+SELECT SUM(users.`views`) FROM users JOIN badges ON users.`id` = badges.`userid` WHERE badges.`date` = '2010-07-19 19:39:08.0'
+SELECT T2.`name` FROM users AS T1 INNER JOIN badges AS T2 ON T1.`id` = T2.`userid` WHERE T1.`reputation` = (SELECT MIN(`reputation`) FROM users)
+SELECT DISTINCT badges.`name` FROM badges INNER JOIN users ON badges.`userid` = users.`id` WHERE users.`displayname` = 'Sharpie'
+SELECT COUNT(DISTINCT `users`.`id`) FROM `users` JOIN `badges` ON `users`.`id` = `badges`.`userid` WHERE `users`.`age` > 65 AND `badges`.`name` = 'Supporter'
+SELECT `displayname` FROM `users` WHERE `id` = 30
+SELECT COUNT(*) FROM `users` WHERE `location` = 'New York, NY'
+SELECT COUNT(*) FROM votes WHERE creationdate BETWEEN '2010-01-01 00:00:00' AND '2010-12-31 23:59:59'
+SELECT COUNT(`Id`) FROM `users` WHERE `Age` BETWEEN 19 AND 65
+SELECT `displayname` FROM `users` ORDER BY `views` DESC LIMIT 1
+SELECT CAST(COUNT(CASE WHEN STRFTIME('%Y', `creationdate`) = '2010' THEN `id` ELSE NULL END) AS REAL) / COUNT(CASE WHEN STRFTIME('%Y', `creationdate`) = '2011' THEN `id` ELSE NULL END) FROM `votes`
+SELECT `tags`.`TagName` FROM `users` INNER JOIN `posts` ON `users`.`Id` = `posts`.`OwnerUserId` INNER JOIN `tags` ON `posts`.`Tags` LIKE '%' || `tags`.`TagName` || '%' WHERE `users`.`DisplayName` = 'John Salvatier'
+SELECT COUNT(`posts`.`id`) FROM `users` INNER JOIN `posts` ON `users`.`id` = `posts`.`owneruserid` WHERE `users`.`displayname` = 'Daniel Vassallo'
+SELECT COUNT(votes.`id`) FROM votes INNER JOIN users ON votes.`userid` = users.`id` WHERE users.`displayname` = 'Harlan'
+SELECT `posts`.`id` FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `users`.`displayname` = 'slashnick' ORDER BY `posts`.`answercount` DESC LIMIT 1
+SELECT T1.`displayname`, MAX(T2.`viewcount`) AS max_viewcount FROM `users` AS T1 INNER JOIN `posts` AS T2 ON T2.`owneruserid` = T1.`id` WHERE T1.`displayname` = 'Harvey Motulsky' OR T1.`displayname` = 'Noah Snyder' GROUP BY T1.`displayname` ORDER BY max_viewcount DESC LIMIT 1
+SELECT COUNT(DISTINCT `posts`.`id`) FROM `posts` JOIN `users` ON `posts`.`owneruserid` = `users`.`id` JOIN `votes` ON `posts`.`id` = `votes`.`postid` WHERE `users`.`displayname` = 'Matt Parker' GROUP BY `posts`.`id` HAVING COUNT(`votes`.`postid`) > 4;
+SELECT COUNT(`comments`.`id`) FROM `comments` INNER JOIN `posts` ON `comments`.`postid` = `posts`.`id` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `comments`.`score` < 60 AND `users`.`displayname` = 'Neil McGuigan'
+SELECT DISTINCT tags.`tagname` FROM users INNER JOIN posts ON users.`id` = posts.`owneruserid` INNER JOIN tags ON posts.`id` = tags.`id` WHERE users.`displayname` = 'Mark Meckes' AND posts.`commentcount` = 0
+SELECT `users`.`displayname` FROM `users` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` WHERE `badges`.`name` = 'Organizer'
+SELECT CAST(SUM(CASE WHEN T2.`tagname` = 'r' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.`id`) FROM `posts` AS T1 INNER JOIN `tags` AS T2 ON T1.`id` = T2.`excerptpostid` WHERE T1.`owneruserid` = (SELECT `id` FROM `users` WHERE `displayname` = 'Community')
+SELECT SUM(CASE WHEN `users`.`displayname` = 'Mornington' THEN `posts`.`viewcount` ELSE 0 END) - SUM(CASE WHEN `users`.`displayname` = 'Amos' THEN `posts`.`viewcount` ELSE 0 END) AS difference FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id`
+SELECT COUNT(DISTINCT `badges`.`userid`) FROM `badges` INNER JOIN `users` ON `badges`.`userid` = `users`.`id` WHERE `badges`.`name` = 'Commentator' AND strftime('%Y', `badges`.`date`) = '2014'
+SELECT COUNT(`id`) FROM `posts` WHERE `creaiondate` BETWEEN '2010-07-21 00:00:00' AND '2010-07-21 23:59:59'
+SELECT `displayname`, `age` FROM `users` ORDER BY `views` DESC LIMIT 1
+SELECT `posts`.`lasteditdate`, `posts`.`lasteditoruserid` FROM `posts` WHERE `posts`.`title` = 'Detecting a given face in a database of facial images'
+SELECT COUNT(`comments`.`id`) FROM `comments` WHERE `comments`.`userid` = 13 AND `comments`.`score` < 60
+SELECT P.`title`, C.`userdisplayname` FROM `posts` AS P INNER JOIN `comments` AS C ON P.`id` = C.`postid` WHERE C.`score` > 60
+SELECT `badges`.`Name` FROM `badges` INNER JOIN `users` ON `badges`.`UserId` = `users`.`Id` WHERE `users`.`Location` = 'North Pole' AND strftime('%Y', `badges`.`Date`) = '2011'
+SELECT `users`.`displayname`, `users`.`websiteurl` FROM `users` JOIN `posts` ON `users`.`id` = `posts`.`owneruserid` WHERE `posts`.`favoritecount` > 150
+SELECT COUNT(`posthistory`.`id`) AS post_history_counts, `posts`.`lasteditdate` FROM `posts` JOIN `posthistory` ON `posts`.`id` = `posthistory`.`postid` WHERE `posts`.`title` = 'What is the best introductory Bayesian statistics textbook?' GROUP BY `posts`.`id`
+SELECT `users`.`lastaccessdate`, `users`.`location` FROM `users` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` WHERE `badges`.`name` = 'Outliers'
+SELECT `posts`.`Title` FROM `posts` WHERE `posts`.`Id` = (SELECT `postLinks`.`RelatedPostId` FROM `postLinks` INNER JOIN `posts` ON `postLinks`.`PostId` = `posts`.`Id` WHERE `posts`.`Title` = 'How to tell if something happened in a data set which monitors a value over time')
+SELECT `posthistory`.`postid`, `badges`.`name` FROM `posthistory` JOIN `badges` ON `posthistory`.`userid` = `badges`.`userid` WHERE `posthistory`.`userdisplayname` = 'Samuel' AND YEAR(`posthistory`.`creationdate`) = 2013 AND YEAR(`badges`.`date`) = 2013
+SELECT `users`.`displayname` FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` ORDER BY `posts`.`viewcount` DESC LIMIT 1
+SELECT `users`.`DisplayName`, `users`.`Location` FROM `tags` INNER JOIN `posts` ON `tags`.`ExcerptPostId` = `posts`.`Id` INNER JOIN `users` ON `posts`.`OwnerUserId` = `users`.`Id` WHERE `tags`.`TagName` = 'hypothesis-testing'
+SELECT T2.Title, T1.LinkTypeId FROM postLinks AS T1 INNER JOIN posts AS T2 ON T1.RelatedPostId = T2.Id WHERE T1.PostId = (SELECT Id FROM posts WHERE Title = 'What are principal component scores?')
+SELECT `users`.`displayname` FROM `posts` JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `posts`.`parentid` IS NOT NULL ORDER BY `posts`.`score` DESC LIMIT 1
+SELECT `users`.`displayname`, `users`.`websiteurl` FROM `votes` INNER JOIN `users` ON `votes`.`userid` = `users`.`id` WHERE `votes`.`votetypeid` = 8 ORDER BY `votes`.`bountyamount` DESC LIMIT 1
+SELECT `title` FROM `posts` ORDER BY `viewcount` DESC LIMIT 5
+SELECT COUNT(*) FROM `tags` WHERE `count` BETWEEN 5000 AND 7000
+SELECT `OwnerUserId` FROM `posts` ORDER BY `FavoriteCount` DESC LIMIT 1
+SELECT `age` FROM `users` WHERE `reputation` = (SELECT MAX(`reputation`) FROM `users`)
+SELECT COUNT(DISTINCT `posts`.`id`) FROM `posts` INNER JOIN `votes` ON `posts`.`id` = `votes`.`postid` WHERE `posts`.`creaiondate` >= '2011-01-01' AND `posts`.`creaiondate` < '2012-01-01' AND `votes`.`bountyamount` = 50
+SELECT `id` FROM `users` WHERE `age` = ( SELECT MIN(`age`) FROM `users` )
+SELECT SUM(`posts`.`score`) FROM `posts` WHERE `posts`.`lasactivitydate` LIKE '2010-07-19%'
+SELECT COUNT(`postlinks`.`id`) / 12.0 AS average_monthly_links FROM `postlinks` JOIN `posts` ON `postlinks`.`postid` = `posts`.`id` WHERE strftime('%Y', `postlinks`.`creationdate`) = '2010' AND `posts`.`answercount` <= 2
+SELECT `posts`.`id` FROM `posts` JOIN `votes` ON `posts`.`id` = `votes`.`postid` WHERE `votes`.`userid` = 1465 ORDER BY `posts`.`favoritecount` DESC LIMIT 1
+SELECT `posts`.`title` FROM `posts` JOIN `postlinks` ON `posts`.`id` = `postlinks`.`postid` ORDER BY `postlinks`.`creationdate` ASC LIMIT 1
+SELECT `users`.`displayname` FROM `users` INNER JOIN `badges` ON `users`.`id` = `badges`.`userid` GROUP BY `users`.`id` ORDER BY COUNT(`badges`.`name`) DESC LIMIT 1
+SELECT MIN(`votes`.`creationdate`) FROM `votes` JOIN `users` ON `votes`.`userid` = `users`.`id` WHERE `users`.`displayname` = 'chl'
+SELECT `posts`.`creaiondate` FROM `users` JOIN `posts` ON `users`.`id` = `posts`.`owneruserid` WHERE `users`.`age` = (SELECT MIN(`age`) FROM `users`) ORDER BY `posts`.`creaiondate` ASC LIMIT 1
+SELECT `users`.`displayname` FROM `users` JOIN `badges` ON `users`.`id` = `badges`.`userid` WHERE `badges`.`name` = 'Autobiographer' ORDER BY `badges`.`date` ASC LIMIT 1
+SELECT COUNT(DISTINCT `posts`.`owneruserid`) FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `users`.`location` = 'United Kingdom' AND `posts`.`favoritecount` >= 4
+SELECT AVG(`votes`.`postid`) FROM `votes` INNER JOIN `users` ON `votes`.`userid` = `users`.`id` WHERE `users`.`age` = (SELECT MAX(`age`) FROM `users`)
+SELECT `displayname` FROM `users` WHERE `reputation` = (SELECT MAX(`reputation`) FROM `users`)
+SELECT COUNT(`Id`) FROM `users` WHERE `Reputation` > 2000 AND `Views` > 1000
+SELECT `displayname` FROM `users` WHERE `age` BETWEEN 19 AND 65
+SELECT COUNT(`posts`.`id`) FROM `users` INNER JOIN `posts` ON `users`.`id` = `posts`.`owneruserid` WHERE `users`.`displayname` = 'Jay Stevens' AND strftime('%Y', `posts`.`creaiondate`) = '2010'
+SELECT `posts`.`id`, `posts`.`title` FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `users`.`displayname` = 'Harvey Motulsky' ORDER BY `posts`.`viewcount` DESC LIMIT 1
+SELECT `id`, `title` FROM `posts` ORDER BY `score` DESC LIMIT 1;
+SELECT AVG(`posts`.`score`) FROM `users` INNER JOIN `posts` ON `posts`.`owneruserid` = `users`.`id` WHERE `users`.`displayname` = 'Stephen Turner'
+SELECT `users`.`displayname` FROM `users` JOIN `posts` ON `users`.`id` = `posts`.`owneruserid` WHERE `posts`.`viewcount` > 20000 AND strftime('%Y', `posts`.`creaiondate`) = '2011'
+SELECT `posts`.`id`, `users`.`displayname` FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE STRFTIME('%Y', `posts`.`creationdate`) = '2010' ORDER BY `posts`.`favoritecount` DESC LIMIT 1
+SELECT CAST(COUNT(DISTINCT `posts`.`id`) AS REAL) * 100 / COUNT(*) FROM `posts` INNER JOIN `users` ON `posts`.`owneruserid` = `users`.`id` WHERE `users`.`reputation` > 1000 AND strftime('%Y', `users`.`creationdate`) = '2011'
+SELECT COUNT(`users`.`Id`) FILTER (WHERE `users`.`Age` BETWEEN 13 AND 18) * 1.0 / COUNT(`users`.`Id`) AS percentage FROM `users`
+SELECT `posts`.`viewcount`, `users`.`displayname` FROM `posts` JOIN `users` ON `posts`.`lasteditoruserid` = `users`.`id` WHERE `posts`.`text` = 'Computer Game Datasets'
+SELECT COUNT(*) FROM posts WHERE `viewcount` > (SELECT AVG(`viewcount`) FROM posts)
+SELECT COUNT(`comments`.`id`) FROM `comments` INNER JOIN `posts` ON `comments`.`postid` = `posts`.`id` WHERE `posts`.`score` = (SELECT MAX(`posts`.`score`) FROM `posts`)
+SELECT COUNT(`posts`.`id`) FROM `posts` WHERE `posts`.`viewcount` > 35000 AND `posts`.`commentcount` = 0
+SELECT T1.displayname, T1.location FROM users AS T1 INNER JOIN posts AS T2 ON T1.id = T2.lasteditoruserid WHERE T2.id = 183 ORDER BY T2.lasteditdate DESC LIMIT 1
+SELECT T1.`name` FROM badges AS T1 INNER JOIN users AS T2 ON T1.`userid` = T2.`id` WHERE T2.`displayname` = 'Emmett' ORDER BY T1.`date` DESC LIMIT 1
+SELECT COUNT(DISTINCT `users`.`Id`) FROM `users` INNER JOIN `votes` ON `users`.`Id` = `votes`.`UserId` WHERE `users`.`Age` BETWEEN 19 AND 65 AND `users`.`UpVotes` > 5000
+SELECT JULIANDAY(badges.`date`) - JULIANDAY(users.`creationdate`) AS days_to_badge FROM users INNER JOIN badges ON users.`id` = badges.`userid` WHERE users.`displayname` = 'Zolomon'
+SELECT COUNT(DISTINCT `posts`.`Id`) AS post_count, COUNT(DISTINCT `comments`.`Id`) AS comment_count FROM `users` LEFT JOIN `posts` ON `users`.`Id` = `posts`.`OwnerUserId` LEFT JOIN `comments` ON `users`.`Id` = `comments`.`UserId` WHERE `users`.`CreationDate` = (SELECT MAX(`CreationDate`) FROM `users`)
+SELECT comments.`text`, users.`displayname` FROM comments JOIN posts ON comments.`postid` = posts.`id` JOIN users ON comments.`userid` = users.`id` WHERE posts.`title` = 'Analysing wind data with R' ORDER BY comments.`creationdate` DESC LIMIT 10
+SELECT COUNT(DISTINCT `badges`.`userid`) FROM `badges` WHERE `badges`.`name` = 'Citizen Patrol'
+SELECT COUNT(`posts`.`id`) FROM `tags` INNER JOIN `posts` ON `tags`.`excerptpostid` = `posts`.`id` WHERE `tags`.`tagname` = 'careers'
+SELECT `reputation`, `views` FROM `users` WHERE `displayname` = 'Jarrod Dixon'
+SELECT COUNT(DISTINCT `comments`.`Id`) AS CommentCount, SUM(`posts`.`AnswerCount`) AS AnswerCount FROM `posts` LEFT JOIN `comments` ON `posts`.`Id` = `comments`.`PostId` WHERE `posts`.`Title` = 'Clustering 1D data'
+SELECT `creationdate` FROM `users` WHERE `displayname` = 'IrishStat'
+SELECT COUNT(DISTINCT `votes`.`postid`) FROM `votes` WHERE `votes`.`bountyamount` >= 30
+SELECT CAST(SUM(CASE WHEN `posts`.`score` > 50 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`posts`.`id`) FROM `users` INNER JOIN `posts` ON `users`.`id` = `posts`.`owneruserid` WHERE `users`.`reputation` = (SELECT MAX(`reputation`) FROM `users`)
+SELECT COUNT(*) FROM `posts` WHERE `score` < 20
+SELECT COUNT(`tags`.`id`) FROM `tags` WHERE `tags`.`id` < 15 AND `tags`.`count` <= 20
+SELECT `excerptpostid`, `wikipostid` FROM `tags` WHERE `tagname` = 'sample'
+SELECT `users`.`reputation`, `users`.`upvotes` FROM `comments` INNER JOIN `users` ON `comments`.`userid` = `users`.`id` WHERE `comments`.`text` = 'fine, you win :)'
+SELECT `comments`.`text` FROM `comments` INNER JOIN `posts` ON `comments`.`postid` = `posts`.`id` WHERE `posts`.`title` LIKE '%linear regression%'
+SELECT `comments`.`text` FROM `comments` INNER JOIN `posts` ON `comments`.`postid` = `posts`.`id` WHERE `posts`.`viewcount` BETWEEN 100 AND 150 ORDER BY `comments`.`score` DESC LIMIT 1
+SELECT comments.`creationdate`, users.`age` FROM comments JOIN users ON comments.`userid` = users.`id` WHERE comments.`text` LIKE '%http://%'
+SELECT COUNT(DISTINCT `comments`.`postid`) FROM `comments` INNER JOIN `posts` ON `comments`.`postid` = `posts`.`id` WHERE `comments`.`score` = 0 AND `posts`.`viewcount` < 5
+SELECT COUNT(comments.`id`) FROM posts INNER JOIN comments ON posts.`id` = comments.`postid` WHERE posts.`commentcount` = 1 AND comments.`score` = 0
+SELECT COUNT(DISTINCT `users`.`Id`) FROM `comments` INNER JOIN `users` ON `comments`.`UserId` = `users`.`Id` WHERE `comments`.`Score` = 0 AND `users`.`Age` = 40
+SELECT `posts`.`id`, `comments`.`text` FROM `posts` INNER JOIN `comments` ON `posts`.`id` = `comments`.`postid` WHERE `posts`.`title` = 'Group differences on a five point Likert item'
+SELECT users.`upvotes` FROM comments INNER JOIN users ON comments.`userid` = users.`id` WHERE comments.`text` = 'R is also lazy evaluated.'
+SELECT `comments`.`text` FROM `comments` JOIN `users` ON `comments`.`userid` = `users`.`id` WHERE `users`.`displayname` = 'Harvey Motulsky'
+SELECT `users`.`displayname` FROM `comments` JOIN `users` ON `comments`.`userid` = `users`.`id` WHERE `comments`.`score` BETWEEN 1 AND 5 AND `users`.`downvotes` = 0
+SELECT CAST(COUNT(CASE WHEN `users`.`UpVotes` = 0 THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(`comments`.`UserId`) FROM `comments` INNER JOIN `users` ON `comments`.`UserId` = `users`.`Id` WHERE `comments`.`Score` BETWEEN 5 AND 10
+SELECT `superpower`.`power_name` FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superhero`.`superhero_name` = '3-D Man'
+SELECT COUNT(DISTINCT `superhero`.`id`) FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superpower`.`power_name` = 'Super Strength'
+SELECT COUNT(`superhero`.`id`) FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superpower`.`power_name` = 'Super Strength' AND `superhero`.`height_cm` > 200
+SELECT `superhero`.`full_name` FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` GROUP BY `superhero`.`id` HAVING COUNT(`hero_power`.`power_id`) > 15
+SELECT COUNT(superhero.`id`) FROM superhero INNER JOIN colour ON superhero.`eye_colour_id` = colour.`id` WHERE colour.`colour` = 'Blue'
+SELECT `colour`.`colour` FROM `superhero` INNER JOIN `colour` ON `superhero`.`skin_colour_id` = `colour`.`id` WHERE `superhero`.`superhero_name` = 'Apocalypse'
+SELECT COUNT(*) FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id INNER JOIN hero_power AS T3 ON T1.id = T3.hero_id INNER JOIN superpower AS T4 ON T3.power_id = T4.id WHERE T2.colour = 'Blue' AND T4.power_name = 'Agility'
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `colour` AS `eye_colour` ON `superhero`.`eye_colour_id` = `eye_colour`.`id` INNER JOIN `colour` AS `hair_colour` ON `superhero`.`hair_colour_id` = `hair_colour`.`id` WHERE `eye_colour`.`colour` = 'Blue' AND `hair_colour`.`colour` = 'Blond'
+SELECT COUNT(DISTINCT `superhero`.`id`) FROM `superhero` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` WHERE `publisher`.`publisher_name` = 'Marvel Comics'
+SELECT `superhero`.`superhero_name`, `superhero`.`height_cm` FROM `superhero` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` WHERE `publisher`.`publisher_name` = 'Marvel Comics' ORDER BY `superhero`.`height_cm` DESC
+SELECT `publisher`.`publisher_name` FROM `superhero` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` WHERE `superhero`.`superhero_name` = 'Sauron'
+SELECT `colour`.`colour`, COUNT(`superhero`.`id`) AS `count` FROM `superhero` JOIN `colour` ON `superhero`.`eye_colour_id` = `colour`.`id` JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` WHERE `publisher`.`publisher_name` = 'Marvel Comics' GROUP BY `colour`.`colour` ORDER BY `count` DESC
+SELECT AVG(`superhero`.`height_cm`) FROM `superhero` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` WHERE `publisher`.`publisher_name` = 'Marvel Comics';
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `publisher`.`publisher_name` = 'Marvel Comics' AND `superpower`.`power_name` = 'Super Strength'
+SELECT COUNT(DISTINCT `superhero`.`id`) FROM `superhero` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` WHERE `publisher`.`publisher_name` = 'DC Comics'
+SELECT T3.publisher_name FROM hero_attribute AS T1 INNER JOIN superhero AS T2 ON T1.hero_id = T2.id INNER JOIN publisher AS T3 ON T2.publisher_id = T3.id INNER JOIN attribute AS T4 ON T1.attribute_id = T4.id WHERE T4.attribute_name = 'Speed' ORDER BY T1.attribute_value ASC LIMIT 1
+SELECT COUNT(*) FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id INNER JOIN publisher AS T3 ON T1.publisher_id = T3.id WHERE T2.colour = 'Gold' AND T3.publisher_name = 'Marvel Comics'
+SELECT T2.`publisher_name` FROM `superhero` AS T1 INNER JOIN `publisher` AS T2 ON T1.`publisher_id` = T2.`id` WHERE T1.`superhero_name` = 'Blue Beetle II'
+SELECT COUNT(*) FROM `superhero` INNER JOIN `colour` ON `superhero`.`hair_colour_id` = `colour`.`id` WHERE `colour`.`colour` = 'Blond'
+SELECT T1.`superhero_name` FROM `superhero` AS T1 INNER JOIN `hero_attribute` AS T2 ON T1.`id` = T2.`hero_id` INNER JOIN `attribute` AS T3 ON T2.`attribute_id` = T3.`id` WHERE T3.`attribute_name` = 'Intelligence' ORDER BY T2.`attribute_value` ASC LIMIT 1
+SELECT `race`.`race` FROM `superhero` INNER JOIN `race` ON `superhero`.`race_id` = `race`.`id` WHERE `superhero`.`superhero_name` = 'Copycat'
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `hero_attribute` ON `superhero`.`id` = `hero_attribute`.`hero_id` INNER JOIN `attribute` ON `hero_attribute`.`attribute_id` = `attribute`.`id` WHERE `attribute`.`attribute_name` = 'Durability' AND `hero_attribute`.`attribute_value` < 50
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superpower`.`power_name` = 'Death Touch'
+SELECT COUNT(*) FROM `superhero` AS T1 INNER JOIN `gender` AS T2 ON T1.`gender_id` = T2.`id` INNER JOIN `hero_attribute` AS T3 ON T1.`id` = T3.`hero_id` INNER JOIN `attribute` AS T4 ON T3.`attribute_id` = T4.`id` WHERE T2.`gender` = 'Female' AND T4.`attribute_name` = 'Strength' AND T3.`attribute_value` = 100
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` GROUP BY `superhero`.`id` ORDER BY COUNT(`hero_power`.`power_id`) DESC LIMIT 1
+SELECT COUNT(`superhero`.`id`) FROM `superhero` INNER JOIN `race` ON `superhero`.`race_id` = `race`.`id` WHERE `race`.`race` = 'Vampire'
+SELECT CAST(COUNT(CASE WHEN T1.alignment_id = T3.id AND T3.alignment = 'Bad' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T1.id) AS percentage_bad_alignment, COUNT(CASE WHEN T1.alignment_id = T3.id AND T3.alignment = 'Bad' AND T1.publisher_id = T2.id AND T2.publisher_name = 'Marvel Comics' THEN 1 ELSE NULL END) AS marvel_bad_alignment FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id INNER JOIN alignment AS T3 ON T1.alignment_id = T3.id
+SELECT COUNT(CASE WHEN T2.publisher_name = 'Marvel Comics' THEN T1.id ELSE NULL END) - COUNT(CASE WHEN T2.publisher_name = 'DC Comics' THEN T1.id ELSE NULL END) AS difference FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id
+SELECT `id` FROM `publisher` WHERE `publisher_name` = 'Star Trek'
+SELECT AVG(`hero_attribute`.`attribute_value`) FROM `hero_attribute`
+SELECT COUNT(*) FROM `superhero` WHERE `full_name` IS NULL
+SELECT T2.colour FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T1.id = 75
+SELECT T3.power_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id WHERE T1.superhero_name = 'Deathlok'
+SELECT AVG(`superhero`.`weight_kg`) FROM `superhero` INNER JOIN `gender` ON `superhero`.`gender_id` = `gender`.`id` WHERE `gender`.`gender` = 'Female'
+SELECT DISTINCT T3.`power_name` FROM `superhero` AS T1 INNER JOIN `gender` AS T2 ON T1.`gender_id` = T2.`id` INNER JOIN `hero_power` AS T4 ON T1.`id` = T4.`hero_id` INNER JOIN `superpower` AS T3 ON T4.`power_id` = T3.`id` WHERE T2.`gender` = 'Male' LIMIT 5
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `race` ON `superhero`.`race_id` = `race`.`id` WHERE `race`.`race` = 'Alien'
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `colour` ON `superhero`.`eye_colour_id` = `colour`.`id` WHERE `superhero`.`height_cm` BETWEEN 170 AND 190 AND `colour`.`colour` = 'No Colour'
+SELECT `superpower`.`power_name` FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superhero`.`id` = 56
+SELECT `superhero`.`full_name` FROM `superhero` INNER JOIN `race` ON `superhero`.`race_id` = `race`.`id` WHERE `race`.`race` = 'Demi-God' LIMIT 5
+SELECT COUNT(*) FROM `superhero` AS T1 INNER JOIN `alignment` AS T2 ON T1.`alignment_id` = T2.`id` WHERE T2.`alignment` = 'Bad'
+SELECT race.`race` FROM superhero INNER JOIN race ON superhero.`race_id` = race.`id` WHERE superhero.`weight_kg` = 169
+SELECT T2.colour FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.hair_colour_id = T2.id WHERE T1.race_id = (SELECT id FROM race WHERE race = 'Human') AND T1.height_cm = 185
+SELECT `colour`.`colour` FROM `superhero` JOIN `colour` ON `superhero`.`eye_colour_id` = `colour`.`id` ORDER BY `superhero`.`weight_kg` DESC LIMIT 1
+SELECT CAST(COUNT(CASE WHEN `publisher`.`publisher_name` = 'Marvel Comics' THEN `superhero`.`id` ELSE NULL END) AS REAL) * 100 / COUNT(`superhero`.`id`) FROM `superhero` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` WHERE `superhero`.`height_cm` BETWEEN 150 AND 180
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `gender` ON `superhero`.`gender_id` = `gender`.`id` WHERE `gender`.`gender` = 'Male' AND `superhero`.`weight_kg` > (SELECT 0.79 * AVG(`weight_kg`) FROM `superhero`)
+SELECT T1.`power_name` FROM superpower AS T1 INNER JOIN hero_power AS T2 ON T1.`id` = T2.`power_id` GROUP BY T1.`power_name` ORDER BY COUNT(T1.`power_name`) DESC LIMIT 1
+SELECT T2.`attribute_value` FROM `superhero` AS T1 INNER JOIN `hero_attribute` AS T2 ON T1.`id` = T2.`hero_id` WHERE T1.`superhero_name` = 'Abomination'
+SELECT `superpower`.`power_name` FROM `superhero` JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superhero`.`id` = 1
+SELECT COUNT(DISTINCT `hero_power`.`hero_id`) FROM `hero_power` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superpower`.`power_name` = 'stealth'
+SELECT `superhero`.`full_name` FROM `superhero` INNER JOIN `hero_attribute` ON `superhero`.`id` = `hero_attribute`.`hero_id` INNER JOIN `attribute` ON `hero_attribute`.`attribute_id` = `attribute`.`id` WHERE `attribute`.`attribute_name` = 'Strength' ORDER BY `hero_attribute`.`attribute_value` DESC LIMIT 1
+SELECT CAST(COUNT(`superhero`.`id`) AS REAL) / SUM(CASE WHEN `superhero`.`skin_colour_id` = 1 THEN 1 ELSE 0 END) AS average FROM `superhero` JOIN `colour` ON `superhero`.`skin_colour_id` = `colour`.`id` WHERE `colour`.`id` = 1
+SELECT COUNT(*) FROM `superhero` AS T1 INNER JOIN `publisher` AS T2 ON T1.publisher_id = T2.id WHERE T2.publisher_name = 'Dark Horse Comics'
+SELECT T1.`superhero_name` FROM `superhero` AS T1 INNER JOIN `hero_attribute` AS T2 ON T1.`id` = T2.`hero_id` INNER JOIN `attribute` AS T3 ON T2.`attribute_id` = T3.`id` INNER JOIN `publisher` AS T4 ON T1.`publisher_id` = T4.`id` WHERE T3.`attribute_name` = 'Durability' AND T4.`publisher_name` = 'Dark Horse Comics' ORDER BY T2.`attribute_value` DESC LIMIT 1
+SELECT `colour`.`colour` FROM `superhero` INNER JOIN `colour` ON `superhero`.`eye_colour_id` = `colour`.`id` WHERE `superhero`.`full_name` = 'Abraham Sapien'
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superpower`.`power_name` = 'Flight'
+SELECT `colour1`.`colour` AS `eyes`, `colour2`.`colour` AS `hair`, `colour3`.`colour` AS `skin` FROM `superhero` AS `T1` INNER JOIN `colour` AS `colour1` ON `T1`.`eye_colour_id` = `colour1`.`id` INNER JOIN `colour` AS `colour2` ON `T1`.`hair_colour_id` = `colour2`.`id` INNER JOIN `colour` AS `colour3` ON `T1`.`skin_colour_id` = `colour3`.`id` INNER JOIN `gender` AS `T2` ON `T1`.`gender_id` = `T2`.`id` INNER JOIN `publisher` AS `T3` ON `T1`.`publisher_id` = `T3`.`id` WHERE `T2`.`gender` = 'Female' AND `T3`.`publisher_name` = 'Dark Horse Comics'
+SELECT `superhero`.`superhero_name`, `publisher`.`publisher_name` FROM `superhero` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` WHERE `superhero`.`hair_colour_id` = `superhero`.`skin_colour_id` AND `superhero`.`hair_colour_id` = `superhero`.`eye_colour_id`
+SELECT `race`.`race` FROM `superhero` INNER JOIN `race` ON `superhero`.`race_id` = `race`.`id` WHERE `superhero`.`superhero_name` = 'A-Bomb'
+SELECT CAST(SUM(CASE WHEN `colour`.`colour` = 'Blue' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `superhero` INNER JOIN `gender` ON `superhero`.`gender_id` = `gender`.`id` INNER JOIN `colour` ON `superhero`.`skin_colour_id` = `colour`.`id` WHERE `gender`.`gender` = 'Female'
+SELECT `superhero`.`superhero_name`, `race`.`race` FROM `superhero` INNER JOIN `race` ON `superhero`.`race_id` = `race`.`id` WHERE `superhero`.`full_name` = 'Charles Chandler'
+SELECT T2.gender FROM superhero AS T1 INNER JOIN gender AS T2 ON T1.gender_id = T2.id WHERE T1.superhero_name = 'Agent 13'
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superpower`.`power_name` = 'Adaptation'
+SELECT COUNT(*) FROM `superhero` AS T1 INNER JOIN `hero_power` AS T2 ON T1.`id` = T2.`hero_id` WHERE T1.`superhero_name` = 'Amazo'
+SELECT `superpower`.`power_name` FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superhero`.`full_name` = 'Hunter Zolomon'
+SELECT `superhero`.`height_cm` FROM `superhero` INNER JOIN `colour` ON `superhero`.`eye_colour_id` = `colour`.`id` WHERE `colour`.`colour` = 'Amber'
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `colour` AS `eye_colour` ON `superhero`.`eye_colour_id` = `eye_colour`.`id` INNER JOIN `colour` AS `hair_colour` ON `superhero`.`hair_colour_id` = `hair_colour`.`id` WHERE `eye_colour`.`colour` = 'Black' AND `hair_colour`.`colour` = 'Black'
+SELECT `colour`.`colour` FROM `superhero` INNER JOIN `colour` ON `superhero`.`eye_colour_id` = `colour`.`id` WHERE `superhero`.`skin_colour_id` = (SELECT `id` FROM `colour` WHERE `colour` = 'Gold')
+SELECT `superhero`.`full_name` FROM `superhero` INNER JOIN `race` ON `superhero`.`race_id` = `race`.`id` WHERE `race`.`race` = 'Vampire'
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `alignment` ON `superhero`.`alignment_id` = `alignment`.`id` WHERE `alignment`.`alignment` = 'Neutral'
+SELECT COUNT(DISTINCT `hero_attribute`.`hero_id`) FROM `hero_attribute` JOIN `attribute` ON `hero_attribute`.`attribute_id` = `attribute`.`id` WHERE `attribute`.`attribute_name` = 'Strength' AND `hero_attribute`.`attribute_value` = (SELECT MAX(`hero_attribute`.`attribute_value`) FROM `hero_attribute` JOIN `attribute` ON `hero_attribute`.`attribute_id` = `attribute`.`id` WHERE `attribute`.`attribute_name` = 'Strength')
+SELECT `race`.`race`, `alignment`.`alignment` FROM `superhero` INNER JOIN `race` ON `superhero`.`race_id` = `race`.`id` INNER JOIN `alignment` ON `superhero`.`alignment_id` = `alignment`.`id` WHERE `superhero`.`superhero_name` = 'Cameron Hicks'
+SELECT CAST(COUNT(CASE WHEN `gender`.`gender` = 'Female' THEN `superhero`.`id` ELSE NULL END) AS REAL) / COUNT(*) * 100 AS percent FROM `superhero` INNER JOIN `gender` ON `superhero`.`gender_id` = `gender`.`id` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` WHERE `publisher`.`publisher_name` = 'Marvel Comics'
+SELECT AVG(superhero.weight_kg) FROM superhero INNER JOIN race ON superhero.race_id = race.id WHERE race.race = 'Alien'
+SELECT (SELECT `weight_kg` FROM `superhero` WHERE `full_name` = 'Emil Blonsky') - (SELECT `weight_kg` FROM `superhero` WHERE `full_name` = 'Charles Chandler') AS difference
+SELECT `id`, AVG(`height_cm`) FROM `superhero` GROUP BY `id`
+SELECT `superpower`.`power_name` FROM `superhero` JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superhero`.`superhero_name` = 'Abomination'
+SELECT COUNT(*) FROM `superhero` AS T1 INNER JOIN `gender` AS T2 ON T1.`gender_id` = T2.`id` WHERE T1.`race_id` = 21 AND T2.`id` = 1
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `hero_attribute` ON `superhero`.`id` = `hero_attribute`.`hero_id` INNER JOIN `attribute` ON `hero_attribute`.`attribute_id` = `attribute`.`id` WHERE `attribute`.`attribute_name` = 'Speed' ORDER BY `hero_attribute`.`attribute_value` DESC LIMIT 1
+SELECT COUNT(*) FROM `superhero` WHERE `alignment_id` = 3
+SELECT `attribute`.`attribute_name`, `hero_attribute`.`attribute_value` FROM `superhero` INNER JOIN `hero_attribute` ON `superhero`.`id` = `hero_attribute`.`hero_id` INNER JOIN `attribute` ON `hero_attribute`.`attribute_id` = `attribute`.`id` WHERE `superhero`.`superhero_name` = '3-D Man'
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `colour` AS `eye_colour` ON `superhero`.`eye_colour_id` = `eye_colour`.`id` INNER JOIN `colour` AS `hair_colour` ON `superhero`.`hair_colour_id` = `hair_colour`.`id` WHERE `eye_colour`.`colour` = 'Blue' AND `hair_colour`.`colour` = 'Brown'
+SELECT `publisher`.`publisher_name` FROM `superhero` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` WHERE `superhero`.`superhero_name` IN ('Hawkman', 'Karate Kid', 'Speedy')
+SELECT COUNT(*) FROM `superhero` WHERE `publisher_id` = 1
+SELECT CAST(SUM(CASE WHEN `colour`.`colour` = 'Blue' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`superhero`.`superhero_name`) FROM `superhero` INNER JOIN `colour` ON `superhero`.`eye_colour_id` = `colour`.`id`
+SELECT CAST(COUNT(CASE WHEN T2.gender = 'Male' THEN T1.id ELSE NULL END) AS REAL) / COUNT(CASE WHEN T2.gender = 'Female' THEN T1.id ELSE NULL END) AS RATIO FROM superhero AS T1 INNER JOIN gender AS T2 ON T1.gender_id = T2.id
+SELECT `superhero_name` FROM `superhero` ORDER BY `height_cm` DESC LIMIT 1
+SELECT `id` FROM `superpower` WHERE `power_name` = 'cryokinesis'
+SELECT `superhero_name` FROM `superhero` WHERE `id` = 294
+SELECT `full_name` FROM `superhero` WHERE `weight_kg` = 0 OR `weight_kg` IS NULL
+SELECT `colour`.`colour` FROM `superhero` INNER JOIN `colour` ON `superhero`.`eye_colour_id` = `colour`.`id` WHERE `superhero`.`full_name` = 'Karen Beecher-Duncan'
+SELECT `superpower`.`power_name` FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superhero`.`full_name` = 'Helen Parr'
+SELECT race.`race` FROM superhero JOIN race ON superhero.`race_id` = race.`id` WHERE superhero.`weight_kg` = 108 AND superhero.`height_cm` = 188
+SELECT `publisher`.`publisher_name` FROM `superhero` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` WHERE `superhero`.`id` = 38
+SELECT race.race FROM superhero JOIN hero_attribute ON superhero.id = hero_attribute.hero_id JOIN race ON superhero.race_id = race.id ORDER BY hero_attribute.attribute_value DESC LIMIT 1
+SELECT `alignment`.`alignment`, `superpower`.`power_name` FROM `superhero` JOIN `alignment` ON `superhero`.`alignment_id` = `alignment`.`id` JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superhero`.`superhero_name` = 'Atom IV'
+SELECT `superhero`.`full_name` FROM `superhero` INNER JOIN `colour` ON `superhero`.`eye_colour_id` = `colour`.`id` WHERE `colour`.`colour` = 'Blue' LIMIT 5
+SELECT AVG(T2.attribute_value) FROM superhero AS T1 INNER JOIN hero_attribute AS T2 ON T1.id = T2.hero_id WHERE T1.alignment_id = 3
+SELECT `colour`.`colour` FROM `superhero` INNER JOIN `colour` ON `superhero`.`skin_colour_id` = `colour`.`id` INNER JOIN `hero_attribute` ON `superhero`.`id` = `hero_attribute`.`hero_id` WHERE `hero_attribute`.`attribute_value` = 100
+SELECT COUNT(*) FROM `superhero` AS T1 INNER JOIN `gender` AS T2 ON T1.`gender_id` = T2.`id` INNER JOIN `alignment` AS T3 ON T1.`alignment_id` = T3.`id` WHERE T2.`id` = 2 AND T3.`id` = 1
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `hero_attribute` ON `superhero`.`id` = `hero_attribute`.`hero_id` WHERE `hero_attribute`.`attribute_value` BETWEEN 75 AND 80
+SELECT T3.race FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.hair_colour_id = T2.id INNER JOIN race AS T3 ON T1.race_id = T3.id INNER JOIN gender AS T4 ON T1.gender_id = T4.id WHERE T2.colour = 'blue' AND T4.gender = 'male'
+SELECT (CAST(COUNT(CASE WHEN `gender`.`id` = 2 THEN `superhero`.`id` ELSE NULL END) AS REAL) / COUNT(`superhero`.`id`)) * 100.0 AS percentage FROM `superhero` INNER JOIN `alignment` ON `superhero`.`alignment_id` = `alignment`.`id` INNER JOIN `gender` ON `superhero`.`gender_id` = `gender`.`id` WHERE `alignment`.`id` = 2
+SELECT COUNT(CASE WHEN T1.eye_colour_id = 7 THEN 1 ELSE NULL END) - COUNT(CASE WHEN T1.eye_colour_id = 1 THEN 1 ELSE NULL END) FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.eye_colour_id = T2.id WHERE T1.weight_kg = 0 OR T1.weight_kg IS NULL
+SELECT T2.attribute_value FROM superhero AS T1 INNER JOIN hero_attribute AS T2 ON T1.id = T2.hero_id INNER JOIN attribute AS T3 ON T2.attribute_id = T3.id WHERE T1.superhero_name = 'Hulk' AND T3.attribute_name = 'Strength'
+SELECT `superpower`.`power_name` FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superhero`.`superhero_name` = 'Ajax'
+SELECT COUNT(*) FROM `superhero` INNER JOIN `colour` ON `superhero`.`skin_colour_id` = `colour`.`id` INNER JOIN `alignment` ON `superhero`.`alignment_id` = `alignment`.`id` WHERE `colour`.`colour` = 'Green' AND `alignment`.`alignment` = 'Bad'
+SELECT COUNT(*) FROM `superhero` AS T1 INNER JOIN `gender` AS T2 ON T1.`gender_id` = T2.`id` INNER JOIN `publisher` AS T3 ON T1.`publisher_id` = T3.`id` WHERE T2.`gender` = 'Female' AND T3.`publisher_name` = 'Marvel Comics'
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superpower`.`power_name` = 'Wind Control' ORDER BY `superhero`.`superhero_name` ASC
+SELECT T3.gender FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN gender AS T3 ON T1.gender_id = T3.id INNER JOIN superpower AS T4 ON T2.power_id = T4.id WHERE T4.power_name = 'Phoenix Force'
+SELECT `superhero`.`superhero_name` FROM `superhero` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` WHERE `publisher`.`publisher_name` = 'DC Comics' ORDER BY `superhero`.`weight_kg` DESC LIMIT 1
+SELECT AVG(`superhero`.`height_cm`) FROM `superhero` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` INNER JOIN `race` ON `superhero`.`race_id` = `race`.`id` WHERE `race`.`race` <> 'Human' AND `publisher`.`publisher_name` = 'Dark Horse Comics';
+SELECT COUNT(*) FROM hero_attribute AS T1 INNER JOIN attribute AS T2 ON T1.attribute_id = T2.id WHERE T1.attribute_value = 100 AND T2.attribute_name = 'Speed'
+SELECT COUNT(CASE WHEN T2.publisher_name = 'DC Comics' THEN T1.id ELSE NULL END) - COUNT(CASE WHEN T2.publisher_name = 'Marvel Comics' THEN T1.id ELSE NULL END) AS difference FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id
+SELECT `attribute`.`attribute_name` FROM `superhero` INNER JOIN `hero_attribute` ON `superhero`.`id` = `hero_attribute`.`hero_id` INNER JOIN `attribute` ON `hero_attribute`.`attribute_id` = `attribute`.`id` WHERE `superhero`.`superhero_name` = 'Black Panther' ORDER BY `hero_attribute`.`attribute_value` ASC LIMIT 1
+SELECT `colour`.`colour` FROM `superhero` JOIN `colour` ON `superhero`.`eye_colour_id` = `colour`.`id` WHERE `superhero`.`superhero_name` = 'Abomination'
+SELECT `superhero_name` FROM `superhero` ORDER BY `height_cm` DESC LIMIT 1
+SELECT `superhero_name` FROM `superhero` WHERE `full_name` = 'Charles Chandler'
+SELECT CAST(COUNT(CASE WHEN T2.gender = 'Female' THEN 1 ELSE NULL END) AS REAL) * 100 / COUNT(T2.gender) FROM superhero AS T1 INNER JOIN gender AS T2 ON T1.gender_id = T2.id INNER JOIN publisher AS T3 ON T1.publisher_id = T3.id WHERE T3.publisher_name = 'George Lucas'
+SELECT CAST(SUM(CASE WHEN `alignment`.`alignment` = 'Good' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `superhero` INNER JOIN `publisher` ON `superhero`.`publisher_id` = `publisher`.`id` INNER JOIN `alignment` ON `superhero`.`alignment_id` = `alignment`.`id` WHERE `publisher`.`publisher_name` = 'Marvel Comics'
+SELECT COUNT(*) FROM `superhero` WHERE `full_name` LIKE 'John%'
+SELECT `hero_id` FROM `hero_attribute` ORDER BY `attribute_value` LIMIT 1
+SELECT `full_name` FROM `superhero` WHERE `superhero_name` = 'Alien'
+SELECT `superhero`.`full_name` FROM `superhero` INNER JOIN `colour` ON `superhero`.`eye_colour_id` = `colour`.`id` WHERE `superhero`.`weight_kg` < 100 AND `colour`.`colour` = 'Brown'
+SELECT T2.`attribute_value` FROM `superhero` AS T1 INNER JOIN `hero_attribute` AS T2 ON T1.`id` = T2.`hero_id` WHERE T1.`superhero_name` = 'Aquababy'
+SELECT `superhero`.`weight_kg`, `race`.`race` FROM `superhero` INNER JOIN `race` ON `superhero`.`race_id` = `race`.`id` WHERE `superhero`.`id` = 40
+SELECT AVG(`superhero`.`height_cm`) FROM `superhero` INNER JOIN `alignment` ON `superhero`.`alignment_id` = `alignment`.`id` WHERE `alignment`.`alignment` = 'Neutral'
+SELECT `superhero`.`id` FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superpower`.`power_name` = 'Intelligence'
+SELECT `colour`.`colour` FROM `superhero` INNER JOIN `colour` ON `superhero`.`eye_colour_id` = `colour`.`id` WHERE `superhero`.`superhero_name` = 'Blackwulf'
+SELECT `superpower`.`power_name` FROM `superhero` INNER JOIN `hero_power` ON `superhero`.`id` = `hero_power`.`hero_id` INNER JOIN `superpower` ON `hero_power`.`power_id` = `superpower`.`id` WHERE `superhero`.`height_cm` > (SELECT AVG(`height_cm`) * 0.8 FROM `superhero`)
+SELECT `drivers`.`driverref` FROM `qualifying` INNER JOIN `drivers` ON `qualifying`.`driverid` = `drivers`.`driverid` WHERE `qualifying`.`raceid` = 20 ORDER BY `qualifying`.`q1` DESC LIMIT 5
+SELECT T2.surname FROM qualifying AS T1 INNER JOIN drivers AS T2 ON T1.driverId = T2.driverId WHERE T1.raceId = 19 ORDER BY T1.q2 LIMIT 1
+SELECT DISTINCT `races`.`year` FROM `races` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `circuits`.`location` = 'Shanghai'
+SELECT races.`url` FROM races INNER JOIN circuits ON races.`circuitid` = circuits.`circuitid` WHERE circuits.`name` = 'Circuit de Barcelona-Catalunya'
+SELECT `races`.`name` FROM `races` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `circuits`.`country` = 'Germany'
+SELECT DISTINCT `circuits`.`location` FROM `circuits` INNER JOIN `races` ON `circuits`.`circuitid` = `races`.`circuitid` INNER JOIN `results` ON `races`.`raceid` = `results`.`raceid` INNER JOIN `constructors` ON `results`.`constructorid` = `constructors`.`constructorid` WHERE `constructors`.`name` = 'Renault'
+SELECT COUNT(*) FROM `races` AS T1 INNER JOIN `circuits` AS T2 ON T1.`circuitid` = T2.`circuitid` WHERE T1.`year` = 2010 AND T1.`name` LIKE '%Grand Prix%' AND T2.`country` NOT IN ('Asia', 'Europe')
+SELECT `races`.`name` FROM `races` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `circuits`.`country` = 'Spain'
+SELECT `circuits`.`lat`, `circuits`.`lng` FROM `circuits` INNER JOIN `races` ON `circuits`.`circuitid` = `races`.`circuitid` WHERE `races`.`name` = 'Australian Grand Prix'
+SELECT races.`url` FROM races INNER JOIN circuits ON races.`circuitId` = circuits.`circuitId` WHERE circuits.`name` = 'Sepang International Circuit'
+SELECT races.`time` FROM races JOIN circuits ON races.`circuitid` = circuits.`circuitid` WHERE circuits.`name` = 'Sepang International Circuit'
+SELECT circuits.`lat`, circuits.`lng` FROM races INNER JOIN circuits ON races.`circuitId` = circuits.`circuitId` WHERE races.`name` = 'Abu Dhabi Grand Prix'
+SELECT constructors.`nationality` FROM constructorResults INNER JOIN constructors ON constructorResults.`constructorId` = constructors.`constructorId` WHERE constructorResults.`raceId` = 24 AND constructorResults.`points` = 1
+SELECT qualifying.`q1` FROM qualifying INNER JOIN drivers ON qualifying.`driverid` = drivers.`driverid` WHERE qualifying.`raceid` = 354 AND drivers.`forename` = 'Bruno' AND drivers.`surname` = 'Senna'
+SELECT `drivers`.`nationality` FROM `qualifying` JOIN `drivers` ON `qualifying`.`driverid` = `drivers`.`driverid` WHERE `qualifying`.`raceid` = 355 AND `qualifying`.`q2` = '0:01:40'
+SELECT `drivers`.`number` FROM `qualifying` INNER JOIN `drivers` ON `qualifying`.`driverid` = `drivers`.`driverid` WHERE `qualifying`.`raceid` = 903 AND `qualifying`.`q3` LIKE '1:54%'
+SELECT COUNT(`drivers`.`driverid`) FROM `races` JOIN `results` ON `races`.`raceid` = `results`.`raceid` JOIN `drivers` ON `results`.`driverid` = `drivers`.`driverid` WHERE `races`.`name` = 'Bahrain Grand Prix' AND `races`.`year` = 2007 AND `results`.`time` IS NULL
+SELECT `seasons`.`url` FROM `races` INNER JOIN `seasons` ON `races`.`year` = `seasons`.`year` WHERE `races`.`raceid` = 901
+SELECT COUNT(DISTINCT `results`.`driverid`) FROM `races` JOIN `results` ON `races`.`raceid` = `results`.`raceid` JOIN `status` ON `results`.`statusid` = `status`.`statusid` WHERE `races`.`date` = '2015-11-29' AND `status`.`status` = 'Finished'
+SELECT `drivers`.`forename`, `drivers`.`surname`, `drivers`.`dob` FROM `results` INNER JOIN `drivers` ON `results`.`driverid` = `drivers`.`driverid` WHERE `results`.`raceid` = 592 AND `results`.`time` IS NOT NULL ORDER BY `drivers`.`dob` ASC LIMIT 1
+SELECT `drivers`.`url` FROM `laptimes` INNER JOIN `drivers` ON `laptimes`.`driverid` = `drivers`.`driverid` WHERE `laptimes`.`raceid` = 161 AND `laptimes`.`time` LIKE '1:27%'
+SELECT `drivers`.`nationality` FROM `results` INNER JOIN `drivers` ON `results`.`driverid` = `drivers`.`driverid` WHERE `results`.`raceid` = 933 ORDER BY `results`.`fastestlapspeed` DESC LIMIT 1
+SELECT `circuits`.`lat`, `circuits`.`lng` FROM `races` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `races`.`name` = 'Malaysian Grand Prix'
+SELECT T1.url FROM constructors AS T1 INNER JOIN constructorresults AS T2 ON T1.constructorid = T2.constructorid WHERE T2.raceid = 9 ORDER BY T2.points DESC LIMIT 1
+SELECT qualifying.`q1` FROM qualifying INNER JOIN drivers ON qualifying.`driverid` = drivers.`driverid` WHERE drivers.`surname` = 'di Grassi' AND drivers.`forename` = 'Lucas' AND qualifying.`raceid` = 345
+SELECT `drivers`.`nationality` FROM `qualifying` JOIN `drivers` ON `qualifying`.`driverid` = `drivers`.`driverid` WHERE `qualifying`.`raceid` = 347 AND `qualifying`.`q2` = '0:01:15'
+SELECT `drivers`.`code` FROM `qualifying` INNER JOIN `drivers` ON `qualifying`.`driverid` = `drivers`.`driverid` WHERE `qualifying`.`raceid` = 45 AND `qualifying`.`q3` LIKE '1:33%'
+SELECT T1.time FROM `results` AS T1 INNER JOIN `drivers` AS T2 ON T1.driverid = T2.driverid WHERE T1.raceid = 743 AND T2.driverref = 'bruce mclaren'
+SELECT drivers.forename, drivers.surname FROM results INNER JOIN races ON results.raceId = races.raceId INNER JOIN drivers ON results.driverId = drivers.driverId WHERE races.name = 'San Marino Grand Prix' AND races.year = 2006 AND results.position = 2
+SELECT seasons.`url` FROM races INNER JOIN seasons ON races.`year` = seasons.`year` WHERE races.`raceId` = 901
+SELECT COUNT(*) FROM `results` JOIN `races` ON `results`.`raceid` = `races`.`raceid` JOIN `status` ON `results`.`statusid` = `status`.`statusid` WHERE `races`.`date` = '2015-11-29' AND `status`.`status` != 'Finished'
+SELECT `drivers`.`forename`, `drivers`.`surname` FROM `drivers` INNER JOIN `results` ON `drivers`.`driverid` = `results`.`driverid` WHERE `results`.`raceid` = 872 AND `results`.`time` IS NOT NULL ORDER BY `drivers`.`dob` DESC LIMIT 1
+SELECT d.`forename`, d.`surname` FROM `laptimes` AS l INNER JOIN `drivers` AS d ON l.`driverid` = d.`driverid` WHERE l.`raceid` = 348 ORDER BY l.`time` ASC LIMIT 1
+SELECT `drivers`.`nationality` FROM `results` INNER JOIN `drivers` ON `results`.`driverid` = `drivers`.`driverid` ORDER BY `results`.`fastestlapspeed` DESC LIMIT 1
+SELECT CAST((results.`fastestlapspeed` - (SELECT results.`fastestlapspeed` FROM results INNER JOIN drivers ON results.`driverid` = drivers.`driverid` WHERE drivers.`forename` = 'Paul' AND drivers.`surname` = 'di Resta' AND results.`raceid` = 854)) * 100.0 / results.`fastestlapspeed` AS REAL) AS percentage FROM results INNER JOIN drivers ON results.`driverid` = drivers.`driverid` WHERE drivers.`forename` = 'Paul' AND drivers.`surname` = 'di Resta' AND results.`raceid` = 853
+SELECT CAST(SUM(CASE WHEN `results`.`time` IS NOT NULL THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`results`.`driverid`) AS percentage FROM `results` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `races`.`date` = '1983-07-16'
+SELECT MIN(`year`) FROM `races` WHERE `name` = 'Singapore Grand Prix'
+SELECT `races`.`name` FROM `races` WHERE `races`.`year` = 2005 ORDER BY `races`.`name` DESC
+SELECT `races`.`name` FROM `races` INNER JOIN `seasons` ON `races`.`year` = `seasons`.`year` WHERE `races`.`year` = (SELECT MIN(`year`) FROM `races`) AND strftime('%m', `races`.`date`) = (SELECT strftime('%m', MIN(`date`)) FROM `races` WHERE `races`.`year` = (SELECT MIN(`year`) FROM `races`))
+SELECT `races`.`name`, `races`.`date` FROM `races` WHERE `races`.`year` = 1999 AND `races`.`round` = (SELECT MAX(`races`.`round`) FROM `races` WHERE `races`.`year` = 1999)
+SELECT `races`.`year` FROM `races` GROUP BY `races`.`year` ORDER BY MAX(`races`.`round`) DESC LIMIT 1
+SELECT `races`.`name` FROM `races` WHERE `races`.`year` = 2017 AND `races`.`name` NOT IN (SELECT `races`.`name` FROM `races` WHERE `races`.`year` = 2000)
+SELECT circuits.`name`, circuits.`location`, circuits.`country` FROM races INNER JOIN circuits ON races.`circuitid` = circuits.`circuitid` WHERE races.`name` = 'European Grand Prix' ORDER BY races.`year` LIMIT 1
+SELECT MAX(`races`.`year`) FROM `races` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `circuits`.`name` = 'Brands Hatch' AND `races`.`name` = 'British Grand Prix'
+SELECT COUNT(DISTINCT T1.`year`) FROM `races` AS T1 INNER JOIN `circuits` AS T2 ON T1.`circuitId` = T2.`circuitId` WHERE T2.`name` = 'Silverstone Circuit' AND T1.`name` LIKE '%British Grand Prix%'
+SELECT `drivers`.`forename`, `drivers`.`surname` FROM `races` INNER JOIN `results` ON `races`.`raceid` = `results`.`raceid` INNER JOIN `drivers` ON `results`.`driverid` = `drivers`.`driverid` WHERE `races`.`year` = 2010 AND `races`.`name` = 'Singapore Grand Prix' ORDER BY `results`.`position`
+SELECT T1.forename, T1.surname, T2.points FROM drivers AS T1 INNER JOIN driverstandings AS T2 ON T1.driverid = T2.driverid ORDER BY T2.points DESC LIMIT 1
+SELECT drivers.`forename`, drivers.`surname`, driverstandings.`points` FROM races INNER JOIN driverstandings ON races.`raceid` = driverstandings.`raceid` INNER JOIN drivers ON driverstandings.`driverid` = drivers.`driverid` WHERE races.`year` = 2017 AND races.`name` = 'Chinese Grand Prix' ORDER BY driverstandings.`points` DESC LIMIT 3
+SELECT drivers.`forename`, drivers.`surname`, races.`name`, MIN(laptimes.`milliseconds`) AS best_lap_time FROM `laptimes` INNER JOIN `drivers` ON laptimes.`driverid` = drivers.`driverid` INNER JOIN `races` ON laptimes.`raceid` = races.`raceid` GROUP BY laptimes.`raceid` ORDER BY best_lap_time ASC LIMIT 1
+SELECT AVG(`laptimes`.`milliseconds`) FROM `laptimes` INNER JOIN `drivers` ON `laptimes`.`driverid` = `drivers`.`driverid` INNER JOIN `races` ON `laptimes`.`raceid` = `races`.`raceid` WHERE `drivers`.`forename` = 'Lewis' AND `drivers`.`surname` = 'Hamilton' AND `races`.`name` = 'Malaysian Grand Prix' AND `races`.`year` = 2009
+SELECT CAST(SUM(CASE WHEN `results`.`position` > 1 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`results`.`raceid`) FROM `results` JOIN `drivers` ON `results`.`driverid` = `drivers`.`driverid` JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `drivers`.`surname` = 'Hamilton' AND `races`.`year` >= 2010
+SELECT T1.`forename`, T1.`surname`, T1.`nationality`, MAX(T2.`points`) AS max_points FROM `drivers` AS T1 INNER JOIN `driverStandings` AS T2 ON T1.`driverId` = T2.`driverId` GROUP BY T1.`forename`, T1.`surname`, T1.`nationality` ORDER BY COUNT(T2.`wins`) DESC LIMIT 1
+SELECT `forename`, `surname`, (strftime('%Y', 'now') - strftime('%Y', `dob`)) AS age FROM `drivers` WHERE `nationality` = 'Japanese' ORDER BY `dob` DESC LIMIT 1
+SELECT `circuits`.`name` FROM `circuits` INNER JOIN `races` ON `circuits`.`circuitid` = `races`.`circuitid` WHERE `races`.`year` BETWEEN 1990 AND 2000 GROUP BY `circuits`.`circuitid` HAVING COUNT(`races`.`raceid`) = 4
+SELECT circuits.`name`, circuits.`location`, races.`name` FROM circuits INNER JOIN races ON circuits.`circuitid` = races.`circuitid` WHERE circuits.`country` = 'USA' AND races.`year` = 2006
+SELECT races.`name`, circuits.`name`, circuits.`location` FROM races INNER JOIN circuits ON races.`circuitId` = circuits.`circuitId` WHERE races.`date` BETWEEN '2005-09-01' AND '2005-09-30'
+SELECT `races`.`name`, `races`.`date` FROM `drivers` INNER JOIN `results` ON `drivers`.`driverId` = `results`.`driverId` INNER JOIN `races` ON `results`.`raceId` = `races`.`raceId` WHERE `drivers`.`forename` = 'Alex' AND `drivers`.`surname` = 'Yoong' AND `results`.`position` < 20
+SELECT COUNT(*) FROM results AS T1 INNER JOIN races AS T2 ON T1.raceid = T2.raceid INNER JOIN circuits AS T3 ON T2.circuitid = T3.circuitid INNER JOIN drivers AS T4 ON T1.driverid = T4.driverid WHERE T4.driverref = 'michael_schumacher' AND T3.name = 'Sepang International Circuit' AND T1.points = (SELECT MAX(points) FROM results AS T5 WHERE T5.raceid = T1.raceid)
+SELECT `races`.`name`, `races`.`year` FROM `laptimes` INNER JOIN `races` ON `laptimes`.`raceid` = `races`.`raceid` INNER JOIN `drivers` ON `laptimes`.`driverid` = `drivers`.`driverid` WHERE `drivers`.`forename` = 'Michael' AND `drivers`.`surname` = 'Schumacher' ORDER BY `laptimes`.`milliseconds` ASC LIMIT 1
+SELECT AVG(`results`.`points`) FROM `drivers` INNER JOIN `results` ON `drivers`.`driverid` = `results`.`driverid` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `drivers`.`surname` = 'Irvine' AND `races`.`year` = 2000
+SELECT T1.`name`, T3.`points` FROM races AS T1 INNER JOIN results AS T3 ON T1.`raceid` = T3.`raceid` INNER JOIN drivers AS T2 ON T3.`driverid` = T2.`driverid` WHERE T2.`forename` = 'Lewis' AND T2.`surname` = 'Hamilton' AND T1.`year` = (SELECT MIN(T4.`year`) FROM races AS T4 INNER JOIN results AS T5 ON T4.`raceid` = T5.`raceid` INNER JOIN drivers AS T6 ON T5.`driverid` = T6.`driverid` WHERE T6.`forename` = 'Lewis' AND T6.`surname` = 'Hamilton') LIMIT 1
+SELECT `races`.`name`, `circuits`.`country` FROM `races` INNER JOIN `circuits` ON `races`.`circuitId` = `circuits`.`circuitId` WHERE `races`.`year` = 2017 ORDER BY `races`.`date`
+SELECT races.`name`, races.`year`, circuits.`location` FROM races JOIN circuits ON races.`circuitid` = circuits.`circuitid` JOIN results ON races.`raceid` = results.`raceid` ORDER BY results.`laps` DESC LIMIT 1
+SELECT CAST(SUM(CASE WHEN `circuits`.`country` = 'Germany' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `races` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `races`.`name` = 'European Grand Prix'
+SELECT `lat`, `lng` FROM `circuits` WHERE `name` = 'Silverstone Circuit'
+SELECT `name`, `lat` FROM `circuits` WHERE `name` IN ('Silverstone Circuit', 'Hockenheimring', 'Hungaroring') ORDER BY `lat` DESC LIMIT 1
+SELECT `circuitref` FROM `circuits` WHERE `name` = 'Marina Bay Street Circuit'
+SELECT `circuits`.`country` FROM `circuits` ORDER BY `circuits`.`alt` DESC LIMIT 1
+SELECT COUNT(`driverid`) FROM `drivers` WHERE `code` IS NULL
+SELECT `nationality` FROM `drivers` ORDER BY `dob` LIMIT 1
+SELECT `drivers`.`surname` FROM `drivers` WHERE `drivers`.`nationality` = 'Italian'
+SELECT `url` FROM `drivers` WHERE `forename` = 'Anthony' AND `surname` = 'Davidson'
+SELECT `driverref` FROM `drivers` WHERE `forename` = 'Lewis' AND `surname` = 'Hamilton'
+SELECT `circuits`.`name` FROM `races` INNER JOIN `circuits` ON `races`.`circuitId` = `circuits`.`circuitId` WHERE `races`.`year` = 2009 AND `races`.`name` = 'Spanish Grand Prix'
+SELECT DISTINCT `races`.`year` FROM `races` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `circuits`.`name` = 'Silverstone Circuit'
+SELECT `races`.`year`, `races`.`name`, `races`.`date`, `races`.`url` FROM `races` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `circuits`.`name` = 'Silverstone Circuit'
+SELECT `races`.`time` FROM `races` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `circuits`.`name` = 'Abu Dhabi Circuit' AND `races`.`year` BETWEEN 2010 AND 2019
+SELECT COUNT(*) FROM races AS r JOIN circuits AS c ON r.circuitid = c.circuitid WHERE c.country = 'Italy'
+SELECT `races`.`date` FROM `races` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `circuits`.`name` = 'Circuit de Barcelona-Catalunya'
+SELECT circuits.`url` FROM circuits INNER JOIN races ON circuits.`circuitid` = races.`circuitid` WHERE races.`name` = 'Spanish Grand Prix' AND races.`year` = 2009
+SELECT MIN(`results`.`fastestlaptime`) FROM `drivers` INNER JOIN `results` ON `drivers`.`driverid` = `results`.`driverid` WHERE `drivers`.`driverref` = 'hamilton'
+SELECT `drivers`.`forename`, `drivers`.`surname` FROM `results` INNER JOIN `drivers` ON `results`.`driverid` = `drivers`.`driverid` ORDER BY `results`.`fastestlapspeed` DESC LIMIT 1
+SELECT drivers.`driverRef` FROM races INNER JOIN results ON races.`raceId` = results.`raceId` INNER JOIN drivers ON results.`driverId` = drivers.`driverId` WHERE races.`name` = 'Canadian Grand Prix' AND races.`year` = 2007 AND results.`position` = 1 LIMIT 1
+SELECT `races`.`raceid`, `races`.`year`, `races`.`name`, `races`.`date` FROM `races` INNER JOIN `results` ON `races`.`raceid` = `results`.`raceid` INNER JOIN `drivers` ON `results`.`driverid` = `drivers`.`driverid` WHERE `drivers`.`forename` = 'Lewis' AND `drivers`.`surname` = 'Hamilton'
+SELECT T3.name FROM drivers AS T1 INNER JOIN results AS T2 ON T1.driverid = T2.driverid INNER JOIN races AS T3 ON T2.raceid = T3.raceid WHERE T1.forename = 'Lewis' AND T1.surname = 'Hamilton' ORDER BY T2.rank ASC LIMIT 1
+SELECT MAX(`results`.`fastestlapspeed`) FROM `races` INNER JOIN `results` ON `races`.`raceid` = `results`.`raceid` WHERE `races`.`name` = 'Spanish Grand Prix' AND `races`.`year` = 2009
+SELECT DISTINCT `races`.`year` FROM `drivers` INNER JOIN `results` ON `drivers`.`driverid` = `results`.`driverid` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `drivers`.`driverRef` = 'hamilton'
+SELECT results.`positionOrder` FROM drivers INNER JOIN results ON drivers.`driverId` = results.`driverId` INNER JOIN races ON results.`raceId` = races.`raceId` WHERE drivers.`forename` = 'Lewis' AND drivers.`surname` = 'Hamilton' AND races.`name` = 'Chinese Grand Prix' AND races.`year` = 2008
+SELECT `drivers`.`forename`, `drivers`.`surname` FROM `results` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` INNER JOIN `drivers` ON `results`.`driverid` = `drivers`.`driverid` WHERE `results`.`grid` = 4 AND `races`.`year` = 1989 AND `races`.`name` = 'Australian Grand Prix'
+SELECT COUNT(DISTINCT `results`.`driverid`) FROM `results` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `races`.`year` = 2008 AND `races`.`name` = 'Australian Grand Prix' AND `results`.`time` IS NOT NULL
+SELECT `lapTimes`.`lap`, `lapTimes`.`time`, `lapTimes`.`milliseconds` FROM `lapTimes` INNER JOIN `drivers` ON `lapTimes`.`driverId` = `drivers`.`driverId` INNER JOIN `races` ON `lapTimes`.`raceId` = `races`.`raceId` WHERE `drivers`.`driverRef` = 'hamilton' AND `races`.`year` = 2008 AND `races`.`name` = 'Australian Grand Prix' ORDER BY `lapTimes`.`milliseconds` ASC LIMIT 1
+SELECT `results`.`time` FROM `results` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `races`.`year` = 2008 AND `races`.`name` = 'Australian Grand Prix' AND `results`.`position` = 2
+SELECT T3.forename, T3.surname, T3.url FROM races AS T1 INNER JOIN driverStandings AS T2 ON T1.raceId = T2.raceId INNER JOIN drivers AS T3 ON T2.driverId = T3.driverId WHERE T1.year = 2008 AND T1.name = 'Australian Grand Prix' AND T2.position = 1
+SELECT COUNT(DISTINCT `drivers`.`driverid`) FROM `drivers` INNER JOIN `results` ON `drivers`.`driverid` = `results`.`driverid` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `drivers`.`nationality` = 'British' AND `races`.`year` = 2008 AND `races`.`name` = 'Australian Grand Prix'
+SELECT COUNT(DISTINCT `results`.`driverid`) FROM `results` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `races`.`year` = 2008 AND `races`.`name` = 'Chinese Grand Prix' AND `results`.`time` IS NOT NULL
+SELECT SUM(`results`.`points`) FROM `results` JOIN `drivers` ON `results`.`driverid` = `drivers`.`driverid` WHERE `drivers`.`forename` = 'Lewis' AND `drivers`.`surname` = 'Hamilton'
+SELECT AVG(CAST(SUBSTR(`results`.`fastestLapTime`, 1, 2) AS INTEGER) * 60 + CAST(SUBSTR(`results`.`fastestLapTime`, 4, 2) AS INTEGER) + CAST(SUBSTR(`results`.`fastestLapTime`, 7) AS FLOAT) / 1000) AS avg_fastest_lap_time_seconds FROM `drivers` INNER JOIN `results` ON `drivers`.`driverId` = `results`.`driverId` INNER JOIN `races` ON `results`.`raceId` = `races`.`raceId` WHERE `drivers`.`driverRef` = 'hamilton'
+SELECT CAST(COUNT(`results`.`raceid`) AS REAL) / (SELECT COUNT(`results`.`raceid`) FROM `results` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `races`.`name` = 'Australian Grand Prix' AND `races`.`year` = 2008) AS rate FROM `results` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `races`.`name` = 'Australian Grand Prix' AND `races`.`year` = 2008 AND `results`.`time` IS NOT NULL
+SELECT CAST((((SELECT `results`.`milliseconds` FROM `results` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `races`.`year` = 2008 AND `races`.`name` = 'Australian Grand Prix' AND `results`.`position` = 1) - (SELECT `results`.`milliseconds` FROM `results` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `races`.`year` = 2008 AND `races`.`name` = 'Australian Grand Prix' AND `results`.`position` = (SELECT MAX(`position`) FROM `results` WHERE `raceid` = (SELECT `raceid` FROM `races` WHERE `year` = 2008 AND `name` = 'Australian Grand Prix')))) * 100.0 / (SELECT `results`.`milliseconds` FROM `results` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `races`.`year` = 2008 AND `races`.`name` = 'Australian Grand Prix' AND `results`.`position` = (SELECT MAX(`position`) FROM `results` WHERE `raceid` = (SELECT `raceid` FROM `races` WHERE `year` = 2008 AND `name` = 'Australian Grand Prix')))) AS REAL) AS percentage_faster
+SELECT COUNT(`circuitid`) FROM `circuits` WHERE `country` = 'Australia' AND `location` = 'Adelaide'
+SELECT `lat`, `lng` FROM `circuits` WHERE `country` = 'USA'
+SELECT COUNT(*) FROM `drivers` WHERE `nationality` = 'British' AND STRFTIME('%Y', `dob`) > '1980'
+SELECT MAX(`constructorStandings`.`points`) FROM `constructors` INNER JOIN `constructorStandings` ON `constructors`.`constructorId` = `constructorStandings`.`constructorId` WHERE `constructors`.`nationality` = 'British'
+SELECT `constructors`.`name` FROM `constructors` INNER JOIN `constructorresults` ON `constructors`.`constructorid` = `constructorresults`.`constructorid` ORDER BY `constructorresults`.`points` DESC LIMIT 1
+SELECT `constructors`.`name` FROM `constructorresults` INNER JOIN `constructors` ON `constructorresults`.`constructorid` = `constructors`.`constructorid` WHERE `constructorresults`.`points` = 0 AND `constructorresults`.`raceid` = 291
+SELECT COUNT(*) FROM constructors AS T1 INNER JOIN constructorresults AS T2 ON T1.constructorid = T2.constructorid WHERE T1.nationality = 'Japanese' AND T2.points = 0 GROUP BY T1.constructorid HAVING COUNT(T2.raceid) = 2
+SELECT DISTINCT `constructors`.`name` FROM `constructorStandings` INNER JOIN `constructors` ON `constructorStandings`.`constructorId` = `constructors`.`constructorId` WHERE `constructorStandings`.`position` = 1
+SELECT COUNT(DISTINCT `constructors`.`constructorid`) FROM `constructors` INNER JOIN `results` ON `constructors`.`constructorid` = `results`.`constructorid` INNER JOIN `laptimes` ON `results`.`raceid` = `laptimes`.`raceid` AND `results`.`driverid` = `laptimes`.`driverid` WHERE `constructors`.`nationality` = 'French' AND `laptimes`.`lap` > 50
+SELECT CAST(SUM(CASE WHEN `results`.`time` IS NOT NULL THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `drivers` INNER JOIN `results` ON `drivers`.`driverid` = `results`.`driverid` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `drivers`.`nationality` = 'Japanese' AND `races`.`year` BETWEEN 2007 AND 2009
+SELECT AVG(CAST(SUBSTR(`results`.`time`, 1, 2) * 3600 + SUBSTR(`results`.`time`, 4, 2) * 60 + SUBSTR(`results`.`time`, 7, 2) + SUBSTR(`results`.`time`, 10) / 1000.0 AS REAL)) AS average_time_seconds FROM `races` JOIN `results` ON `races`.`raceId` = `results`.`raceId` JOIN `driverStandings` ON `results`.`raceId` = `driverStandings`.`raceId` AND `results`.`driverId` = `driverStandings`.`driverId` WHERE `driverStandings`.`position` = 1 AND `races`.`year` < 1975 AND `results`.`time` IS NOT NULL
+SELECT T1.forename, T1.surname FROM drivers AS T1 INNER JOIN driverStandings AS T2 ON T1.driverId = T2.driverId WHERE T1.dob > '1975-12-31' AND T2.position = 2
+SELECT COUNT(`drivers`.`driverid`) FROM `drivers` INNER JOIN `results` ON `drivers`.`driverid` = `results`.`driverid` WHERE `drivers`.`nationality` = 'Italian' AND `results`.`time` IS NULL
+SELECT T2.forename, T2.surname FROM lapTimes AS T1 INNER JOIN drivers AS T2 ON T1.driverId = T2.driverId ORDER BY T1.milliseconds ASC LIMIT 1
+SELECT T1.`lap` FROM laptimes AS T1 INNER JOIN results AS T2 ON T1.`raceid` = T2.`raceid` AND T1.`driverid` = T2.`driverid` INNER JOIN races AS T3 ON T1.`raceid` = T3.`raceid` WHERE T2.`position` = 1 AND T3.`year` = 2009 ORDER BY T1.`time` ASC LIMIT 1
+SELECT AVG(`results`.`fastestlapspeed`) FROM `races` INNER JOIN `results` ON `races`.`raceid` = `results`.`raceid` WHERE `races`.`name` = 'Spanish Grand Prix' AND `races`.`year` = 2009
+SELECT `races`.`name`, `races`.`year` FROM `races` INNER JOIN `results` ON `races`.`raceId` = `results`.`raceId` WHERE `results`.`milliseconds` IS NOT NULL ORDER BY `results`.`milliseconds` ASC LIMIT 1
+SELECT CAST(COUNT(CASE WHEN drivers.`dob` < '1985-01-01' AND results.`laps` > 50 THEN drivers.`driverId` END) AS REAL) * 100 / COUNT(drivers.`driverId`) FROM drivers INNER JOIN results ON drivers.`driverId` = results.`driverId` INNER JOIN races ON results.`raceId` = races.`raceId` WHERE races.`year` BETWEEN 2000 AND 2005
+SELECT COUNT(DISTINCT `drivers`.`driverid`) FROM `drivers` INNER JOIN `laptimes` ON `drivers`.`driverid` = `laptimes`.`driverid` WHERE `drivers`.`nationality` = 'French' AND `laptimes`.`milliseconds` < 120000
+SELECT `code` FROM `drivers` WHERE `nationality` = 'America'
+SELECT `raceid` FROM `races` WHERE `year` = '2009'
+SELECT COUNT(DISTINCT `results`.`driverid`) FROM `results` WHERE `results`.`raceid` = 18
+SELECT T1.`code`, T1.`number` FROM drivers AS T1 INNER JOIN (SELECT `driverId`, MAX(`dob`) AS max_dob FROM drivers GROUP BY `driverId` ORDER BY max_dob DESC LIMIT 3) AS T2 ON T1.`driverId` = T2.`driverId` WHERE T1.`nationality` = 'Dutch'
+SELECT `driverref` FROM `drivers` WHERE `forename` = 'Robert' AND `surname` = 'Kubica'
+SELECT COUNT(*) FROM drivers WHERE nationality = 'British' AND SUBSTR(dob, 1, 4) = '1980'
+SELECT T1.`driverId`, T1.`driverRef`, T1.`forename`, T1.`surname`, T1.`dob`, T1.`nationality`, MIN(T2.`time`) AS earliest_lap_time FROM drivers AS T1 INNER JOIN lapTimes AS T2 ON T1.`driverId` = T2.`driverId` WHERE T1.`nationality` = 'German' AND T1.`dob` BETWEEN '1980-01-01' AND '1990-12-31' GROUP BY T1.`driverId` ORDER BY earliest_lap_time ASC LIMIT 3
+SELECT `driverref` FROM `drivers` WHERE `nationality` = 'German' ORDER BY `dob` ASC LIMIT 1
+SELECT `drivers`.`driverid`, `drivers`.`code` FROM `drivers` INNER JOIN `results` ON `drivers`.`driverid` = `results`.`driverid` WHERE `drivers`.`dob` LIKE '1971-%' ORDER BY `results`.`fastestlaptime` ASC LIMIT 1
+SELECT `drivers`.`forename`, `drivers`.`surname`, MAX(`lapTimes`.`time`) AS latest_lap_time FROM `drivers` INNER JOIN `lapTimes` ON `drivers`.`driverId` = `lapTimes`.`driverId` WHERE `drivers`.`nationality` = 'Spanish' AND `drivers`.`dob` < '1982-01-01' GROUP BY `drivers`.`driverId` ORDER BY latest_lap_time DESC LIMIT 10
+SELECT T1.`year` FROM seasons AS T1 INNER JOIN races AS T2 ON T1.`year` = T2.`year` INNER JOIN results AS T3 ON T2.`raceid` = T3.`raceid` ORDER BY T3.`fastestlaptime` ASC LIMIT 1
+SELECT T2.`year` FROM `laptimes` AS T1 INNER JOIN `races` AS T2 ON T1.`raceid` = T2.`raceid` ORDER BY T1.`time` DESC LIMIT 1
+SELECT `drivers`.`driverid` FROM `drivers` INNER JOIN `laptimes` ON `drivers`.`driverid` = `laptimes`.`driverid` WHERE `laptimes`.`lap` = 1 ORDER BY `laptimes`.`time` ASC LIMIT 5
+SELECT COUNT(*) FROM `results` INNER JOIN `status` ON `results`.`statusid` = `status`.`statusid` WHERE `results`.`raceid` > 50 AND `results`.`raceid` < 100 AND `results`.`time` IS NOT NULL AND `results`.`statusid` = 2
+SELECT COUNT(`races`.`raceid`), `circuits`.`location`, `circuits`.`lat`, `circuits`.`lng` FROM `races` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `circuits`.`country` = 'Austria' GROUP BY `circuits`.`location`, `circuits`.`lat`, `circuits`.`lng`
+SELECT T1.`raceId`, COUNT(T2.`resultId`) AS finishers FROM races AS T1 INNER JOIN results AS T2 ON T1.`raceId` = T2.`raceId` WHERE T2.`time` IS NOT NULL GROUP BY T1.`raceId` ORDER BY finishers DESC LIMIT 1
+SELECT `drivers`.`driverref`, `drivers`.`nationality`, `drivers`.`dob` FROM `qualifying` INNER JOIN `drivers` ON `qualifying`.`driverid` = `drivers`.`driverid` WHERE `qualifying`.`raceid` = 23 AND `qualifying`.`q2` IS NOT NULL
+SELECT T1.year, T1.date, T1.time, T2.driverRef FROM races AS T1 INNER JOIN (SELECT T3.driverId, T3.driverRef, MIN(T1.date) AS first_qualifying_date FROM races AS T1 INNER JOIN qualifying AS T2 ON T1.raceId = T2.raceId INNER JOIN drivers AS T3 ON T2.driverId = T3.driverId GROUP BY T3.driverId) AS T2 ON T1.date = T2.first_qualifying_date INNER JOIN drivers AS T3 ON T2.driverId = T3.driverId ORDER BY T3.dob DESC LIMIT 1
+SELECT COUNT(*) FROM `drivers` INNER JOIN `results` ON `drivers`.`driverid` = `results`.`driverid` INNER JOIN `status` ON `results`.`statusid` = `status`.`statusid` WHERE `drivers`.`nationality` = 'American' AND `status`.`status` = 'Puncture'
+SELECT constructors.`url` FROM constructors INNER JOIN constructorStandings ON constructors.`constructorId` = constructorStandings.`constructorId` WHERE constructors.`nationality` = 'Italian' ORDER BY constructorStandings.`points` DESC LIMIT 1
+SELECT `constructors`.`url` FROM `constructors` INNER JOIN `constructorStandings` ON `constructors`.`constructorId` = `constructorStandings`.`constructorId` ORDER BY `constructorStandings`.`wins` DESC LIMIT 1
+SELECT `drivers`.`forename`, `drivers`.`surname` FROM `lapTimes` INNER JOIN `drivers` ON `lapTimes`.`driverId` = `drivers`.`driverId` INNER JOIN `races` ON `lapTimes`.`raceId` = `races`.`raceId` WHERE `races`.`name` = 'French Grand Prix' AND `lapTimes`.`lap` = 3 ORDER BY `lapTimes`.`time` DESC LIMIT 1
+SELECT `races`.`name`, `laptimes`.`milliseconds` FROM `laptimes` INNER JOIN `races` ON `laptimes`.`raceid` = `races`.`raceid` WHERE `laptimes`.`lap` = 1 ORDER BY `laptimes`.`milliseconds` ASC LIMIT 1
+SELECT AVG(`results`.`fastestLapTime`) FROM `results` INNER JOIN `races` ON `results`.`raceId` = `races`.`raceId` WHERE `races`.`year` = 2006 AND `races`.`name` = 'United States Grand Prix' AND `results`.`rank` < 11
+SELECT `drivers`.`forename`, `drivers`.`surname`, AVG(`pitstops`.`duration`) AS avg_duration FROM `drivers` INNER JOIN `pitstops` ON `drivers`.`driverid` = `pitstops`.`driverid` WHERE `drivers`.`nationality` = 'German' AND `drivers`.`dob` BETWEEN '1980-01-01' AND '1985-12-31' GROUP BY `drivers`.`driverid` ORDER BY avg_duration ASC LIMIT 3
+SELECT drivers.`forename`, drivers.`surname`, results.`time` FROM results INNER JOIN races ON results.`raceid` = races.`raceid` INNER JOIN drivers ON results.`driverid` = drivers.`driverid` WHERE races.`name` = 'Canadian Grand Prix' AND races.`year` = 2008 AND results.`position` = 1
+SELECT `constructors`.`constructorref`, `constructors`.`url` FROM `results` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` INNER JOIN `constructors` ON `results`.`constructorid` = `constructors`.`constructorid` WHERE `races`.`year` = 2009 AND `races`.`name` = 'Singapore Grand Prix' AND `results`.`position` = 1
+SELECT `forename`, `surname`, `dob` FROM `drivers` WHERE `nationality` = 'Austrian' AND `dob` BETWEEN '1981-01-01' AND '1991-12-31'
+SELECT drivers.`forename` || ' ' || drivers.`surname` AS full_name, drivers.`url`, drivers.`dob` FROM drivers WHERE drivers.`nationality` = 'German' AND drivers.`dob` BETWEEN '1971-01-01' AND '1985-12-31' ORDER BY drivers.`dob` DESC
+SELECT `location`, `country`, `lat`, `lng` FROM `circuits` WHERE `name` = 'Hungaroring'
+SELECT SUM(`results`.`points`) AS total_points, `constructors`.`name`, `constructors`.`nationality` FROM `races` INNER JOIN `results` ON `races`.`raceId` = `results`.`raceId` INNER JOIN `constructors` ON `results`.`constructorId` = `constructors`.`constructorId` WHERE `races`.`name` = 'Monaco Grand Prix' AND `races`.`year` BETWEEN 1980 AND 2010 GROUP BY `results`.`constructorId` ORDER BY total_points DESC LIMIT 1
+SELECT AVG(`results`.`points`) FROM `drivers` INNER JOIN `results` ON `drivers`.`driverid` = `results`.`driverid` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `drivers`.`forename` = 'Lewis' AND `drivers`.`surname` = 'Hamilton' AND `races`.`name` = 'Turkish Grand Prix'
+SELECT AVG(race_count) FROM (SELECT COUNT(`raceid`) AS race_count FROM `races` WHERE `date` BETWEEN '2000-01-01' AND '2010-12-31' GROUP BY `year`) AS subquery
+SELECT `nationality` FROM `drivers` GROUP BY `nationality` ORDER BY COUNT(*) DESC LIMIT 1
+SELECT `driverstandings`.`wins` FROM `driverstandings` JOIN `drivers` ON `driverstandings`.`driverid` = `drivers`.`driverid` ORDER BY `driverstandings`.`points` DESC LIMIT 1 OFFSET 90
+SELECT T1.`name` FROM `races` AS T1 INNER JOIN `results` AS T2 ON T1.`raceId` = T2.`raceId` ORDER BY T2.`fastestLapTime` ASC LIMIT 1
+SELECT circuits.`location`, circuits.`country` FROM races INNER JOIN circuits ON races.`circuitid` = circuits.`circuitid` WHERE races.`date` = (SELECT MAX(races.`date`) FROM races)
+SELECT T3.forename, T3.surname FROM qualifying AS T1 INNER JOIN races AS T2 ON T1.raceid = T2.raceid INNER JOIN drivers AS T3 ON T1.driverid = T3.driverid INNER JOIN circuits AS T4 ON T2.circuitid = T4.circuitid WHERE T2.year = 2008 AND T4.name = 'Marina Bay Street Circuit' ORDER BY T1.q3 LIMIT 1
+SELECT `drivers`.`forename` || ' ' || `drivers`.`surname` AS full_name, `drivers`.`nationality`, `races`.`name` AS race_name FROM `drivers` INNER JOIN `results` ON `drivers`.`driverId` = `results`.`driverId` INNER JOIN `races` ON `results`.`raceId` = `races`.`raceId` ORDER BY `drivers`.`dob` DESC LIMIT 1
+SELECT COUNT(`results`.`statusid`) FROM `results` INNER JOIN `status` ON `results`.`statusid` = `status`.`statusid` INNER JOIN `races` ON `results`.`raceid` = `races`.`raceid` WHERE `status`.`statusid` = 3 AND `races`.`name` = 'Canadian Grand Prix' GROUP BY `results`.`driverid` ORDER BY COUNT(`results`.`statusid`) DESC LIMIT 1
+SELECT T1.forename || ' ' || T1.surname AS full_name, T2.wins FROM drivers AS T1 INNER JOIN driverstandings AS T2 ON T1.driverid = T2.driverid ORDER BY T1.dob LIMIT 1
+SELECT MAX(`duration`) FROM `pitstops`
+SELECT MIN(`laptimes`.`milliseconds`) FROM `laptimes`
+SELECT MAX(`pitstops`.`duration`) FROM `pitstops` INNER JOIN `drivers` ON `pitstops`.`driverid` = `drivers`.`driverid` WHERE `drivers`.`surname` = 'Hamilton'
+SELECT T1.lap FROM pitStops AS T1 INNER JOIN drivers AS T2 ON T1.driverId = T2.driverId INNER JOIN races AS T3 ON T1.raceId = T3.raceId WHERE T2.driverRef = 'hamilton' AND T3.year = 2011 AND T3.name = 'Australian Grand Prix'
+SELECT `pitstops`.`duration`, `drivers`.`surname`, `drivers`.`forename` FROM `pitstops` JOIN `races` ON `pitstops`.`raceid` = `races`.`raceid` JOIN `drivers` ON `pitstops`.`driverid` = `drivers`.`driverid` WHERE `races`.`year` = 2011 AND `races`.`name` = 'Australian Grand Prix'
+SELECT MIN(`laptimes`.`time`) FROM `laptimes` INNER JOIN `drivers` ON `laptimes`.`driverid` = `drivers`.`driverid` WHERE `drivers`.`forename` = 'Lewis' AND `drivers`.`surname` = 'Hamilton'
+SELECT drivers.`forename`, drivers.`surname` FROM lapTimes INNER JOIN drivers ON lapTimes.`driverId` = drivers.`driverId` ORDER BY lapTimes.`milliseconds` ASC LIMIT 20
+SELECT T1.`position` FROM lapTimes AS T1 INNER JOIN drivers AS T2 ON T1.`driverId` = T2.`driverId` WHERE T2.`driverRef` = 'hamilton' ORDER BY T1.`time` ASC LIMIT 1
+SELECT MIN(`laptimes`.`time`) FROM `laptimes` INNER JOIN `races` ON `laptimes`.`raceid` = `races`.`raceid` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `circuits`.`name` = 'Austrian Grand Prix Circuit'
+SELECT `circuits`.`name`, MIN(`lapTimes`.`time`) AS lap_record FROM `circuits` INNER JOIN `races` ON `circuits`.`circuitId` = `races`.`circuitId` INNER JOIN `lapTimes` ON `races`.`raceId` = `lapTimes`.`raceId` WHERE `circuits`.`country` = 'Italy' GROUP BY `circuits`.`name`
+SELECT `races`.`name` FROM `laptimes` JOIN `races` ON `laptimes`.`raceid` = `races`.`raceid` JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `circuits`.`name` = 'Austrian Grand Prix Circuit' ORDER BY `laptimes`.`time` ASC LIMIT 1
+SELECT ps.`duration` FROM `pitstops` AS ps JOIN `laptimes` AS lt ON ps.`raceid` = lt.`raceid` AND ps.`driverid` = lt.`driverid` JOIN `races` AS r ON lt.`raceid` = r.`raceid` WHERE r.`name` = 'Austrian Grand Prix' ORDER BY lt.`time` ASC LIMIT 1
+SELECT `circuits`.`lat`, `circuits`.`lng` FROM `laptimes` INNER JOIN `races` ON `laptimes`.`raceid` = `races`.`raceid` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `laptimes`.`time` = '1:29.488'
+SELECT AVG(`pitStops`.`milliseconds`) FROM `pitStops` INNER JOIN `drivers` ON `pitStops`.`driverId` = `drivers`.`driverId` WHERE `drivers`.`driverRef` = 'hamilton'
+SELECT AVG(`laptimes`.`milliseconds`) FROM `laptimes` INNER JOIN `races` ON `laptimes`.`raceid` = `races`.`raceid` INNER JOIN `circuits` ON `races`.`circuitid` = `circuits`.`circuitid` WHERE `circuits`.`country` = 'Italy'
+SELECT `player_attributes`.`player_api_id` FROM `player_attributes` ORDER BY `overall_rating` DESC LIMIT 1
+SELECT `player_name`, `height` FROM `player` ORDER BY `height` DESC LIMIT 1
+SELECT `player_attributes`.`preferred_foot` FROM `player_attributes` ORDER BY `player_attributes`.`potential` ASC LIMIT 1
+SELECT COUNT(`Player_Attributes`.`id`) FROM `Player_Attributes` INNER JOIN `Player` ON `Player_Attributes`.`player_api_id` = `Player`.`player_api_id` WHERE `Player_Attributes`.`overall_rating` >= 60 AND `Player_Attributes`.`overall_rating` < 65 AND `Player_Attributes`.`defensive_work_rate` = 'low'
+SELECT `player`.`id` FROM `player` JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` ORDER BY `player_attributes`.`crossing` DESC LIMIT 5
+SELECT T1.`name` FROM `league` AS T1 INNER JOIN (SELECT `league_id`, SUM(`home_team_goal` + `away_team_goal`) AS total_goals FROM `match` WHERE `season` = '2015/2016' GROUP BY `league_id` ORDER BY total_goals DESC LIMIT 1) AS T2 ON T1.`id` = T2.`league_id`
+SELECT `Team`.`team_long_name` FROM `Match` INNER JOIN `Team` ON `Match`.`home_team_api_id` = `Team`.`team_api_id` WHERE `Match`.`season` = '2015/2016' AND `Match`.`home_team_goal` < `Match`.`away_team_goal` GROUP BY `Team`.`team_long_name` ORDER BY COUNT(*) ASC LIMIT 1
+SELECT `player`.`player_name` FROM `player_attributes` INNER JOIN `player` ON `player_attributes`.`player_api_id` = `player`.`player_api_id` ORDER BY `player_attributes`.`penalties` DESC LIMIT 10
+SELECT T2.`team_long_name` FROM `Match` AS T1 INNER JOIN `Team` AS T2 ON T1.`away_team_api_id` = T2.`team_api_id` INNER JOIN `League` AS T3 ON T1.`league_id` = T3.`id` WHERE T3.`name` = 'Scotland Premier League' AND T1.`season` = '2009/2010' AND T1.`away_team_goal` > T1.`home_team_goal` GROUP BY T2.`team_long_name` ORDER BY COUNT(*) DESC LIMIT 1
+SELECT `team`.`team_long_name`, `team_attributes`.`buildupplayspeed` FROM `team` INNER JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` ORDER BY `team_attributes`.`buildupplayspeed` DESC LIMIT 4
+SELECT T2.`name` FROM `match` AS T1 INNER JOIN `league` AS T2 ON T1.`league_id` = T2.`id` WHERE T1.`season` = '2015/2016' GROUP BY T2.`name` ORDER BY SUM(T1.`home_team_goal` = T1.`away_team_goal`) DESC LIMIT 1
+SELECT STRFTIME('%Y', 'now') - STRFTIME('%Y', `player`.`birthday`) AS age FROM `player` JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE `player_attributes`.`sprint_speed` >= 97 AND STRFTIME('%Y', `player_attributes`.`date`) >= '2013' AND STRFTIME('%Y', `player_attributes`.`date`) <= '2015'
+SELECT L.`name`, COUNT(M.`id`) AS match_count FROM `Match` M INNER JOIN `League` L ON M.`league_id` = L.`id` GROUP BY M.`league_id` ORDER BY match_count DESC LIMIT 1
+SELECT AVG(`height`) FROM `player` WHERE `birthday` >= '1990-01-01 00:00:00' AND `birthday` < '1996-01-01 00:00:00'
+SELECT `player_attributes`.`player_api_id` FROM `player_attributes` WHERE `player_attributes`.`overall_rating` = (SELECT MAX(`player_attributes`.`overall_rating`) FROM `player_attributes` WHERE SUBSTR(`player_attributes`.`date`, 1, 4) = '2010') AND SUBSTR(`player_attributes`.`date`, 1, 4) = '2010'
+SELECT `team_fifa_api_id` FROM `Team_Attributes` WHERE `buildUpPlaySpeed` > 50 AND `buildUpPlaySpeed` < 60
+SELECT `team`.`team_long_name` FROM `team` JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE strftime('%Y', `team_attributes`.`date`) = '2012' AND `team_attributes`.`buildupplaypassing` > (SELECT AVG(`buildupplaypassing`) FROM `team_attributes` WHERE strftime('%Y', `date`) = '2012')
+SELECT CAST(SUM(CASE WHEN T2.preferred_foot = 'left' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.player_fifa_api_id) FROM player AS T1 INNER JOIN player_attributes AS T2 ON T1.player_fifa_api_id = T2.player_fifa_api_id WHERE SUBSTR(T1.birthday, 1, 4) BETWEEN '1987' AND '1992'
+SELECT `league`.`name`, SUM(`match`.`home_team_goal` + `match`.`away_team_goal`) AS total_goals FROM `match` INNER JOIN `league` ON `match`.`league_id` = `league`.`id` GROUP BY `league`.`name` ORDER BY total_goals ASC LIMIT 5
+SELECT CAST(SUM(`player_attributes`.`long_shots`) AS REAL) / COUNT(`player_attributes`.`player_fifa_api_id`) FROM `player` INNER JOIN `player_attributes` ON `player`.`player_fifa_api_id` = `player_attributes`.`player_fifa_api_id` WHERE `player`.`player_name` = 'Ahmed Samir Farag'
+SELECT `player`.`player_name`, AVG(`player_attributes`.`heading_accuracy`) AS avg_heading_accuracy FROM `player` JOIN `player_attributes` ON `player`.`player_fifa_api_id` = `player_attributes`.`player_fifa_api_id` WHERE `player`.`height` > 180 GROUP BY `player`.`player_name` ORDER BY avg_heading_accuracy DESC LIMIT 10
+SELECT T2.`team_long_name` FROM `team_attributes` AS T1 INNER JOIN `team` AS T2 ON T1.`team_api_id` = T2.`team_api_id` WHERE T1.`buildupplaydribblingclass` = 'Normal' AND T1.`date` >= '2014-01-01 00:00:00' AND T1.`date` <= '2014-12-31 00:00:00' AND T1.`chancecreationpassing` < (SELECT AVG(`chancecreationpassing`) FROM `team_attributes` WHERE `buildupplaydribblingclass` = 'Normal' AND `date` >= '2014-01-01 00:00:00' AND `date` <= '2014-12-31 00:00:00') ORDER BY T1.`chancecreationpassing` DESC
+SELECT `league`.`name` FROM `match` JOIN `league` ON `match`.`league_id` = `league`.`id` WHERE `match`.`season` = '2009/2010' GROUP BY `league`.`name` HAVING AVG(`match`.`home_team_goal`) > AVG(`match`.`away_team_goal`)
+SELECT `team_short_name` FROM `team` WHERE `team_long_name` = 'Queens Park Rangers'
+SELECT `player_name` FROM `Player` WHERE `birthday` LIKE '1970-10%'
+SELECT `player_attributes`.`attacking_work_rate` FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE `player`.`player_name` = 'Franco Zennaro' LIMIT 1
+SELECT `team_attributes`.`buildupplaypositioningclass` FROM `team` JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team`.`team_long_name` = 'ADO Den Haag'
+SELECT `player_attributes`.`heading_accuracy` FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE `player`.`player_name` = 'Francois Affolter' AND `player_attributes`.`date` = '2014-09-18 00:00:00'
+SELECT `Player_Attributes`.`overall_rating` FROM `Player_Attributes` INNER JOIN `Player` ON `Player_Attributes`.`player_api_id` = `Player`.`player_api_id` WHERE `Player`.`player_name` = 'Gabriel Tamas' AND strftime('%Y', `Player_Attributes`.`date`) = '2011' LIMIT 1
+SELECT COUNT(`match`.`id`) FROM `match` INNER JOIN `league` ON `match`.`league_id` = `league`.`id` WHERE `match`.`season` = '2015/2016' AND `league`.`name` = 'Scotland Premier League'
+SELECT `player_attributes`.`preferred_foot` FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` ORDER BY `player`.`birthday` DESC LIMIT 1
+SELECT `player`.`player_name` FROM `player_attributes` INNER JOIN `player` ON `player_attributes`.`player_api_id` = `player`.`player_api_id` WHERE `player_attributes`.`potential` = (SELECT MAX(`potential`) FROM `player_attributes`)
+SELECT COUNT(DISTINCT `player`.`player_api_id`) FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE `player`.`weight` < 130 AND `player_attributes`.`preferred_foot` = 'left'
+SELECT `team`.`team_short_name` FROM `team` INNER JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team_attributes`.`chancecreationpassingclass` = 'Risky'
+SELECT `Player_Attributes`.`defensive_work_rate` FROM `Player_Attributes` INNER JOIN `Player` ON `Player_Attributes`.`player_api_id` = `Player`.`player_api_id` WHERE `Player`.`player_name` = 'David Wilson' ORDER BY `Player_Attributes`.`date` DESC LIMIT 1
+SELECT `player`.`birthday` FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` ORDER BY `player_attributes`.`overall_rating` DESC LIMIT 1
+SELECT `league`.`name` FROM `league` INNER JOIN `country` ON `league`.`country_id` = `country`.`id` WHERE `country`.`name` = 'Netherlands'
+SELECT AVG(`match`.`home_team_goal`) FROM `match` INNER JOIN `country` ON `match`.`country_id` = `country`.`id` WHERE `country`.`name` = 'Poland' AND `match`.`season` = '2010/2011'
+SELECT T1.player_name, AVG(T2.finishing) AS avg_finishing_rate FROM Player AS T1 INNER JOIN Player_Attributes AS T2 ON T1.player_api_id = T2.player_api_id WHERE T1.height = (SELECT MAX(height) FROM Player) OR T1.height = (SELECT MIN(height) FROM Player) GROUP BY T1.player_name ORDER BY avg_finishing_rate DESC LIMIT 1
+SELECT `player_name` FROM `player` WHERE `height` > 180
+SELECT COUNT(`id`) FROM `Player` WHERE strftime('%Y', `birthday`) > '1990'
+SELECT COUNT(`player`.`id`) FROM `player` WHERE `player`.`player_name` LIKE 'Adam %' AND `player`.`weight` > 170
+SELECT `player`.`player_name` FROM `player_attributes` JOIN `player` ON `player_attributes`.`player_api_id` = `player`.`player_api_id` WHERE `player_attributes`.`overall_rating` > 80 AND strftime('%Y', `player_attributes`.`date`) BETWEEN '2008' AND '2010'
+SELECT `player_attributes`.`potential` FROM `player_attributes` INNER JOIN `player` ON `player_attributes`.`player_api_id` = `player`.`player_api_id` WHERE `player`.`player_name` = 'Aaron Doran'
+SELECT `player`.`player_name` FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE `player_attributes`.`preferred_foot` = 'left'
+SELECT `team`.`team_long_name` FROM `team` INNER JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team_attributes`.`buildupplayspeedclass` = 'Fast'
+SELECT `Team_Attributes`.`buildUpPlayPassingClass` FROM `Team_Attributes` INNER JOIN `Team` ON `Team_Attributes`.`team_api_id` = `Team`.`team_api_id` WHERE `Team`.`team_short_name` = 'CLB' LIMIT 1
+SELECT `team`.`team_short_name` FROM `team` JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team_attributes`.`buildupplaypassing` > 70
+SELECT AVG(`t2`.`overall_rating`) FROM `player_attributes` AS `t1` INNER JOIN `player` AS `t2` ON `t1`.`player_api_id` = `t2`.`player_api_id` WHERE `t1`.`date` BETWEEN '2010-01-01 00:00:00' AND '2015-12-31 23:59:59' AND `t2`.`height` > 170
+SELECT `player_name` FROM `player` ORDER BY `height` ASC LIMIT 1
+SELECT T2.`name` FROM `league` AS T1 INNER JOIN `country` AS T2 ON T1.`country_id` = T2.`id` WHERE T1.`name` = 'Italy Serie A'
+SELECT `team`.`team_short_name` FROM `team_attributes` INNER JOIN `team` ON `team_attributes`.`team_api_id` = `team`.`team_api_id` WHERE `team_attributes`.`buildupplayspeed` = 31 AND `team_attributes`.`buildupplaydribbling` = 53 AND `team_attributes`.`buildupplaypassing` = 32
+SELECT AVG(`player_attributes`.`overall_rating`) FROM `player_attributes` INNER JOIN `player` ON `player_attributes`.`player_api_id` = `player`.`player_api_id` WHERE `player`.`player_name` = 'Aaron Doran'
+SELECT COUNT(`Match`.`id`) FROM `Match` INNER JOIN `League` ON `Match`.`league_id` = `League`.`id` WHERE `League`.`name` = 'Germany 1. Bundesliga' AND strftime('%Y-%m', `Match`.`date`) BETWEEN '2008-08' AND '2008-10'
+SELECT `team`.`team_short_name` FROM `match` INNER JOIN `team` ON `match`.`home_team_api_id` = `team`.`team_api_id` WHERE `match`.`home_team_goal` = 10
+SELECT `player`.`player_name` FROM `player_attributes` INNER JOIN `player` ON `player_attributes`.`player_api_id` = `player`.`player_api_id` WHERE `player_attributes`.`potential` = 61 GROUP BY `player`.`player_name` HAVING MAX(`player_attributes`.`balance`)
+SELECT (SUM(CASE WHEN T1.player_name = 'Abdou Diallo' THEN T2.ball_control ELSE 0 END) / COUNT(CASE WHEN T1.player_name = 'Abdou Diallo' THEN T1.id ELSE NULL END)) - (SUM(CASE WHEN T1.player_name = 'Aaron Appindangoye' THEN T2.ball_control ELSE 0 END) / COUNT(CASE WHEN T1.player_name = 'Aaron Appindangoye' THEN T1.id ELSE NULL END)) AS difference FROM Player AS T1 INNER JOIN Player_Attributes AS T2 ON T1.player_api_id = T2.player_api_id WHERE T1.player_name IN ('Abdou Diallo', 'Aaron Appindangoye')
+SELECT `team_long_name` FROM `team` WHERE `team_short_name` = 'GEN'
+SELECT `player_name` FROM `Player` WHERE `player_name` IN ('Aaron Lennon', 'Abdelaziz Barrada') ORDER BY `birthday` ASC LIMIT 1
+SELECT `player_name` FROM `player` ORDER BY `height` DESC LIMIT 1
+SELECT COUNT(`player_attributes`.`id`) FROM `player_attributes` WHERE `player_attributes`.`preferred_foot` = 'left' AND `player_attributes`.`attacking_work_rate` = 'low'
+SELECT `country`.`name` FROM `league` INNER JOIN `country` ON `league`.`country_id` = `country`.`id` WHERE `league`.`name` = 'Belgium Jupiler League'
+SELECT `league`.`name` FROM `league` INNER JOIN `country` ON `league`.`country_id` = `country`.`id` WHERE `country`.`name` = 'Germany'
+SELECT `player`.`player_name` FROM `player_attributes` INNER JOIN `player` ON `player_attributes`.`player_api_id` = `player`.`player_api_id` ORDER BY `player_attributes`.`overall_rating` DESC LIMIT 1
+SELECT COUNT(DISTINCT `player`.`id`) FROM `player` JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE strftime('%Y', `player`.`birthday`) < '1986' AND `player_attributes`.`defensive_work_rate` = 'high'
+SELECT P.`player_name` FROM `Player_Attributes` AS PA INNER JOIN `Player` AS P ON PA.`player_api_id` = P.`player_api_id` WHERE P.`player_name` IN ('Alexis', 'Ariel Borysiuk', 'Arouna Kone') ORDER BY PA.`crossing` DESC LIMIT 1
+SELECT `player_attributes`.`heading_accuracy` FROM `player_attributes` INNER JOIN `player` ON `player_attributes`.`player_api_id` = `player`.`player_api_id` WHERE `player`.`player_name` = 'Ariel Borysiuk'
+SELECT COUNT(`player`.`id`) FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE `player`.`height` > 180 AND `player_attributes`.`volleys` > 70
+SELECT `player`.`player_name` FROM `player_attributes` INNER JOIN `player` ON `player_attributes`.`player_api_id` = `player`.`player_api_id` WHERE `player_attributes`.`volleys` > 70 AND `player_attributes`.`dribbling` > 70
+SELECT COUNT(`match`.`id`) FROM `match` INNER JOIN `country` ON `match`.`country_id` = `country`.`id` WHERE `match`.`season` = '2008/2009' AND `country`.`name` = 'Belgium'
+SELECT `player_attributes`.`long_passing` FROM `player` JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` ORDER BY `player`.`birthday` ASC LIMIT 1
+SELECT COUNT(`Match`.`id`) FROM `Match` INNER JOIN `League` ON `Match`.`league_id` = `League`.`id` WHERE `League`.`name` = 'Belgium Jupiler League' AND SUBSTR(`Match`.`date`, 1, 7) = '2009-04'
+SELECT T2.`name` FROM `match` AS T1 INNER JOIN `league` AS T2 ON T1.`league_id` = T2.`id` WHERE T1.`season` = '2008/2009' GROUP BY T2.`name` ORDER BY COUNT(T1.`id`) DESC LIMIT 1
+SELECT AVG(`player_attributes`.`overall_rating`) FROM `player` JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE strftime('%Y', `player`.`birthday`) < '1986'
+SELECT ((SELECT `overall_rating` FROM `player_attributes` WHERE `player_api_id` = (SELECT `player_api_id` FROM `player` WHERE `player_name` = 'Ariel Borysiuk')) - (SELECT `overall_rating` FROM `player_attributes` WHERE `player_api_id` = (SELECT `player_api_id` FROM `player` WHERE `player_name` = 'Paulin Puel'))) * 100.0 / (SELECT `overall_rating` FROM `player_attributes` WHERE `player_api_id` = (SELECT `player_api_id` FROM `player` WHERE `player_name` = 'Paulin Puel')) AS percentage_difference
+SELECT AVG(`team_attributes`.`buildupplayspeed`) FROM `team` INNER JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team`.`team_long_name` = 'Heart of Midlothian'
+SELECT AVG(T1.overall_rating) FROM player_attributes AS T1 INNER JOIN player AS T2 ON T1.player_api_id = T2.player_api_id WHERE T2.player_name = 'Pietro Marino'
+SELECT SUM(`player_attributes`.`crossing`) FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE `player`.`player_name` = 'Aaron Lennox'
+SELECT MAX(`team_attributes`.`chancecreationpassing`) AS highest_score, `team_attributes`.`chancecreationpassingclass` FROM `team` INNER JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team`.`team_long_name` = 'Ajax'
+SELECT `Player_Attributes`.`preferred_foot` FROM `Player_Attributes` INNER JOIN `Player` ON `Player_Attributes`.`player_api_id` = `Player`.`player_api_id` WHERE `Player`.`player_name` = 'Abdou Diallo'
+SELECT MAX(`player_attributes`.`overall_rating`) FROM `player_attributes` INNER JOIN `player` ON `player_attributes`.`player_api_id` = `player`.`player_api_id` WHERE `player`.`player_name` = 'Dorlan Pabon'
+SELECT AVG(`match`.`away_team_goal`) FROM `match` INNER JOIN `team` ON `match`.`away_team_api_id` = `team`.`team_api_id` INNER JOIN `country` ON `match`.`country_id` = `country`.`id` WHERE `team`.`team_long_name` = 'Parma' AND `country`.`name` = 'Italy'
+SELECT `player`.`player_name` FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE `player_attributes`.`overall_rating` = 77 AND `player_attributes`.`date` LIKE '2016-06-23%' ORDER BY `player`.`birthday` ASC LIMIT 1
+SELECT T1.overall_rating FROM Player_Attributes AS T1 INNER JOIN Player AS T2 ON T1.player_api_id = T2.player_api_id WHERE T2.player_name = 'Aaron Mooy' AND T1.date LIKE '2016-02-04%'
+SELECT `Player_Attributes`.`potential` FROM `Player_Attributes` INNER JOIN `Player` ON `Player_Attributes`.`player_api_id` = `Player`.`player_api_id` WHERE `Player`.`player_name` = 'Francesco Parravicini' AND `Player_Attributes`.`date` = '2010-08-30 00:00:00'
+SELECT `player_attributes`.`attacking_work_rate` FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE `player`.`player_name` = 'Francesco Migliore' AND `player_attributes`.`date` LIKE '2015-05-01%'
+SELECT `Player_Attributes`.`defensive_work_rate` FROM `Player_Attributes` INNER JOIN `Player` ON `Player_Attributes`.`player_api_id` = `Player`.`player_api_id` WHERE `Player`.`player_name` = 'Kevin Berigaud' AND `Player_Attributes`.`date` = '2013-02-22 00:00:00'
+SELECT `Player_Attributes`.`date` FROM `Player_Attributes` INNER JOIN `Player` ON `Player_Attributes`.`player_api_id` = `Player`.`player_api_id` WHERE `Player`.`player_name` = 'Kevin Constant' ORDER BY `Player_Attributes`.`crossing` DESC, `Player_Attributes`.`date` ASC LIMIT 1
+SELECT `team_attributes`.`buildupplayspeedclass` FROM `team` INNER JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team`.`team_long_name` = 'Willem II' AND `team_attributes`.`date` = '2011-02-22 00:00:00'
+SELECT `team_attributes`.`buildupplaydribblingclass` FROM `team` INNER JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team`.`team_short_name` = 'LEI' AND `team_attributes`.`date` = '2015-09-10 00:00:00'
+SELECT `team_attributes`.`buildupplaypassingclass` FROM `team` INNER JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team`.`team_long_name` = 'FC Lorient' AND `team_attributes`.`date` LIKE '2010-02-22%'
+SELECT `team_attributes`.`chancecreationpassingclass` FROM `team` INNER JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team`.`team_long_name` = 'PEC Zwolle' AND `team_attributes`.`date` = '2013-09-20 00:00:00'
+SELECT T1.`chancecreationcrossingclass` FROM `team_attributes` AS T1 INNER JOIN `team` AS T2 ON T1.`team_api_id` = T2.`team_api_id` WHERE T2.`team_long_name` = 'Hull City' AND T1.`date` = '2010-02-22 00:00:00'
+SELECT `team_attributes`.`defenceaggressionclass` FROM `team` INNER JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team`.`team_long_name` = 'Hannover 96' AND `team_attributes`.`date` LIKE '2015-09-10%'
+SELECT AVG(`Player_Attributes`.`overall_rating`) AS avg_rating FROM `Player_Attributes` INNER JOIN `Player` ON `Player_Attributes`.`player_api_id` = `Player`.`player_api_id` WHERE `Player`.`player_name` = 'Marko Arnautovic' AND SUBSTR(`Player_Attributes`.`date`, 1, 10) BETWEEN '2007-02-22' AND '2016-04-21'
+SELECT CAST((SELECT `overall_rating` FROM `Player_Attributes` INNER JOIN `Player` ON `Player_Attributes`.`player_api_id` = `Player`.`player_api_id` WHERE `Player`.`player_name` = 'Landon Donovan' AND `Player_Attributes`.`date` <= '2013-07-12' ORDER BY `Player_Attributes`.`date` DESC LIMIT 1) - (SELECT `overall_rating` FROM `Player_Attributes` INNER JOIN `Player` ON `Player_Attributes`.`player_api_id` = `Player`.`player_api_id` WHERE `Player`.`player_name` = 'Jordan Bowery' AND `Player_Attributes`.`date` <= '2013-07-12' ORDER BY `Player_Attributes`.`date` DESC LIMIT 1) AS REAL) * 100 / (SELECT `overall_rating` FROM `Player_Attributes` INNER JOIN `Player` ON `Player_Attributes`.`player_api_id` = `Player`.`player_api_id` WHERE `Player`.`player_name` = 'Landon Donovan' AND `Player_Attributes`.`date` <= '2013-07-12' ORDER BY `Player_Attributes`.`date` DESC LIMIT 1)
+SELECT `player_name` FROM `player` ORDER BY `height` DESC LIMIT 1
+SELECT `player_api_id` FROM `player` ORDER BY `weight` DESC LIMIT 10
+SELECT `player_name` FROM `player` WHERE datetime(CURRENT_TIMESTAMP, 'localtime') - datetime(`birthday`) > 34
+SELECT SUM(`match`.`home_team_goal`) FROM `match` INNER JOIN `player` ON `match`.`home_player_1` = `player`.`player_api_id` OR `match`.`home_player_2` = `player`.`player_api_id` OR `match`.`home_player_3` = `player`.`player_api_id` OR `match`.`home_player_4` = `player`.`player_api_id` OR `match`.`home_player_5` = `player`.`player_api_id` OR `match`.`home_player_6` = `player`.`player_api_id` OR `match`.`home_player_7` = `player`.`player_api_id` OR `match`.`home_player_8` = `player`.`player_api_id` OR `match`.`home_player_9` = `player`.`player_api_id` OR `match`.`home_player_10` = `player`.`player_api_id` OR `match`.`home_player_11` = `player`.`player_api_id` WHERE `player`.`player_name` = 'Aaron Lennon'
+SELECT SUM(`match`.`away_team_goal`) FROM `match` INNER JOIN `player` ON `match`.`away_player_1` = `player`.`player_api_id` OR `match`.`away_player_2` = `player`.`player_api_id` OR `match`.`away_player_3` = `player`.`player_api_id` OR `match`.`away_player_4` = `player`.`player_api_id` OR `match`.`away_player_5` = `player`.`player_api_id` OR `match`.`away_player_6` = `player`.`player_api_id` OR `match`.`away_player_7` = `player`.`player_api_id` OR `match`.`away_player_8` = `player`.`player_api_id` OR `match`.`away_player_9` = `player`.`player_api_id` OR `match`.`away_player_10` = `player`.`player_api_id` OR `match`.`away_player_11` = `player`.`player_api_id` WHERE `player`.`player_name` IN ('Daan Smith', 'Filipe Ferreira')
+SELECT SUM(`match`.`home_team_goal`) FROM `match` INNER JOIN `player` ON `match`.`home_player_1` = `player`.`player_api_id` OR `match`.`home_player_2` = `player`.`player_api_id` OR `match`.`home_player_3` = `player`.`player_api_id` OR `match`.`home_player_4` = `player`.`player_api_id` OR `match`.`home_player_5` = `player`.`player_api_id` OR `match`.`home_player_6` = `player`.`player_api_id` OR `match`.`home_player_7` = `player`.`player_api_id` OR `match`.`home_player_8` = `player`.`player_api_id` OR `match`.`home_player_9` = `player`.`player_api_id` OR `match`.`home_player_10` = `player`.`player_api_id` OR `match`.`home_player_11` = `player`.`player_api_id` WHERE (strftime('%Y', 'now') - strftime('%Y', `player`.`birthday`)) - (strftime('%m-%d', 'now') < strftime('%m-%d', `player`.`birthday`)) < 31
+SELECT `player`.`player_name` FROM `player_attributes` INNER JOIN `player` ON `player_attributes`.`player_api_id` = `player`.`player_api_id` ORDER BY `player_attributes`.`overall_rating` DESC LIMIT 1
+SELECT `player`.`player_name` FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE `player_attributes`.`potential` = (SELECT MAX(`potential`) FROM `player_attributes`)
+SELECT `player`.`player_name` FROM `player` JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE `player_attributes`.`attacking_work_rate` = 'high'
+SELECT `player`.`player_name` FROM `player` JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE `player_attributes`.`finishing` = 1 ORDER BY `player`.`birthday` LIMIT 1
+SELECT `player`.`player_name` FROM `player` INNER JOIN `country` ON `player`.`id` = `country`.`id` WHERE `country`.`name` = 'Belgium'
+SELECT `player`.`player_name`, `country`.`name` FROM `player_attributes` INNER JOIN `player` ON `player_attributes`.`player_fifa_api_id` = `player`.`player_fifa_api_id` INNER JOIN `match` ON `player`.`player_api_id` = `match`.`home_player_1` INNER JOIN `country` ON `match`.`country_id` = `country`.`id` WHERE `player_attributes`.`vision` > 89
+SELECT country.`name` FROM player JOIN country ON player.`id` = country.`id` GROUP BY country.`name` ORDER BY AVG(player.`weight`) DESC LIMIT 1
+SELECT `team`.`team_long_name` FROM `team` INNER JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team_attributes`.`buildupplayspeedclass` = 'Slow'
+SELECT `team`.`team_short_name` FROM `team` INNER JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team_attributes`.`chancecreationpassingclass` = 'Safe'
+SELECT AVG(Player.height) FROM Player INNER JOIN Country ON Player.id = Country.id WHERE Country.name = 'Italy'
+SELECT `player_name` FROM `player` WHERE `height` > 180 ORDER BY `player_name` ASC LIMIT 3
+SELECT COUNT(`id`) FROM `Player` WHERE `player_name` LIKE 'Aaron%' AND `birthday` > '1990'
+SELECT (SELECT `jumping` FROM `player_attributes` WHERE `id` = 6) - (SELECT `jumping` FROM `player_attributes` WHERE `id` = 23) AS `jumping_difference`
+SELECT T1.`player_api_id` FROM Player_Attributes AS T1 INNER JOIN Player AS T2 ON T1.`player_api_id` = T2.`player_api_id` WHERE T1.`preferred_foot` = 'right' ORDER BY T1.`potential` ASC LIMIT 5
+SELECT COUNT(*) FROM `player_attributes` WHERE `crossing` = (SELECT MAX(`crossing`) FROM `player_attributes`) AND `preferred_foot` = 'left'
+SELECT CAST(COUNT(CASE WHEN `player_attributes`.`strength` > 80 AND `player_attributes`.`stamina` > 80 THEN 1 END) AS REAL) * 100 / COUNT(*) FROM `player_attributes`
+SELECT `country`.`name` FROM `country` INNER JOIN `league` ON `country`.`id` = `league`.`country_id` WHERE `league`.`name` = 'Poland Ekstraklasa'
+SELECT `match`.`home_team_goal`, `match`.`away_team_goal` FROM `match` INNER JOIN `league` ON `match`.`league_id` = `league`.`id` WHERE `match`.`date` LIKE '2008-09-24%' AND `league`.`name` = 'Belgium Jupiler League'
+SELECT `player_attributes`.`sprint_speed`, `player_attributes`.`agility`, `player_attributes`.`acceleration` FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` WHERE `player`.`player_name` = 'Alexis Blin'
+SELECT `team_attributes`.`buildupplayspeedclass` FROM `team` INNER JOIN `team_attributes` ON `team`.`team_api_id` = `team_attributes`.`team_api_id` WHERE `team`.`team_long_name` = 'KSV Cercle Brugge'
+SELECT COUNT(`match`.`id`) FROM `match` INNER JOIN `league` ON `match`.`league_id` = `league`.`id` WHERE `match`.`season` = '2015/2016' AND `league`.`name` = 'Italy Serie A'
+SELECT MAX(`home_team_goal`) FROM `match` INNER JOIN `league` ON `match`.`league_id` = `league`.`id` INNER JOIN `country` ON `league`.`country_id` = `country`.`id` WHERE `country`.`name` = 'Netherlands' AND `league`.`name` = 'Eredivisie'
+SELECT `player_attributes`.`finishing`, `player_attributes`.`curve` FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id` ORDER BY `player`.`weight` DESC LIMIT 1
+SELECT `league`.`name`, COUNT(`match`.`id`) AS game_count FROM `match` INNER JOIN `league` ON `match`.`league_id` = `league`.`id` WHERE `match`.`season` = '2015/2016' GROUP BY `league`.`name` ORDER BY game_count DESC LIMIT 4
+SELECT `team`.`team_long_name` FROM `match` INNER JOIN `team` ON `match`.`away_team_api_id` = `team`.`team_api_id` ORDER BY `match`.`away_team_goal` DESC LIMIT 1
+SELECT `Player`.`player_name` FROM `Player_Attributes` INNER JOIN `Player` ON `Player_Attributes`.`player_api_id` = `Player`.`player_api_id` ORDER BY `Player_Attributes`.`overall_rating` DESC LIMIT 1
+SELECT CAST(COUNT(CASE WHEN `player`.`height` < 180 AND `player_attributes`.`overall_rating` > 70 THEN `player`.`id` ELSE NULL END) AS REAL) * 100 / COUNT(`player`.`id`) FROM `player` INNER JOIN `player_attributes` ON `player`.`player_api_id` = `player_attributes`.`player_api_id`
+SELECT CAST(SUM(CASE WHEN `patient`.`sex` = 'M' AND `patient`.`admission` = '+' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`patient`.`id`) AS in_patient_percentage, CAST(SUM(CASE WHEN `patient`.`sex` = 'M' AND `patient`.`admission` = '-' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`patient`.`id`) AS out_patient_percentage, ABS(CAST(SUM(CASE WHEN `patient`.`sex` = 'M' AND `patient`.`admission` = '+' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`patient`.`id`) - CAST(SUM(CASE WHEN `patient`.`sex` = 'M' AND `patient`.`admission` = '-' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`patient`.`id`)) AS deviation_percentage FROM `patient`
+SELECT CAST(SUM(CASE WHEN strftime('%Y', `patient`.`birthday`) > '1930' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`patient`.`id`) AS percentage FROM `patient` WHERE `patient`.`sex` = 'F'
+SELECT CAST(SUM(CASE WHEN `patient`.`admission` = '+' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `patient` WHERE `patient`.`birthday` BETWEEN '1930-01-01' AND '1940-12-31'
+SELECT CAST(SUM(CASE WHEN `Patient`.`Admission` = '-' THEN 1 ELSE 0 END) AS REAL) / SUM(CASE WHEN `Patient`.`Admission` = '+' THEN 1 ELSE 0 END) AS ratio FROM `Patient` WHERE `Patient`.`Diagnosis` = 'SLE'
+SELECT `patient`.`diagnosis`, `laboratory`.`date` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`id` = '30609'
+SELECT `patient`.`sex`, `patient`.`birthday`, `examination`.`examination date`, `examination`.`symptoms` FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `patient`.`id` = '163109'
+SELECT `patient`.`id`, `patient`.`sex`, `patient`.`birthday` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`ldh` > 500
+SELECT `patient`.`id`, (strftime('%Y', 'now') - strftime('%Y', `patient`.`birthday`)) AS age FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `examination`.`rvvt` = '+'
+SELECT T1.`id`, T1.`sex`, T1.`diagnosis` FROM patient AS T1 INNER JOIN examination AS T2 ON T1.`id` = T2.`id` WHERE T2.`thrombosis` = 2
+SELECT DISTINCT `patient`.`id`, `patient`.`birthday`, `patient`.`diagnosis`, `patient`.`admission`, `patient`.`sex`, `patient`.`first date` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`birthday` LIKE '1937-%' AND `laboratory`.`t-cho` >= 250
+SELECT `patient`.`id`, `patient`.`sex`, `patient`.`diagnosis` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`alb` < 3.5
+SELECT CAST(SUM(CASE WHEN T1.`SEX` = 'F' AND (T2.`TP` < '6.0' OR T2.`TP` > '8.5') THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.`ID`) FROM `Patient` AS T1 INNER JOIN `Laboratory` AS T2 ON T1.`ID` = T2.`ID`
+SELECT AVG(`examination`.`acl igg`) FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `patient`.`admission` = '+' AND (strftime('%Y', 'now') - strftime('%Y', `patient`.`birthday`)) >= 50
+SELECT COUNT(*) FROM `patient` WHERE `sex` = 'F' AND strftime('%Y', `description`) = '1997' AND `admission` = '-'
+SELECT MIN(strftime('%Y', `first date`) - strftime('%Y', `birthday`)) FROM `patient` WHERE `first date` IS NOT NULL
+SELECT COUNT(DISTINCT `examination`.`id`) FROM `examination` INNER JOIN `patient` ON `examination`.`id` = `patient`.`id` WHERE `examination`.`thrombosis` = 1 AND `examination`.`examination date` LIKE '1997-%' AND `patient`.`sex` = 'F'
+SELECT MAX(strftime('%Y', `patient`.`birthday`)) - MIN(strftime('%Y', `patient`.`birthday`)) AS age_gap FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`tg` >= 200
+SELECT T1.diagnosis, T2.symptoms FROM patient AS T1 INNER JOIN examination AS T2 ON T1.id = T2.id WHERE T2.symptoms IS NOT NULL ORDER BY T1.birthday DESC LIMIT 1
+SELECT COUNT(`Patient`.`ID`) / 12.0 FROM `Patient` INNER JOIN `Laboratory` ON `Patient`.`ID` = `Laboratory`.`ID` WHERE `Patient`.`SEX` = 'M' AND `Laboratory`.`Date` BETWEEN '1998-01-01' AND '1998-12-31'
+SELECT `Laboratory`.`Date`, (strftime('%Y', `Patient`.`First Date`) - strftime('%Y', `Patient`.`Birthday`)) AS age FROM `Patient` INNER JOIN `Laboratory` ON `Patient`.`ID` = `Laboratory`.`ID` WHERE `Patient`.`Diagnosis` = 'SJS' ORDER BY `Patient`.`Birthday` LIMIT 1
+SELECT CAST(SUM(CASE WHEN T1.SEX = 'M' AND T2.UA <= 8.0 THEN 1 ELSE 0 END) AS REAL) / SUM(CASE WHEN T1.SEX = 'F' AND T2.UA <= 6.5 THEN 1 ELSE 0 END) AS Ratio FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` LEFT JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `examination`.`examination date` IS NULL OR (strftime('%Y', `examination`.`examination date`) - strftime('%Y', `patient`.`first date`) >= 1)
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE strftime('%Y', `patient`.`birthday`) < '18' AND strftime('%Y', `examination`.`examination date`) BETWEEN '1990' AND '1993'
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`sex` = 'M' AND `laboratory`.`t-bil` >= 2.0
+SELECT `examination`.`diagnosis` FROM `examination` WHERE `examination`.`examination date` BETWEEN '1985-01-01' AND '1995-12-31' GROUP BY `examination`.`diagnosis` ORDER BY COUNT(`examination`.`diagnosis`) DESC LIMIT 1
+SELECT AVG(1999 - strftime('%Y', `patient`.`birthday`)) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`date` BETWEEN '1991-10-01' AND '1991-10-30'
+SELECT strftime('%Y', `examination`.`examination date`) - strftime('%Y', `patient`.`birthday`) AS age, `patient`.`diagnosis` FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `laboratory`.`hgb` = (SELECT MAX(`hgb`) FROM `laboratory`) LIMIT 1
+SELECT `ANA` FROM `Examination` WHERE `ID` = 3605340 AND `Examination Date` = '1996-12-02'
+SELECT CASE WHEN `T-CHO` < 250 THEN 'Normal' ELSE 'Abnormal' END AS `Cholesterol Status` FROM `Laboratory` WHERE `ID` = 2927464 AND `Date` = '1995-09-04'
+SELECT T1.sex FROM patient AS T1 INNER JOIN examination AS T2 ON T1.id = T2.id WHERE T2.diagnosis = 'AORTITIS' LIMIT 1
+SELECT `examination`.`acl igm` FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `patient`.`diagnosis` = 'SLE' AND `patient`.`description` = '1994-02-19' AND `examination`.`examination date` = '1993-11-12'
+SELECT `patient`.`sex` FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `laboratory`.`gpt` = 9 AND `laboratory`.`date` = '1992-06-12'
+SELECT strftime('%Y', '1991-10-21') - strftime('%Y', `patient`.`birthday`) AS age FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`ua` = 8.4 AND `laboratory`.`date` = '1991-10-21'
+SELECT COUNT(`laboratory`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`first date` = '1991-06-13' AND `patient`.`diagnosis` = 'SJS' AND `laboratory`.`date` LIKE '1995-%'
+SELECT T1.`diagnosis` FROM patient AS T1 JOIN examination AS T2 ON T1.`id` = T2.`id` WHERE T2.`examination date` = '1997-01-27' AND T2.`diagnosis` = 'SLE'
+SELECT T1.symptoms FROM examination AS T1 INNER JOIN patient AS T2 ON T1.id = T2.id WHERE T2.birthday = '1959-03-01' AND T1.`examination date` = '1993-09-27'
+SELECT (SUM(CASE WHEN `Laboratory`.`Date` LIKE '1981-11-%' THEN `Laboratory`.`T-CHO` END) - SUM(CASE WHEN `Laboratory`.`Date` LIKE '1981-12-%' THEN `Laboratory`.`T-CHO` END)) / SUM(CASE WHEN `Laboratory`.`Date` LIKE '1981-11-%' THEN `Laboratory`.`T-CHO` END) * 100 AS decrease_rate FROM `Patient` INNER JOIN `Laboratory` ON `Patient`.`ID` = `Laboratory`.`ID` WHERE `Patient`.`Birthday` = '1959-02-18'
+SELECT `patient`.`id` FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `patient`.`diagnosis` = 'BEHCET' AND `examination`.`examination date` BETWEEN '1997-01-01' AND '1997-12-31'
+SELECT DISTINCT `laboratory`.`id` FROM `laboratory` WHERE `date` BETWEEN '1987-07-06' AND '1996-01-31' AND `gpt` > 30 AND `alb` < 4
+SELECT `id` FROM `patient` WHERE `sex` = 'F' AND strftime('%Y', `birthday`) = '1964' AND `admission` = '+'
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `examination`.`thrombosis` = 2 AND `examination`.`ana pattern` = 'S' AND `examination`.`acl igm` > (SELECT AVG(`acl igm`) * 1.2 FROM `examination`)
+SELECT (COUNT(CASE WHEN `Laboratory`.`UA` <= 6.5 THEN 1 END) * 100.0 / COUNT(CASE WHEN `Laboratory`.`U-PRO` > 0 AND `Laboratory`.`U-PRO` < 30 THEN 1 END)) AS percentage FROM `Laboratory` INNER JOIN `Patient` ON `Laboratory`.`ID` = `Patient`.`ID` WHERE `Laboratory`.`U-PRO` > 0 AND `Laboratory`.`U-PRO` < 30
+SELECT (COUNT(DISTINCT CASE WHEN `Patient`.`Diagnosis` = 'BEHCET' THEN `Patient`.`ID` END) * 100.0 / COUNT(DISTINCT `Patient`.`ID`)) AS BEHCET_Percentage FROM `Patient` WHERE `Patient`.`SEX` = 'M' AND strftime('%Y', `Patient`.`First Date`) = '1981'
+SELECT DISTINCT `patient`.`id` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`admission` = '-' AND `laboratory`.`date` LIKE '1991-10%' AND `laboratory`.`t-bil` < 2.0
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `patient`.`sex` = 'F' AND `patient`.`birthday` BETWEEN '1980-01-01' AND '1989-12-31' AND `examination`.`ana pattern` != 'P'
+SELECT T1.sex FROM patient AS T1 INNER JOIN examination AS T2 ON T1.id = T2.id INNER JOIN laboratory AS T3 ON T1.id = T3.id WHERE T2.diagnosis = 'PSS' AND T3.crp > 2 AND T3.cre = 1 AND T3.ldh = 123
+SELECT AVG(`laboratory`.`alb`) FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `patient`.`sex` = 'F' AND `laboratory`.`plt` > 400 AND `patient`.`diagnosis` = 'SLE'
+SELECT `examination`.`symptoms` FROM `examination` INNER JOIN `patient` ON `examination`.`id` = `patient`.`id` WHERE `patient`.`diagnosis` = 'SLE' GROUP BY `examination`.`symptoms` ORDER BY COUNT(`examination`.`symptoms`) DESC LIMIT 1
+SELECT `patient`.`description`, `patient`.`diagnosis` FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `patient`.`id` = 48473
+SELECT COUNT(DISTINCT `Patient`.`ID`) FROM `Patient` INNER JOIN `Examination` ON `Patient`.`ID` = `Examination`.`ID` WHERE `Patient`.`SEX` = 'F' AND `Examination`.`Diagnosis` = 'APS'
+SELECT COUNT(DISTINCT `laboratory`.`id`) FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE strftime('%Y', `laboratory`.`date`) = '1997' AND (`laboratory`.`tp` NOT BETWEEN 6 AND 8.5)
+SELECT (CAST(SUM(CASE WHEN `examination`.`diagnosis` LIKE '%ITP%' THEN 1 ELSE 0 END) AS REAL) / CAST(SUM(CASE WHEN `examination`.`diagnosis` LIKE '%SLE%' THEN 1 ELSE 0 END) AS REAL)) * 100 AS proportion FROM `examination` INNER JOIN `patient` ON `examination`.`id` = `patient`.`id` WHERE `examination`.`symptoms` LIKE '%thrombocytopenia%'
+SELECT CAST(SUM(CASE WHEN `Patient`.`SEX` = 'F' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`Patient`.`ID`) AS percentage FROM `Patient` WHERE strftime('%Y', `Patient`.`Birthday`) = '1980' AND `Patient`.`Diagnosis` = 'RA'
+SELECT COUNT(DISTINCT `Patient`.`ID`) FROM `Patient` INNER JOIN `Examination` ON `Patient`.`ID` = `Examination`.`ID` WHERE `Patient`.`SEX` = 'M' AND `Examination`.`Examination Date` BETWEEN '1995-01-01' AND '1997-12-31' AND `Examination`.`Diagnosis` = 'Behcet' AND `Patient`.`Admission` = '-'
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`sex` = 'F' AND `laboratory`.`wbc` < 3.5
+SELECT JULIANDAY(`examination`.`examination date`) - JULIANDAY(`patient`.`first date`) AS evaluation_delay FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `patient`.`id` = 821298
+SELECT CASE WHEN (laboratory.`ua` > 8.0 AND patient.`sex` = 'M') OR (laboratory.`ua` > 6.5 AND patient.`sex` = 'F') THEN 'Yes' ELSE 'No' END AS `Within Normal Range` FROM patient INNER JOIN laboratory ON patient.`id` = laboratory.`id` WHERE patient.`id` = 57266
+SELECT `date` FROM `laboratory` WHERE `id` = '48473' AND `got` >= 60
+SELECT T1.`id`, T1.`sex`, T1.`birthday` FROM `patient` AS T1 INNER JOIN `laboratory` AS T2 ON T1.`id` = T2.`id` WHERE T2.`got` < 60 AND strftime('%Y', T2.`date`) = '1994'
+SELECT DISTINCT `Patient`.`ID` FROM `Patient` INNER JOIN `Laboratory` ON `Patient`.`ID` = `Laboratory`.`ID` WHERE `Patient`.`SEX` = 'M' AND `Laboratory`.`GPT` >= 60
+SELECT DISTINCT `patient`.`diagnosis` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`gpt` > 60 ORDER BY `patient`.`birthday` ASC
+SELECT AVG(`LDH`) FROM `Laboratory` WHERE `LDH` < 500
+SELECT `patient`.`id`, (strftime('%Y', 'now') - strftime('%Y', `patient`.`birthday`)) AS age FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`ldh` BETWEEN 600 AND 800
+SELECT `patient`.`admission` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`alp` < 300
+SELECT `patient`.`id`, `laboratory`.`alp` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`birthday` = '1982-04-01' AND `laboratory`.`alp` < 300
+SELECT `patient`.`id`, `patient`.`sex`, `patient`.`birthday` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`tp` < 6.0
+SELECT `patient`.`id`, `patient`.`sex`, `laboratory`.`tp`, (`laboratory`.`tp` - 8.5) AS deviation FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`sex` = 'F' AND `laboratory`.`tp` > 8.5
+SELECT T1.`birthday`, T1.`id` FROM `patient` AS T1 INNER JOIN `laboratory` AS T2 ON T1.`id` = T2.`id` WHERE T1.`sex` = 'M' AND (T2.`alb` <= 3.5 OR T2.`alb` >= 5.5) ORDER BY T1.`birthday` DESC
+SELECT T1.`ID`, CASE WHEN T2.`ALB` BETWEEN 3.5 AND 5.5 THEN 'Within Normal Range' ELSE 'Not Within Normal Range' END AS Albumin_Status FROM `Patient` AS T1 INNER JOIN `Laboratory` AS T2 ON T1.`ID` = T2.`ID` WHERE strftime('%Y', T1.`Birthday`) = '1982'
+SELECT CAST(SUM(CASE WHEN `laboratory`.`ua` > 6.5 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `patient`.`sex` = 'F'
+SELECT AVG(`laboratory`.`ua`) AS `average_ua` FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE (`laboratory`.`ua` < 8.0 AND `patient`.`sex` = 'M') OR (`laboratory`.`ua` < 6.5 AND `patient`.`sex` = 'F') AND `laboratory`.`date` = (SELECT MAX(`laboratory`.`date`) FROM `laboratory` AS `lab_inner` WHERE `lab_inner`.`id` = `laboratory`.`id`)
+SELECT `patient`.`id`, `patient`.`sex`, `patient`.`birthday` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`un` = 29
+SELECT `patient`.`id`, `patient`.`sex`, `patient`.`birthday` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`diagnosis` = 'RA' AND `laboratory`.`un` < 30
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`sex` = 'M' AND `laboratory`.`cre` >= 1.5
+SELECT CASE WHEN SUM(CASE WHEN `patient`.`sex` = 'M' THEN 1 ELSE 0 END) > SUM(CASE WHEN `patient`.`sex` = 'F' THEN 1 ELSE 0 END) THEN 'True' ELSE 'False' END AS result FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`cre` >= 1.5
+SELECT `patient`.`id`, `patient`.`sex`, `patient`.`birthday` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`t-bil` = (SELECT MAX(`t-bil`) FROM `laboratory` WHERE `t-bil` IS NOT NULL)
+SELECT `patient`.`sex`, GROUP_CONCAT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`t-bil` >= 2.0 GROUP BY `patient`.`sex`
+SELECT T1.id, T2.`t-cho` FROM patient AS T1 INNER JOIN laboratory AS T2 ON T1.id = T2.id WHERE T1.birthday = (SELECT MIN(birthday) FROM patient) AND T2.`t-cho` = (SELECT MAX(`t-cho`) FROM laboratory) LIMIT 1
+SELECT SUM(CASE WHEN T2.deathdate IS NULL THEN ROUND((strftime('%J', date('now')) - strftime('%J', T2.birthdate)) / 365) ELSE ROUND((strftime('%J', T2.deathdate) - strftime('%J', T2.birthdate)) / 365) END) / COUNT(T2.id) FROM laboratory AS T1 INNER JOIN patient AS T2 ON T1.id = T2.id WHERE T1.`t-cho` >= 250 AND T2.sex = 'M'
+SELECT `patient`.`id`, `patient`.`diagnosis` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`tg` > 300
+SELECT COUNT(DISTINCT T1.id) FROM patient AS T1 INNER JOIN laboratory AS T2 ON T1.id = T2.id WHERE T2.tg >= 200 AND (strftime('%Y', 'now') - strftime('%Y', T1.birthday)) > 50
+SELECT DISTINCT `patient`.`id` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`admission` = '-' AND `laboratory`.`cpk` < 250
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`birthday` BETWEEN '1936-01-01' AND '1956-12-31' AND `patient`.`sex` = 'M' AND `laboratory`.`cpk` >= 250
+SELECT `patient`.`id`, `patient`.`sex`, (strftime('%Y', 'now') - strftime('%Y', `patient`.`birthday`)) AS age FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`glu` >= 180 AND `laboratory`.`t-cho` < 250
+SELECT T1.`id`, T2.`glu` FROM `patient` AS T1 INNER JOIN `laboratory` AS T2 ON T1.`id` = T2.`id` WHERE strftime('%Y', T1.`description`) = '1991' AND T2.`glu` < 180
+SELECT T1.`id`, T1.`sex`, T1.`birthday` FROM `patient` AS T1 INNER JOIN `laboratory` AS T2 ON T1.`id` = T2.`id` WHERE T2.`wbc` <= 3.5 OR T2.`wbc` >= 9.0 GROUP BY T1.`sex` ORDER BY T1.`birthday` ASC
+SELECT `patient`.`id`, `patient`.`diagnosis`, (strftime('%Y', 'now') - strftime('%Y', `patient`.`birthday`)) AS age FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`rbc` < 3.5
+SELECT P.`ID`, P.`Admission` FROM `Patient` AS P INNER JOIN `Laboratory` AS L ON P.`ID` = L.`ID` WHERE P.`SEX` = 'F' AND (strftime('%Y', 'now') - strftime('%Y', P.`Birthday`)) >= 50 AND (L.`RBC` <= 3.5 OR L.`RBC` >= 6.0)
+SELECT `patient`.`id`, `patient`.`sex` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`admission` = '-' AND `laboratory`.`hgb` < 10
+SELECT T1.`ID`, T1.`SEX` FROM Patient AS T1 INNER JOIN Examination AS T2 ON T1.`ID` = T2.`ID` INNER JOIN Laboratory AS T3 ON T1.`ID` = T3.`ID` WHERE T2.`Diagnosis` = 'SLE' AND T3.`HGB` > 10 AND T3.`HGB` < 17 ORDER BY T1.`Birthday` ASC LIMIT 1
+SELECT `patient`.`id`, (strftime('%Y', 'now') - strftime('%Y', `patient`.`birthday`)) AS age FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`hct` >= 52 GROUP BY `patient`.`id` HAVING COUNT(`laboratory`.`id`) > 2
+SELECT AVG(`laboratory`.`hct`) FROM `laboratory` WHERE `laboratory`.`date` LIKE '1991%' AND `laboratory`.`hct` < 29
+SELECT SUM(CASE WHEN `laboratory`.`plt` < 100 THEN 1 ELSE 0 END) AS lower_than_normal, SUM(CASE WHEN `laboratory`.`plt` > 400 THEN 1 ELSE 0 END) AS higher_than_normal FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `laboratory`.`plt` <= 100 OR `laboratory`.`plt` >= 400
+SELECT `patient`.`id`, `patient`.`birthday` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE strftime('%Y', `laboratory`.`date`) = '1984' AND (strftime('%Y', 'now') - strftime('%Y', `patient`.`birthday`)) < 50 AND `laboratory`.`plt` BETWEEN 100 AND 400
+SELECT CAST(SUM(CASE WHEN `patient`.`sex` = 'F' AND `laboratory`.`pt` >= 14 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE (strftime('%Y', 'now') - strftime('%Y', `patient`.`birthday`)) > 55
+SELECT DISTINCT `patient`.`id` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE strftime('%Y', `patient`.`first date`) > '1992' AND `laboratory`.`pt` < 14
+SELECT COUNT(*) FROM `examination` WHERE `examination date` > '1997-01-01' AND `id` IN (SELECT `id` FROM `laboratory` WHERE `aptt` < 45)
+SELECT COUNT(DISTINCT `laboratory`.`id`) FROM `laboratory` INNER JOIN `examination` ON `laboratory`.`id` = `examination`.`id` WHERE `laboratory`.`aptt` > 45 AND `examination`.`thrombosis` = 0
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`sex` = 'M' AND `laboratory`.`wbc` > 3.5 AND `laboratory`.`wbc` < 9.0 AND (`laboratory`.`fg` <= 150 OR `laboratory`.`fg` >= 450)
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`birthday` > '1980-01-01' AND (`laboratory`.`fg` < 150 OR `laboratory`.`fg` > 450)
+SELECT DISTINCT `patient`.`diagnosis` FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `laboratory`.`u-pro` >= 30
+SELECT `patient`.`id` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`u-pro` > 0 AND `laboratory`.`u-pro` < 30 AND `patient`.`diagnosis` = 'SLE'
+SELECT COUNT(DISTINCT `laboratory`.`id`) FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `laboratory`.`igg` >= 2000
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `laboratory`.`igg` > 900 AND `laboratory`.`igg` < 2000 AND `examination`.`symptoms` IS NOT NULL
+SELECT `patient`.`diagnosis` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`iga` = (SELECT MAX(`iga`) FROM `laboratory` WHERE `iga` BETWEEN 80 AND 500)
+SELECT COUNT(DISTINCT `laboratory`.`id`) FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `laboratory`.`iga` > 80 AND `laboratory`.`iga` < 500 AND strftime('%Y', `patient`.`first date`) >= '1990'
+SELECT `patient`.`diagnosis`, COUNT(`patient`.`diagnosis`) AS `diagnosis_count` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`igm` <= 40 OR `laboratory`.`igm` >= 400 GROUP BY `patient`.`diagnosis` ORDER BY `diagnosis_count` DESC LIMIT 1
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`crp` = '+' AND `patient`.`description` IS NULL
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`cre` >= 1.5 AND (strftime('%Y', 'now') - strftime('%Y', `patient`.`birthday`)) < 70
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `laboratory`.`ra` IN ('-', '+-') AND `examination`.`kct` = '+'
+SELECT DISTINCT `patient`.`diagnosis` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE strftime('%Y', `patient`.`birthday`) >= '1985' AND `laboratory`.`ra` IN ('-', '+-')
+SELECT `patient`.`id` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`rf` < 20 AND (strftime('%Y', 'now') - strftime('%Y', `patient`.`birthday`)) > 60
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `laboratory`.`rf` < 20 AND `examination`.`thrombosis` = 0
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `laboratory`.`c3` > 35 AND `examination`.`ana pattern` = 'P'
+SELECT T1.`id` FROM patient AS T1 INNER JOIN laboratory AS T2 ON T1.`id` = T2.`id` INNER JOIN examination AS T3 ON T1.`id` = T3.`id` WHERE T2.`hct` NOT BETWEEN 29 AND 52 AND T3.`acl iga` = (SELECT MAX(`acl iga`) FROM examination WHERE `id` IN (SELECT `id` FROM laboratory WHERE `hct` NOT BETWEEN 29 AND 52)) LIMIT 1
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `examination`.`thrombosis` = 1 AND `laboratory`.`c4` > 10
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`admission` = '+' AND (`laboratory`.`rnp` = '-' OR `laboratory`.`rnp` = '+-')
+SELECT `patient`.`birthday` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`rnp` NOT IN ('-', '+-') ORDER BY `patient`.`birthday` DESC LIMIT 1
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `laboratory`.`sm` IN ('-', '+-') AND `examination`.`thrombosis` = 0
+SELECT `patient`.`id` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`sm` NOT IN ('negative', '0') ORDER BY `patient`.`birthday` DESC LIMIT 3
+SELECT `laboratory`.`id` FROM `laboratory` INNER JOIN `examination` ON `laboratory`.`id` = `examination`.`id` WHERE `examination`.`examination date` > '1997-01-01' AND `laboratory`.`sc170` IN ('negative', '0')
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` LEFT JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `laboratory`.`sc170` IN ('negative', '0') AND `patient`.`sex` = 'F' AND `examination`.`symptoms` IS NULL
+SELECT COUNT(DISTINCT `laboratory`.`id`) FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `laboratory`.`ssa` IN ('-', '+-') AND strftime('%Y', `patient`.`first date`) < '2000'
+SELECT T1.`id` FROM patient AS T1 INNER JOIN laboratory AS T2 ON T1.`id` = T2.`id` WHERE T2.`ssa` NOT IN ('negative', '0') ORDER BY T1.`first date` LIMIT 1
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `examination`.`diagnosis` = 'SLE' AND `laboratory`.`ssb` IN ('negative', '0')
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `laboratory`.`ssb` IN ('negative', '0') AND `examination`.`symptoms` IS NOT NULL
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`centromea` IN ('-', '+-') AND `laboratory`.`ssb` IN ('-', '+-') AND `patient`.`sex` = 'M'
+SELECT DISTINCT `patient`.`diagnosis` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`dna` >= 8
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`dna` < 8 AND `patient`.`description` IS NULL
+SELECT COUNT(DISTINCT `laboratory`.`id`) FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `laboratory`.`igg` > 900 AND `laboratory`.`igg` < 2000 AND `patient`.`admission` = '+'
+SELECT (CAST(COUNT(DISTINCT `laboratory`.`id`) AS REAL) * 100 / (SELECT COUNT(DISTINCT `laboratory`.`id`) FROM `laboratory` WHERE `laboratory`.`got` >= 60)) AS percentage FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `laboratory`.`got` >= 60 AND `patient`.`diagnosis` = 'SLE'
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`sex` = 'M' AND `laboratory`.`got` < 60
+SELECT `patient`.`birthday` FROM `patient` JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`got` >= 60 ORDER BY `patient`.`birthday` DESC LIMIT 1
+SELECT T1.`birthday` FROM patient AS T1 INNER JOIN laboratory AS T2 ON T1.`id` = T2.`id` WHERE T2.`gpt` < 60 ORDER BY T2.`gpt` DESC LIMIT 3
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`got` < 60 AND `patient`.`sex` = 'M'
+SELECT T1.`first date` FROM patient AS T1 INNER JOIN laboratory AS T2 ON T1.`id` = T2.`id` WHERE T2.`ldh` = (SELECT MAX(`ldh`) FROM laboratory WHERE `ldh` < 500) ORDER BY T1.`first date` LIMIT 1
+SELECT `laboratory`.`date` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`ldh` >= 500 ORDER BY `patient`.`first date` DESC LIMIT 1
+SELECT COUNT(*) FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `laboratory`.`alp` >= 300 AND `patient`.`admission` = '+'
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`admission` = '-' AND `laboratory`.`alp` < 300
+SELECT DISTINCT `patient`.`diagnosis` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`tp` < 6.0
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`diagnosis` = 'SJS' AND `laboratory`.`tp` > 6.0 AND `laboratory`.`tp` < 8.5
+SELECT `examination`.`examination date` FROM `laboratory` JOIN `examination` ON `laboratory`.`date` = `examination`.`examination date` WHERE `laboratory`.`alb` = (SELECT MAX(`alb`) FROM `laboratory` WHERE `alb` > 3.5 AND `alb` < 5.5)
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`sex` = 'M' AND `laboratory`.`alb` > 3.5 AND `laboratory`.`alb` < 5.5 AND `laboratory`.`tp` BETWEEN 6.0 AND 8.5
+SELECT `examination`.`acl igg`, `examination`.`acl igm`, `examination`.`acl iga` FROM `examination` INNER JOIN `patient` ON `examination`.`id` = `patient`.`id` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`sex` = 'F' AND `laboratory`.`ua` > 6.5 ORDER BY `laboratory`.`ua` DESC LIMIT 1
+SELECT MAX(`examination`.`ana`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `laboratory`.`cre` < 1.5
+SELECT `laboratory`.`id` FROM `laboratory` WHERE `laboratory`.`cre` < 1.5 INTERSECT SELECT `examination`.`id` FROM `examination` WHERE `examination`.`acl iga` = (SELECT MAX(`examination`.`acl iga`) FROM `examination`)
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `laboratory`.`t-bil` >= 2.0 AND `examination`.`ana pattern` LIKE '%P%'
+SELECT `examination`.`ana` FROM `laboratory` INNER JOIN `examination` ON `laboratory`.`id` = `examination`.`id` WHERE `laboratory`.`t-bil` = (SELECT MAX(`t-bil`) FROM `laboratory` WHERE `t-bil` < 2.0)
+SELECT COUNT(DISTINCT `laboratory`.`id`) FROM `laboratory` INNER JOIN `examination` ON `laboratory`.`id` = `examination`.`id` WHERE `laboratory`.`t-cho` >= 250 AND `examination`.`kct` = '-'
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `laboratory`.`t-cho` < 250 AND `examination`.`ana pattern` = 'P'
+SELECT COUNT(DISTINCT `laboratory`.`id`) FROM `laboratory` INNER JOIN `examination` ON `laboratory`.`id` = `examination`.`id` WHERE `laboratory`.`tg` < 200 AND `examination`.`symptoms` IS NOT NULL
+SELECT `patient`.`diagnosis` FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `laboratory`.`tg` < 200 ORDER BY `laboratory`.`tg` DESC LIMIT 1
+SELECT `laboratory`.`id` FROM `laboratory` WHERE `laboratory`.`cpk` < 250 INTERSECT SELECT `examination`.`id` FROM `examination` WHERE `examination`.`thrombosis` = 0
+SELECT COUNT(DISTINCT `examination`.`id`) FROM `examination` INNER JOIN `laboratory` ON `examination`.`id` = `laboratory`.`id` WHERE `laboratory`.`cpk` < 250 AND (`examination`.`kct` = '+' OR `examination`.`rvvt` = '+' OR `examination`.`lac` = '+')
+SELECT `patient`.`birthday` FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`glu` > 180 ORDER BY `patient`.`birthday` ASC LIMIT 1
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `laboratory`.`glu` < 180 AND `examination`.`thrombosis` = 0
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`admission` = '+' AND `laboratory`.`wbc` BETWEEN 3.5 AND 9.0
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE `patient`.`diagnosis` = 'SLE' AND `laboratory`.`wbc` BETWEEN 3.5 AND 9.0
+SELECT DISTINCT `Patient`.`ID` FROM `Patient` INNER JOIN `Laboratory` ON `Patient`.`ID` = `Laboratory`.`ID` WHERE (`Laboratory`.`RBC` <= 3.5 OR `Laboratory`.`RBC` >= 6.0) AND `Patient`.`Admission` = '-'
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `laboratory` JOIN `patient` ON `laboratory`.`id` = `patient`.`id` JOIN `examination` ON `patient`.`id` = `examination`.`id` WHERE `laboratory`.`plt` > 100 AND `laboratory`.`plt` < 400 AND `examination`.`symptoms` IS NOT NULL
+SELECT `laboratory`.`plt` FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `laboratory`.`plt` > 100 AND `laboratory`.`plt` < 400 AND `patient`.`diagnosis` = 'MCTD'
+SELECT AVG(`laboratory`.`pt`) FROM `laboratory` INNER JOIN `patient` ON `laboratory`.`id` = `patient`.`id` WHERE `patient`.`sex` = 'M' AND `laboratory`.`pt` < 14
+SELECT COUNT(DISTINCT `patient`.`id`) FROM `patient` INNER JOIN `examination` ON `patient`.`id` = `examination`.`id` INNER JOIN `laboratory` ON `patient`.`id` = `laboratory`.`id` WHERE (`examination`.`thrombosis` = 2 OR `examination`.`thrombosis` = 1) AND `laboratory`.`pt` < 14
+SELECT T2.major_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.first_name = 'Angela' AND T1.last_name = 'Sanders'
+SELECT COUNT(DISTINCT `member`.`member_id`) FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `major`.`college` = 'College of Engineering'
+SELECT CONCAT(member.`first_name`, ' ', member.`last_name`) AS full_name FROM member INNER JOIN major ON member.`link_to_major` = major.`major_id` WHERE major.`department` = 'Art and Design Department'
+SELECT COUNT(*) FROM `attendance` AS T1 INNER JOIN `event` AS T2 ON T1.`link_to_event` = T2.`event_id` WHERE T2.`event_name` = 'Women''s Soccer'
+SELECT `member`.`phone` FROM `event` INNER JOIN `attendance` ON `event`.`event_id` = `attendance`.`link_to_event` INNER JOIN `member` ON `attendance`.`link_to_member` = `member`.`member_id` WHERE `event`.`event_name` = 'Women''s Soccer'
+SELECT COUNT(*) FROM `attendance` JOIN `event` ON `attendance`.`link_to_event` = `event`.`event_id` JOIN `member` ON `attendance`.`link_to_member` = `member`.`member_id` WHERE `event`.`event_name` = 'Women''s Soccer' AND `member`.`t_shirt_size` = 'Medium'
+SELECT `event`.`event_name`, COUNT(`attendance`.`link_to_event`) AS attendance_count FROM `event` INNER JOIN `attendance` ON `event`.`event_id` = `attendance`.`link_to_event` GROUP BY `event`.`event_id` ORDER BY attendance_count DESC LIMIT 1
+SELECT major.`college` FROM member INNER JOIN major ON member.`link_to_major` = major.`major_id` WHERE member.`position` = 'Vice President'
+SELECT `event`.`event_name` FROM `event` INNER JOIN `attendance` ON `event`.`event_id` = `attendance`.`link_to_event` INNER JOIN `member` ON `attendance`.`link_to_member` = `member`.`member_id` WHERE `member`.`first_name` = 'Maya' AND `member`.`last_name` = 'Mclean'
+SELECT COUNT(*) FROM `attendance` AS A JOIN `member` AS M ON A.`link_to_member` = M.`member_id` JOIN `event` AS E ON A.`link_to_event` = E.`event_id` WHERE M.`first_name` = 'Sacha' AND M.`last_name` = 'Harrison' AND strftime('%Y', E.`event_date`) = '2019'
+SELECT COUNT(DISTINCT `event`.`event_id`) FROM `event` JOIN `attendance` ON `event`.`event_id` = `attendance`.`link_to_event` WHERE `event`.`type` = 'Meeting' GROUP BY `event`.`event_id` HAVING COUNT(`attendance`.`link_to_event`) > 10
+SELECT `event`.`event_name` FROM `event` INNER JOIN `attendance` ON `event`.`event_id` = `attendance`.`link_to_event` WHERE `event`.`type` <> 'Fundraiser' GROUP BY `event`.`event_id` HAVING COUNT(`attendance`.`link_to_event`) > 20
+SELECT CAST(COUNT(`attendance`.`link_to_member`) AS REAL) / COUNT(DISTINCT `event`.`event_name`) AS average_attendance FROM `event` INNER JOIN `attendance` ON `event`.`event_id` = `attendance`.`link_to_event` WHERE `event`.`type` = 'Meeting' AND strftime('%Y', `event`.`event_date`) = '2020'
+SELECT `expense_description` FROM `expense` WHERE `cost` = (SELECT MAX(`cost`) FROM `expense`)
+SELECT COUNT(`member`.`member_id`) FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `major`.`major_name` = 'Environmental Engineering'
+SELECT member.`first_name`, member.`last_name` FROM member INNER JOIN attendance ON member.`member_id` = attendance.`link_to_member` INNER JOIN event ON attendance.`link_to_event` = event.`event_id` WHERE event.`event_name` = 'Laugh Out Loud'
+SELECT `member`.`last_name` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `major`.`major_name` = 'Law and Constitutional Studies'
+SELECT T2.county FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.first_name = 'Sherri' AND T1.last_name = 'Ramsey'
+SELECT `major`.`college` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `member`.`first_name` = 'Tyler' AND `member`.`last_name` = 'Hewitt'
+SELECT income.`amount` FROM income INNER JOIN member ON income.`link_to_member` = member.`member_id` WHERE member.`position` = 'Vice President'
+SELECT SUM(`expense`.`cost`) FROM `expense` INNER JOIN `budget` ON `expense`.`link_to_budget` = `budget`.`budget_id` INNER JOIN `event` ON `budget`.`link_to_event` = `event`.`event_id` WHERE `event`.`event_name` = 'September Meeting' AND `budget`.`category` = 'Food'
+SELECT `zip_code`.`city`, `zip_code`.`state` FROM `member` INNER JOIN `zip_code` ON `member`.`zip` = `zip_code`.`zip_code` WHERE `member`.`position` = 'President'
+SELECT `member`.`first_name` || ' ' || `member`.`last_name` AS full_name FROM `member` INNER JOIN `zip_code` ON `member`.`zip` = `zip_code`.`zip_code` WHERE `zip_code`.`state` = 'Illinois'
+SELECT SUM(expense.`cost`) FROM expense INNER JOIN budget ON expense.`link_to_budget` = budget.`budget_id` INNER JOIN event ON budget.`link_to_event` = event.`event_id` WHERE budget.`category` = 'Advertisement' AND event.`event_name` = 'September Meeting'
+SELECT T2.department FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T1.last_name IN ('Pierce', 'Guidi') GROUP BY T2.department
+SELECT SUM(`budget`.`amount`) FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `event`.`event_name` = 'October Speaker'
+SELECT `expense`.`approved` FROM `expense` INNER JOIN `budget` ON `expense`.`link_to_budget` = `budget`.`budget_id` INNER JOIN `event` ON `budget`.`link_to_event` = `event`.`event_id` WHERE `event`.`event_date` = '2019-10-08' AND `event`.`event_name` = 'October Meeting'
+SELECT AVG(T1.cost) FROM expense AS T1 INNER JOIN member AS T2 ON T1.link_to_member = T2.member_id WHERE T2.first_name = 'Elijah' AND T2.last_name = 'Allen' AND (STRFTIME('%m', T1.expense_date) = '09' OR STRFTIME('%m', T1.expense_date) = '10')
+SELECT (SELECT SUM(`budget`.`spent`) FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE SUBSTR(`event`.`event_date`, 1, 4) = '2019') - (SELECT SUM(`budget`.`spent`) FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE SUBSTR(`event`.`event_date`, 1, 4) = '2020')
+SELECT `location` FROM `event` WHERE `event_name` = 'Spring Budget Review'
+SELECT `cost` FROM `expense` WHERE `expense_description` = 'Posters' AND `expense_date` = '2019-09-04'
+SELECT `remaining` FROM `budget` WHERE `category` = 'Food' AND `amount` = (SELECT MAX(`amount`) FROM `budget` WHERE `category` = 'Food')
+SELECT `notes` FROM `income` WHERE `source` = 'Fundraising' AND `date_received` = '2019-09-14'
+SELECT COUNT(*) FROM `major` WHERE `college` = 'College of Humanities and Social Sciences'
+SELECT `phone` FROM `member` WHERE `first_name` = 'Carlo' AND `last_name` = 'Jacobs'
+SELECT T1.county FROM zip_code AS T1 INNER JOIN member AS T2 ON T1.zip_code = T2.zip WHERE T2.first_name = 'Adela' AND T2.last_name = 'O''Gallagher'
+SELECT COUNT(*) FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `event`.`event_name` = 'November Meeting' AND `budget`.`remaining` < 0
+SELECT SUM(`budget`.`amount`) FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `event`.`event_name` = 'September Speaker'
+SELECT `event`.`status` FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` INNER JOIN `expense` ON `budget`.`budget_id` = `expense`.`link_to_budget` WHERE `expense`.`expense_description` = 'Post Cards, Posters' AND `expense`.`expense_date` = '2019-08-20'
+SELECT `major`.`major_name` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `member`.`first_name` = 'Brent' AND `member`.`last_name` = 'Thomason'
+SELECT COUNT(*) FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `major`.`major_name` = 'Business' AND `member`.`t_shirt_size` = 'Medium'
+SELECT `zip_code`.`type` FROM `member` INNER JOIN `zip_code` ON `member`.`zip` = `zip_code`.`zip_code` WHERE `member`.`first_name` = 'Christof' AND `member`.`last_name` = 'Nielson'
+SELECT major.`major_name` FROM member INNER JOIN major ON member.`link_to_major` = major.`major_id` WHERE member.`position` = 'Vice President'
+SELECT `zip_code`.`state` FROM `member` INNER JOIN `zip_code` ON `member`.`zip` = `zip_code`.`zip_code` WHERE `member`.`first_name` = 'Sacha' AND `member`.`last_name` = 'Harrison'
+SELECT major.`department` FROM member JOIN major ON member.`link_to_major` = major.`major_id` WHERE member.`position` = 'President'
+SELECT income.`date_received` FROM member INNER JOIN income ON member.`member_id` = income.`link_to_member` WHERE member.`first_name` = 'Connor' AND member.`last_name` = 'Hilton' AND income.`source` = 'Dues'
+SELECT `member`.`first_name`, `member`.`last_name` FROM `income` INNER JOIN `member` ON `income`.`link_to_member` = `member`.`member_id` WHERE `income`.`source` = 'Dues' ORDER BY `income`.`date_received` LIMIT 1
+SELECT CAST(SUM(CASE WHEN `event`.`event_name` = 'Yearly Kickoff' THEN `budget`.`amount` ELSE 0 END) AS REAL) / SUM(CASE WHEN `event`.`event_name` = 'October Meeting' THEN `budget`.`amount` ELSE 0 END) AS times_more FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `budget`.`category` = 'Advertisement'
+SELECT (SUM(CASE WHEN `budget`.`category` = 'Parking' THEN `budget`.`amount` ELSE 0 END) / SUM(`budget`.`amount`)) * 100 AS percentage FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `event`.`event_name` = 'November Speaker'
+SELECT SUM(`cost`) FROM `expense` WHERE `expense_description` = 'Pizza'
+SELECT COUNT(DISTINCT `zip_code`.`city`) FROM `zip_code` WHERE `zip_code`.`county` = 'Orange County' AND `zip_code`.`state` = 'Virginia'
+SELECT DISTINCT `department` FROM `major` WHERE `college` = 'College of Humanities and Social Sciences'
+SELECT T2.city, T2.county, T2.state FROM member AS T1 INNER JOIN zip_code AS T2 ON T1.zip = T2.zip_code WHERE T1.first_name = 'Amy' AND T1.last_name = 'Firth'
+SELECT `expense`.`expense_description` FROM `expense` INNER JOIN `budget` ON `expense`.`link_to_budget` = `budget`.`budget_id` WHERE `budget`.`remaining` = (SELECT MIN(`remaining`) FROM `budget`)
+SELECT `member`.`first_name`, `member`.`last_name`, `member`.`email`, `member`.`position`, `member`.`t_shirt_size`, `member`.`phone`, `member`.`zip`, `member`.`link_to_major` FROM `member` INNER JOIN `attendance` ON `member`.`member_id` = `attendance`.`link_to_member` INNER JOIN `event` ON `attendance`.`link_to_event` = `event`.`event_id` WHERE `event`.`event_name` = 'October Meeting'
+SELECT `major`.`college` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` GROUP BY `major`.`college` ORDER BY COUNT(`member`.`member_id`) DESC LIMIT 1
+SELECT `major`.`major_name` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `member`.`phone` = '809-555-3360'
+SELECT `event`.`event_name` FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` ORDER BY `budget`.`amount` DESC LIMIT 1
+SELECT `expense`.`expense_description`, `expense`.`cost`, `expense`.`expense_date` FROM `expense` JOIN `member` ON `expense`.`link_to_member` = `member`.`member_id` WHERE `member`.`position` = 'Vice President'
+SELECT COUNT(DISTINCT `attendance`.`link_to_member`) FROM `event` INNER JOIN `attendance` ON `event`.`event_id` = `attendance`.`link_to_event` WHERE `event`.`event_name` = 'Women''s Soccer'
+SELECT income.`date_received` FROM income INNER JOIN member ON income.`link_to_member` = member.`member_id` WHERE member.`first_name` = 'Casey' AND member.`last_name` = 'Mason'
+SELECT COUNT(`member`.`member_id`) FROM `member` INNER JOIN `zip_code` ON `member`.`zip` = `zip_code`.`zip_code` WHERE `zip_code`.`state` = 'Maryland'
+SELECT COUNT(DISTINCT `attendance`.`link_to_event`) FROM `member` INNER JOIN `attendance` ON `member`.`member_id` = `attendance`.`link_to_member` WHERE `member`.`phone` = '954-555-6240'
+SELECT `member`.`first_name`, `member`.`last_name` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `major`.`department` = 'School of Applied Sciences, Technology and Education'
+SELECT `event`.`event_name` FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `event`.`status` = 'Closed' ORDER BY (`budget`.`spent` / `budget`.`amount`) DESC LIMIT 1
+SELECT COUNT(*) FROM `member` WHERE `position` = 'President'
+SELECT MAX(`spent`) FROM `budget`
+SELECT COUNT(`event_id`) FROM `event` WHERE `type` = 'Meeting' AND STRFTIME('%Y', `event_date`) = '2020'
+SELECT SUM(`spent`) FROM `budget` WHERE `category` = 'Food'
+SELECT `member`.`first_name`, `member`.`last_name` FROM `member` INNER JOIN `attendance` ON `member`.`member_id` = `attendance`.`link_to_member` GROUP BY `member`.`member_id` HAVING COUNT(`attendance`.`link_to_event`) > 7
+SELECT `member`.`first_name`, `member`.`last_name` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` INNER JOIN `attendance` ON `member`.`member_id` = `attendance`.`link_to_member` INNER JOIN `event` ON `attendance`.`link_to_event` = `event`.`event_id` WHERE `major`.`major_name` = 'Interior Design' AND `event`.`event_name` = 'Community Theater'
+SELECT `member`.`first_name`, `member`.`last_name` FROM `member` INNER JOIN `zip_code` ON `member`.`zip` = `zip_code`.`zip_code` WHERE `zip_code`.`city` = 'Georgetown' AND `zip_code`.`state` = 'South Carolina'
+SELECT COUNT(`income`.`amount`) FROM `income` INNER JOIN `member` ON `income`.`link_to_member` = `member`.`member_id` WHERE `member`.`first_name` = 'Grant' AND `member`.`last_name` = 'Gilmour'
+SELECT `member`.`first_name`, `member`.`last_name` FROM `income` JOIN `member` ON `income`.`link_to_member` = `member`.`member_id` WHERE `income`.`amount` > 40
+SELECT SUM(`expense`.`cost`) FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` INNER JOIN `expense` ON `budget`.`budget_id` = `expense`.`link_to_budget` WHERE `event`.`event_name` = 'Yearly Kickoff'
+SELECT T1.first_name || ' ' || T1.last_name AS full_name FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member INNER JOIN event AS T3 ON T2.link_to_event = T3.event_id INNER JOIN budget AS T4 ON T3.event_id = T4.link_to_event WHERE T3.event_name = 'Yearly Kickoff'
+SELECT `member`.`first_name`, `member`.`last_name`, `income`.`source` FROM `income` INNER JOIN `member` ON `income`.`link_to_member` = `member`.`member_id` WHERE `income`.`amount` = (SELECT MAX(`amount`) FROM `income`)
+SELECT `event`.`event_name` FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` INNER JOIN `expense` ON `budget`.`budget_id` = `expense`.`link_to_budget` ORDER BY `expense`.`cost` LIMIT 1
+SELECT CAST(SUM(CASE WHEN `event`.`event_name` = 'Yearly Kickoff' THEN `expense`.`cost` ELSE 0 END) AS REAL) * 100 / SUM(`expense`.`cost`) FROM `expense` INNER JOIN `budget` ON `expense`.`link_to_budget` = `budget`.`budget_id` INNER JOIN `event` ON `budget`.`link_to_event` = `event`.`event_id`
+SELECT CAST(SUM(CASE WHEN `major`.`major_name` = 'Finance' THEN 1 ELSE 0 END) AS REAL) / SUM(CASE WHEN `major`.`major_name` = 'Physics' THEN 1 ELSE 0 END) FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id`
+SELECT `source`, SUM(`amount`) AS total_amount FROM `income` WHERE `date_received` BETWEEN '2019-09-01' AND '2019-09-30' GROUP BY `source` ORDER BY total_amount DESC LIMIT 1
+SELECT `first_name`, `last_name`, `email` FROM `member` WHERE `position` = 'Secretary'
+SELECT COUNT(member.`member_id`) FROM member INNER JOIN major ON member.`link_to_major` = major.`major_id` WHERE major.`major_name` = 'Physics Teaching'
+SELECT COUNT(DISTINCT `attendance`.`link_to_member`) FROM `event` INNER JOIN `attendance` ON `event`.`event_id` = `attendance`.`link_to_event` WHERE `event`.`event_name` = 'Community Theater' AND strftime('%Y', `event`.`event_date`) = '2019'
+SELECT COUNT(T1.`link_to_event`) AS event_count, T3.`major_name` FROM `attendance` AS T1 INNER JOIN `member` AS T2 ON T1.`link_to_member` = T2.`member_id` INNER JOIN `major` AS T3 ON T2.`link_to_major` = T3.`major_id` WHERE T2.`first_name` = 'Luisa' AND T2.`last_name` = 'Guidi' GROUP BY T3.`major_name`
+SELECT SUM(`budget`.`spent`) / COUNT(`budget`.`spent`) FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `budget`.`category` = 'Food' AND `event`.`status` = 'Closed'
+SELECT `event`.`event_name` FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `budget`.`category` = 'Advertisement' ORDER BY `budget`.`spent` DESC LIMIT 1
+SELECT EXISTS (SELECT 1 FROM `member` AS T1 INNER JOIN `attendance` AS T2 ON T1.`member_id` = T2.`link_to_member` INNER JOIN `event` AS T3 ON T2.`link_to_event` = T3.`event_id` WHERE T1.`first_name` = 'Maya' AND T1.`last_name` = 'Mclean' AND T3.`event_name` = 'Women''s Soccer')
+SELECT CAST(SUM(CASE WHEN `event`.`type` = 'Community Service' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`event`.`event_id`) FROM `event` WHERE `event`.`event_date` BETWEEN '2019-01-01' AND '2019-12-31'
+SELECT expense.`cost` FROM event INNER JOIN budget ON event.`event_id` = budget.`link_to_event` INNER JOIN expense ON budget.`budget_id` = expense.`link_to_budget` WHERE event.`event_name` = 'September Speaker' AND expense.`expense_description` = 'Posters'
+SELECT `t_shirt_size` FROM `member` GROUP BY `t_shirt_size` ORDER BY COUNT(`t_shirt_size`) DESC LIMIT 1
+SELECT event.`event_name` FROM event INNER JOIN budget ON event.`event_id` = budget.`link_to_event` WHERE event.`status` = 'Closed' AND budget.`remaining` < 0 ORDER BY budget.`remaining` LIMIT 1
+SELECT `expense`.`expense_description`, SUM(`expense`.`cost`) AS total_value FROM `event` JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` JOIN `expense` ON `budget`.`budget_id` = `expense`.`link_to_budget` WHERE `event`.`event_name` = 'October Meeting' AND `expense`.`approved` = 'true' GROUP BY `expense`.`expense_description`
+SELECT `budget`.`category`, SUM(`budget`.`amount`) AS amount_budgeted FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `event`.`event_name` = 'April Speaker' GROUP BY `budget`.`category` ORDER BY amount_budgeted ASC
+SELECT MAX(`amount`) FROM `budget` WHERE `category` = 'Food'
+SELECT `budget_id`, `amount` FROM `budget` WHERE `category` = 'Advertisement' ORDER BY `amount` DESC LIMIT 3
+SELECT SUM(`cost`) FROM `expense` WHERE `expense_description` = 'Parking'
+SELECT SUM(`cost`) FROM `expense` WHERE `expense_date` = '2019-08-20'
+SELECT `member`.`first_name`, `member`.`last_name`, SUM(`expense`.`cost`) AS total_cost FROM `member` INNER JOIN `expense` ON `member`.`member_id` = `expense`.`link_to_member` WHERE `member`.`member_id` = 'rec4BLdZHS2Blfp4v' GROUP BY `member`.`first_name`, `member`.`last_name`
+SELECT `expense`.`expense_description` FROM `expense` INNER JOIN `member` ON `expense`.`link_to_member` = `member`.`member_id` WHERE `member`.`first_name` = 'Sacha' AND `member`.`last_name` = 'Harrison'
+SELECT `expense`.`expense_description` FROM `expense` INNER JOIN `member` ON `expense`.`link_to_member` = `member`.`member_id` WHERE `member`.`t_shirt_size` = 'X-Large'
+SELECT `member`.`zip` FROM `expense` INNER JOIN `member` ON `expense`.`link_to_member` = `member`.`member_id` WHERE `expense`.`cost` < 50
+SELECT major.`major_name` FROM member INNER JOIN major ON member.`link_to_major` = major.`major_id` WHERE member.`first_name` = 'Phillip' AND member.`last_name` = 'Cullen'
+SELECT `member`.`position` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `major`.`major_name` = 'Business'
+SELECT COUNT(`member`.`member_id`) FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `major`.`major_name` = 'Business' AND `member`.`t_shirt_size` = 'Medium'
+SELECT `event`.`type` FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `budget`.`remaining` > 30
+SELECT `type` FROM `event` WHERE `location` = 'MU 215'
+SELECT `type` FROM `event` WHERE `event_date` = '2020-03-24T12:00:00'
+SELECT `major`.`major_name` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `member`.`position` = 'Vice President'
+SELECT CAST(SUM(CASE WHEN `member`.`position` = 'Member' AND `major`.`major_name` = 'Business' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`member`.`member_id`) FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id`
+SELECT DISTINCT `type` FROM `event` WHERE `location` = 'MU 215'
+SELECT COUNT(*) FROM `income` WHERE `amount` = 50
+SELECT COUNT(`member_id`) FROM `member` WHERE `position` = 'Member' AND `t_shirt_size` = 'X-Large'
+SELECT COUNT(*) FROM `major` WHERE `college` = 'College of Agriculture and Applied Sciences' AND `department` = 'School of Applied Sciences, Technology and Education'
+SELECT `member`.`last_name`, `major`.`department`, `major`.`college` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `major`.`major_name` = 'Environmental Engineering'
+SELECT `budget`.`category` FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `event`.`location` = 'MU 215' AND `event`.`type` = 'Guest Speaker' AND `budget`.`spent` = 0
+SELECT `zip_code`.`city`, `zip_code`.`state` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` INNER JOIN `zip_code` ON `member`.`zip` = `zip_code`.`zip_code` WHERE `major`.`department` = 'Electrical and Computer Engineering Department' AND `member`.`position` = 'Member'
+SELECT `event`.`event_name` FROM `event` JOIN `attendance` ON `event`.`event_id` = `attendance`.`link_to_event` JOIN `member` ON `attendance`.`link_to_member` = `member`.`member_id` WHERE `event`.`type` = 'Social' AND `member`.`position` = 'Vice President' AND `event`.`location` = '900 E. Washington St.'
+SELECT `member`.`last_name`, `member`.`position` FROM `expense` INNER JOIN `member` ON `expense`.`link_to_member` = `member`.`member_id` WHERE `expense`.`expense_description` = 'Pizza' AND `expense`.`expense_date` = '2019-09-10'
+SELECT `member`.`last_name` FROM `member` INNER JOIN `attendance` ON `member`.`member_id` = `attendance`.`link_to_member` INNER JOIN `event` ON `attendance`.`link_to_event` = `event`.`event_id` WHERE `member`.`position` = 'Member' AND `event`.`event_name` = 'Women''s Soccer'
+SELECT CAST(COUNT(CASE WHEN `income`.`amount` = 50 THEN 1 END) AS REAL) * 100 / COUNT(`member`.`member_id`) FROM `member` LEFT JOIN `income` ON `member`.`member_id` = `income`.`link_to_member` WHERE `member`.`t_shirt_size` = 'Medium'
+SELECT DISTINCT `state` FROM `zip_code` WHERE `type` = 'PO Box'
+SELECT `zip_code`.`zip_code` FROM `zip_code` WHERE `zip_code`.`type` = 'PO Box' AND `zip_code`.`county` = 'San Juan Municipio' AND `zip_code`.`state` = 'Puerto Rico'
+SELECT `event_name` FROM `event` WHERE `type` = 'Game' AND `status` = 'Closed' AND `event_date` BETWEEN '2019-03-15' AND '2020-03-20'
+SELECT DISTINCT `attendance`.`link_to_event` FROM `expense` INNER JOIN `attendance` ON `expense`.`link_to_member` = `attendance`.`link_to_member` WHERE `expense`.`cost` > 50
+SELECT DISTINCT `member`.`member_id`, `member`.`first_name`, `member`.`last_name`, `attendance`.`link_to_event` FROM `member` INNER JOIN `expense` ON `member`.`member_id` = `expense`.`link_to_member` INNER JOIN `attendance` ON `member`.`member_id` = `attendance`.`link_to_member` WHERE `expense`.`approved` = 'true' AND `expense`.`expense_date` BETWEEN '2019-01-10' AND '2019-11-19'
+SELECT `major`.`college` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `member`.`first_name` = 'Katy' AND `member`.`link_to_major` = 'rec1N0upiVLy5esTO'
+SELECT `member`.`phone` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `major`.`major_name` = 'Business' AND `major`.`college` = 'College of Agriculture and Applied Sciences'
+SELECT `member`.`email` FROM `expense` INNER JOIN `member` ON `expense`.`link_to_member` = `member`.`member_id` WHERE `expense`.`cost` > 20 AND `expense`.`expense_date` BETWEEN '2019-09-10' AND '2019-11-19'
+SELECT COUNT(`member`.`member_id`) FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `major`.`major_name` = 'education' AND `major`.`college` = 'College of Education & Human Services'
+SELECT CAST(SUM(CASE WHEN `budget`.`remaining` < 0 THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`event`.`event_id`) FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event`
+SELECT `event_id`, `location`, `status` FROM `event` WHERE `event_date` BETWEEN '2019-11-01' AND '2020-03-31'
+SELECT `expense`.`expense_description` FROM `expense` GROUP BY `expense`.`expense_description` HAVING SUM(`expense`.`cost`) / COUNT(`expense`.`expense_id`) > 50
+SELECT `first_name`, `last_name` FROM `member` WHERE `t_shirt_size` = 'X-Large'
+SELECT CAST(SUM(CASE WHEN `zip_code`.`type` = 'PO Box' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM `zip_code`
+SELECT `event`.`event_name`, `event`.`location` FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `budget`.`remaining` > 0
+SELECT `event`.`event_name`, `event`.`event_date` FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` INNER JOIN `expense` ON `budget`.`budget_id` = `expense`.`link_to_budget` WHERE `expense`.`expense_description` = 'Pizza' AND `expense`.`cost` > 50 AND `expense`.`cost` < 100
+SELECT `member`.`first_name`, `member`.`last_name`, `major`.`major_name` FROM `expense` JOIN `member` ON `expense`.`link_to_member` = `member`.`member_id` JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `expense`.`cost` > 100
+SELECT `zip_code`.`city`, `zip_code`.`county` FROM `event` JOIN `attendance` ON `event`.`event_id` = `attendance`.`link_to_event` JOIN `income` ON `attendance`.`link_to_member` = `income`.`link_to_member` JOIN `member` ON `income`.`link_to_member` = `member`.`member_id` JOIN `zip_code` ON `member`.`zip` = `zip_code`.`zip_code` GROUP BY `event`.`event_id` HAVING COUNT(`income`.`income_id`) > 40
+SELECT T1.`first_name`, T1.`last_name` FROM member AS T1 INNER JOIN expense AS T2 ON T1.`member_id` = T2.`link_to_member` INNER JOIN budget AS T3 ON T2.`link_to_budget` = T3.`budget_id` GROUP BY T1.`member_id` HAVING COUNT(DISTINCT T3.`link_to_event`) > 1 ORDER BY SUM(T2.`cost`) DESC LIMIT 1
+SELECT SUM(`expense`.`cost`) / COUNT(DISTINCT `event`.`event_id`) AS average_amount_paid FROM `member` INNER JOIN `expense` ON `member`.`member_id` = `expense`.`link_to_member` INNER JOIN `event` ON `expense`.`link_to_member` = `member`.`member_id` WHERE `member`.`position` != 'Member'
+SELECT `event`.`event_name` FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` INNER JOIN `expense` ON `budget`.`budget_id` = `expense`.`link_to_budget` WHERE `expense`.`expense_description` = 'Parking' GROUP BY `event`.`event_name` HAVING SUM(`expense`.`cost`) < (SELECT SUM(`expense`.`cost`) / COUNT(DISTINCT `event`.`event_id`) FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` INNER JOIN `expense` ON `budget`.`budget_id` = `expense`.`link_to_budget` WHERE `expense`.`expense_description` = 'Parking')
+SELECT CAST(SUM(expense.`cost`) AS REAL) * 100 / (SELECT COUNT(DISTINCT event.`event_id`) FROM event WHERE event.`type` = 'Meeting') FROM event INNER JOIN budget ON event.`event_id` = budget.`link_to_event` INNER JOIN expense ON budget.`budget_id` = expense.`link_to_budget` WHERE event.`type` = 'Meeting'
+SELECT `budget`.`budget_id`, MAX(`expense`.`cost`) AS max_cost FROM `expense` INNER JOIN `budget` ON `expense`.`link_to_budget` = `budget`.`budget_id` WHERE `expense`.`expense_description` = 'Water, chips, cookies' GROUP BY `budget`.`budget_id` ORDER BY max_cost DESC LIMIT 1
+SELECT `member`.`first_name`, `member`.`last_name` FROM `expense` INNER JOIN `member` ON `expense`.`link_to_member` = `member`.`member_id` GROUP BY `member`.`member_id` ORDER BY SUM(`expense`.`cost`) DESC LIMIT 5
+SELECT `member`.`first_name`, `member`.`last_name`, `member`.`phone` FROM `member` INNER JOIN `expense` ON `member`.`member_id` = `expense`.`link_to_member` WHERE `expense`.`cost` > (SELECT AVG(`cost`) FROM `expense`)
+SELECT CAST(SUM(CASE WHEN T1.state = 'New Jersey' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) - CAST(SUM(CASE WHEN T1.state = 'Vermont' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(*) FROM zip_code AS T1 INNER JOIN member AS T2 ON T1.zip_code = T2.zip WHERE T2.position = 'Member'
+SELECT major.`major_name`, major.`department` FROM member INNER JOIN major ON member.`link_to_major` = major.`major_id` WHERE member.`first_name` = 'Garrett' AND member.`last_name` = 'Gerke'
+SELECT T1.first_name || ' ' || T1.last_name AS full_name, T2.cost FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T2.expense_description IN ('Water', 'Veggie tray', 'supplies')
+SELECT `member`.`last_name`, `member`.`phone` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `major`.`major_name` = 'Elementary Education'
+SELECT `budget`.`category`, `budget`.`amount` FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `event`.`event_name` = 'January Speaker'
+SELECT `event`.`event_name` FROM `event` INNER JOIN `budget` ON `event`.`event_id` = `budget`.`link_to_event` WHERE `budget`.`category` = 'Food'
+SELECT CONCAT(`member`.`first_name`, ' ', `member`.`last_name`) AS full_name, `income`.`amount` FROM `income` INNER JOIN `member` ON `income`.`link_to_member` = `member`.`member_id` WHERE `income`.`date_received` = '2019-09-09'
+SELECT `budget`.`category` FROM `expense` INNER JOIN `budget` ON `expense`.`link_to_budget` = `budget`.`budget_id` WHERE `expense`.`expense_description` = 'Posters' LIMIT 1
+SELECT `member`.`first_name`, `member`.`last_name`, `major`.`college` FROM `member` INNER JOIN `major` ON `member`.`link_to_major` = `major`.`major_id` WHERE `member`.`position` = 'Secretary'
+SELECT `event`.`event_name`, SUM(`budget`.`spent`) AS total_amount_spent FROM `budget` INNER JOIN `event` ON `budget`.`link_to_event` = `event`.`event_id` WHERE `budget`.`category` = 'Speaker Gifts' GROUP BY `event`.`event_name`
+SELECT `zip_code`.`city` FROM `member` JOIN `zip_code` ON `member`.`zip` = `zip_code`.`zip_code` WHERE `member`.`first_name` = 'Garrett' AND `member`.`last_name` = 'Gerke'
+SELECT member.`first_name`, member.`last_name`, member.`position` FROM member INNER JOIN zip_code ON member.`zip` = zip_code.`zip_code` WHERE zip_code.`city` = 'Lincolnton' AND zip_code.`state` = 'North Carolina' AND zip_code.`zip_code` = 28092
+SELECT COUNT(*) FROM `gasstations` WHERE `Country` = 'CZE' AND `Segment` = 'Premium'
+SELECT CAST(SUM(IIF(`customers`.`currency` = 'EUR', 1, 0)) AS REAL) / CAST(SUM(IIF(`customers`.`currency` = 'CZK', 1, 0)) AS REAL) FROM `customers`
+SELECT `customers`.`customerid` FROM `customers` INNER JOIN `yearmonth` ON `customers`.`customerid` = `yearmonth`.`customerid` WHERE `customers`.`segment` = 'LAM' AND `yearmonth`.`date` BETWEEN '201201' AND '201212' ORDER BY `yearmonth`.`consumption` ASC LIMIT 1
+SELECT AVG(`yearmonth`.`consumption`) / 12 AS average_monthly_consumption FROM `customers` INNER JOIN `yearmonth` ON `customers`.`customerid` = `yearmonth`.`customerid` WHERE `customers`.`segment` = 'SME' AND `yearmonth`.`date` BETWEEN 201301 AND 201312
+SELECT T1.`CustomerID`, T1.`Segment`, T1.`Currency`, SUM(T2.`Consumption`) AS TotalConsumption FROM `customers` AS T1 INNER JOIN `yearmonth` AS T2 ON T1.`CustomerID` = T2.`CustomerID` WHERE T1.`Currency` = 'CZK' AND T2.`Date` BETWEEN 201101 AND 201112 GROUP BY T1.`CustomerID` ORDER BY TotalConsumption DESC LIMIT 1
+SELECT COUNT(DISTINCT `customers`.`customerid`) FROM `customers` INNER JOIN `yearmonth` ON `customers`.`customerid` = `yearmonth`.`customerid` WHERE `customers`.`segment` = 'KAM' AND `yearmonth`.`consumption` < 30000 AND `yearmonth`.`date` BETWEEN 201201 AND 201212
+SELECT SUM(CASE WHEN `customers`.`currency` = 'CZK' THEN `yearmonth`.`consumption` ELSE 0 END) - SUM(CASE WHEN `customers`.`currency` = 'EUR' THEN `yearmonth`.`consumption` ELSE 0 END) AS difference FROM `yearmonth` INNER JOIN `customers` ON `yearmonth`.`customerid` = `customers`.`customerid` WHERE `yearmonth`.`date` BETWEEN 201201 AND 201212
+SELECT `yearmonth`.`date` FROM `yearmonth` JOIN `customers` ON `yearmonth`.`customerid` = `customers`.`customerid` WHERE `customers`.`currency` = 'EUR' ORDER BY `yearmonth`.`consumption` DESC LIMIT 1
+SELECT T.segment FROM ( SELECT T1.segment, SUM(T2.consumption) AS total_consumption FROM customers AS T1 INNER JOIN yearmonth AS T2 ON T1.customerid = T2.customerid GROUP BY T1.segment ) AS T ORDER BY T.total_consumption ASC LIMIT 1
+SELECT SUBSTR(`yearmonth`.`date`, 1, 4) AS `year`, SUM(`yearmonth`.`consumption`) AS `total_consumption` FROM `yearmonth` INNER JOIN `customers` ON `yearmonth`.`customerid` = `customers`.`customerid` WHERE `customers`.`currency` = 'CZK' GROUP BY `year` ORDER BY `total_consumption` DESC LIMIT 1
+SELECT `yearmonth`.`date` FROM `yearmonth` INNER JOIN `customers` ON `yearmonth`.`customerid` = `customers`.`customerid` WHERE `customers`.`segment` = 'SME' AND `yearmonth`.`date` BETWEEN '201301' AND '201312' ORDER BY `yearmonth`.`consumption` DESC LIMIT 1
+WITH SegmentConsumption AS (SELECT c.`Segment`, y.`CustomerID`, SUM(y.`Consumption`) AS TotalConsumption FROM `customers` c JOIN `yearmonth` y ON c.`CustomerID` = y.`CustomerID` WHERE y.`Date` BETWEEN 201301 AND 201312 GROUP BY c.`Segment`, y.`CustomerID`), MinConsumption AS (SELECT `Segment`, MIN(TotalConsumption) AS MinConsumption FROM SegmentConsumption GROUP BY `Segment`), AnnualAverage AS (SELECT sc.`Segment`, SUM(sc.TotalConsumption) / COUNT(sc.`CustomerID`) AS AnnualAverage FROM SegmentConsumption sc JOIN MinConsumption mc ON sc.`Segment` = mc.`Segment` AND sc.TotalConsumption = mc.MinConsumption GROUP BY sc.`Segment`) SELECT (SELECT AnnualAverage FROM AnnualAverage WHERE `Segment` = 'SME') - (SELECT AnnualAverage FROM AnnualAverage WHERE `Segment` = 'LAM') AS SME_LAM_Difference, (SELECT AnnualAverage FROM AnnualAverage WHERE `Segment` = 'LAM') - (SELECT AnnualAverage FROM AnnualAverage WHERE `Segment` = 'KAM') AS LAM_KAM_Difference, (SELECT AnnualAverage FROM AnnualAverage WHERE `Segment` = 'KAM') - (SELECT AnnualAverage FROM AnnualAverage WHERE `Segment` = 'SME') AS KAM_SME_Difference;
+WITH consumption_2012 AS (SELECT `customerid`, SUM(`consumption`) AS consumption_2012 FROM `yearmonth` WHERE `date` LIKE '2012%' GROUP BY `customerid`), consumption_2013 AS (SELECT `customerid`, SUM(`consumption`) AS consumption_2013 FROM `yearmonth` WHERE `date` LIKE '2013%' GROUP BY `customerid`), consumption_diff AS (SELECT c2012.`customerid`, c2012.consumption_2012, c2013.consumption_2013, (c2013.consumption_2013 - c2012.consumption_2012) AS diff, ((c2013.consumption_2013 - c2012.consumption_2012) / c2013.consumption_2013) * 100 AS percentage_increase FROM consumption_2012 c2012 JOIN consumption_2013 c2013 ON c2012.`customerid` = c2013.`customerid`) SELECT `segment`, MAX(percentage_increase) AS max_percentage_increase, MIN(percentage_increase) AS min_percentage_increase FROM consumption_diff cd JOIN `customers` c ON cd.`customerid` = c.`customerid` GROUP BY `segment` ORDER BY max_percentage_increase DESC, min_percentage_increase ASC LIMIT 3
+SELECT SUM(`yearmonth`.`consumption`) FROM `yearmonth` WHERE `yearmonth`.`customerid` = 6 AND `yearmonth`.`date` BETWEEN 201308 AND 201311
+SELECT (SELECT COUNT(*) FROM gasstations WHERE `segment` = 'Discount' AND `country` = 'CZE') - (SELECT COUNT(*) FROM gasstations WHERE `segment` = 'Discount' AND `country` = 'SVK')
+SELECT T1.consumption - T2.consumption AS difference FROM yearmonth AS T1 JOIN yearmonth AS T2 ON T1.date = '201304' AND T2.date = '201304' WHERE T1.customerid = 7 AND T2.customerid = 5
+SELECT (SELECT COUNT(DISTINCT `customers`.`customerid`) FROM `customers` WHERE `customers`.`segment` = 'SME' AND `customers`.`currency` = 'CZK') - (SELECT COUNT(DISTINCT `customers`.`customerid`) FROM `customers` WHERE `customers`.`segment` = 'SME' AND `customers`.`currency` = 'EUR') AS `Amount_of_more_SMEs`
+SELECT `customers`.`customerid` FROM `customers` INNER JOIN `yearmonth` ON `customers`.`customerid` = `yearmonth`.`customerid` WHERE `customers`.`segment` = 'LAM' AND `customers`.`currency` = 'EUR' AND `yearmonth`.`date` = '201310' ORDER BY `yearmonth`.`consumption` DESC LIMIT 1
+SELECT T1.`customerid`, MAX(T2.`consumption`) AS max_consumption FROM `customers` AS T1 INNER JOIN `yearmonth` AS T2 ON T1.`customerid` = T2.`customerid` WHERE T1.`segment` = 'KAM' GROUP BY T1.`customerid` ORDER BY max_consumption DESC LIMIT 1
+SELECT SUM(`yearmonth`.`consumption`) FROM `yearmonth` INNER JOIN `customers` ON `yearmonth`.`customerid` = `customers`.`customerid` WHERE `customers`.`segment` = 'KAM' AND `yearmonth`.`date` = '201305'
+SELECT (COUNT(CASE WHEN y.`Consumption` > 46.73 THEN 1 END) * 100.0 / COUNT(*)) AS percentage FROM `customers` c INNER JOIN `yearmonth` y ON c.`CustomerID` = y.`CustomerID` WHERE c.`Segment` = 'LAM'
+SELECT `gasstations`.`country`, COUNT(`gasstations`.`gasstationid`) AS total_stations FROM `gasstations` WHERE `gasstations`.`segment` = 'Value for money' GROUP BY `gasstations`.`country` ORDER BY total_stations DESC
+SELECT CAST(SUM(IIF(`customers`.`currency` = 'EUR', 1, 0)) AS REAL) * 100 / COUNT(DISTINCT `customers`.`customerid`) FROM `customers` WHERE `customers`.`segment` = 'KAM'
+SELECT CAST(SUM(IIF(`yearmonth`.`consumption` > 528.3, 1, 0)) AS REAL) * 100 / COUNT(DISTINCT `yearmonth`.`customerid`) FROM `yearmonth` WHERE SUBSTR(`yearmonth`.`date`, 1, 4) = '2012' AND SUBSTR(`yearmonth`.`date`, 5, 2) = '02'
+SELECT CAST(SUM(CASE WHEN `gasstations`.`segment` = 'Premium' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`gasstations`.`gasstationid`) FROM `gasstations` WHERE `gasstations`.`country` = 'SVK'
+SELECT `yearmonth`.`customerid` FROM `yearmonth` WHERE `yearmonth`.`date` = '201309' ORDER BY `yearmonth`.`consumption` DESC LIMIT 1
+SELECT T.segment FROM ( SELECT T1.segment, SUM(T2.consumption) AS total_consumption FROM customers AS T1 INNER JOIN yearmonth AS T2 ON T1.customerid = T2.customerid WHERE T2.date = '201309' GROUP BY T1.segment ) AS T ORDER BY T.total_consumption ASC LIMIT 1
+SELECT T1.`CustomerID` FROM customers AS T1 INNER JOIN yearmonth AS T2 ON T1.`CustomerID` = T2.`CustomerID` WHERE T1.`Segment` = 'SME' AND T2.`Date` = '201206' ORDER BY T2.`Consumption` ASC LIMIT 1
+SELECT `consumption` FROM `yearmonth` WHERE `date` LIKE '2012%' ORDER BY `consumption` DESC LIMIT 1
+SELECT SUM(`yearmonth`.`consumption`) / 12 AS MonthlyConsumption FROM `customers` INNER JOIN `yearmonth` ON `customers`.`customerid` = `yearmonth`.`customerid` WHERE `customers`.`currency` = 'EUR' GROUP BY `customers`.`customerid` ORDER BY MonthlyConsumption DESC LIMIT 1
+SELECT `products`.`description` FROM `transactions_1k` INNER JOIN `products` ON `transactions_1k`.`productid` = `products`.`productid` INNER JOIN `yearmonth` ON `transactions_1k`.`customerid` = `yearmonth`.`customerid` WHERE `yearmonth`.`date` = '201309'
+SELECT DISTINCT `gasstations`.`country` FROM `transactions_1k` INNER JOIN `gasstations` ON `transactions_1k`.`gasstationid` = `gasstations`.`gasstationid` WHERE `transactions_1k`.`date` LIKE '2013-06%'
+SELECT DISTINCT `gasstations`.`chainid` FROM `customers` JOIN `transactions_1k` ON `customers`.`customerid` = `transactions_1k`.`customerid` JOIN `gasstations` ON `transactions_1k`.`gasstationid` = `gasstations`.`gasstationid` WHERE `customers`.`currency` = 'EUR'
+SELECT `products`.`description` FROM `transactions_1k` INNER JOIN `products` ON `transactions_1k`.`productid` = `products`.`productid` INNER JOIN `customers` ON `transactions_1k`.`customerid` = `customers`.`customerid` WHERE `customers`.`currency` = 'EUR'
+SELECT AVG(transactions_1k.`amount` * transactions_1k.`price`) FROM transactions_1k WHERE transactions_1k.`date` LIKE '2012-01%'
+SELECT COUNT(DISTINCT `customers`.`customerid`) FROM `customers` INNER JOIN `yearmonth` ON `customers`.`customerid` = `yearmonth`.`customerid` WHERE `customers`.`currency` = 'EUR' AND `yearmonth`.`consumption` > 1000
+SELECT T3.description FROM transactions_1k AS T1 INNER JOIN gasstations AS T2 ON T1.gasstationid = T2.gasstationid INNER JOIN products AS T3 ON T1.productid = T3.productid WHERE T2.country = 'CZE'
+SELECT DISTINCT `transactions_1k`.`time` FROM `transactions_1k` INNER JOIN `gasstations` ON `transactions_1k`.`gasstationid` = `gasstations`.`gasstationid` WHERE `gasstations`.`chainid` = 11
+SELECT COUNT(`transactions_1k`.`transactionid`) FROM `transactions_1k` INNER JOIN `gasstations` ON `transactions_1k`.`gasstationid` = `gasstations`.`gasstationid` WHERE `gasstations`.`country` = 'CZE' AND `transactions_1k`.`price` > 1000
+SELECT COUNT(`transactions_1k`.`transactionid`) FROM `transactions_1k` INNER JOIN `gasstations` ON `transactions_1k`.`gasstationid` = `gasstations`.`gasstationid` WHERE `gasstations`.`country` = 'CZE' AND `transactions_1k`.`date` > '2012-01-01'
+SELECT AVG(T1.`price`) FROM transactions_1k AS T1 INNER JOIN gasstations AS T2 ON T1.`gasstationid` = T2.`gasstationid` WHERE T2.`country` = 'CZE'
+SELECT AVG(T2.price) FROM customers AS T1 INNER JOIN transactions_1k AS T2 ON T1.customerid = T2.customerid WHERE T1.currency = 'EUR'
+SELECT T1.`CustomerID`, T1.`Segment`, T1.`Currency`, SUM(T2.`Amount` * T2.`Price`) AS TotalPayment FROM customers AS T1 INNER JOIN transactions_1k AS T2 ON T1.`CustomerID` = T2.`CustomerID` WHERE T2.`Date` = '2012-08-25' GROUP BY T1.`CustomerID` ORDER BY TotalPayment DESC LIMIT 1
+SELECT `gasstations`.`country` FROM `transactions_1k` INNER JOIN `gasstations` ON `transactions_1k`.`gasstationid` = `gasstations`.`gasstationid` WHERE `transactions_1k`.`date` = '2012-08-25' ORDER BY `transactions_1k`.`time` ASC LIMIT 1
+SELECT `customers`.`currency` FROM `customers` INNER JOIN `transactions_1k` ON `customers`.`customerid` = `transactions_1k`.`customerid` WHERE `transactions_1k`.`date` = '2012-08-24' AND `transactions_1k`.`time` = '16:25:00'
+SELECT `customers`.`segment` FROM `customers` INNER JOIN `transactions_1k` ON `customers`.`customerid` = `transactions_1k`.`customerid` WHERE `transactions_1k`.`date` = '2012-08-23' AND `transactions_1k`.`time` = '21:20:00'
+SELECT COUNT(`transactionid`) FROM `transactions_1k` JOIN `customers` ON `transactions_1k`.`customerid` = `customers`.`customerid` WHERE `transactions_1k`.`date` = '2012-08-26' AND `transactions_1k`.`time` < '13:00:00' AND `customers`.`currency` = 'CZK'
+SELECT `customers`.`segment` FROM `customers` INNER JOIN `yearmonth` ON `customers`.`customerid` = `yearmonth`.`customerid` ORDER BY `yearmonth`.`date` LIMIT 1
+SELECT T2.`country` FROM `transactions_1k` AS T1 INNER JOIN `gasstations` AS T2 ON T1.`gasstationid` = T2.`gasstationid` WHERE T1.`date` = '2012-08-24' AND T1.`time` = '12:42:00'
+SELECT `transactions_1k`.`productid` FROM `transactions_1k` WHERE `transactions_1k`.`date` = '2012-08-23' AND `transactions_1k`.`time` = '21:20:00'
+SELECT T1.consumption, T1.date FROM yearmonth AS T1 INNER JOIN transactions_1k AS T2 ON T1.customerid = T2.customerid WHERE T2.date = '2012-08-24' AND T2.amount = 124.05 AND T1.date = '201201'
+SELECT COUNT(`transactionid`) FROM `transactions_1k` INNER JOIN `gasstations` ON `transactions_1k`.`gasstationid` = `gasstations`.`gasstationid` WHERE `transactions_1k`.`date` = '2012-08-26' AND `transactions_1k`.`time` BETWEEN '08:00:00' AND '09:00:00' AND `gasstations`.`country` = 'CZE'
+SELECT `customers`.`currency` FROM `yearmonth` INNER JOIN `customers` ON `yearmonth`.`customerid` = `customers`.`customerid` WHERE `yearmonth`.`consumption` = 214582.17 AND `yearmonth`.`date` = '201306'
+SELECT `gasstations`.`Country` FROM `transactions_1k` INNER JOIN `gasstations` ON `transactions_1k`.`GasStationID` = `gasstations`.`GasStationID` WHERE `transactions_1k`.`CardID` = 667467
+SELECT `gasstations`.`country` FROM `transactions_1k` INNER JOIN `customers` ON `transactions_1k`.`customerid` = `customers`.`customerid` INNER JOIN `gasstations` ON `transactions_1k`.`gasstationid` = `gasstations`.`gasstationid` WHERE `transactions_1k`.`amount` = 548.4 AND `transactions_1k`.`date` = '2012-08-24'
+SELECT CAST(COUNT(DISTINCT CASE WHEN `customers`.`currency` = 'EUR' THEN `customers`.`customerid` END) AS REAL) * 100 / COUNT(DISTINCT `transactions_1k`.`customerid`) FROM `customers` INNER JOIN `transactions_1k` ON `customers`.`customerid` = `transactions_1k`.`customerid` WHERE `transactions_1k`.`date` = '2012-08-25'
+SELECT (SUM(CASE WHEN y.`date` LIKE '2012%' THEN y.consumption ELSE 0 END) - SUM(CASE WHEN y.`date` LIKE '2013%' THEN y.consumption ELSE 0 END)) / SUM(CASE WHEN y.`date` LIKE '2012%' THEN y.consumption ELSE 0 END) AS consumption_decrease_rate FROM customers AS c INNER JOIN transactions_1k AS t ON c.customerid = t.customerid INNER JOIN yearmonth AS y ON c.customerid = y.customerid WHERE t.date = '2012-08-25' AND t.price = 634.8
+SELECT T1.`gasstationid`, SUM(T2.`amount` * T2.`price`) AS revenue FROM `gasstations` AS T1 INNER JOIN `transactions_1k` AS T2 ON T1.`gasstationid` = T2.`gasstationid` GROUP BY T1.`gasstationid` ORDER BY revenue DESC LIMIT 1
+SELECT CAST(SUM(IIF(`gasstations`.`segment` = 'Premium', 1, 0)) AS REAL) * 100 / COUNT(`gasstations`.`gasstationid`) FROM `gasstations` WHERE `gasstations`.`country` = 'SVK'
+SELECT SUM(T1.`Amount` * T1.`Price`) AS total_spent_at_gas_stations, (SELECT SUM(T2.`Consumption`) FROM `yearmonth` AS T2 WHERE T2.`CustomerID` = 38508 AND T2.`Date` = '201201') AS spent_in_january_2012 FROM `transactions_1k` AS T1 WHERE T1.`CustomerID` = 38508
+SELECT `products`.`description` FROM `transactions_1k` INNER JOIN `products` ON `transactions_1k`.`productid` = `products`.`productid` GROUP BY `products`.`description` ORDER BY SUM(`transactions_1k`.`amount`) DESC LIMIT 5
+SELECT T1.`customerid`, T1.`currency`, SUM(T2.`price`) / SUM(T2.`amount`) AS `average_price_per_item` FROM `customers` AS T1 INNER JOIN `transactions_1k` AS T2 ON T1.`customerid` = T2.`customerid` GROUP BY T1.`customerid`, T1.`currency` ORDER BY SUM(T2.`price`) DESC LIMIT 1
+SELECT `gasstations`.`country` FROM `transactions_1k` INNER JOIN `gasstations` ON `transactions_1k`.`gasstationid` = `gasstations`.`gasstationid` WHERE `transactions_1k`.`productid` = 2 ORDER BY `transactions_1k`.`price` DESC LIMIT 1
+SELECT ym.`consumption` FROM transactions_1k AS t JOIN yearmonth AS ym ON t.`customerid` = ym.`customerid` WHERE t.`productid` = 5 AND (t.`price` / t.`amount`) > 29.00 AND ym.`date` = '201208'
