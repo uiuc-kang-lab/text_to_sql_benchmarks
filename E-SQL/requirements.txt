@@ -1,0 +1,11 @@
+argparse
+python-dotenv==1.0.1
+sqlglot==25.7.1
+rank-bm25==0.2.2
+nltk
+func_timeout==4.3.5
+openai==1.37.1
+numpy
+pandas
+sentencepiece  
+psycopg2-binary
