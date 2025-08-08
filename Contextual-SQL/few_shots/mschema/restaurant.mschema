@@ -1,0 +1,27 @@
+【DB_ID】 restaurant
+【Schema】
+# Table: geographic
+[
+(city:TEXT, Primary Key, Examples: [alameda, alamo, albany]),
+(county:TEXT, Examples: [alameda county, contra costa county, santa clara county]),
+(region:TEXT, Examples: [bay area, napa valley, unknown])
+]
+# Table: location
+[
+(id_restaurant:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(street_num:INTEGER, Examples: [242, 135, 430]),
+(street_name:TEXT, Examples: [church st, el camino real, broadway]),
+(city:TEXT, Examples: [san francisco, san carlos, sunnyvale])
+]
+# Table: generalinfo
+[
+(id_restaurant:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(label:TEXT, Examples: [sparky's diner, kabul afghan cuisine, helmand restaurant]),
+(food_type:TEXT, Examples: [24 hour diner, afghani, african]),
+(city:TEXT, Examples: [san francisco, san carlos, sunnyvale]),
+(review:REAL, Examples: [2.3, 3.8, 4.0])
+]
+【Foreign keys】
+location.city=geographic.city
+location.id_restaurant=generalinfo.id_restaurant
+generalinfo.city=geographic.city

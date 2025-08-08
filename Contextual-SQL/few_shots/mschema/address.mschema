@@ -1,0 +1,121 @@
+【DB_ID】 address
+【Schema】
+# Table: zip_congress
+[
+(zip_code:INTEGER, Primary Key, Examples: [501, 601, 602]),
+(district:TEXT, Primary Key, Examples: [NY-1, PR, VI])
+]
+# Table: state
+[
+(abbreviation:TEXT, Primary Key, Examples: [AA, AE, AK]),
+(name:TEXT, Examples: [Armed Forces Americas])
+]
+# Table: alias
+[
+(zip_code:INTEGER, Primary Key, Examples: [501, 544, 601]),
+(alias:TEXT, Examples: [Holtsville, Adjuntas, Aguada])
+]
+# Table: area_code
+[
+(zip_code:INTEGER, Primary Key, Examples: [501, 544, 601]),
+(area_code:INTEGER, Primary Key, Examples: [631, 787, 939])
+]
+# Table: congress
+[
+(cognress_rep_id:TEXT, Primary Key, Examples: [AK, AK-S1, AK-S2]),
+(first_name:TEXT, Examples: [Young, Begich, Murkowski]),
+(last_name:TEXT, Examples: [Don, Mark, Lisa]),
+(CID:TEXT, Examples: [N00008091, N00009585, N00033101]),
+(party:TEXT, Examples: [Republican, Democrat, Independent]),
+(state:TEXT, Examples: [Alaska, Alabama, Arkansas]),
+(abbreviation:TEXT, Examples: [AK, AL, AR]),
+(House:TEXT, Examples: [House of Repsentatives]),
+(District:INTEGER, Examples: [1, 2, 3]),
+(land_area:REAL, Examples: [571951.26, 570641.0, 6066.83])
+]
+# Table: CBSA
+[
+(CBSA:INTEGER, Primary Key, Examples: [10300, 10380, 10420]),
+(CBSA_name:TEXT, Examples: [Adrian, MI]),
+(CBSA_type:TEXT, Examples: [Micro, Metro])
+]
+# Table: avoid
+[
+(zip_code:INTEGER, Primary Key, Examples: [501, 544, 601]),
+(bad_alias:TEXT, Primary Key, Examples: [Internal Revenue Service])
+]
+# Table: zip_data
+[
+(zip_code:INTEGER, Primary Key, Examples: [501, 544, 601]),
+(city:TEXT, Examples: [Holtsville, Adjuntas, Aguada]),
+(state:TEXT, Examples: [NY, PR, VI]),
+(multi_county:TEXT, Examples: [No, Yes]),
+(type:TEXT, Examples: [Unique Post Office, Post Office, P.O. Box Only]),
+(organization:TEXT, Examples: [I R S Service Center]),
+(time_zone:TEXT, Examples: [Eastern, Atlantic, Central]),
+(daylight_savings:TEXT, Examples: [Yes, No]),
+(latitude:REAL, Examples: [40.817923, 40.788827, 18.196747]),
+(longitude:REAL, Examples: [-73.045317, -73.039405, -66.736735]),
+(elevation:INTEGER, Examples: [25, 0, 70]),
+(state_fips:INTEGER, Examples: [36, 72, 78]),
+(county_fips:INTEGER, Examples: [103, 1, 3]),
+(region:TEXT, Examples: [Northeast, South, Midwest]),
+(division:TEXT, Examples: [Middle Atlantic, New England, South Atlantic]),
+(population_2020:INTEGER, Examples: [0, 11737, 24263]),
+(population_2010:INTEGER, Examples: [0, 18570, 41520]),
+(households:INTEGER, Examples: [0, 6525, 15002]),
+(avg_house_value:INTEGER, Examples: [0, 86200, 86300]),
+(avg_income_per_household:INTEGER, Examples: [0, 13092, 16358]),
+(persons_per_household:REAL, Examples: [0.0, 2.84, 2.76]),
+(white_population:INTEGER, Examples: [0, 17479, 36828]),
+(black_population:INTEGER, Examples: [0, 663, 2860]),
+(hispanic_population:INTEGER, Examples: [0, 18486, 41265]),
+(asian_population:INTEGER, Examples: [0, 7, 42]),
+(american_indian_population:INTEGER, Examples: [0, 113, 291]),
+(hawaiian_population:INTEGER, Examples: [0, 10, 32]),
+(other_population:INTEGER, Examples: [0, 558, 2634]),
+(male_population:INTEGER, Examples: [0, 9078, 20396]),
+(female_population:INTEGER, Examples: [0, 9492, 21124]),
+(median_age:REAL, Examples: [0.0, 35.9, 37.5]),
+(male_median_age:REAL, Examples: [0.0, 34.5, 36.6]),
+(female_median_age:REAL, Examples: [0.0, 37.1, 38.5]),
+(residential_mailboxes:INTEGER, Examples: [0, 4133, 8791]),
+(business_mailboxes:INTEGER, Examples: [1, 0, 221]),
+(total_delivery_receptacles:INTEGER, Examples: [1, 0, 5173]),
+(businesses:INTEGER, Examples: [2, 0, 472]),
+(1st_quarter_payroll:INTEGER, Examples: [0, 88685000, 109167000]),
+(annual_payroll:INTEGER, Examples: [0, 376492000, 472633000]),
+(employees:INTEGER, Examples: [0, 9127, 18894]),
+(water_area:REAL, Examples: [0.0, 0.309, 1.71]),
+(land_area:REAL, Examples: [0.0, 64.348, 30.621]),
+(single_family_delivery_units:INTEGER, Examples: [0, 2419, 5473]),
+(multi_family_delivery_units:INTEGER, Examples: [0, 1264, 827]),
+(total_beneficiaries:INTEGER, Examples: [0, 5135, 16805]),
+(retired_workers:INTEGER, Examples: [0, 2940, 12145]),
+(disabled_workers:INTEGER, Examples: [0, 885, 1835]),
+(parents_and_widowed:INTEGER, Examples: [0, 155, 1045]),
+(spouses:INTEGER, Examples: [0, 145, 1085]),
+(children:INTEGER, Examples: [0, 1010, 695]),
+(over_65:INTEGER, Examples: [0, 3245, 13260]),
+(monthly_benefits_all:INTEGER, Examples: [0, 6137000, 14602000]),
+(monthly_benefits_retired_workers:INTEGER, Examples: [0, 4007000, 10947000]),
+(monthly_benefits_widowed:INTEGER, Examples: [0, 185000, 966000]),
+(CBSA:INTEGER, Examples: [35620, 38660, 10380])
+]
+# Table: country
+[
+(zip_code:INTEGER, Primary Key, Examples: [501, 544, 601]),
+(county:TEXT, Primary Key, Examples: [SUFFOLK, ADJUNTAS, AGUADA]),
+(state:TEXT, Examples: [NY, PR, VI])
+]
+【Foreign keys】
+zip_congress.district=congress.cognress_rep_id
+zip_congress.zip_code=zip_data.zip_code
+alias.zip_code=zip_data.zip_code
+area_code.zip_code=zip_data.zip_code
+congress.abbreviation=state.abbreviation
+avoid.zip_code=zip_data.zip_code
+zip_data.state=state.abbreviation
+zip_data.CBSA=CBSA.CBSA
+country.zip_code=zip_data.zip_code
+country.state=state.abbreviation

@@ -1,0 +1,39 @@
+【DB_ID】 codebase_comments
+【Schema】
+# Table: MethodParameter
+[
+(Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(MethodId:TEXT, Examples: [1, 2, 3]),
+(Type:TEXT, Examples: [System.String]),
+(Name:TEXT, Examples: [data, i, declstartpos])
+]
+# Table: Solution
+[
+(Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(RepoId:INTEGER, Examples: [1, 3, 4]),
+(Path:TEXT, Examples: [wallerdev_htmlsharp\HtmlSharp.sln]),
+(ProcessedTime:INTEGER, Examples: [636430963695642191, 636430963721734366, 636430963735704849]),
+(WasCompiled:INTEGER, Examples: [1, 0])
+]
+# Table: Repo
+[
+(Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Url:TEXT),
+(Stars:INTEGER, Examples: [14, 6, 3]),
+(Forks:INTEGER, Examples: [2, 3, 0]),
+(Watchers:INTEGER, Examples: [14, 6, 3]),
+(ProcessedTime:INTEGER, Examples: [636430963247108053, 636472436323838240, 636430963280029575])
+]
+# Table: Method
+[
+(Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Name:TEXT, Examples: [HtmlSharp.HtmlParser.Feed]),
+(FullComment:TEXT),
+(Summary:TEXT),
+(ApiCalls:TEXT),
+(CommentIsXml:INTEGER, Examples: [0, 1]),
+(SampledAt:INTEGER, Examples: [636430963695654788, 636430963695709898, 636430963721734366]),
+(SolutionId:INTEGER, Examples: [1, 2, 3]),
+(Lang:TEXT, Examples: [en, fr, fi]),
+(NameTokenized:TEXT, Examples: [html parser feed])
+]

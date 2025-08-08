@@ -1,0 +1,411 @@
+【DB_ID】 hockey
+【Schema】
+# Table: GoaliesShootout
+[
+(playerID:TEXT, Examples: [aebisda01, andercr01, aubinje01]),
+(year:INTEGER, Examples: [2005, 2006, 2008]),
+(stint:INTEGER, Examples: [1, 2]),
+(tmID:TEXT, Examples: [COL, MTL, CHI]),
+(W:INTEGER, Examples: [2, 0, 1]),
+(L:INTEGER, Examples: [1, 2, 3]),
+(SA:INTEGER, Examples: [10, 18, 7]),
+(GA:INTEGER, Examples: [2, 6, 5])
+]
+# Table: CombinedShutouts
+[
+(year:INTEGER, Examples: [1929, 1941, 1955]),
+(month:INTEGER, Examples: [3, 2, 11]),
+(date:INTEGER, Examples: [14, 15, 22]),
+(tmID:TEXT, Examples: [TOR, MTL, OAK]),
+(oppID:TEXT, Examples: [NYA, BOS, PHI]),
+(R/P:TEXT, Examples: [R, P]),
+(IDgoalie1:TEXT, Examples: [chabolo01, bibeapa01, plantja01]),
+(IDgoalie2:TEXT, Examples: [grantbe01, gardibe01, hodgech01])
+]
+# Table: TeamsPost
+[
+(year:INTEGER, Primary Key, Examples: [1913, 1914, 1916]),
+(lgID:TEXT, Examples: [NHA, NHL, PCHA]),
+(tmID:TEXT, Primary Key, Examples: [MOC, TBS, MOW]),
+(G:INTEGER, Examples: [2, 5, 6]),
+(W:INTEGER, Examples: [1, 0, 4]),
+(L:INTEGER, Examples: [1, 0, 4]),
+(T:INTEGER, Examples: [0, 1, 2]),
+(GF:INTEGER, Examples: [2, 6, 1]),
+(GA:INTEGER, Examples: [6, 2, 4]),
+(PIM:TEXT, Examples: [59, 68, 87]),
+(BenchMinor:TEXT, Examples: [0, 6, 2]),
+(PPG:TEXT, Examples: [1, 5, 9]),
+(PPC:TEXT, Examples: [39, 27, 25]),
+(SHA:TEXT, Examples: [0, 1, 2]),
+(PKG:TEXT, Examples: [3, 8, 4]),
+(PKC:TEXT, Examples: [55, 45, 20]),
+(SHF:TEXT, Examples: [0, 1, 3])
+]
+# Table: SeriesPost
+[
+(year:INTEGER, Examples: [1912, 1913, 1914]),
+(round:TEXT, Examples: [SCF, F, SF]),
+(series:TEXT, Examples: [A, B, C]),
+(tmIDWinner:TEXT, Examples: [VA1, TBS, OT1]),
+(lgIDWinner:TEXT, Examples: [PCHA, NHA, NHL]),
+(tmIDLoser:TEXT, Examples: [QU1, MOC, VA1]),
+(lgIDLoser:TEXT, Examples: [NHA, PCHA, NHL]),
+(W:INTEGER, Examples: [2, 1, 3]),
+(L:INTEGER, Examples: [1, 0, 2]),
+(T:INTEGER, Examples: [0, 1, 2]),
+(GoalsWinner:INTEGER, Examples: [16, 6, 13]),
+(GoalsLoser:INTEGER, Examples: [12, 2, 8]),
+(note:TEXT, Examples: [EX, TG, ND])
+]
+# Table: ScoringShootout
+[
+(playerID:TEXT, Examples: [adamske01, afanadm01, afinoma01]),
+(year:INTEGER, Examples: [2006, 2005, 2007]),
+(stint:INTEGER, Examples: [1, 2, 3]),
+(tmID:TEXT, Examples: [PHO, TBL, BUF]),
+(S:INTEGER, Examples: [1, 2, 5]),
+(G:INTEGER, Examples: [0, 1, 3]),
+(GDG:INTEGER, Examples: [0, 1, 2])
+]
+# Table: TeamsSC
+[
+(year:INTEGER, Primary Key, Examples: [1912, 1913, 1914]),
+(lgID:TEXT, Examples: [NHA, PCHA, NHL]),
+(tmID:TEXT, Primary Key, Examples: [QU1, VA1, TBS]),
+(G:INTEGER, Examples: [3, 5, 4]),
+(W:INTEGER, Examples: [1, 2, 3]),
+(L:INTEGER, Examples: [2, 1, 0]),
+(T:INTEGER, Examples: [0, 1]),
+(GF:INTEGER, Examples: [12, 16, 13]),
+(GA:INTEGER, Examples: [16, 12, 8]),
+(PIM:TEXT, Examples: [24, 20, 75])
+]
+# Table: ScoringSup
+[
+(playerID:TEXT, Examples: [actonke01, adamsgr01, allismi01]),
+(year:INTEGER, Examples: [1988, 1989, 1987]),
+(PPA:TEXT, Examples: [1, 5, 4]),
+(SHA:TEXT, Examples: [1, 2, 4])
+]
+# Table: AwardsPlayers
+[
+(playerID:TEXT, Primary Key, Examples: [abelsi01, alfreda01, amontto01]),
+(award:TEXT, Primary Key, Examples: [First Team All-Star, Hart, Second Team All-Star]),
+(year:INTEGER, Primary Key, Examples: [1948, 1949, 1941]),
+(lgID:TEXT, Examples: [NHL, WHA]),
+(note:TEXT, Examples: [tie, shared, Most Gentlemanly]),
+(pos:TEXT, Examples: [C, LW, F])
+]
+# Table: ScoringSC
+[
+(playerID:TEXT, Examples: [adamsbi01, adamsja01, anderer02]),
+(year:INTEGER, Examples: [1920, 1921, 1923]),
+(tmID:TEXT, Examples: [VML, CAT, VIC]),
+(lgID:TEXT, Examples: [PCHA, WCHL, NHL]),
+(pos:TEXT, Examples: [R, C, L]),
+(GP:INTEGER, Examples: [4, 5, 2]),
+(G:INTEGER, Examples: [0, 2, 6]),
+(A:INTEGER, Examples: [0, 1, 2]),
+(Pts:INTEGER, Examples: [0, 3, 7]),
+(PIM:INTEGER, Examples: [0, 6, 18])
+]
+# Table: Goalies
+[
+(playerID:TEXT, Primary Key, Examples: [abbotge01, abrahch01, adamsjo02]),
+(year:INTEGER, Primary Key, Examples: [1943, 1974, 1975]),
+(stint:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(tmID:TEXT, Examples: [BOS, NEW, WAS]),
+(lgID:TEXT, Examples: [NHL, WHA, NHA]),
+(GP:TEXT, Examples: [1, 16, 41]),
+(Min:TEXT, Examples: [60, 870, 2385]),
+(W:TEXT, Examples: [0, 8, 18]),
+(L:TEXT, Examples: [1, 6, 18]),
+(T/OL:TEXT, Examples: [0, 1, 2]),
+(ENG:TEXT, Examples: [0, 1, 3]),
+(SHO:TEXT, Examples: [0, 1, 2]),
+(GA:TEXT, Examples: [7, 47, 136]),
+(SA:TEXT, Examples: [504, 1221, 1438]),
+(PostGP:TEXT, Examples: [1, 2, 11]),
+(PostMin:TEXT, Examples: [1, 90, 34]),
+(PostW:TEXT, Examples: [0, 6, 1]),
+(PostL:TEXT, Examples: [0, 1, 5]),
+(PostT:TEXT, Examples: [1, 0, 2]),
+(PostENG:TEXT, Examples: [0, 1, 2]),
+(PostSHO:TEXT, Examples: [0, 1, 2]),
+(PostGA:TEXT, Examples: [0, 5, 1]),
+(PostSA:TEXT, Examples: [51, 0, 14])
+]
+# Table: Coaches
+[
+(coachID:TEXT, Primary Key, Examples: [abelsi01c, adamsja01c, agnewga01c]),
+(year:INTEGER, Primary Key, Examples: [1952, 1953, 1957]),
+(tmID:TEXT, Primary Key, Examples: [CHI, DET, STL]),
+(lgID:TEXT, Examples: [NHL, WHA, NHA]),
+(stint:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(notes:TEXT, Examples: [interim]),
+(g:INTEGER, Examples: [70, 33, 74]),
+(w:INTEGER, Examples: [27, 12, 16]),
+(l:INTEGER, Examples: [28, 51, 12]),
+(t:INTEGER, Examples: [15, 7, 5]),
+(postg:TEXT, Examples: [7, 4, 6]),
+(postw:TEXT, Examples: [3, 0, 2]),
+(postl:TEXT, Examples: [4, 5, 6]),
+(postt:TEXT, Examples: [0, 1, 2])
+]
+# Table: Master
+[
+(playerID:TEXT, Examples: [aaltoan01, abbeybr01, abbotge01]),
+(coachID:TEXT, Examples: [abelsi01c, adamsja01c, agnewga01c]),
+(hofID:TEXT, Examples: [abelsi01h, adamsch01h, adamsja01h]),
+(firstName:TEXT, Examples: [Antti, Bruce, George]),
+(lastName:TEXT, Examples: [Aalto, Abbey, Abbott]),
+(nameNote:TEXT, Examples: [also known as Bellehumeur]),
+(nameGiven:TEXT, Examples: [Antti, Bruce, George Henry]),
+(nameNick:TEXT, Examples: [Preacher, Taffy, Boot Nose]),
+(height:TEXT, Examples: [73, 67, 71]),
+(weight:TEXT, Examples: [210, 185, 153]),
+(shootCatch:TEXT, Examples: [L, R, B]),
+(legendsID:TEXT, Examples: [14862, 18411, 11801]),
+(ihdbID:TEXT, Examples: [5928, 11918, 14591]),
+(hrefID:TEXT, Examples: [aaltoan01, abbeybr01, abbotge01]),
+(firstNHL:TEXT, Examples: [1997, 1943, 1952]),
+(lastNHL:TEXT, Examples: [2000, 1943, 1952]),
+(firstWHA:TEXT, Examples: [1975, 1976, 1974]),
+(lastWHA:TEXT, Examples: [1975, 1977, 1976]),
+(pos:TEXT, Examples: [C, D, G]),
+(birthYear:TEXT, Examples: [1975, 1951, 1911]),
+(birthMon:TEXT, Examples: [3, 8, 2]),
+(birthDay:TEXT, Examples: [4, 18, 3]),
+(birthCountry:TEXT, Examples: [Finland, Canada, USA]),
+(birthState:TEXT, Examples: [ON, MB, MI]),
+(birthCity:TEXT, Examples: [Lappeenranta, Toronto, Synenham]),
+(deathYear:TEXT, Examples: [1964, 2000, 2001]),
+(deathMon:TEXT, Examples: [8, 2, 12]),
+(deathDay:TEXT, Examples: [1, 7, 24]),
+(deathCountry:TEXT, Examples: [USA, Canada, France]),
+(deathState:TEXT, Examples: [MI, AB, SK]),
+(deathCity:TEXT, Examples: [Sault Ste. Marie, Farmington, Calgary])
+]
+# Table: TeamVsTeam
+[
+(year:INTEGER, Primary Key, Examples: [1909, 1910, 1911]),
+(lgID:TEXT, Examples: [NHA, PCHA, NHL]),
+(tmID:TEXT, Primary Key, Examples: [COB, HAI, LES]),
+(oppID:TEXT, Primary Key, Examples: [HAI, LES, MOS]),
+(W:INTEGER, Examples: [1, 2, 0]),
+(L:INTEGER, Examples: [1, 0, 2]),
+(T:INTEGER, Examples: [0, 1, 2]),
+(OTL:TEXT, Examples: [0, 1, 3])
+]
+# Table: GoaliesSC
+[
+(playerID:TEXT, Primary Key, Examples: [benedcl01, clancki01, holmeha01]),
+(year:INTEGER, Primary Key, Examples: [1914, 1919, 1920]),
+(tmID:TEXT, Examples: [OT1, OTS, MTM]),
+(lgID:TEXT, Examples: [NHA, NHL, PCHA]),
+(GP:INTEGER, Examples: [3, 5, 6]),
+(Min:INTEGER, Examples: [180, 300, 361]),
+(W:INTEGER, Examples: [0, 3, 5]),
+(L:INTEGER, Examples: [3, 2, 1]),
+(T:INTEGER, Examples: [0, 1]),
+(SHO:INTEGER, Examples: [0, 1, 3]),
+(GA:INTEGER, Examples: [26, 11, 12])
+]
+# Table: Teams
+[
+(year:INTEGER, Primary Key, Examples: [1909, 1910, 1911]),
+(lgID:TEXT, Examples: [NHA, PCHA, NHL]),
+(tmID:TEXT, Primary Key, Examples: [COB, HAI, LES]),
+(franchID:TEXT, Examples: [BKN, MTL, TBS]),
+(confID:TEXT, Examples: [CC, WA, WC]),
+(divID:TEXT, Examples: [AM, CA, ED]),
+(rank:INTEGER, Examples: [4, 5, 7]),
+(playoff:TEXT, Examples: [LCS, WCS, NHAF]),
+(G:INTEGER, Examples: [12, 16, 18]),
+(W:INTEGER, Examples: [4, 2, 3]),
+(L:INTEGER, Examples: [8, 10, 1]),
+(T:INTEGER, Examples: [0, 1, 2]),
+(OTL:TEXT, Examples: [3, 4, 6]),
+(Pts:INTEGER, Examples: [8, 4, 7]),
+(SoW:TEXT, Examples: [3, 5, 2]),
+(SoL:TEXT, Examples: [7, 5, 8]),
+(GF:INTEGER, Examples: [79, 77, 59]),
+(GA:INTEGER, Examples: [104, 83, 100]),
+(name:TEXT, Examples: [Cobalt Silver Kings]),
+(PIM:TEXT, Examples: [336, 27, 333]),
+(BenchMinor:TEXT, Examples: [12, 14, 8]),
+(PPG:TEXT, Examples: [28, 51, 42]),
+(PPC:TEXT, Examples: [220, 279, 240]),
+(SHA:TEXT, Examples: [4, 2, 5]),
+(PKG:TEXT, Examples: [45, 43, 36]),
+(PKC:TEXT, Examples: [242, 301, 267]),
+(SHF:TEXT, Examples: [3, 8, 2])
+]
+# Table: abbrev
+[
+(Type:TEXT, Primary Key, Examples: [Conference, Division, Playoffs]),
+(Code:TEXT, Primary Key, Examples: [CC, EC, WA]),
+(Fullname:TEXT, Examples: [Campbell Conference, Eastern Conference, Wales Conference])
+]
+# Table: AwardsMisc
+[
+(name:TEXT, Primary Key, Examples: [1960 U.S. Olympic Hockey Team]),
+(ID:TEXT, Examples: [arboual01, delveal01, rossar01]),
+(award:TEXT, Examples: [Patrick]),
+(year:INTEGER, Examples: [2001, 1998, 1991]),
+(lgID:TEXT, Examples: [NHL]),
+(note:TEXT, Examples: [posthumous])
+]
+# Table: TeamSplits
+[
+(year:INTEGER, Primary Key, Examples: [1909, 1910, 1911]),
+(lgID:TEXT, Examples: [NHA, PCHA, NHL]),
+(tmID:TEXT, Primary Key, Examples: [COB, HAI, LES]),
+(hW:INTEGER, Examples: [2, 3, 6]),
+(hL:INTEGER, Examples: [4, 3, 2]),
+(hT:INTEGER, Examples: [0, 1, 2]),
+(hOTL:TEXT, Examples: [2, 3, 1]),
+(rW:INTEGER, Examples: [2, 1, 0]),
+(rL:INTEGER, Examples: [4, 5, 6]),
+(rT:INTEGER, Examples: [0, 1, 2]),
+(rOTL:TEXT, Examples: [1, 5, 3]),
+(SepW:TEXT, Examples: [1]),
+(SepL:TEXT, Examples: [1]),
+(SepT:TEXT),
+(SepOL:TEXT, Examples: [0]),
+(OctW:TEXT, Examples: [0, 1, 2]),
+(OctL:TEXT, Examples: [1, 0, 2]),
+(OctT:TEXT, Examples: [0, 1, 4]),
+(OctOL:TEXT, Examples: [1, 0, 2]),
+(NovW:TEXT, Examples: [5, 1, 2]),
+(NovL:TEXT, Examples: [1, 4, 3]),
+(NovT:TEXT, Examples: [0, 1, 2]),
+(NovOL:TEXT, Examples: [0, 2, 1]),
+(DecW:TEXT, Examples: [0, 1, 2]),
+(DecL:TEXT, Examples: [1, 0, 2]),
+(DecT:TEXT, Examples: [0, 1, 2]),
+(DecOL:TEXT, Examples: [0, 2, 1]),
+(JanW:INTEGER, Examples: [1, 0, 2]),
+(JanL:INTEGER, Examples: [1, 3, 2]),
+(JanT:INTEGER, Examples: [0, 1, 3]),
+(JanOL:TEXT, Examples: [0, 1, 2]),
+(FebW:INTEGER, Examples: [2, 1, 6]),
+(FebL:INTEGER, Examples: [3, 5, 0]),
+(FebT:INTEGER, Examples: [0, 1, 2]),
+(FebOL:TEXT, Examples: [0, 1, 4]),
+(MarW:TEXT, Examples: [1, 3, 0]),
+(MarL:TEXT, Examples: [4, 0, 2]),
+(MarT:TEXT, Examples: [0, 1, 2]),
+(MarOL:TEXT, Examples: [1, 0, 2]),
+(AprW:TEXT, Examples: [1, 0, 2]),
+(AprL:TEXT, Examples: [0, 2, 1]),
+(AprT:TEXT, Examples: [0, 1, 2]),
+(AprOL:TEXT, Examples: [1, 0, 2])
+]
+# Table: Scoring
+[
+(playerID:TEXT, Examples: [aaltoan01, abbeybr01, abbotge01]),
+(year:INTEGER, Examples: [1997, 1998, 1999]),
+(stint:INTEGER, Examples: [1, 2, 3]),
+(tmID:TEXT, Examples: [ANA, CIN, BOS]),
+(lgID:TEXT, Examples: [NHL, WHA, PCHA]),
+(pos:TEXT, Examples: [C, D, G]),
+(GP:INTEGER, Examples: [3, 73, 63]),
+(G:INTEGER, Examples: [0, 3, 7]),
+(A:INTEGER, Examples: [0, 5, 11]),
+(Pts:INTEGER, Examples: [0, 8, 18]),
+(PIM:INTEGER, Examples: [0, 24, 26]),
+(+/-:TEXT, Examples: [-1, -12, -13]),
+(PPG:TEXT, Examples: [0, 2, 1]),
+(PPA:TEXT, Examples: [0, 1, 2]),
+(SHG:TEXT, Examples: [0, 2, 1]),
+(SHA:TEXT, Examples: [0, 1, 2]),
+(GWG:TEXT, Examples: [0, 1, 3]),
+(GTG:TEXT, Examples: [0, 1, 3]),
+(SOG:TEXT, Examples: [1, 61, 102]),
+(PostGP:TEXT, Examples: [4, 10, 11]),
+(PostG:TEXT, Examples: [0, 2, 1]),
+(PostA:TEXT, Examples: [0, 1, 3]),
+(PostPts:TEXT, Examples: [0, 3, 2]),
+(PostPIM:TEXT, Examples: [2, 0, 36]),
+(Post+/-:TEXT, Examples: [0, 2, 1]),
+(PostPPG:TEXT, Examples: [0, 1, 5]),
+(PostPPA:TEXT, Examples: [0, 1, 3]),
+(PostSHG:TEXT, Examples: [0, 1, 2]),
+(PostSHA:TEXT, Examples: [0, 1, 2]),
+(PostGWG:TEXT, Examples: [0, 1, 2]),
+(PostSOG:TEXT, Examples: [0, 11, 12])
+]
+# Table: AwardsCoaches
+[
+(coachID:TEXT, Examples: [patrile01c, irvindi01c, gormato01c]),
+(award:TEXT, Examples: [First Team All-Star, Second Team All-Star, Jack Adams]),
+(year:INTEGER, Examples: [1930, 1931, 1932]),
+(lgID:TEXT, Examples: [NHL, WHA]),
+(note:TEXT)
+]
+# Table: TeamsHalf
+[
+(year:INTEGER, Primary Key, Examples: [1916, 1917, 1918]),
+(lgID:TEXT, Examples: [NHA, NHL]),
+(tmID:TEXT, Primary Key, Examples: [MOC, MOW, OT1]),
+(half:INTEGER, Primary Key, Examples: [1, 2]),
+(rank:INTEGER, Examples: [1, 3, 5]),
+(G:INTEGER, Examples: [10, 4, 14]),
+(W:INTEGER, Examples: [7, 3, 2]),
+(L:INTEGER, Examples: [3, 7, 8]),
+(T:INTEGER, Examples: [0]),
+(GF:INTEGER, Examples: [58, 31, 56]),
+(GA:INTEGER, Examples: [38, 42, 72])
+]
+# Table: HOF
+[
+(year:INTEGER, Examples: [1969, 1960, 1959]),
+(hofID:TEXT, Primary Key, Examples: [abelsi01h, adamsch01h, adamsja01h]),
+(name:TEXT, Examples: [Sid Abel, Charles Adams, Jack Adams]),
+(category:TEXT, Examples: [Player, Builder, Referee/Linesman])
+]
+【Foreign keys】
+GoaliesShootout.year=Teams.year
+GoaliesShootout.tmID=Teams.tmID
+GoaliesShootout.playerID=Master.playerID
+CombinedShutouts.IDgoalie1=Master.playerID
+CombinedShutouts.IDgoalie2=Master.playerID
+TeamsPost.year=Teams.year
+TeamsPost.tmID=Teams.tmID
+SeriesPost.year=Teams.year
+SeriesPost.tmIDWinner=Teams.tmID
+SeriesPost.year=Teams.year
+SeriesPost.tmIDLoser=Teams.tmID
+ScoringShootout.year=Teams.year
+ScoringShootout.tmID=Teams.tmID
+ScoringShootout.playerID=Master.playerID
+TeamsSC.year=Teams.year
+TeamsSC.tmID=Teams.tmID
+ScoringSup.playerID=Master.playerID
+AwardsPlayers.playerID=Master.playerID
+ScoringSC.year=Teams.year
+ScoringSC.tmID=Teams.tmID
+ScoringSC.playerID=Master.playerID
+Goalies.year=Teams.year
+Goalies.tmID=Teams.tmID
+Goalies.playerID=Master.playerID
+Coaches.year=Teams.year
+Coaches.tmID=Teams.tmID
+Master.coachID=Coaches.coachID
+TeamVsTeam.year=Teams.year
+TeamVsTeam.tmID=Teams.tmID
+TeamVsTeam.oppID=Teams.tmID
+TeamVsTeam.year=Teams.year
+GoaliesSC.year=Teams.year
+GoaliesSC.tmID=Teams.tmID
+GoaliesSC.playerID=Master.playerID
+TeamSplits.year=Teams.year
+TeamSplits.tmID=Teams.tmID
+Scoring.year=Teams.year
+Scoring.tmID=Teams.tmID
+Scoring.playerID=Master.playerID
+AwardsCoaches.coachID=Coaches.coachID
+TeamsHalf.tmID=Teams.tmID
+TeamsHalf.year=Teams.year

@@ -1,0 +1,21 @@
+【DB_ID】 european_football_1
+【Schema】
+# Table: matchs
+[
+(Div:TEXT, Examples: [B1, D1, D2]),
+(Date:DATE, Examples: [2020-08-08]),
+(HomeTeam:TEXT, Examples: [Club Brugge, Antwerp, Standard]),
+(AwayTeam:TEXT, Examples: [Charleroi, Mouscron, Cercle Brugge]),
+(FTHG:INTEGER, Examples: [0, 1, 2]),
+(FTAG:INTEGER, Examples: [1, 0, 2]),
+(FTR:TEXT, Examples: [A, D, H]),
+(season:INTEGER, Examples: [2021, 2020, 2019])
+]
+# Table: divisions
+[
+(division:TEXT, Primary Key, Examples: [B1, D1, D2]),
+(name:TEXT, Examples: [Division 1A, Bundesliga, 2. Bundesliga]),
+(country:TEXT, Examples: [Belgium, Deutschland, England])
+]
+【Foreign keys】
+matchs.Div=divisions.division

@@ -1,0 +1,40 @@
+【DB_ID】 sales_in_weather
+【Schema】
+# Table: weather
+[
+(station_nbr:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(date:DATE, Primary Key, Examples: [2012-01-01]),
+(tmax:INTEGER, Examples: [52, 50, 32]),
+(tmin:INTEGER, Examples: [31, 11, 9]),
+(tavg:INTEGER, Examples: [42, 41, 22]),
+(depart:INTEGER, Examples: [16, 12, -6]),
+(dewpoint:INTEGER, Examples: [36, 26, 4]),
+(wetbulb:INTEGER, Examples: [40, 35, 18]),
+(heat:INTEGER, Examples: [23, 24, 43]),
+(cool:INTEGER, Examples: [0, 5, 6]),
+(sunrise:TEXT, Examples: [07:16:00, 07:15:00, 07:14:00]),
+(sunset:TEXT, Examples: [16:26:00, 16:27:00, 16:28:00]),
+(codesum:TEXT, Examples: [RA FZFG BR,  , SN]),
+(snowfall:REAL, Examples: [0.0, 0.05, 0.2]),
+(preciptotal:REAL, Examples: [0.05, 0.01, 0.0]),
+(stnpressure:REAL, Examples: [29.78, 29.44, 29.67]),
+(sealevel:REAL, Examples: [29.92, 29.62, 29.87]),
+(resultspeed:REAL, Examples: [3.6, 9.8, 10.8]),
+(resultdir:INTEGER, Examples: [20, 24, 31]),
+(avgspeed:REAL, Examples: [4.6, 10.3, 11.6])
+]
+# Table: relation
+[
+(store_nbr:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(station_nbr:INTEGER, Examples: [1, 14, 7])
+]
+# Table: sales_in_weather
+[
+(date:DATE, Primary Key, Examples: [2012-01-01]),
+(store_nbr:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(item_nbr:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(units:INTEGER, Examples: [0, 29, 2])
+]
+【Foreign keys】
+relation.store_nbr=sales_in_weather.store_nbr
+relation.station_nbr=weather.station_nbr

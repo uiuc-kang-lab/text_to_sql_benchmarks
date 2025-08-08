@@ -1,0 +1,22 @@
+【DB_ID】 trains
+【Schema】
+# Table: cars
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(train_id:INTEGER, Examples: [1, 2, 3]),
+(position:INTEGER, Examples: [1, 2, 3]),
+(shape:TEXT, Examples: [rectangle, bucket, u_shaped]),
+(len:TEXT, Examples: [short, long]),
+(sides:TEXT, Examples: [not_double, double]),
+(roof:TEXT, Examples: [none, peaked, flat]),
+(wheels:INTEGER, Examples: [2, 3]),
+(load_shape:TEXT, Examples: [circle, hexagon, triangle]),
+(load_num:INTEGER, Examples: [1, 3, 2])
+]
+# Table: trains
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(direction:TEXT, Examples: [east, west])
+]
+【Foreign keys】
+cars.train_id=trains.id

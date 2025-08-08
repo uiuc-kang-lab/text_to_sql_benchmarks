@@ -1,0 +1,85 @@
+【DB_ID】 retail_complains
+【Schema】
+# Table: state
+[
+(StateCode:TEXT, Primary Key, Examples: [AL, AR, AZ]),
+(State:TEXT, Examples: [Alabama, Arkansas, Arizona]),
+(Region:TEXT, Examples: [South, West, Northeast])
+]
+# Table: client
+[
+(client_id:TEXT, Primary Key, Examples: [C00000001, C00000002, C00000003]),
+(sex:TEXT, Examples: [Female, Male]),
+(day:INTEGER, Examples: [13, 4, 9]),
+(month:INTEGER, Examples: [12, 2, 10]),
+(year:INTEGER, Examples: [1990, 1965, 1960]),
+(age:INTEGER, Examples: [29, 54, 59]),
+(social:TEXT, Examples: [926-93-2157, 806-94-5725, 614-70-9100]),
+(first:TEXT, Examples: [Emma, Noah, Olivia]),
+(middle:TEXT, Examples: [Avaya, Everest, Brooklynne]),
+(last:TEXT, Examples: [Smith, Thompson, Johnson]),
+(phone:TEXT, Examples: [367-171-6840, 212-423-7734, 212-425-6932]),
+(email:TEXT),
+(address_1:TEXT, Examples: [387 Wellington Ave., 75 W. Berkshire St., 36 Second St.]),
+(address_2:TEXT, Examples: [Unit 1, Unit 6, Unit 80]),
+(city:TEXT, Examples: [Albuquerque, New York City, Indianapolis]),
+(state:TEXT, Examples: [NM, NY, IN]),
+(zipcode:INTEGER, Examples: [47246, 10040, 10162]),
+(district_id:INTEGER, Examples: [18, 1, 5])
+]
+# Table: district
+[
+(district_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(city:TEXT, Examples: [New York City, Jacksonville, Columbus]),
+(state_abbrev:TEXT, Examples: [NY, FL, OH]),
+(division:TEXT, Examples: [Middle Atlantic, South Atlantic, East North Central])
+]
+# Table: callcenterlogs
+[
+(Date received:DATE, Examples: [2017-03-27]),
+(Complaint ID:TEXT, Primary Key, Examples: [CR0000072, CR0000084, CR0000175]),
+(rand client:TEXT, Examples: [C00004587, C00003328, C00001685]),
+(phonefinal:TEXT, Examples: [977-806-9726, 322-598-7152, 508-311-5237]),
+(vru+line:TEXT, Examples: [AA0103, AA0205, AA0110]),
+(call_id:INTEGER, Examples: [34536, 34537, 34538]),
+(priority:INTEGER, Examples: [0, 2, 1]),
+(type:TEXT, Examples: [NW, PS, NE]),
+(outcome:TEXT, Examples: [AGENT, HANG, PHANTOM]),
+(server:TEXT, Examples: [MICHAL, TOVA, YIFAT]),
+(ser_start:TEXT, Examples: [13:34:11, 10:58:22, 13:00:54]),
+(ser_exit:TEXT, Examples: [13:40:23, 11:16:10, 13:13:31]),
+(ser_time:TEXT, Examples: [00:06:12, 00:17:48, 00:12:37])
+]
+# Table: events
+[
+(Date received:DATE, Examples: [2014-07-03]),
+(Product:TEXT, Examples: [Bank account or service]),
+(Sub-product:TEXT, Examples: [Checking account]),
+(Issue:TEXT, Examples: [Deposits and withdrawals]),
+(Sub-issue:TEXT),
+(Consumer complaint narrative:TEXT),
+(Tags:TEXT, Examples: [Older American]),
+(Consumer consent provided?:TEXT, Examples: [N/A, Consent not provided, Consent provided]),
+(Submitted via:TEXT, Examples: [Email, Fax, Postal mail]),
+(Date sent to company:TEXT, Examples: [2014-07-09, 2012-04-13, 2012-04-03]),
+(Company response to consumer:TEXT, Examples: [Closed with explanation]),
+(Timely response?:TEXT, Examples: [Yes, No]),
+(Consumer disputed?:TEXT, Examples: [No, Yes]),
+(Complaint ID:TEXT, Primary Key, Examples: [CR0000072, CR0000084, CR0000140]),
+(Client_ID:TEXT, Primary Key, Examples: [C00003714, C00001366, C00002330])
+]
+# Table: reviews
+[
+(Date:DATE, Primary Key, Examples: [2013-02-04]),
+(Stars:INTEGER, Examples: [5, 1, 2]),
+(Reviews:TEXT),
+(Product:TEXT, Examples: [Eagle National Mortgage]),
+(district_id:INTEGER, Examples: [65, 66, 23])
+]
+【Foreign keys】
+client.district_id=district.district_id
+district.state_abbrev=state.StateCode
+callcenterlogs.rand client=client.client_id
+events.Complaint ID=callcenterlogs.Complaint ID
+events.Client_ID=client.client_id
+reviews.district_id=district.district_id

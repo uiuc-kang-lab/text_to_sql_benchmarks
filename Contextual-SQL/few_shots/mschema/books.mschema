@@ -1,0 +1,112 @@
+【DB_ID】 books
+【Schema】
+# Table: publisher
+[
+(publisher_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(publisher_name:TEXT, Examples: [10/18, 1st Book Library, 1st World Library])
+]
+# Table: order_history
+[
+(history_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(order_id:INTEGER, Examples: [1, 2, 3]),
+(status_id:INTEGER, Examples: [1, 2, 3]),
+(status_date:DATETIME, Examples: [2021-07-14 17:04:28])
+]
+# Table: customer_address
+[
+(customer_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(address_id:INTEGER, Primary Key, Examples: [606, 266, 376]),
+(status_id:INTEGER, Examples: [1, 2])
+]
+# Table: shipping_method
+[
+(method_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(method_name:TEXT, Examples: [Standard, Priority, Express]),
+(cost:REAL, Examples: [5.9, 8.9, 11.9])
+]
+# Table: order_line
+[
+(line_id:INTEGER, Primary Key, Examples: [1024, 1025, 1026]),
+(order_id:INTEGER, Examples: [2051, 899, 4994]),
+(book_id:INTEGER, Examples: [10720, 10105, 6503]),
+(price:REAL, Examples: [3.19, 1.24, 14.74])
+]
+# Table: author
+[
+(author_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(author_name:TEXT, Examples: [A. Bartlett Giamatti, A. Elizabeth Delany, A. Merritt])
+]
+# Table: book
+[
+(book_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(title:TEXT, Examples: [The World's First Love: Mary  Mother of God]),
+(isbn13:TEXT, Examples: [8987059752, 20049130001, 23755004321]),
+(language_id:INTEGER, Examples: [2, 1, 5]),
+(num_pages:INTEGER, Examples: [276, 352, 128]),
+(publication_date:DATE, Examples: [1996-09-01]),
+(publisher_id:INTEGER, Examples: [1010, 1967, 1978])
+]
+# Table: book_language
+[
+(language_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(language_code:TEXT, Examples: [eng, en-US, fre]),
+(language_name:TEXT, Examples: [English])
+]
+# Table: address_status
+[
+(status_id:INTEGER, Primary Key, Examples: [1, 2]),
+(address_status:TEXT, Examples: [Active, Inactive])
+]
+# Table: address
+[
+(address_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(street_number:TEXT, Examples: [57, 86, 292]),
+(street_name:TEXT, Examples: [Glacier Hill Avenue, Dottie Junction, Ramsey Avenue]),
+(city:TEXT, Examples: [Torbat-e Jām, Beaumont, Cayambe]),
+(country_id:INTEGER, Examples: [95, 37, 60])
+]
+# Table: book_author
+[
+(book_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(author_id:INTEGER, Primary Key, Examples: [1, 2, 3])
+]
+# Table: order_status
+[
+(status_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(status_value:TEXT, Examples: [Order Received, Pending Delivery, Delivery In Progress])
+]
+# Table: country
+[
+(country_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(country_name:TEXT, Examples: [Afghanistan, Netherlands Antilles, Albania])
+]
+# Table: cust_order
+[
+(order_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(order_date:DATETIME, Examples: [2021-07-14 10:47:19]),
+(customer_id:INTEGER, Examples: [387, 1256, 1335]),
+(shipping_method_id:INTEGER, Examples: [4, 2, 1]),
+(dest_address_id:INTEGER, Examples: [1, 2, 3])
+]
+# Table: customer
+[
+(customer_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(first_name:TEXT, Examples: [Ursola, Ruthanne, Reidar]),
+(last_name:TEXT, Examples: [Purdy, Vatini, Turbitt]),
+(email:TEXT)
+]
+【Foreign keys】
+order_history.status_id=order_status.status_id
+order_history.order_id=cust_order.order_id
+customer_address.address_id=address.address_id
+customer_address.customer_id=customer.customer_id
+order_line.book_id=book.book_id
+order_line.order_id=cust_order.order_id
+book.language_id=book_language.language_id
+book.publisher_id=publisher.publisher_id
+address.country_id=country.country_id
+book_author.author_id=author.author_id
+book_author.book_id=book.book_id
+cust_order.dest_address_id=address.address_id
+cust_order.shipping_method_id=shipping_method.method_id
+cust_order.customer_id=customer.customer_id

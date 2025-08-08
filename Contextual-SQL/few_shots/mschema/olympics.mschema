@@ -1,0 +1,78 @@
+【DB_ID】 olympics
+【Schema】
+# Table: games_competitor
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(games_id:INTEGER, Examples: [1, 2, 3]),
+(person_id:INTEGER, Examples: [1, 2, 3]),
+(age:INTEGER, Examples: [24, 23, 34])
+]
+# Table: sport
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(sport_name:TEXT, Examples: [Aeronautics, Alpine Skiing, Alpinism])
+]
+# Table: noc_region
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(noc:TEXT, Examples: [AFG, AHO, ALB]),
+(region_name:TEXT, Examples: [Afghanistan, Netherlands Antilles, Albania])
+]
+# Table: person
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(full_name:TEXT, Examples: [A Dijiang, A Lamusi, Gunnar Nielsen Aaby]),
+(gender:TEXT, Examples: [M, F]),
+(height:INTEGER, Examples: [180, 170, 0]),
+(weight:INTEGER, Examples: [80, 60, 0])
+]
+# Table: games
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(games_year:INTEGER, Examples: [1992, 2012, 1920]),
+(games_name:TEXT, Examples: [1992 Summer, 2012 Summer, 1920 Summer]),
+(season:TEXT, Examples: [Summer, Winter])
+]
+# Table: competitor_event
+[
+(event_id:INTEGER, Examples: [1, 2, 3]),
+(competitor_id:INTEGER, Examples: [1, 2, 3]),
+(medal_id:INTEGER, Examples: [4, 1, 3])
+]
+# Table: person_region
+[
+(person_id:INTEGER, Examples: [1, 2, 3]),
+(region_id:INTEGER, Examples: [42, 56, 146])
+]
+# Table: city
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(city_name:TEXT, Examples: [Barcelona, London, Antwerpen])
+]
+# Table: event
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(sport_id:INTEGER, Examples: [9, 33, 25]),
+(event_name:TEXT, Examples: [Basketball Men's Basketball])
+]
+# Table: games_city
+[
+(games_id:INTEGER, Examples: [1, 2, 3]),
+(city_id:INTEGER, Examples: [1, 2, 3])
+]
+# Table: medal
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(medal_name:TEXT, Examples: [Gold, Silver, Bronze])
+]
+【Foreign keys】
+games_competitor.games_id=games.id
+games_competitor.person_id=person.id
+competitor_event.competitor_id=games_competitor.id
+competitor_event.event_id=event.id
+competitor_event.medal_id=medal.id
+person_region.person_id=person.id
+person_region.region_id=noc_region.id
+event.sport_id=sport.id
+games_city.city_id=city.id
+games_city.games_id=games.id

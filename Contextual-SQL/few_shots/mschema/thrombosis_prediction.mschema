@@ -1,0 +1,78 @@
+【DB_ID】 thrombosis_prediction
+【Schema】
+# Table: Examination
+[
+(ID:INTEGER, Examples: [14872, 48473, 102490]),
+(Examination Date:DATE, Examples: [1997-05-27]),
+(aCL IgG:REAL, Examples: [1.3, 4.3, 2.3]),
+(aCL IgM:REAL, Examples: [1.6, 4.6, 2.5]),
+(ANA:INTEGER, Examples: [256, 0, 16]),
+(ANA Pattern:TEXT, Examples: [P, P,S, S]),
+(aCL IgA:INTEGER, Examples: [0, 3, 4]),
+(Diagnosis:TEXT, Examples: [MCTD, AMI, SLE, PSS]),
+(KCT:TEXT, Examples: [-, +]),
+(RVVT:TEXT, Examples: [-, +]),
+(LAC:TEXT, Examples: [-, +]),
+(Symptoms:TEXT, Examples: [AMI, CNS lupus, Apo]),
+(Thrombosis:INTEGER, Examples: [1, 0, 2])
+]
+# Table: Patient
+[
+(ID:INTEGER, Primary Key, Examples: [2110, 11408, 12052]),
+(SEX:TEXT, Examples: [F, M]),
+(Birthday:DATE, Examples: [1934-02-13]),
+(Description:DATE, Examples: [1994-02-14]),
+(First Date:DATE, Examples: [1993-02-10]),
+(Admission:TEXT, Examples: [+, -, +(]),
+(Diagnosis:TEXT, Examples: [RA susp., PSS, SLE])
+]
+# Table: Laboratory
+[
+(ID:INTEGER, Primary Key, Examples: [27654, 30609, 43003]),
+(Date:DATE, Primary Key, Examples: [1991-09-11]),
+(GOT:INTEGER, Examples: [34, 29, 26]),
+(GPT:INTEGER, Examples: [36, 31, 22]),
+(LDH:INTEGER, Examples: [567, 579, 684]),
+(ALP:INTEGER, Examples: [166, 154, 138]),
+(TP:REAL, Examples: [4.5, 5.1, 5.5]),
+(ALB:REAL, Examples: [3.3, 3.4, 3.6]),
+(UA:REAL, Examples: [3.8, 4.2, 4.9]),
+(UN:INTEGER, Examples: [29, 36, 34]),
+(CRE:REAL, Examples: [0.8, 0.9, 0.7]),
+(T-BIL:REAL, Examples: [0.3, 0.2, 0.4]),
+(T-CHO:INTEGER, Examples: [165, 134, 140]),
+(TG:INTEGER, Examples: [185, 205, 254]),
+(CPK:INTEGER, Examples: [9, 10, 11]),
+(GLU:INTEGER, Examples: [88, 134, 161]),
+(WBC:REAL, Examples: [5.0, 10.4, 10.5]),
+(RBC:REAL, Examples: [2.6, 2.9, 3.4]),
+(HGB:REAL, Examples: [6.4, 6.7, 7.9]),
+(HCT:REAL, Examples: [20.3, 21.6, 24.7]),
+(PLT:INTEGER, Examples: [227, 242, 233]),
+(PT:REAL, Examples: [11.3, 12.0, 11.8]),
+(APTT:INTEGER, Examples: [108, 84, 76]),
+(FG:REAL, Examples: [27.0, 38.6, 27.6]),
+(PIC:INTEGER, Examples: [320, 513, 284]),
+(TAT:INTEGER, Examples: [77, 108, 115]),
+(TAT2:INTEGER, Examples: [113, 88, 104]),
+(U-PRO:TEXT, Examples: [-, 0, TR]),
+(IGG:INTEGER, Examples: [339, 771, 430]),
+(IGA:INTEGER, Examples: [145, 188, 118]),
+(IGM:INTEGER, Examples: [46, 132, 56]),
+(CRP:TEXT, Examples: [0.6, 2.7, 1.2]),
+(RA:TEXT, Examples: [-, +, +-]),
+(RF:TEXT, Examples: [<20.5, <20.8, <40]),
+(C3:INTEGER, Examples: [30, 82, 103]),
+(C4:INTEGER, Examples: [14, 26, 35]),
+(RNP:TEXT, Examples: [0, 1, 256]),
+(SM:TEXT, Examples: [0, 1, negative]),
+(SC170:TEXT, Examples: [16, 1, 0]),
+(SSA:TEXT, Examples: [0, negative, 16]),
+(SSB:TEXT, Examples: [0, negative, 1]),
+(CENTROMEA:TEXT, Examples: [0, negative]),
+(DNA:TEXT, Examples: [41.9, 18, 4.3]),
+(DNA-II:INTEGER)
+]
+【Foreign keys】
+Examination.ID=Patient.ID
+Laboratory.ID=Patient.ID

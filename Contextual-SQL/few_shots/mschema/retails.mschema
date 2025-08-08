@@ -1,0 +1,97 @@
+【DB_ID】 retails
+【Schema】
+# Table: nation
+[
+(n_nationkey:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(n_name:TEXT, Examples: [ALGERIA, ARGENTINA, BRAZIL]),
+(n_regionkey:INTEGER, Examples: [0, 1, 3]),
+(n_comment:TEXT)
+]
+# Table: supplier
+[
+(s_suppkey:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(s_nationkey:INTEGER, Examples: [13, 5, 22]),
+(s_comment:TEXT),
+(s_name:TEXT, Examples: [Supplier#000000001, Supplier#000000002, Supplier#000000003]),
+(s_address:TEXT, Examples: [,wWs4pnykQOFl8mgVCU8EZMXqZs1w]),
+(s_phone:TEXT, Examples: [800-807-9579, 348-617-6055, 471-986-9888]),
+(s_acctbal:REAL, Examples: [3082.86, 3009.73, 9159.78])
+]
+# Table: region
+[
+(r_regionkey:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(r_name:TEXT, Examples: [AFRICA, AMERICA, ASIA]),
+(r_comment:TEXT)
+]
+# Table: orders
+[
+(o_orderdate:DATE, Examples: [1995-04-19]),
+(o_orderkey:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(o_custkey:INTEGER, Examples: [73100, 92861, 44875]),
+(o_orderpriority:TEXT, Examples: [4-NOT SPECIFIED, 1-URGENT, 5-LOW]),
+(o_shippriority:INTEGER, Examples: [0]),
+(o_clerk:TEXT, Examples: [Clerk#000000916, Clerk#000000373, Clerk#000000485]),
+(o_orderstatus:TEXT, Examples: [P, O, F]),
+(o_totalprice:REAL, Examples: [203198.56, 317719.99, 146674.98]),
+(o_comment:TEXT)
+]
+# Table: partsupp
+[
+(ps_partkey:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(ps_suppkey:INTEGER, Primary Key, Examples: [2, 2502, 5002]),
+(ps_supplycost:REAL, Examples: [400.75, 702.61, 383.95]),
+(ps_availqty:INTEGER, Examples: [1111, 3999, 7411]),
+(ps_comment:TEXT)
+]
+# Table: lineitem
+[
+(l_shipdate:DATE, Examples: [1995-08-16]),
+(l_orderkey:INTEGER, Primary Key, Examples: [1, 2, 4]),
+(l_discount:REAL, Examples: [0.1, 0.09, 0.02]),
+(l_extendedprice:REAL, Examples: [58303.08, 16947.7, 63642.9]),
+(l_suppkey:INTEGER, Examples: [6296, 8776, 3859]),
+(l_quantity:INTEGER, Examples: [33, 10, 34]),
+(l_returnflag:TEXT, Examples: [N, A, R]),
+(l_partkey:INTEGER, Examples: [98768, 23771, 113858]),
+(l_linestatus:TEXT, Examples: [O, F]),
+(l_tax:REAL, Examples: [0.06, 0.08, 0.07]),
+(l_commitdate:DATE, Examples: [1995-07-12]),
+(l_receiptdate:DATE, Examples: [1995-09-14]),
+(l_shipmode:TEXT, Examples: [RAIL, TRUCK, SHIP]),
+(l_linenumber:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(l_shipinstruct:TEXT, Examples: [NONE, TAKE BACK RETURN, COLLECT COD]),
+(l_comment:TEXT, Examples: [carefully bo])
+]
+# Table: part
+[
+(p_partkey:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(p_type:TEXT, Examples: [LARGE PLATED TIN]),
+(p_size:INTEGER, Examples: [31, 4, 30]),
+(p_brand:TEXT, Examples: [Brand#43, Brand#55, Brand#53]),
+(p_name:TEXT, Examples: [burlywood plum powder puff mint]),
+(p_container:TEXT, Examples: [LG BAG, LG CASE, WRAP CASE]),
+(p_mfgr:TEXT, Examples: [Manufacturer#4, Manufacturer#5, Manufacturer#1]),
+(p_retailprice:REAL, Examples: [901.0, 902.0, 903.0]),
+(p_comment:TEXT, Examples: [blithely busy reque])
+]
+# Table: customer
+[
+(c_custkey:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(c_mktsegment:TEXT, Examples: [BUILDING, MACHINERY, FURNITURE]),
+(c_nationkey:INTEGER, Examples: [8, 16, 11]),
+(c_name:TEXT, Examples: [Customer#000000001, Customer#000000002, Customer#000000003]),
+(c_address:TEXT, Examples: [KwX3hMHjZ6, ioUn,eqTTXOdo, YddJqmIdouNT9Yj]),
+(c_phone:TEXT, Examples: [937-241-3198, 906-965-7556, 328-750-7603]),
+(c_acctbal:REAL, Examples: [3560.03, 7550.21, -926.96]),
+(c_comment:TEXT)
+]
+【Foreign keys】
+nation.n_regionkey=region.r_regionkey
+supplier.s_nationkey=nation.n_nationkey
+orders.o_custkey=customer.c_custkey
+partsupp.ps_partkey=part.p_partkey
+partsupp.ps_suppkey=supplier.s_suppkey
+lineitem.l_orderkey=orders.o_orderkey
+lineitem.l_partkey=partsupp.ps_partkey
+lineitem.l_suppkey=partsupp.ps_suppkey
+customer.c_nationkey=nation.n_nationkey

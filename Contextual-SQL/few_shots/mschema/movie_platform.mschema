@@ -1,0 +1,81 @@
+【DB_ID】 movie_platform
+【Schema】
+# Table: ratings_users
+[
+(user_id:INTEGER, Examples: [41579158, 68654088, 84114365]),
+(rating_date_utc:TEXT, Examples: [2017-06-10, 2012-10-02, 2010-12-25]),
+(user_trialist:INTEGER, Examples: [0, 1]),
+(user_subscriber:INTEGER, Examples: [0, 1]),
+(user_avatar_image_url:TEXT),
+(user_cover_image_url:TEXT),
+(user_eligible_for_trial:INTEGER, Examples: [1, 0]),
+(user_has_payment_method:INTEGER, Examples: [0, 1])
+]
+# Table: ratings
+[
+(movie_id:INTEGER, Examples: [1066, 1067, 1068]),
+(rating_id:INTEGER, Examples: [15610495, 10704606, 10177114]),
+(rating_url:TEXT),
+(rating_score:INTEGER, Examples: [3, 2, 4]),
+(rating_timestamp_utc:TEXT, Examples: [2017-06-10 12:38:33, 2014-08-15 23:42:31, 2014-01-30 13:21:57]),
+(critic:TEXT),
+(critic_likes:INTEGER, Examples: [0, 1, 2]),
+(critic_comments:INTEGER, Examples: [0, 2, 1]),
+(user_id:INTEGER, Examples: [41579158, 85981819, 4208563]),
+(user_trialist:INTEGER, Examples: [0, 1]),
+(user_subscriber:INTEGER, Examples: [0, 1]),
+(user_eligible_for_trial:INTEGER, Examples: [1, 0]),
+(user_has_payment_method:INTEGER, Examples: [0, 1])
+]
+# Table: movies
+[
+(movie_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(movie_title:TEXT, Examples: [La Antena, Elementary Particles, It's Winter]),
+(movie_release_year:INTEGER, Examples: [2007, 2006, 2005]),
+(movie_url:TEXT),
+(movie_title_language:TEXT, Examples: [en]),
+(movie_popularity:INTEGER, Examples: [105, 23, 21]),
+(movie_image_url:TEXT),
+(director_id:TEXT, Examples: [131, 73, 82]),
+(director_name:TEXT, Examples: [Esteban Sapir, Oskar Roehler, Rafi Pitts]),
+(director_url:TEXT)
+]
+# Table: lists_users
+[
+(user_id:INTEGER, Primary Key, Examples: [2385, 15264, 15344]),
+(list_id:INTEGER, Primary Key, Examples: [192287, 192313, 192318]),
+(list_update_date_utc:TEXT, Examples: [2019-11-26, 2020-05-01, 2020-04-12]),
+(list_creation_date_utc:TEXT, Examples: [2009-12-18, 2010-01-30, 2010-03-31]),
+(user_trialist:INTEGER, Examples: [1, 0]),
+(user_subscriber:INTEGER, Examples: [1, 0]),
+(user_avatar_image_url:TEXT),
+(user_cover_image_url:TEXT),
+(user_eligible_for_trial:TEXT, Examples: [0, 1]),
+(user_has_payment_method:TEXT, Examples: [1, 0])
+]
+# Table: lists
+[
+(user_id:INTEGER, Examples: [88260493, 45204418, 48905025]),
+(list_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(list_title:TEXT, Examples: [Films that made your kid sister cry]),
+(list_movie_number:INTEGER, Examples: [5, 3, 7]),
+(list_update_timestamp_utc:TEXT, Examples: [2019-01-24 19:16:18, 2018-12-03 15:12:20, 2019-05-30 03:00:07]),
+(list_creation_timestamp_utc:TEXT, Examples: [2009-11-11 00:02:21, 2009-11-11 00:05:11, 2009-11-11 00:20:00]),
+(list_followers:INTEGER, Examples: [5, 1, 6]),
+(list_url:TEXT),
+(list_comments:INTEGER, Examples: [3, 2, 5]),
+(list_description:TEXT),
+(list_cover_image_url:TEXT),
+(list_first_image_url:TEXT),
+(list_second_image_url:TEXT),
+(list_third_image_url:TEXT)
+]
+【Foreign keys】
+ratings_users.user_id=lists_users.user_id
+ratings.movie_id=movies.movie_id
+ratings.user_id=lists_users.user_id
+ratings.rating_id=ratings.rating_id
+ratings.user_id=ratings_users.user_id
+lists_users.list_id=lists.list_id
+lists_users.user_id=lists.user_id
+lists.user_id=lists_users.user_id

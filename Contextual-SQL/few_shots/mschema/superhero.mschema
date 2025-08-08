@@ -1,0 +1,75 @@
+【DB_ID】 superhero
+【Schema】
+# Table: publisher
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(publisher_name:TEXT, Examples: [ABC Studios, Dark Horse Comics, DC Comics])
+]
+# Table: attribute
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(attribute_name:TEXT, Examples: [Intelligence, Strength, Speed])
+]
+# Table: race
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(race:TEXT, Examples: [-, Alien, Alpha])
+]
+# Table: hero_power
+[
+(hero_id:INTEGER, Examples: [1, 2, 3]),
+(power_id:INTEGER, Examples: [1, 18, 26])
+]
+# Table: superpower
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(power_name:TEXT, Examples: [Agility, Accelerated Healing, Lantern Power Ring])
+]
+# Table: gender
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(gender:TEXT, Examples: [Male, Female, N/A])
+]
+# Table: colour
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(colour:TEXT, Examples: [No Colour, Amber, Auburn])
+]
+# Table: superhero
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(superhero_name:TEXT, Examples: [3-D Man, A-Bomb, Abe Sapien]),
+(full_name:TEXT, Examples: [Charles Chandler]),
+(gender_id:INTEGER, Examples: [1, 2, 3]),
+(eye_colour_id:INTEGER, Examples: [9, 33, 7]),
+(hair_colour_id:INTEGER, Examples: [13, 1, 4]),
+(skin_colour_id:INTEGER, Examples: [1, 7, 23]),
+(race_id:INTEGER, Examples: [1, 24, 33]),
+(publisher_id:INTEGER, Examples: [13, 3, 4]),
+(alignment_id:INTEGER, Examples: [1, 2, 3]),
+(height_cm:INTEGER, Examples: [188, 203, 191]),
+(weight_kg:INTEGER, Examples: [90, 441, 65])
+]
+# Table: hero_attribute
+[
+(hero_id:INTEGER, Examples: [1, 2, 3]),
+(attribute_id:INTEGER, Examples: [1, 2, 3]),
+(attribute_value:INTEGER, Examples: [80, 75, 95])
+]
+# Table: alignment
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(alignment:TEXT, Examples: [Good, Bad, Neutral])
+]
+【Foreign keys】
+hero_power.hero_id=superhero.id
+hero_power.power_id=superpower.id
+superhero.alignment_id=alignment.id
+superhero.eye_colour_id=colour.id
+superhero.gender_id=gender.id
+superhero.hair_colour_id=colour.id
+superhero.publisher_id=publisher.id
+superhero.race_id=race.id
+superhero.skin_colour_id=colour.id
+hero_attribute.attribute_id=attribute.id
+hero_attribute.hero_id=superhero.id

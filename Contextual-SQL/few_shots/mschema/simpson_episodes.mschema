@@ -1,0 +1,73 @@
+【DB_ID】 simpson_episodes
+【Schema】
+# Table: Vote
+[
+(episode_id:TEXT, Examples: [S20-E1, S20-E10, S20-E11]),
+(stars:INTEGER, Examples: [2, 3, 4]),
+(votes:INTEGER, Examples: [16, 20, 36]),
+(percent:REAL, Examples: [1.3, 1.7, 3.0])
+]
+# Table: Award
+[
+(award_id:INTEGER, Primary Key, Examples: [325, 326, 327]),
+(organization:TEXT, Examples: [Primetime Emmy Awards]),
+(year:INTEGER, Examples: [2009, 2010, 2017]),
+(award_category:TEXT, Examples: [Primetime Emmy, Annie, Image Award]),
+(award:TEXT),
+(person:TEXT, Examples: [Dan Castellaneta, Hank Azaria, Harry Shearer]),
+(role:TEXT, Examples: [executive producer]),
+(episode_id:TEXT, Examples: [S20-E18, S20-E16, S20-E8]),
+(season:TEXT),
+(song:TEXT),
+(result:TEXT, Examples: [Winner, Nominee])
+]
+# Table: Character_Award
+[
+(award_id:INTEGER, Examples: [325, 326, 327]),
+(character:TEXT, Examples: [Homer Simpson, Moe Szyslak, Kent Brockman])
+]
+# Table: Episode
+[
+(episode_id:TEXT, Primary Key, Examples: [S20-E1, S20-E10, S20-E11]),
+(season:INTEGER, Examples: [20]),
+(episode:INTEGER, Examples: [1, 2, 3]),
+(number_in_series:INTEGER, Examples: [421, 422, 423]),
+(title:TEXT, Examples: [Sex, Pies and Idiot Scrapes]),
+(summary:TEXT),
+(air_date:TEXT, Examples: [2008-09-28, 2008-10-05, 2008-10-19]),
+(episode_image:TEXT),
+(rating:REAL, Examples: [7.2, 7.0, 7.1]),
+(votes:INTEGER, Examples: [1192, 1055, 1015])
+]
+# Table: Credit
+[
+(episode_id:TEXT, Examples: [S20-E10, S20-E13, S20-E14]),
+(category:TEXT, Examples: [Casting Department, Animation Department, Sound Department]),
+(person:TEXT, Examples: [Bonita Pietila, Adam Kuhlman, Carlton Batten]),
+(role:TEXT, Examples: [casting, additional timer, adr engineer]),
+(credited:TEXT, Examples: [true, false])
+]
+# Table: Person
+[
+(name:TEXT, Primary Key, Examples: [Adam Greeley, Adam Klein, Adam Kuhlman]),
+(birthdate:TEXT, Examples: [1963-05-04, 1975-03-30, 1969-12-04]),
+(birth_name:TEXT, Examples: [Marc Edward Wilmore, Valentina Lantigua, Joseph Stewart Burns]),
+(birth_place:TEXT, Examples: [USA, Brooklyn, Chicago]),
+(birth_region:TEXT, Examples: [California, New York, Illinois]),
+(birth_country:TEXT, Examples: [USA, Canada, Ireland]),
+(height_meters:REAL, Examples: [1.85, 1.75, 2.03]),
+(nickname:TEXT, Examples: [Jim, Doofus, Hoops])
+]
+# Table: Keyword
+[
+(episode_id:TEXT, Primary Key, Examples: [S20-E1, S20-E10, S20-E11]),
+(keyword:TEXT, Primary Key, Examples: [1930s to 2020s, erotic bakery, cake])
+]
+【Foreign keys】
+Vote.episode_id=Episode.episode_id
+Award.person=Person.name
+Award.episode_id=Episode.episode_id
+Character_Award.award_id=Award.award_id
+Credit.episode_id=Episode.episode_id
+Credit.person=Person.name
+Keyword.episode_id=Episode.episode_id

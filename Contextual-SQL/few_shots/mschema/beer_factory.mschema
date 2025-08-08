@@ -1,0 +1,95 @@
+【DB_ID】 beer_factory
+【Schema】
+# Table: rootbeer
+[
+(RootBeerID:INTEGER, Primary Key, Examples: [100000, 100001, 100002]),
+(BrandID:INTEGER, Examples: [10001, 10002, 10003]),
+(ContainerType:TEXT, Examples: [Bottle, Can]),
+(LocationID:INTEGER, Examples: [1, 2]),
+(PurchaseDate:DATE, Examples: [2015-07-03])
+]
+# Table: rootbeerbrand
+[
+(BrandID:INTEGER, Primary Key, Examples: [10001, 10002, 10003]),
+(BrandName:TEXT, Examples: [A&W, A.J. Stephans, Abita]),
+(FirstBrewedYear:INTEGER, Examples: [1919, 1926, 1986]),
+(BreweryName:TEXT, Examples: [Dr Pepper Snapple Group]),
+(City:TEXT, Examples: [Lodi, Fall River, Covington]),
+(State:TEXT, Examples: [CA, MA, LA]),
+(Country:TEXT, Examples: [United States, Australia]),
+(Description:TEXT),
+(CaneSugar:TEXT, Examples: [FALSE, TRUE]),
+(CornSyrup:TEXT, Examples: [TRUE, FALSE]),
+(Honey:TEXT, Examples: [FALSE, TRUE]),
+(ArtificialSweetener:TEXT, Examples: [FALSE, TRUE]),
+(Caffeinated:TEXT, Examples: [FALSE, TRUE]),
+(Alcoholic:TEXT, Examples: [FALSE]),
+(AvailableInCans:TEXT, Examples: [TRUE, FALSE]),
+(AvailableInBottles:TEXT, Examples: [FALSE, TRUE]),
+(AvailableInKegs:TEXT, Examples: [FALSE, TRUE]),
+(Website:TEXT),
+(FacebookPage:TEXT),
+(Twitter:TEXT),
+(WholesaleCost:REAL, Examples: [0.42, 0.98, 1.13]),
+(CurrentRetailPrice:REAL, Examples: [1.0, 3.0, 44.0])
+]
+# Table: rootbeerreview
+[
+(CustomerID:INTEGER, Primary Key, Examples: [101811, 105549, 105771]),
+(BrandID:INTEGER, Primary Key, Examples: [10012, 10014, 10015]),
+(StarRating:INTEGER, Examples: [5, 1, 3]),
+(ReviewDate:DATE, Examples: [2013-07-15]),
+(Review:TEXT)
+]
+# Table: customers
+[
+(CustomerID:INTEGER, Primary Key, Examples: [101811, 103508, 104939]),
+(First:TEXT, Examples: [Kenneth, Madeleine, Damen]),
+(Last:TEXT, Examples: [Walton, Jones, Wheeler]),
+(StreetAddress:TEXT, Examples: [6715 Commonwealth Dr, 3603 Leola Way, 6740 Branwood Way]),
+(City:TEXT, Examples: [Sacramento, Orangevale, Folsom]),
+(State:TEXT, Examples: [CA]),
+(ZipCode:INTEGER, Examples: [94256, 94258, 95662]),
+(Email:TEXT),
+(PhoneNumber:TEXT, Examples: [(916) 918-1561, (916) 186-9423, (916) 164-1156]),
+(FirstPurchaseDate:DATE, Examples: [2013-05-30]),
+(SubscribedToEmailList:TEXT, Examples: [FALSE, TRUE]),
+(Gender:TEXT, Examples: [M, F])
+]
+# Table: transaction
+[
+(TransactionID:INTEGER, Primary Key, Examples: [100000, 100001, 100002]),
+(CreditCardNumber:INTEGER, Examples: [6011583832864739, 4716634257568793, 5597608517846968]),
+(CustomerID:INTEGER, Examples: [864896, 610766, 207846]),
+(TransactionDate:DATE, Examples: [2014-07-07]),
+(CreditCardType:TEXT, Examples: [Discover, Visa, MasterCard]),
+(LocationID:INTEGER, Examples: [2, 1]),
+(RootBeerID:INTEGER, Examples: [105661, 105798, 102514]),
+(PurchasePrice:REAL, Examples: [3.0, 1.0])
+]
+# Table: location
+[
+(LocationID:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(LocationName:TEXT, Examples: [LOST]),
+(StreetAddress:TEXT, Examples: [6000 J St]),
+(City:TEXT, Examples: [Sacramento]),
+(State:TEXT, Examples: [CA]),
+(ZipCode:INTEGER, Examples: [95819])
+]
+# Table: geolocation
+[
+(LocationID:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(Latitude:REAL, Examples: [0.0, 38.566129, 38.559615]),
+(Longitude:REAL, Examples: [0.0, -121.426432, -121.42243])
+]
+【Foreign keys】
+rootbeer.LocationID=geolocation.LocationID
+rootbeer.LocationID=location.LocationID
+rootbeer.BrandID=rootbeerbrand.BrandID
+rootbeerreview.CustomerID=customers.CustomerID
+rootbeerreview.BrandID=rootbeerbrand.BrandID
+transaction.CustomerID=customers.CustomerID
+transaction.LocationID=location.LocationID
+transaction.RootBeerID=rootbeer.RootBeerID
+location.LocationID=geolocation.LocationID
+geolocation.LocationID=location.LocationID

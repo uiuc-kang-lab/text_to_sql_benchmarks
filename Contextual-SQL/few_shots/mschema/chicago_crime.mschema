@@ -1,0 +1,82 @@
+【DB_ID】 chicago_crime
+【Schema】
+# Table: FBI_Code
+[
+(fbi_code_no:TEXT, Primary Key, Examples: [01A, 01B, 04A]),
+(title:TEXT, Examples: [Homicide 1st & 2nd Degree]),
+(description:TEXT),
+(crime_against:TEXT, Examples: [Persons, Property, Society])
+]
+# Table: Crime
+[
+(report_no:INTEGER, Primary Key, Examples: [23757, 23758, 23759]),
+(case_number:TEXT, Examples: [JB100159, JB100522, JB100839]),
+(date:TEXT, Examples: [1/1/2018 2:46, 1/1/2018 11:33, 1/1/2018 18:27]),
+(block:TEXT, Examples: [039XX W CORNELIA AVE]),
+(iucr_no:TEXT, Examples: [110, 143B, 1310]),
+(location_description:TEXT, Examples: [AUTO, APARTMENT, ALLEY]),
+(arrest:TEXT, Examples: [FALSE, TRUE]),
+(domestic:TEXT, Examples: [FALSE, TRUE]),
+(beat:INTEGER, Examples: [1732, 1935, 935]),
+(district_no:INTEGER, Examples: [17, 19, 9]),
+(ward_no:INTEGER, Examples: [30, 43, 3]),
+(community_area_no:INTEGER, Examples: [21, 7, 37]),
+(fbi_code_no:TEXT, Examples: [01A, 15, 14]),
+(latitude:TEXT, Examples: [41.94456125, 41.92972657, 41.808168]),
+(longitude:TEXT, Examples: [-87.72668181, -87.64092074, -87.63333646])
+]
+# Table: Community_Area
+[
+(community_area_no:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(community_area_name:TEXT, Examples: [Rogers Park, West Ridge, Uptown]),
+(side:TEXT, Examples: [Far North , North , Central]),
+(population:TEXT, Examples: [54,991, 71,942, 56,362])
+]
+# Table: Ward
+[
+(ward_no:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(alderman_first_name:TEXT, Examples: [Daniel, Brian, Pat]),
+(alderman_last_name:TEXT, Examples: [La Spata, Hopkins, Dowell]),
+(alderman_name_suffix:TEXT, Examples: [Jr.]),
+(ward_office_address:TEXT, Examples: [1958 N. Milwaukee Ave.]),
+(ward_office_zip:TEXT, Examples: [60647, 60622, 60609]),
+(ward_email:TEXT),
+(ward_office_phone:TEXT, Examples: [872.206.2685, 312.643.2299, 773.373.9273]),
+(ward_office_fax:TEXT, Examples: [312.448.8829, 773.536.7296, 773.324.1585]),
+(city_hall_office_room:INTEGER, Examples: [200, 305, 300]),
+(city_hall_office_phone:TEXT, Examples: [312.744.6836, 312.744.8734, 312.744.2690]),
+(city_hall_office_fax:TEXT, Examples: [312.744.6712, 312.744.7738, 312.744.3195]),
+(Population:INTEGER, Examples: [56149, 55805, 53039])
+]
+# Table: IUCR
+[
+(iucr_no:TEXT, Primary Key, Examples: [031A, 031B, 033A]),
+(primary_description:TEXT, Examples: [HOMICIDE, CRIM SEXUAL ASSAULT, BATTERY]),
+(secondary_description:TEXT, Examples: [FIRST DEGREE MURDER]),
+(index_code:TEXT, Examples: [I, N])
+]
+# Table: Neighborhood
+[
+(neighborhood_name:TEXT, Primary Key, Examples: [Albany Park, Altgeld Gardens, Andersonville]),
+(community_area_no:INTEGER, Examples: [14, 54, 77])
+]
+# Table: District
+[
+(district_no:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(district_name:TEXT, Examples: [Central, Wentworth, Grand Crossing]),
+(address:TEXT, Examples: [1718 South State Street]),
+(zip_code:INTEGER, Examples: [60616, 60609, 60637]),
+(commander:TEXT, Examples: [Jake M. Alderden, Joshua Wallace, Eve T. Quarterman]),
+(email:TEXT, Examples: [ CAPS001District@chicagopolice.org]),
+(phone:TEXT, Examples: [312-745-4290, 312-747-8366, 312-747-8201]),
+(fax:TEXT, Examples: [312-745-3694, 312-747-5396, 312-747-5479]),
+(tty:TEXT, Examples: [312-745-3693, 312-747-6656, 312-747-9168]),
+(twitter:TEXT, Examples: [ ChicagoCAPS01,  ChicagoCAPS02,  ChicagoCAPS03])
+]
+【Foreign keys】
+Crime.ward_no=Ward.ward_no
+Crime.iucr_no=IUCR.iucr_no
+Crime.district_no=District.district_no
+Crime.community_area_no=Community_Area.community_area_no
+Crime.fbi_code_no=FBI_Code.fbi_code_no
+Neighborhood.community_area_no=Community_Area.community_area_no

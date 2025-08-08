@@ -1,0 +1,139 @@
+【DB_ID】 synthea
+【Schema】
+# Table: encounters
+[
+(ID:TEXT, Primary Key, Examples: [000c20ea-5c3d-43a3-9608-bd37c22f13c8]),
+(DATE:DATE, Examples: [2008-03-11]),
+(PATIENT:TEXT, Examples: [71949668-1c2e-43ae-ab0a-64654608defb]),
+(CODE:INTEGER, Examples: [185349003, 185345009, 698314001]),
+(DESCRIPTION:TEXT, Examples: [Outpatient Encounter]),
+(REASONCODE:INTEGER, Examples: [10509002, 38822007, 72892002]),
+(REASONDESCRIPTION:TEXT, Examples: [Acute bronchitis (disorder)])
+]
+# Table: allergies
+[
+(START:TEXT, Examples: [3/11/95, 6/15/58, 11/14/12]),
+(STOP:TEXT, Examples: [12/22/14, 4/21/10, 10/15/11]),
+(PATIENT:TEXT, Primary Key, Examples: [00341a88-1cc1-4b39-b0f9-05b0531991a0]),
+(ENCOUNTER:TEXT, Primary Key, Examples: [ddc8a625-07e6-4a02-a616-e0ce07b5f305]),
+(CODE:INTEGER, Primary Key, Examples: [232347008, 300916003, 419474003]),
+(DESCRIPTION:TEXT, Examples: [Allergy to dairy product])
+]
+# Table: observations
+[
+(DATE:DATE, Examples: [2008-03-11]),
+(PATIENT:TEXT, Examples: [71949668-1c2e-43ae-ab0a-64654608defb]),
+(ENCOUNTER:TEXT, Examples: [5114a5b4-64b8-47b2-82a6-0ce24aae0943]),
+(CODE:TEXT, Examples: [8302-2, 29463-7, 39156-5]),
+(DESCRIPTION:TEXT, Examples: [Body Height, Body Weight, Body Mass Index]),
+(VALUE:REAL, Examples: [166.03, 54.42, 19.74]),
+(UNITS:TEXT, Examples: [cm, kg, kg/m2])
+]
+# Table: procedures
+[
+(DATE:DATE, Examples: [2013-02-09]),
+(PATIENT:TEXT, Examples: [71949668-1c2e-43ae-ab0a-64654608defb]),
+(ENCOUNTER:TEXT, Examples: [6f2e3935-b203-493e-a9c0-f23e847b9798]),
+(CODE:INTEGER, Examples: [23426006, 252160004, 237001001]),
+(DESCRIPTION:TEXT, Examples: [Measurement of respiratory function (procedure)]),
+(REASONCODE:INTEGER, Examples: [10509002, 72892002, 33737001]),
+(REASONDESCRIPTION:TEXT, Examples: [Acute bronchitis (disorder)])
+]
+# Table: patients
+[
+(patient:TEXT, Primary Key, Examples: [00269bb7-e3ab-43a9-9cdf-cdf9b6e3b2b3]),
+(birthdate:DATE, Examples: [1929-04-08]),
+(deathdate:DATE, Examples: [2029-11-11]),
+(ssn:TEXT, Examples: [999-78-5976, 999-59-9186, 999-43-3780]),
+(drivers:TEXT, Examples: [S99992928, S99975961, S99997003]),
+(passport:TEXT, Examples: [FALSE, X98167138X, X65866752X]),
+(prefix:TEXT, Examples: [Mr., Mrs., Ms.]),
+(first:TEXT, Examples: [Rosamaria, Loan, Angelo]),
+(last:TEXT, Examples: [Pfannerstill, Bashirian, Buckridge]),
+(suffix:TEXT, Examples: [PhD, JD, MD]),
+(maiden:TEXT, Examples: [Schuster, Schaden, Brekke]),
+(marital:TEXT, Examples: [S, M]),
+(race:TEXT, Examples: [black, white, hispanic]),
+(ethnicity:TEXT, Examples: [dominican, american, african]),
+(gender:TEXT, Examples: [F, M]),
+(birthplace:TEXT, Examples: [Pittsfield MA US, Medford MA US, Framingham MA US]),
+(address:TEXT)
+]
+# Table: claims
+[
+(ID:TEXT, Primary Key, Examples: [0004caaf-fd7a-4f64-bda6-dce5ebd1196c]),
+(PATIENT:TEXT, Examples: [71949668-1c2e-43ae-ab0a-64654608defb]),
+(BILLABLEPERIOD:DATE, Examples: [2008-03-11]),
+(ORGANIZATION:TEXT, Examples: [temp organization]),
+(ENCOUNTER:TEXT, Examples: [71949668-1c2e-43ae-ab0a-64654608defb]),
+(DIAGNOSIS:TEXT),
+(TOTAL:INTEGER, Examples: [100])
+]
+# Table: careplans
+[
+(ID:TEXT, Examples: [e031962d-d13d-4ede-a449-040417d5e4fb]),
+(START:DATE, Examples: [2009-01-11]),
+(STOP:DATE, Examples: [2009-04-07]),
+(PATIENT:TEXT, Examples: [71949668-1c2e-43ae-ab0a-64654608defb]),
+(ENCOUNTER:TEXT, Examples: [4d451e22-a354-40c9-8b33-b6126158666d]),
+(CODE:REAL, Examples: [53950000.0, 304510005.0, 371605008.0]),
+(DESCRIPTION:TEXT, Examples: [Respiratory therapy]),
+(REASONCODE:INTEGER, Examples: [10509002, 38822007, 72892002]),
+(REASONDESCRIPTION:TEXT, Examples: [Acute bronchitis (disorder)])
+]
+# Table: medications
+[
+(START:DATE, Primary Key, Examples: [1918-04-17]),
+(STOP:DATE, Examples: [2008-06-04]),
+(PATIENT:TEXT, Primary Key, Examples: [ce11bcba-c83c-43ae-802d-b20ee8715afe]),
+(ENCOUNTER:TEXT, Primary Key, Examples: [6334071d-e6b0-42c1-a082-2a08e123de4e]),
+(CODE:INTEGER, Primary Key, Examples: [834060, 745679, 895994]),
+(DESCRIPTION:TEXT),
+(REASONCODE:INTEGER, Examples: [43878008, 10509002, 38822007]),
+(REASONDESCRIPTION:TEXT, Examples: [Streptococcal sore throat (disorder)])
+]
+# Table: all_prevalences
+[
+(ITEM:TEXT, Primary Key),
+(POPULATION TYPE:TEXT, Examples: [LIVING]),
+(OCCURRENCES:INTEGER, Examples: [868, 487, 117]),
+(POPULATION COUNT:INTEGER, Examples: [1000]),
+(PREVALENCE RATE:REAL, Examples: [0.868, 0.487, 0.117]),
+(PREVALENCE PERCENTAGE:REAL, Examples: [86.8, 48.7, 11.7])
+]
+# Table: conditions
+[
+(START:DATE, Examples: [2009-01-08]),
+(STOP:DATE, Examples: [2009-01-21]),
+(PATIENT:TEXT, Examples: [71949668-1c2e-43ae-ab0a-64654608defb]),
+(ENCOUNTER:TEXT, Examples: [4d451e22-a354-40c9-8b33-b6126158666d]),
+(CODE:INTEGER, Examples: [10509002, 38822007, 72892002]),
+(DESCRIPTION:TEXT, Examples: [Acute bronchitis (disorder)])
+]
+# Table: immunizations
+[
+(DATE:DATE, Primary Key, Examples: [2007-11-02]),
+(PATIENT:TEXT, Primary Key, Examples: [70cbc79e-dd9d-4e3b-8158-a92d85951f94]),
+(ENCOUNTER:TEXT, Primary Key, Examples: [898ab2de-8a71-4fb3-b239-b768b915284a]),
+(CODE:INTEGER, Primary Key, Examples: [8, 62, 140]),
+(DESCRIPTION:TEXT, Examples: [Influenza  seasonal  injectable  preservative free])
+]
+【Foreign keys】
+encounters.PATIENT=patients.patient
+allergies.ENCOUNTER=encounters.ID
+allergies.PATIENT=patients.patient
+observations.ENCOUNTER=encounters.ID
+observations.PATIENT=patients.patient
+procedures.ENCOUNTER=encounters.ID
+procedures.PATIENT=patients.patient
+claims.ENCOUNTER=encounters.ID
+claims.PATIENT=patients.patient
+careplans.ENCOUNTER=encounters.ID
+careplans.PATIENT=patients.patient
+medications.ENCOUNTER=encounters.ID
+medications.PATIENT=patients.patient
+conditions.ENCOUNTER=encounters.ID
+conditions.PATIENT=patients.patient
+conditions.DESCRIPTION=all_prevalences.ITEM
+immunizations.ENCOUNTER=encounters.ID
+immunizations.PATIENT=patients.patient

@@ -1,0 +1,40 @@
+【DB_ID】 debit_card_specializing
+【Schema】
+# Table: customers
+[
+(CustomerID:INTEGER, Primary Key, Examples: [3, 5, 6]),
+(Segment:TEXT, Examples: [SME, LAM, KAM]),
+(Currency:TEXT, Examples: [EUR, CZK])
+]
+# Table: yearmonth
+[
+(CustomerID:INTEGER, Primary Key, Examples: [39, 63, 172]),
+(Date:TEXT, Primary Key, Examples: [201112, 201201, 201202]),
+(Consumption:REAL, Examples: [528.3, 1598.28, 1931.36])
+]
+# Table: gasstations
+[
+(GasStationID:INTEGER, Primary Key, Examples: [44, 45, 46]),
+(ChainID:INTEGER, Examples: [13, 6, 23]),
+(Country:TEXT, Examples: [CZE, SVK]),
+(Segment:TEXT, Examples: [Value for money, Premium, Other])
+]
+# Table: transactions_1k
+[
+(TransactionID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Date:DATE, Examples: [2012-08-24]),
+(Time:TEXT, Examples: [09:41:00, 10:03:00, 13:53:00]),
+(CustomerID:INTEGER, Examples: [31543, 46707, 7654]),
+(CardID:INTEGER, Examples: [486621, 550134, 684220]),
+(GasStationID:INTEGER, Examples: [3704, 656, 741]),
+(ProductID:INTEGER, Examples: [2, 23, 5]),
+(Amount:INTEGER, Examples: [28, 18, 1]),
+(Price:REAL, Examples: [672.64, 430.72, 121.99])
+]
+# Table: products
+[
+(ProductID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Description:TEXT, Examples: [Rucní zadání, Nafta, Special])
+]
+【Foreign keys】
+yearmonth.CustomerID=customers.CustomerID

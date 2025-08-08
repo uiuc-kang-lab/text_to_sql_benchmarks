@@ -1,0 +1,55 @@
+【DB_ID】 ice_hockey_draft
+【Schema】
+# Table: weight_info
+[
+(weight_id:INTEGER, Primary Key, Examples: [154, 159, 161]),
+(weight_in_kg:INTEGER, Examples: [70, 72, 73]),
+(weight_in_lbs:INTEGER, Examples: [154, 159, 161])
+]
+# Table: PlayerInfo
+[
+(ELITEID:INTEGER, Primary Key, Examples: [9, 18, 27]),
+(PlayerName:TEXT, Examples: [David Bornhammar, David Printz, Yared Hagos]),
+(birthdate:TEXT, Examples: [1981-06-15, 1980-07-24, 1983-03-27]),
+(birthyear:DATE),
+(birthmonth:INTEGER, Examples: [6, 7, 3]),
+(birthday:INTEGER, Examples: [15, 24, 27]),
+(birthplace:TEXT, Examples: [Lidingo, SWE, Stockholm, SWE, Ostersund, SWE]),
+(nation:TEXT, Examples: [Sweden, Austria, Slovakia]),
+(height:INTEGER, Examples: [73, 76, 72]),
+(weight:INTEGER, Examples: [198, 220, 218]),
+(position_info:TEXT, Examples: [D, C, LW/C]),
+(shoots:TEXT, Examples: [L, R, -]),
+(draftyear:INTEGER, Examples: [1999, 2001, 2002]),
+(draftround:INTEGER, Examples: [7, 3, 5]),
+(overall:INTEGER, Examples: [192, 225, 70]),
+(overallby:TEXT, Examples: [Washington Capitals, Philadelphia Flyers, Dallas Stars]),
+(CSS_rank:INTEGER, Examples: [192, 176, 24]),
+(sum_7yr_GP:INTEGER, Examples: [0, 13, 6]),
+(sum_7yr_TOI:INTEGER, Examples: [0, 84, 42]),
+(GP_greater_than_0:TEXT, Examples: [no, yes])
+]
+# Table: height_info
+[
+(height_id:INTEGER, Primary Key, Examples: [65, 67, 68]),
+(height_in_cm:INTEGER, Examples: [165, 170, 172]),
+(height_in_inch:TEXT, Examples: [5'5", 5'7", 5'8"])
+]
+# Table: SeasonStatus
+[
+(ELITEID:INTEGER, Examples: [3667, 3668, 3669]),
+(SEASON:TEXT, Examples: [1997-1998, 1999-2000, 1998-1999]),
+(TEAM:TEXT, Examples: [Rimouski Oceanic, Canada U20, Plymouth Whalers]),
+(LEAGUE:TEXT, Examples: [QMJHL, WJC-20, OHL]),
+(GAMETYPE:TEXT, Examples: [Regular Season, Playoffs]),
+(GP:INTEGER, Examples: [58, 18, 7]),
+(G:INTEGER, Examples: [44, 15, 1]),
+(A:INTEGER, Examples: [71, 26, 1]),
+(P:INTEGER, Examples: [115, 41, 2]),
+(PIM:INTEGER, Examples: [117, 46, 4]),
+(PLUSMINUS:INTEGER, Examples: [27, 4, 0])
+]
+【Foreign keys】
+PlayerInfo.height=height_info.height_id
+PlayerInfo.weight=weight_info.weight_id
+SeasonStatus.ELITEID=PlayerInfo.ELITEID

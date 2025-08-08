@@ -1,0 +1,43 @@
+【DB_ID】 authors
+【Schema】
+# Table: PaperAuthor
+[
+(PaperId:INTEGER, Examples: [4, 5, 6]),
+(AuthorId:INTEGER, Examples: [1456512, 1102257, 1806301]),
+(Name:TEXT, Examples: [ADAM G. JONES, Kazuo Iwama, Asgeir Finnseth]),
+(Affiliation:TEXT)
+]
+# Table: Paper
+[
+(Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Title:TEXT),
+(Year:INTEGER, Examples: [2009, 2007, 1963]),
+(ConferenceId:INTEGER, Examples: [167, 0, 158]),
+(JournalId:INTEGER, Examples: [0, 7234, 16867]),
+(Keyword:TEXT)
+]
+# Table: Author
+[
+(Id:INTEGER, Primary Key, Examples: [9, 14, 15]),
+(Name:TEXT, Examples: [Ernest Jordan, K. MORIBE, D. Jakominich]),
+(Affiliation:TEXT)
+]
+# Table: Journal
+[
+(Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(ShortName:TEXT, Examples: [ICOM, AEPIA, IBMRD]),
+(FullName:TEXT),
+(HomePage:TEXT)
+]
+# Table: Conference
+[
+(Id:INTEGER, Primary Key, Examples: [1, 2, 4]),
+(ShortName:TEXT, Examples: [IADIS, IADT, ICOMP]),
+(FullName:TEXT),
+(HomePage:TEXT)
+]
+【Foreign keys】
+PaperAuthor.PaperId=Paper.Id
+PaperAuthor.AuthorId=Author.Id
+Paper.ConferenceId=Conference.Id
+Paper.JournalId=Journal.Id

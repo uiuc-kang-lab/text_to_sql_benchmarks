@@ -1,0 +1,31 @@
+【DB_ID】 toxicology
+【Schema】
+# Table: bond
+[
+(bond_id:TEXT, Primary Key, Examples: [TR000_1_2, TR000_2_3, TR000_2_4]),
+(molecule_id:TEXT, Examples: [TR000, TR001, TR002]),
+(bond_type:TEXT, Examples: [-, =, #])
+]
+# Table: connected
+[
+(atom_id:TEXT, Primary Key, Examples: [TR000_1, TR000_2, TR000_3]),
+(atom_id2:TEXT, Primary Key, Examples: [TR000_2, TR000_1, TR000_3]),
+(bond_id:TEXT, Examples: [TR000_1_2, TR000_2_3, TR000_2_4])
+]
+# Table: molecule
+[
+(molecule_id:TEXT, Primary Key, Examples: [TR000, TR001, TR002]),
+(label:TEXT, Examples: [+, -])
+]
+# Table: atom
+[
+(atom_id:TEXT, Primary Key, Examples: [TR000_1, TR000_2, TR000_3]),
+(molecule_id:TEXT, Examples: [TR000, TR001, TR002]),
+(element:TEXT, Examples: [cl, c, h])
+]
+【Foreign keys】
+bond.molecule_id=molecule.molecule_id
+connected.bond_id=bond.bond_id
+connected.atom_id2=atom.atom_id
+connected.atom_id=atom.atom_id
+atom.molecule_id=molecule.molecule_id

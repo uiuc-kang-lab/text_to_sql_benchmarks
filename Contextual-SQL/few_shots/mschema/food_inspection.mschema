@@ -1,0 +1,39 @@
+【DB_ID】 food_inspection
+【Schema】
+# Table: businesses
+[
+(business_id:INTEGER, Primary Key, Examples: [10, 24, 31]),
+(name:TEXT, Examples: [Tiramisu Kitchen]),
+(address:TEXT, Examples: [033 Belden Pl]),
+(city:TEXT, Examples: [San Francisco, S.F., SAN FRANCISCO]),
+(postal_code:TEXT, Examples: [94104, 94133, 94110]),
+(latitude:REAL, Examples: [37.7911, 37.7929, 37.8072]),
+(longitude:REAL, Examples: [-122.404, -122.403, -122.419]),
+(phone_number:INTEGER, Examples: [14155345060, 14155823535, 14155344645]),
+(tax_code:TEXT, Examples: [H24, H01, H25]),
+(business_certificate:INTEGER, Examples: [779059, 352312, 346882]),
+(application_date:DATE, Examples: [2001-10-10]),
+(owner_name:TEXT, Examples: [Tiramisu LLC]),
+(owner_address:TEXT, Examples: [33 Belden St]),
+(owner_city:TEXT, Examples: [San Francisco, S.F., SAN FRANCISCO]),
+(owner_state:TEXT, Examples: [CA, DC, WA]),
+(owner_zip:TEXT, Examples: [94104, 94133, 94114])
+]
+# Table: violations
+[
+(business_id:INTEGER, Examples: [10, 24, 31]),
+(date:DATE, Examples: [2014-07-29]),
+(violation_type_id:TEXT, Examples: [103129, 103144, 103119]),
+(risk_category:TEXT, Examples: [Moderate Risk, Low Risk, High Risk]),
+(description:TEXT, Examples: [Insufficient hot water or running water])
+]
+# Table: inspections
+[
+(business_id:INTEGER, Examples: [10, 24, 31]),
+(score:INTEGER, Examples: [92, 94, 82]),
+(date:DATE, Examples: [2014-01-14]),
+(type:TEXT, Examples: [Routine - Unscheduled])
+]
+【Foreign keys】
+violations.business_id=businesses.business_id
+inspections.business_id=businesses.business_id

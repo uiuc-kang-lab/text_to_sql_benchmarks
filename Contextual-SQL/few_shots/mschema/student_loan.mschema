@@ -1,0 +1,57 @@
+【DB_ID】 student_loan
+【Schema】
+# Table: enrolled
+[
+(name:TEXT, Primary Key, Examples: [student1, student10, student100]),
+(school:TEXT, Primary Key, Examples: [occ, smc, ucb]),
+(month:INTEGER, Examples: [1, 2, 3])
+]
+# Table: longest_absense_from_school
+[
+(name:TEXT, Primary Key, Examples: [student1, student10, student100]),
+(month:INTEGER, Examples: [0, 1, 2])
+]
+# Table: person
+[
+(name:TEXT, Primary Key, Examples: [student1, student10, student100])
+]
+# Table: disabled
+[
+(name:TEXT, Primary Key, Examples: [student114, student125, student142])
+]
+# Table: unemployed
+[
+(name:TEXT, Primary Key, Examples: [student1000, student102, student106])
+]
+# Table: filed_for_bankrupcy
+[
+(name:TEXT, Primary Key, Examples: [student122, student126, student136])
+]
+# Table: male
+[
+(name:TEXT, Primary Key, Examples: [student1, student101, student102])
+]
+# Table: enlist
+[
+(name:TEXT, Examples: [student40, student51, student109]),
+(organ:TEXT, Examples: [fire_department, air_force, navy])
+]
+# Table: no_payment_due
+[
+(name:TEXT, Primary Key, Examples: [student1, student10, student100]),
+(bool:TEXT, Examples: [neg, pos])
+]
+# Table: bool
+[
+(name:TEXT, Primary Key, Examples: [neg, pos])
+]
+【Foreign keys】
+enrolled.name=person.name
+longest_absense_from_school.name=person.name
+disabled.name=person.name
+unemployed.name=person.name
+filed_for_bankrupcy.name=person.name
+male.name=person.name
+enlist.name=person.name
+no_payment_due.name=person.name
+no_payment_due.bool=bool.name

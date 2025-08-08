@@ -1,0 +1,37 @@
+【DB_ID】 shakespeare
+【Schema】
+# Table: chapters
+[
+(id:INTEGER, Primary Key, Examples: [18704, 18705, 18706]),
+(Act:INTEGER, Examples: [1, 2, 3]),
+(Scene:INTEGER, Examples: [1, 2, 3]),
+(Description:TEXT, Examples: [DUKE ORSINO’s palace.]),
+(work_id:INTEGER, Examples: [1, 2, 3])
+]
+# Table: characters
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(CharName:TEXT, Examples: [First Apparition, First Citizen, First Conspirator]),
+(Abbrev:TEXT, Examples: [First Apparition, First Citizen, First Conspirator]),
+(Description:TEXT, Examples: [A senator of Venice])
+]
+# Table: paragraphs
+[
+(id:INTEGER, Primary Key, Examples: [630863, 630864, 630865]),
+(ParagraphNum:INTEGER, Examples: [3, 4, 19]),
+(PlainText:TEXT),
+(character_id:INTEGER, Examples: [1261, 840, 297]),
+(chapter_id:INTEGER, Examples: [18704, 18705, 18706])
+]
+# Table: works
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Title:TEXT, Examples: [Twelfth Night]),
+(LongTitle:TEXT, Examples: [Twelfth Night, Or What You Will]),
+(Date:INTEGER, Examples: [1599, 1602, 1606]),
+(GenreType:TEXT, Examples: [Comedy, Tragedy, History])
+]
+【Foreign keys】
+chapters.work_id=works.id
+paragraphs.chapter_id=chapters.id
+paragraphs.character_id=characters.id

@@ -1,0 +1,60 @@
+【DB_ID】 bike_share_1
+【Schema】
+# Table: trip
+[
+(id:INTEGER, Primary Key, Examples: [4069, 4073, 4074]),
+(duration:INTEGER, Examples: [174, 1067, 1131]),
+(start_date:TEXT, Examples: [8/29/2013 9:08, 8/29/2013 9:24, 8/29/2013 9:25]),
+(start_station_name:TEXT, Examples: [2nd at South Park]),
+(start_station_id:INTEGER, Examples: [64, 66, 22]),
+(end_date:TEXT, Examples: [8/29/2013 9:11, 8/29/2013 9:42, 8/29/2013 9:43]),
+(end_station_name:TEXT, Examples: [2nd at South Park]),
+(end_station_id:INTEGER, Examples: [64, 69, 22]),
+(bike_id:INTEGER, Examples: [288, 321, 317]),
+(subscription_type:TEXT, Examples: [Subscriber, Customer]),
+(zip_code:INTEGER, Examples: [94114, 94703, 94115])
+]
+# Table: status
+[
+(station_id:INTEGER, Examples: [2, 3, 4]),
+(bikes_available:INTEGER, Examples: [2, 3, 4]),
+(docks_available:INTEGER, Examples: [25, 24, 23]),
+(time:TEXT, Examples: [2013/08/29 12:06:01, 2013/08/29 12:07:01, 2013/08/29 12:08:01])
+]
+# Table: station
+[
+(id:INTEGER, Primary Key, Examples: [2, 3, 4]),
+(name:TEXT, Examples: [San Jose Diridon Caltrain Station]),
+(lat:REAL, Examples: [37.329732, 37.330698, 37.333988]),
+(long:REAL, Examples: [-121.90178200000001, -121.888979, -121.894902]),
+(dock_count:INTEGER, Examples: [27, 15, 11]),
+(city:TEXT, Examples: [San Jose, Redwood City, Mountain View]),
+(installation_date:TEXT, Examples: [8/6/2013, 8/5/2013, 8/7/2013])
+]
+# Table: weather
+[
+(date:TEXT, Examples: [8/29/2013, 8/30/2013, 8/31/2013]),
+(max_temperature_f:INTEGER, Examples: [74, 78, 71]),
+(mean_temperature_f:INTEGER, Examples: [68, 69, 64]),
+(min_temperature_f:INTEGER, Examples: [61, 60, 57]),
+(max_dew_point_f:INTEGER, Examples: [61, 57, 60]),
+(mean_dew_point_f:INTEGER, Examples: [58, 56, 60]),
+(min_dew_point_f:INTEGER, Examples: [56, 54, 53]),
+(max_humidity:INTEGER, Examples: [93, 90, 87]),
+(mean_humidity:INTEGER, Examples: [75, 70, 68]),
+(min_humidity:INTEGER, Examples: [57, 50, 49]),
+(max_sea_level_pressure_inches:REAL, Examples: [30.07, 30.05, 30.0]),
+(mean_sea_level_pressure_inches:REAL, Examples: [30.02, 30.0, 29.96]),
+(min_sea_level_pressure_inches:REAL, Examples: [29.97, 29.93, 29.92]),
+(max_visibility_miles:INTEGER, Examples: [10, 9, 8]),
+(mean_visibility_miles:INTEGER, Examples: [10, 9, 8]),
+(min_visibility_miles:INTEGER, Examples: [10, 7, 6]),
+(max_wind_Speed_mph:INTEGER, Examples: [23, 29, 26]),
+(mean_wind_speed_mph:INTEGER, Examples: [11, 13, 15]),
+(max_gust_speed_mph:INTEGER, Examples: [28, 35, 31]),
+(precipitation_inches:TEXT, Examples: [0, 0.23, T]),
+(cloud_cover:INTEGER, Examples: [4, 2, 6]),
+(events:TEXT, Examples: [Fog, Rain, Fog-Rain]),
+(wind_dir_degrees:INTEGER, Examples: [286, 291, 284]),
+(zip_code:TEXT, Examples: [94107, 94063, 94301])
+]

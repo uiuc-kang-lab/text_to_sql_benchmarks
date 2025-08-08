@@ -1,0 +1,254 @@
+【DB_ID】 european_football_2
+【Schema】
+# Table: Player_Attributes
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(player_fifa_api_id:INTEGER, Examples: [218353, 189615, 186170]),
+(player_api_id:INTEGER, Examples: [505942, 155782, 162549]),
+(date:TEXT, Examples: [2016-02-18 00:00:00, 2015-11-19 00:00:00, 2015-09-21 00:00:00]),
+(overall_rating:INTEGER, Examples: [67, 62, 61]),
+(potential:INTEGER, Examples: [71, 66, 65]),
+(preferred_foot:TEXT, Examples: [right, left]),
+(attacking_work_rate:TEXT, Examples: [medium, high, low]),
+(defensive_work_rate:TEXT, Examples: [medium, high, low]),
+(crossing:INTEGER, Examples: [49, 48, 80]),
+(finishing:INTEGER, Examples: [44, 43, 53]),
+(heading_accuracy:INTEGER, Examples: [71, 70, 58]),
+(short_passing:INTEGER, Examples: [61, 60, 71]),
+(volleys:INTEGER, Examples: [44, 43, 40]),
+(dribbling:INTEGER, Examples: [51, 50, 73]),
+(curve:INTEGER, Examples: [45, 44, 70]),
+(free_kick_accuracy:INTEGER, Examples: [39, 38, 69]),
+(long_passing:INTEGER, Examples: [64, 63, 68]),
+(ball_control:INTEGER, Examples: [49, 48, 71]),
+(acceleration:INTEGER, Examples: [60, 79, 80]),
+(sprint_speed:INTEGER, Examples: [64, 78, 82]),
+(agility:INTEGER, Examples: [59, 78, 79]),
+(reactions:INTEGER, Examples: [47, 46, 67]),
+(balance:INTEGER, Examples: [65, 90, 87]),
+(shot_power:INTEGER, Examples: [55, 54, 71]),
+(jumping:INTEGER, Examples: [58, 85, 84]),
+(stamina:INTEGER, Examples: [54, 79, 80]),
+(strength:INTEGER, Examples: [76, 56, 50]),
+(long_shots:INTEGER, Examples: [35, 34, 62]),
+(aggression:INTEGER, Examples: [71, 63, 62]),
+(interceptions:INTEGER, Examples: [70, 41, 40]),
+(positioning:INTEGER, Examples: [45, 44, 60]),
+(vision:INTEGER, Examples: [54, 53, 66]),
+(penalties:INTEGER, Examples: [48, 47, 59]),
+(marking:INTEGER, Examples: [65, 62, 76]),
+(standing_tackle:INTEGER, Examples: [69, 66, 63]),
+(sliding_tackle:INTEGER, Examples: [69, 66, 78]),
+(gk_diving:INTEGER, Examples: [6, 5, 14]),
+(gk_handling:INTEGER, Examples: [11, 10, 7]),
+(gk_kicking:INTEGER, Examples: [10, 9, 8]),
+(gk_positioning:INTEGER, Examples: [8, 7, 9]),
+(gk_reflexes:INTEGER, Examples: [8, 7, 12])
+]
+# Table: Country
+[
+(id:INTEGER, Primary Key, Examples: [1, 1729, 4769]),
+(name:TEXT, Examples: [Belgium, England, France])
+]
+# Table: Match
+[
+(id:INTEGER, Primary Key, Examples: [4769, 4770, 4771]),
+(country_id:INTEGER, Examples: [1, 1729, 4769]),
+(league_id:INTEGER, Examples: [1, 1729, 4769]),
+(season:TEXT, Examples: [2008/2009, 2009/2010, 2010/2011]),
+(stage:INTEGER, Examples: [1, 10, 11]),
+(date:TEXT, Examples: [2008-08-17 00:00:00, 2008-08-16 00:00:00, 2008-09-24 00:00:00]),
+(match_api_id:INTEGER, Examples: [483129, 483130, 483131]),
+(home_team_api_id:INTEGER, Examples: [9987, 10000, 9984]),
+(away_team_api_id:INTEGER, Examples: [9993, 9994, 8635]),
+(home_team_goal:INTEGER, Examples: [1, 0, 5]),
+(away_team_goal:INTEGER, Examples: [1, 0, 3]),
+(home_player_X1:INTEGER, Examples: [1, 2, 0]),
+(home_player_X2:INTEGER, Examples: [2, 4, 3]),
+(home_player_X3:INTEGER, Examples: [4, 6, 8]),
+(home_player_X4:INTEGER, Examples: [6, 8, 4]),
+(home_player_X5:INTEGER, Examples: [8, 6, 2]),
+(home_player_X6:INTEGER, Examples: [2, 6, 4]),
+(home_player_X7:INTEGER, Examples: [4, 8, 6]),
+(home_player_X8:INTEGER, Examples: [6, 2, 8]),
+(home_player_X9:INTEGER, Examples: [8, 4, 2]),
+(home_player_X10:INTEGER, Examples: [4, 6, 9]),
+(home_player_X11:INTEGER, Examples: [6, 4, 5]),
+(away_player_X1:INTEGER, Examples: [1, 2, 6]),
+(away_player_X2:INTEGER, Examples: [2, 4, 3]),
+(away_player_X3:INTEGER, Examples: [4, 6, 5]),
+(away_player_X4:INTEGER, Examples: [6, 8, 2]),
+(away_player_X5:INTEGER, Examples: [8, 6, 4]),
+(away_player_X6:INTEGER, Examples: [2, 4, 3]),
+(away_player_X7:INTEGER, Examples: [4, 6, 5]),
+(away_player_X8:INTEGER, Examples: [6, 8, 7]),
+(away_player_X9:INTEGER, Examples: [8, 2, 6]),
+(away_player_X10:INTEGER, Examples: [4, 6, 7]),
+(away_player_X11:INTEGER, Examples: [6, 4, 3]),
+(home_player_Y1:INTEGER, Examples: [1, 3, 0]),
+(home_player_Y2:INTEGER, Examples: [3, 0]),
+(home_player_Y3:INTEGER, Examples: [3, 5]),
+(home_player_Y4:INTEGER, Examples: [3, 5]),
+(home_player_Y5:INTEGER, Examples: [3, 7, 6]),
+(home_player_Y6:INTEGER, Examples: [7, 3, 6]),
+(home_player_Y7:INTEGER, Examples: [7, 6, 8]),
+(home_player_Y8:INTEGER, Examples: [7, 8, 6]),
+(home_player_Y9:INTEGER, Examples: [7, 10, 8]),
+(home_player_Y10:INTEGER, Examples: [10, 7, 8]),
+(home_player_Y11:INTEGER, Examples: [10, 11, 1]),
+(away_player_Y1:INTEGER, Examples: [1, 3]),
+(away_player_Y2:INTEGER, Examples: [3]),
+(away_player_Y3:INTEGER, Examples: [3, 7]),
+(away_player_Y4:INTEGER, Examples: [3, 5, 7]),
+(away_player_Y5:INTEGER, Examples: [3, 7, 6]),
+(away_player_Y6:INTEGER, Examples: [7, 3, 6]),
+(away_player_Y7:INTEGER, Examples: [7, 6, 8]),
+(away_player_Y8:INTEGER, Examples: [7, 8, 6]),
+(away_player_Y9:INTEGER, Examples: [7, 10, 8]),
+(away_player_Y10:INTEGER, Examples: [10, 7, 8]),
+(away_player_Y11:INTEGER, Examples: [10, 11, 8]),
+(home_player_1:INTEGER, Examples: [39890, 38327, 95597]),
+(home_player_2:INTEGER, Examples: [67950, 39580, 38292]),
+(home_player_3:INTEGER, Examples: [38788, 67958, 30692]),
+(home_player_4:INTEGER, Examples: [38312, 67959, 38435]),
+(home_player_5:INTEGER, Examples: [26235, 37112, 94462]),
+(home_player_6:INTEGER, Examples: [36393, 46004, 119117]),
+(home_player_7:INTEGER, Examples: [148286, 164732, 35412]),
+(home_player_8:INTEGER, Examples: [67898, 39631, 95609]),
+(home_player_9:INTEGER, Examples: [26916, 164352, 38246]),
+(home_player_10:INTEGER, Examples: [38801, 38423, 25957]),
+(home_player_11:INTEGER, Examples: [94289, 26502, 38419]),
+(away_player_1:INTEGER, Examples: [34480, 37937, 38252]),
+(away_player_2:INTEGER, Examples: [38388, 38293, 39156]),
+(away_player_3:INTEGER, Examples: [26458, 148313, 39151]),
+(away_player_4:INTEGER, Examples: [13423, 104411, 166554]),
+(away_player_5:INTEGER, Examples: [38389, 148314, 15652]),
+(away_player_6:INTEGER, Examples: [38798, 37202, 39145]),
+(away_player_7:INTEGER, Examples: [30949, 43158, 46890]),
+(away_player_8:INTEGER, Examples: [38253, 9307, 38947]),
+(away_player_9:INTEGER, Examples: [106013, 42153, 46881]),
+(away_player_10:INTEGER, Examples: [38383, 32690, 39158]),
+(away_player_11:INTEGER, Examples: [46552, 38782, 119118]),
+(goal:TEXT),
+(shoton:TEXT),
+(shotoff:TEXT),
+(foulcommit:TEXT),
+(card:TEXT),
+(cross:TEXT),
+(corner:TEXT),
+(possession:TEXT),
+(B365H:REAL, Examples: [1.73, 1.95, 2.38]),
+(B365D:REAL, Examples: [3.4, 3.2, 3.3]),
+(B365A:REAL, Examples: [5.0, 3.6, 2.75]),
+(BWH:REAL, Examples: [1.75, 1.8, 2.4]),
+(BWD:REAL, Examples: [3.35, 3.3, 4.0]),
+(BWA:REAL, Examples: [4.2, 3.95, 2.55]),
+(IWH:REAL, Examples: [1.85, 1.9, 2.6]),
+(IWD:REAL, Examples: [3.2, 3.1, 3.9]),
+(IWA:REAL, Examples: [3.5, 2.3, 6.0]),
+(LBH:REAL, Examples: [1.8, 1.9, 2.5]),
+(LBD:REAL, Examples: [3.3, 3.2, 3.6]),
+(LBA:REAL, Examples: [3.75, 3.5, 2.5]),
+(PSH:REAL, Examples: [5.1, 2.48, 1.83]),
+(PSD:REAL, Examples: [3.82, 3.52, 3.79]),
+(PSA:REAL, Examples: [1.76, 2.96, 4.63]),
+(WHH:REAL, Examples: [1.7, 1.83, 2.5]),
+(WHD:REAL, Examples: [3.3, 3.25, 3.75]),
+(WHA:REAL, Examples: [4.33, 3.6, 2.4]),
+(SJH:REAL, Examples: [1.9, 1.95, 2.63]),
+(SJD:REAL, Examples: [3.3, 4.0, 3.5]),
+(SJA:REAL, Examples: [4.0, 3.8, 2.5]),
+(VCH:REAL, Examples: [1.65, 2.0, 2.35]),
+(VCD:REAL, Examples: [3.4, 3.25, 3.75]),
+(VCA:REAL, Examples: [4.5, 3.25, 2.65]),
+(GBH:REAL, Examples: [1.78, 1.85, 2.5]),
+(GBD:REAL, Examples: [3.25, 3.2, 3.75]),
+(GBA:REAL, Examples: [4.0, 3.75, 2.5]),
+(BSH:REAL, Examples: [1.73, 1.91, 2.3]),
+(BSD:REAL, Examples: [3.4, 3.25, 3.2]),
+(BSA:REAL, Examples: [4.2, 3.6, 2.75])
+]
+# Table: Player
+[
+(id:INTEGER, Primary Key, Examples: [3879, 401, 9179]),
+(player_api_id:INTEGER, Examples: [2625, 2752, 2768]),
+(player_name:TEXT, Examples: [Aaron Appindangoye, Aaron Cresswell, Aaron Doran]),
+(player_fifa_api_id:INTEGER, Examples: [2, 6, 11]),
+(birthday:TEXT, Examples: [1992-02-29 00:00:00, 1989-12-15 00:00:00, 1991-05-13 00:00:00]),
+(height:INTEGER, Examples: [182.88, 170.18, 172.72]),
+(weight:INTEGER, Examples: [187, 146, 163])
+]
+# Table: League
+[
+(id:INTEGER, Primary Key, Examples: [1, 1729, 4769]),
+(country_id:INTEGER, Examples: [1, 1729, 4769]),
+(name:TEXT, Examples: [Belgium Jupiler League])
+]
+# Table: Team_Attributes
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(team_fifa_api_id:INTEGER, Examples: [434, 77, 614]),
+(team_api_id:INTEGER, Examples: [9930, 8485, 8576]),
+(date:TEXT, Examples: [2010-02-22 00:00:00, 2014-09-19 00:00:00, 2015-09-10 00:00:00]),
+(buildUpPlaySpeed:INTEGER, Examples: [60, 52, 47]),
+(buildUpPlaySpeedClass:TEXT, Examples: [Balanced, Fast, Slow]),
+(buildUpPlayDribbling:INTEGER, Examples: [48, 41, 64]),
+(buildUpPlayDribblingClass:TEXT, Examples: [Little, Normal, Lots]),
+(buildUpPlayPassing:INTEGER, Examples: [50, 56, 54]),
+(buildUpPlayPassingClass:TEXT, Examples: [Mixed, Long, Short]),
+(buildUpPlayPositioningClass:TEXT, Examples: [Organised, Free Form]),
+(chanceCreationPassing:INTEGER, Examples: [60, 54, 70]),
+(chanceCreationPassingClass:TEXT, Examples: [Normal, Risky, Safe]),
+(chanceCreationCrossing:INTEGER, Examples: [65, 63, 70]),
+(chanceCreationCrossingClass:TEXT, Examples: [Normal, Lots, Little]),
+(chanceCreationShooting:INTEGER, Examples: [55, 64, 70]),
+(chanceCreationShootingClass:TEXT, Examples: [Normal, Lots, Little]),
+(chanceCreationPositioningClass:TEXT, Examples: [Organised, Free Form]),
+(defencePressure:INTEGER, Examples: [50, 47, 60]),
+(defencePressureClass:TEXT, Examples: [Medium, Deep, High]),
+(defenceAggression:INTEGER, Examples: [55, 44, 70]),
+(defenceAggressionClass:TEXT, Examples: [Press, Double, Contain]),
+(defenceTeamWidth:INTEGER, Examples: [45, 54, 70]),
+(defenceTeamWidthClass:TEXT, Examples: [Normal, Wide, Narrow]),
+(defenceDefenderLineClass:TEXT, Examples: [Cover, Offside Trap])
+]
+# Table: Team
+[
+(id:INTEGER, Primary Key, Examples: [31446, 1513, 31456]),
+(team_api_id:INTEGER, Examples: [1601, 1773, 1957]),
+(team_fifa_api_id:INTEGER, Examples: [673, 675, 15005]),
+(team_long_name:TEXT, Examples: [KRC Genk, Beerschot AC, SV Zulte-Waregem]),
+(team_short_name:TEXT, Examples: [GEN, BAC, ZUL])
+]
+【Foreign keys】
+Player_Attributes.player_api_id=Player.player_api_id
+Player_Attributes.player_fifa_api_id=Player.player_fifa_api_id
+Match.away_player_11=Player.player_api_id
+Match.away_player_10=Player.player_api_id
+Match.away_player_9=Player.player_api_id
+Match.away_player_8=Player.player_api_id
+Match.away_player_7=Player.player_api_id
+Match.away_player_6=Player.player_api_id
+Match.away_player_5=Player.player_api_id
+Match.away_player_4=Player.player_api_id
+Match.away_player_3=Player.player_api_id
+Match.away_player_2=Player.player_api_id
+Match.away_player_1=Player.player_api_id
+Match.home_player_11=Player.player_api_id
+Match.home_player_10=Player.player_api_id
+Match.home_player_9=Player.player_api_id
+Match.home_player_8=Player.player_api_id
+Match.home_player_7=Player.player_api_id
+Match.home_player_6=Player.player_api_id
+Match.home_player_5=Player.player_api_id
+Match.home_player_4=Player.player_api_id
+Match.home_player_3=Player.player_api_id
+Match.home_player_2=Player.player_api_id
+Match.home_player_1=Player.player_api_id
+Match.away_team_api_id=Team.team_api_id
+Match.home_team_api_id=Team.team_api_id
+Match.league_id=League.id
+Match.country_id=Country.id
+League.country_id=country.id
+Team_Attributes.team_api_id=Team.team_api_id
+Team_Attributes.team_fifa_api_id=Team.team_fifa_api_id

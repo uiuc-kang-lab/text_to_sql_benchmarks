@@ -1,0 +1,42 @@
+【DB_ID】 coinmarketcap
+【Schema】
+# Table: coins
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(name:TEXT, Examples: [Bitcoin, Litecoin, Namecoin]),
+(slug:TEXT, Examples: [bitcoin, litecoin, namecoin]),
+(symbol:TEXT, Examples: [BTC, LTC, NMC]),
+(status:TEXT, Examples: [active, untracked, inactive]),
+(category:TEXT, Examples: [coin, token]),
+(description:TEXT),
+(subreddit:TEXT, Examples: [bitcoin, litecoin, namecoin]),
+(notice:TEXT),
+(tags:TEXT),
+(tag_names:TEXT),
+(website:TEXT),
+(platform_id:INTEGER, Examples: [1027, 1765, 1376]),
+(date_added:TEXT, Examples: [2013-04-28T00:00:00.000Z]),
+(date_launched:TEXT, Examples: [2018-01-16T00:00:00.000Z])
+]
+# Table: historical
+[
+(date:DATE, Examples: [2013-04-28]),
+(coin_id:INTEGER, Examples: [1, 2, 5]),
+(cmc_rank:INTEGER, Examples: [1, 2, 3]),
+(market_cap:REAL, Examples: [1488566971.9558687, 74637021.56790735, 7250186.647688276]),
+(price:REAL, Examples: [134.210021972656, 4.34840488433838, 0.386524856090546]),
+(open:REAL, Examples: [134.44400024414062, 4.366759777069092, 0.3871999979019165]),
+(high:REAL, Examples: [147.48800659179688, 4.573599815368652, 0.4247649908065796]),
+(low:REAL, Examples: [134.0, 4.225639820098877, 0.37790799140930176]),
+(close:REAL, Examples: [144.5399932861328, 4.383900165557861, 0.4088610112667084]),
+(time_high:TEXT, Examples: [13:15:01, 13:15:03, 12:45:02]),
+(time_low:TEXT, Examples: [05:20:01, 19:25:02, 04:05:04]),
+(volume_24h:REAL, Examples: [0.0, 46862728.0, 31112234.0]),
+(percent_change_1h:REAL, Examples: [0.639231, 0.799273, -0.934763]),
+(percent_change_24h:REAL, Examples: [7.63553, 0.920718, 18.558]),
+(percent_change_7d:REAL, Examples: [-13.809, -16.7201, 1.64395]),
+(circulating_supply:REAL, Examples: [11091325.0, 17164230.0, 18757362.0]),
+(total_supply:REAL, Examples: [11091325.0, 17164230.0, 18757362.0]),
+(max_supply:REAL, Examples: [21000000.0, 84000000.0, 42000000.0]),
+(num_market_pairs:INTEGER, Examples: [7050, 5146, 382])
+]

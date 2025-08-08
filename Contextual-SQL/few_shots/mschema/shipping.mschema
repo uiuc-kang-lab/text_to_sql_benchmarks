@@ -1,0 +1,54 @@
+【DB_ID】 shipping
+【Schema】
+# Table: shipment
+[
+(ship_id:INTEGER, Primary Key, Examples: [1000, 1001, 1002]),
+(cust_id:INTEGER, Examples: [3660, 2001, 1669]),
+(weight:REAL, Examples: [3528.0, 11394.0, 8712.0]),
+(truck_id:INTEGER, Examples: [1, 2, 3]),
+(driver_id:INTEGER, Examples: [23, 27, 21]),
+(city_id:INTEGER, Examples: [137, 186, 268]),
+(ship_date:TEXT, Examples: [2016-01-08, 2016-01-18, 2016-01-19])
+]
+# Table: truck
+[
+(truck_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(make:TEXT, Examples: [Peterbilt, Mack, Kenworth]),
+(model_year:INTEGER, Examples: [2005, 2006, 2007])
+]
+# Table: driver
+[
+(driver_id:INTEGER, Primary Key, Examples: [20, 21, 22]),
+(first_name:TEXT, Examples: [Sue, Andrea, Roger]),
+(last_name:TEXT, Examples: [Newell, Simons, McHaney]),
+(address:TEXT, Examples: [268 Richmond Ave, 3574 Oak Limb Cv, 1839 S Orleans St]),
+(city:TEXT, Examples: [Memphis]),
+(state:TEXT, Examples: [TN]),
+(zip_code:INTEGER, Examples: [38106, 38135, 38118]),
+(phone:TEXT, Examples: [(901) 774-6569, (901) 384-0984, (901) 948-1043])
+]
+# Table: city
+[
+(city_id:INTEGER, Primary Key, Examples: [100, 101, 102]),
+(city_name:TEXT, Examples: [Union City, Huntington Park, Passaic]),
+(state:TEXT, Examples: [New Jersey, California, New York]),
+(population:INTEGER, Examples: [67088, 61348, 67861]),
+(area:REAL, Examples: [1.3, 3.0, 3.1])
+]
+# Table: customer
+[
+(cust_id:INTEGER, Primary Key, Examples: [193, 304, 314]),
+(cust_name:TEXT, Examples: [Advanced Fabricators]),
+(annual_revenue:INTEGER, Examples: [39588651, 17158109, 47403613]),
+(cust_type:TEXT, Examples: [manufacturer, wholesaler, retailer]),
+(address:TEXT, Examples: [5141 Summit Boulevard]),
+(city:TEXT, Examples: [West Palm Beach, Salt Lake City, Council Bluffs]),
+(state:TEXT, Examples: [FL, UT, IA]),
+(zip:REAL, Examples: [33415.0, 84107.0, 51503.0]),
+(phone:TEXT, Examples: [(561) 683-3535, (801) 262-4864, (712) 366-4929])
+]
+【Foreign keys】
+shipment.cust_id=customer.cust_id
+shipment.city_id=city.city_id
+shipment.driver_id=driver.driver_id
+shipment.truck_id=truck.truck_id

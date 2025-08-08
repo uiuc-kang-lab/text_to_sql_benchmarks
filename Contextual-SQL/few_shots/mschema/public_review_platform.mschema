@@ -1,0 +1,139 @@
+【DB_ID】 public_review_platform
+【Schema】
+# Table: Users
+[
+(user_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(user_yelping_since_year:INTEGER, Examples: [2012, 2010, 2009]),
+(user_average_stars:TEXT, Examples: [4.0, 2.5, 4.5]),
+(user_votes_funny:TEXT, Examples: [Low, None, Uber]),
+(user_votes_useful:TEXT, Examples: [Low, Medium, Uber]),
+(user_votes_cool:TEXT, Examples: [Low, Uber, None]),
+(user_review_count:TEXT, Examples: [Medium, High, Low]),
+(user_fans:TEXT, Examples: [Low, None, Medium])
+]
+# Table: Days
+[
+(day_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(day_of_week:TEXT, Examples: [Sunday, Monday, Tuesday])
+]
+# Table: Reviews
+[
+(business_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(user_id:INTEGER, Primary Key, Examples: [36129, 40299, 59125]),
+(review_stars:INTEGER, Examples: [2, 1, 5]),
+(review_votes_funny:TEXT, Examples: [None, Low, Medium]),
+(review_votes_useful:TEXT, Examples: [None, Low, Medium]),
+(review_votes_cool:TEXT, Examples: [None, Low, Medium]),
+(review_length:TEXT, Examples: [Medium, Short, Long])
+]
+# Table: Elite
+[
+(user_id:INTEGER, Primary Key, Examples: [3, 19, 33]),
+(year_id:INTEGER, Primary Key, Examples: [2010, 2011, 2012])
+]
+# Table: Years
+[
+(year_id:INTEGER, Primary Key, Examples: [2005, 2006, 2007]),
+(actual_year:INTEGER, Examples: [2005, 2006, 2007])
+]
+# Table: Checkins
+[
+(business_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(day_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(label_time_0:TEXT, Examples: [None, Low, Medium]),
+(label_time_1:TEXT, Examples: [None, Low, Medium]),
+(label_time_2:TEXT, Examples: [None, Low, Medium]),
+(label_time_3:TEXT, Examples: [None, Low, Medium]),
+(label_time_4:TEXT, Examples: [None, Low, Medium]),
+(label_time_5:TEXT, Examples: [None, Low, Medium]),
+(label_time_6:TEXT, Examples: [None, Low, Medium]),
+(label_time_7:TEXT, Examples: [None, Low, Medium]),
+(label_time_8:TEXT, Examples: [None, Low, Medium]),
+(label_time_9:TEXT, Examples: [Low, None, Medium]),
+(label_time_10:TEXT, Examples: [None, Low, Medium]),
+(label_time_11:TEXT, Examples: [Low, None, Medium]),
+(label_time_12:TEXT, Examples: [None, Low, Medium]),
+(label_time_13:TEXT, Examples: [None, Low, Medium]),
+(label_time_14:TEXT, Examples: [None, Low, Medium]),
+(label_time_15:TEXT, Examples: [None, Low, Medium]),
+(label_time_16:TEXT, Examples: [None, Low, Medium]),
+(label_time_17:TEXT, Examples: [Low, None, Medium]),
+(label_time_18:TEXT, Examples: [None, Low, Medium]),
+(label_time_19:TEXT, Examples: [None, Low, Medium]),
+(label_time_20:TEXT, Examples: [None, Low, Medium]),
+(label_time_21:TEXT, Examples: [None, Low, Medium]),
+(label_time_22:TEXT, Examples: [None, Low, Medium]),
+(label_time_23:TEXT, Examples: [None, Low, Medium])
+]
+# Table: Business_Attributes
+[
+(attribute_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(business_id:INTEGER, Primary Key, Examples: [2, 3, 13]),
+(attribute_value:TEXT, Examples: [none, full_bar, beer_and_wine])
+]
+# Table: Users_Compliments
+[
+(compliment_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(user_id:INTEGER, Primary Key, Examples: [3, 19, 45]),
+(number_of_compliments:TEXT, Examples: [Medium, Low, High])
+]
+# Table: Categories
+[
+(category_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(category_name:TEXT, Examples: [Active Life, Arts & Entertainment, Stadiums & Arenas])
+]
+# Table: Attributes
+[
+(attribute_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(attribute_name:TEXT, Examples: [Alcohol, Waiter Service, Delivery])
+]
+# Table: Compliments
+[
+(compliment_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(compliment_type:TEXT, Examples: [photos, cool, hot])
+]
+# Table: Business_Hours
+[
+(business_id:INTEGER, Primary Key, Examples: [2, 3, 4]),
+(day_id:INTEGER, Primary Key, Examples: [2, 3, 4]),
+(opening_time:TEXT, Examples: [11AM, 12PM, 10AM]),
+(closing_time:TEXT, Examples: [8PM, 9PM, 6PM])
+]
+# Table: Business_Categories
+[
+(business_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(category_id:INTEGER, Primary Key, Examples: [8, 143, 18])
+]
+# Table: Tips
+[
+(business_id:INTEGER, Primary Key, Examples: [2, 3, 6]),
+(user_id:INTEGER, Primary Key, Examples: [12490, 16328, 19191]),
+(likes:INTEGER, Examples: [0, 1, 2]),
+(tip_length:TEXT, Examples: [Medium, Short, Long])
+]
+# Table: Business
+[
+(business_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(active:TEXT, Examples: [true, false]),
+(city:TEXT, Examples: [Phoenix, Scottsdale, Glendale]),
+(state:TEXT, Examples: [AZ, SC, CA]),
+(stars:REAL, Examples: [3.0, 4.5, 4.0]),
+(review_count:TEXT, Examples: [Low, Medium, High])
+]
+【Foreign keys】
+Reviews.user_id=Users.user_id
+Reviews.business_id=Business.business_id
+Elite.year_id=Years.year_id
+Elite.user_id=Users.user_id
+Checkins.day_id=Days.day_id
+Checkins.business_id=Business.business_id
+Business_Attributes.business_id=Business.business_id
+Business_Attributes.attribute_id=Attributes.attribute_id
+Users_Compliments.user_id=Users.user_id
+Users_Compliments.compliment_id=Compliments.compliment_id
+Business_Hours.day_id=Days.day_id
+Business_Hours.business_id=Business.business_id
+Business_Categories.category_id=Categories.category_id
+Business_Categories.business_id=Business.business_id
+Tips.user_id=Users.user_id
+Tips.business_id=Business.business_id

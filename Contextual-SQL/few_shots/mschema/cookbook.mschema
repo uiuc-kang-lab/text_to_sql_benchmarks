@@ -1,0 +1,58 @@
+【DB_ID】 cookbook
+【Schema】
+# Table: Nutrition
+[
+(recipe_id:INTEGER, Primary Key, Examples: [214, 215, 216]),
+(protein:REAL, Examples: [5.47, 5.7, 4.9]),
+(carbo:REAL, Examples: [41.29, 23.75, 26.88]),
+(alcohol:REAL, Examples: [0.0, 1.93, 2.7]),
+(total_fat:REAL, Examples: [11.53, 1.08, 1.1]),
+(sat_fat:REAL, Examples: [2.21, 0.58, 0.06]),
+(cholestrl:REAL, Examples: [1.39, 3.48, 3.46]),
+(sodium:REAL, Examples: [260.78, 46.17, 41.79]),
+(iron:REAL, Examples: [0.81, 0.57, 0.37]),
+(vitamin_c:REAL, Examples: [8.89, 13.02, 6.13]),
+(vitamin_a:REAL, Examples: [586.2, 2738.24, 1521.1]),
+(fiber:REAL, Examples: [0.87, 0.62, 0.34]),
+(pcnt_cal_carb:REAL, Examples: [56.8, 67.38, 78.45]),
+(pcnt_cal_fat:REAL, Examples: [35.68, 6.89, 7.24]),
+(pcnt_cal_prot:REAL, Examples: [7.53, 16.17, 14.3]),
+(calories:REAL, Examples: [290.79, 141.01, 137.06])
+]
+# Table: Quantity
+[
+(quantity_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(recipe_id:INTEGER, Examples: [214, 215, 216]),
+(ingredient_id:INTEGER, Examples: [1613, 3334, 2222]),
+(max_qty:REAL, Examples: [2.0, 0.25, 0.5]),
+(min_qty:REAL, Examples: [2.0, 0.25, 0.5]),
+(unit:TEXT, Examples: [cup(s), teaspoon(s), 14 oz. can(s)]),
+(preparation:TEXT, Examples: [melted, or water, divided]),
+(optional:TEXT, Examples: [FALSE, TRUE])
+]
+# Table: Ingredient
+[
+(ingredient_id:INTEGER, Primary Key, Examples: [1, 6, 10]),
+(category:TEXT, Examples: [dairy, Mexican products, cereals]),
+(name:TEXT, Examples: [1% lowfat cottage cheese]),
+(plural:TEXT, Examples: [s, #NAME?, es])
+]
+# Table: Recipe
+[
+(recipe_id:INTEGER, Primary Key, Examples: [214, 215, 216]),
+(title:TEXT, Examples: [Raspberry Chiffon Pie]),
+(subtitle:TEXT, Examples: [with Banana Cream Whip]),
+(servings:INTEGER, Examples: [10, 4, 8]),
+(yield_unit:TEXT, Examples: [1 pie, 8 tarts, 2 quarts]),
+(prep_min:INTEGER, Examples: [20, 5, 10]),
+(cook_min:INTEGER, Examples: [8, 2, 13]),
+(stnd_min:INTEGER, Examples: [305, 65, 0]),
+(source:TEXT, Examples: [The California Tree Fruit Agreement]),
+(intro:TEXT),
+(directions:TEXT)
+]
+【Foreign keys】
+Nutrition.recipe_id=Recipe.recipe_id
+Quantity.recipe_id=Recipe.recipe_id
+Quantity.ingredient_id=Ingredient.ingredient_id
+Quantity.recipe_id=Nutrition.recipe_id

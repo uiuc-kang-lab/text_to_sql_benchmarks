@@ -1,0 +1,88 @@
+【DB_ID】 donor
+【Schema】
+# Table: projects
+[
+(projectid:TEXT, Primary Key, Examples: [00001ccc0e81598c4bd86bacb94d7acb]),
+(teacher_acctid:TEXT, Examples: [42d43fa6f37314365d08692e08680973]),
+(schoolid:TEXT, Examples: [c0e6ce89b244764085691a1b8e28cb81]),
+(school_ncesid:TEXT, Examples: [063627006187, 483702008193, 410327000109]),
+(school_latitude:REAL, Examples: [36.57634, 32.911179, 45.166039]),
+(school_longitude:REAL, Examples: [-119.608713, -96.72364, -122.414576]),
+(school_city:TEXT, Examples: [Selma, Dallas, Colton]),
+(school_state:TEXT, Examples: [CA, TX, OR]),
+(school_zip:INTEGER, Examples: [93662, 75243, 97017]),
+(school_metro:TEXT, Examples: [urban, rural, suburban]),
+(school_district:TEXT, Examples: [Selma Unified Sch District]),
+(school_county:TEXT, Examples: [Fresno, Dallas, Clackamas]),
+(school_charter:TEXT, Examples: [f, t]),
+(school_magnet:TEXT, Examples: [f, t]),
+(school_year_round:TEXT, Examples: [f, t]),
+(school_nlns:TEXT, Examples: [f, t]),
+(school_kipp:TEXT, Examples: [f, t]),
+(school_charter_ready_promise:TEXT, Examples: [f, t]),
+(teacher_prefix:TEXT, Examples: [Mrs., Mr., Ms.]),
+(teacher_teach_for_america:TEXT, Examples: [f, t]),
+(teacher_ny_teaching_fellow:TEXT, Examples: [f, t]),
+(primary_focus_subject:TEXT, Examples: [Literature & Writing, Literacy, Social Sciences]),
+(primary_focus_area:TEXT, Examples: [Literacy & Language, History & Civics, Math & Science]),
+(secondary_focus_subject:TEXT, Examples: [College & Career Prep]),
+(secondary_focus_area:TEXT, Examples: [Applied Learning, Literacy & Language, Math & Science]),
+(resource_type:TEXT, Examples: [Books, Technology, Other]),
+(poverty_level:TEXT, Examples: [highest poverty, high poverty, moderate poverty]),
+(grade_level:TEXT, Examples: [Grades 6-8, Grades PreK-2, Grades 3-5]),
+(fulfillment_labor_materials:REAL, Examples: [30.0, 35.0, 9.0]),
+(total_price_excluding_optional_support:REAL, Examples: [555.81, 296.47, 430.89]),
+(total_price_including_optional_support:REAL, Examples: [653.89, 348.79, 506.93]),
+(students_reached:INTEGER, Examples: [32, 22, 17]),
+(eligible_double_your_impact_match:TEXT, Examples: [f, t]),
+(eligible_almost_home_match:TEXT, Examples: [f, t]),
+(date_posted:DATE, Examples: [2014-05-12])
+]
+# Table: resources
+[
+(resourceid:TEXT, Primary Key, Examples: [0000037fecc4461faf0e49328ae66661]),
+(projectid:TEXT, Examples: [ffffc4f85b60efc5b52347df489d0238]),
+(vendorid:INTEGER, Examples: [430, 82, 767]),
+(vendor_name:TEXT, Examples: [Woodwind and Brasswind]),
+(project_resource_type:TEXT, Examples: [Technology, Supplies, Other]),
+(item_name:TEXT),
+(item_number:TEXT, Examples: [249995.001, BB11216668, VX748]),
+(item_unit_price:REAL, Examples: [149.0, 148.0, 69.95]),
+(item_quantity:INTEGER, Examples: [4, 1, 2])
+]
+# Table: essays
+[
+(projectid:TEXT, Examples: [ffffc4f85b60efc5b52347df489d0238]),
+(teacher_acctid:TEXT, Examples: [c24011b20fc161ed02248e85beb59a90]),
+(title:TEXT, Examples: [iMath]),
+(short_description:TEXT),
+(need_statement:TEXT),
+(essay:TEXT)
+]
+# Table: donations
+[
+(donationid:TEXT, Primary Key, Examples: [000000a91a14ed37bef82e125c102e77]),
+(projectid:TEXT, Examples: [ffffac55ee02a49d1abc87ba6fc61135]),
+(donor_acctid:TEXT, Examples: [22cbc920c9b5fa08dfb331422f5926b5]),
+(donor_city:TEXT, Examples: [Peachtree City, Rockville, Salem]),
+(donor_state:TEXT, Examples: [GA, MD, IN]),
+(donor_zip:TEXT, Examples: [30269, 20853, 47167]),
+(is_teacher_acct:TEXT, Examples: [f, t]),
+(donation_timestamp:DATETIME, Examples: [2011-08-25 14:27:34.807000]),
+(donation_to_project:REAL, Examples: [42.5, 26.83, 55.35]),
+(donation_optional_support:REAL, Examples: [7.5, 4.73, 0.0]),
+(donation_total:REAL, Examples: [50.0, 31.56, 55.35]),
+(dollar_amount:TEXT, Examples: [10_to_100, under_10, 100_and_up]),
+(donation_included_optional_support:TEXT, Examples: [t, f]),
+(payment_method:TEXT, Examples: [no_cash_received, creditcard, paypal]),
+(payment_included_acct_credit:TEXT, Examples: [f, t]),
+(payment_included_campaign_gift_card:TEXT, Examples: [t, f]),
+(payment_included_web_purchased_gift_card:TEXT, Examples: [f, t]),
+(payment_was_promo_matched:TEXT, Examples: [f, t]),
+(via_giving_page:TEXT, Examples: [f, t]),
+(for_honoree:TEXT, Examples: [f, t]),
+(donation_message:TEXT)
+]
+【Foreign keys】
+resources.projectid=projects.projectid
+donations.projectid=projects.projectid

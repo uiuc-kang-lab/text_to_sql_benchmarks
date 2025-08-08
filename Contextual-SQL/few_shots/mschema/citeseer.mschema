@@ -1,0 +1,19 @@
+【DB_ID】 citeseer
+【Schema】
+# Table: content
+[
+(paper_id:TEXT, Primary Key, Examples: [100157, 100598, 101570]),
+(word_cited_id:TEXT, Primary Key, Examples: [word1163, word1509, word1614])
+]
+# Table: cites
+[
+(cited_paper_id:TEXT, Primary Key, Examples: [100157, 100598, 101570]),
+(citing_paper_id:TEXT, Primary Key, Examples: [100157, 364207, 38848])
+]
+# Table: paper
+[
+(paper_id:TEXT, Primary Key, Examples: [100157, 100598, 101570]),
+(class_label:TEXT, Examples: [Agents, IR, ML])
+]
+【Foreign keys】
+content.paper_id=paper.paper_id

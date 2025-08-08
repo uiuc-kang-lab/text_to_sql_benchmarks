@@ -1,0 +1,94 @@
+【DB_ID】 talkingdata
+【Schema】
+# Table: sample_submission
+[
+(device_id:INTEGER, Primary Key, Examples: [-9223321966609553846, -9223042152723782980, -9222896629442493034]),
+(F23-:REAL, Examples: [0.0833]),
+(F24-26:REAL, Examples: [0.0833]),
+(F27-28:REAL, Examples: [0.0833]),
+(F29-32:REAL, Examples: [0.0833]),
+(F33-42:REAL, Examples: [0.0833]),
+(F43+:REAL, Examples: [0.0833]),
+(M22-:REAL, Examples: [0.0833]),
+(M23-26:REAL, Examples: [0.0833]),
+(M27-28:REAL, Examples: [0.0833]),
+(M29-31:REAL, Examples: [0.0833]),
+(M32-38:REAL, Examples: [0.0833]),
+(M39+:REAL, Examples: [0.0833])
+]
+# Table: app_events
+[
+(event_id:INTEGER, Primary Key, Examples: [2, 6, 7]),
+(app_id:INTEGER, Primary Key, Examples: [-8942695423876075857, -8022267440849930066, -5720078949152207372]),
+(is_installed:INTEGER, Examples: [1]),
+(is_active:INTEGER, Examples: [0, 1])
+]
+# Table: gender_age_train
+[
+(device_id:INTEGER, Primary Key, Examples: [-9223067244542181226, -9222956879900151005, -9222754701995937853]),
+(gender:TEXT, Examples: [M, F]),
+(age:INTEGER, Examples: [24, 36, 29]),
+(group:TEXT, Examples: [M23-26, M32-38, M29-31])
+]
+# Table: app_all
+[
+(app_id:INTEGER, Primary Key, Examples: [-9223281467940916832, -9222877069545393219, -9222785464897897681])
+]
+# Table: app_labels
+[
+(app_id:INTEGER, Examples: [7324884708820027918, -4494216993218550286, 6058196446775239644]),
+(label_id:INTEGER, Examples: [251, 406, 407])
+]
+# Table: label_categories
+[
+(label_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(category:TEXT, Examples: [game-game type, game-Game themes, game-Art Style])
+]
+# Table: events
+[
+(event_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(device_id:INTEGER, Examples: [29182687948017175, -6401643145415154744, -4833982096941402721]),
+(timestamp:DATETIME),
+(longitude:REAL, Examples: [121.0, 104.0, 107.0]),
+(latitude:REAL, Examples: [31.0, 30.0, 23.0])
+]
+# Table: events_relevant
+[
+(event_id:INTEGER, Primary Key, Examples: [2, 6, 7]),
+(device_id:INTEGER),
+(timestamp:DATETIME),
+(longitude:REAL, Examples: [1.0]),
+(latitude:REAL, Examples: [0.0, 1.0])
+]
+# Table: gender_age_test
+[
+(device_id:INTEGER, Primary Key, Examples: [-9223321966609553846, -9223042152723782980, -9222896629442493034])
+]
+# Table: gender_age
+[
+(device_id:INTEGER, Primary Key, Examples: [-9221086586254644858, -9221079146476055829, -9221066489596332354]),
+(gender:TEXT, Examples: [M, F]),
+(age:INTEGER, Examples: [29, 31, 38]),
+(group:TEXT, Examples: [M29-31, M32-38, F29-32])
+]
+# Table: phone_brand_device_model2
+[
+(device_id:INTEGER, Primary Key, Examples: [-9223321966609553846, -9223067244542181226, -9223042152723782980]),
+(phone_brand:TEXT, Primary Key, Examples: [小米, vivo, 三星]),
+(device_model:TEXT, Primary Key, Examples: [红米note, Y19T, MI 3])
+]
+# Table: app_events_relevant
+[
+(event_id:INTEGER, Primary Key, Examples: [2, 6, 7]),
+(app_id:INTEGER, Primary Key, Examples: [-8942695423876075857, -8022267440849930066, -5720078949152207372]),
+(is_installed:INTEGER, Examples: [1]),
+(is_active:INTEGER, Examples: [0, 1])
+]
+【Foreign keys】
+app_events.event_id=events.event_id
+app_labels.app_id=app_all.app_id
+app_labels.label_id=label_categories.label_id
+events_relevant.device_id=gender_age.device_id
+gender_age.device_id=phone_brand_device_model2.device_id
+app_events_relevant.app_id=app_all.app_id
+app_events_relevant.event_id=events_relevant.event_id

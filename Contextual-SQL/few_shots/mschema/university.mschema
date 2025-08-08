@@ -1,0 +1,46 @@
+【DB_ID】 university
+【Schema】
+# Table: university_year
+[
+(university_id:INTEGER, Examples: [1, 5, 2]),
+(year:INTEGER, Examples: [2011, 2012, 2013]),
+(num_students:INTEGER, Examples: [20152, 2243, 11074]),
+(student_staff_ratio:REAL, Examples: [8.9, 6.9, 9.0]),
+(pct_international_students:INTEGER, Examples: [25, 27, 33]),
+(pct_female_students:INTEGER, Examples: [33, 37, 42])
+]
+# Table: ranking_criteria
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(ranking_system_id:INTEGER, Examples: [1, 2, 3]),
+(criteria_name:TEXT, Examples: [Teaching, International, Research])
+]
+# Table: university
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(country_id:INTEGER, Examples: [73, 72, 33]),
+(university_name:TEXT, Examples: [Harvard University])
+]
+# Table: university_ranking_year
+[
+(university_id:INTEGER, Examples: [1, 5, 2]),
+(ranking_criteria_id:INTEGER, Examples: [1, 2, 3]),
+(year:INTEGER, Examples: [2011, 2012, 2013]),
+(score:INTEGER, Examples: [100, 98, 91])
+]
+# Table: ranking_system
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(system_name:TEXT, Examples: [Times Higher Education World University Ranking])
+]
+# Table: country
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(country_name:TEXT, Examples: [Argentina, Australia, Austria])
+]
+【Foreign keys】
+university_year.university_id=university.id
+ranking_criteria.ranking_system_id=ranking_system.id
+university.country_id=country.id
+university_ranking_year.ranking_criteria_id=ranking_criteria.id
+university_ranking_year.university_id=university.id

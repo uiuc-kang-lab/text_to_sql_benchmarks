@@ -1,0 +1,35 @@
+【DB_ID】 social_media
+【Schema】
+# Table: location
+[
+(LocationID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Country:TEXT, Examples: [Albania, Algeria, Andorra]),
+(State:TEXT, Examples: [Elbasan, Tirane, Souk Ahras]),
+(StateCode:TEXT, Examples: [AL, DZ, AD]),
+(City:TEXT, Examples: [Elbasan, Tirana, Souk Ahras])
+]
+# Table: twitter
+[
+(TweetID:TEXT, Primary Key, Examples: [tw-682712873332805633]),
+(Weekday:TEXT, Examples: [Thursday, Friday, Saturday]),
+(Hour:INTEGER, Examples: [17, 18, 19]),
+(Day:INTEGER, Examples: [31, 1, 2]),
+(Lang:TEXT, Examples: [en, _u, es]),
+(IsReshare:TEXT, Examples: [FALSE, TRUE]),
+(Reach:INTEGER, Examples: [44, 1810, 282]),
+(RetweetCount:INTEGER, Examples: [0, 5, 4]),
+(Likes:INTEGER, Examples: [0, 131, 40]),
+(Klout:INTEGER, Examples: [35, 53, 47]),
+(Sentiment:REAL, Examples: [0.0, 2.0, -1.0]),
+(text:TEXT),
+(LocationID:INTEGER, Examples: [3751, 3989, 3741]),
+(UserID:TEXT, Examples: [tw-40932430, tw-3179389829, tw-4624808414])
+]
+# Table: user
+[
+(UserID:TEXT, Primary Key, Examples: [nknow531394, tw-10000632, tw-100012605]),
+(Gender:TEXT, Examples: [Unknown, Male, Unisex])
+]
+【Foreign keys】
+twitter.LocationID=location.LocationID
+twitter.UserID=user.UserID

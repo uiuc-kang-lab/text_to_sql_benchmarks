@@ -1,0 +1,33 @@
+【DB_ID】 music_platform_2
+【Schema】
+# Table: reviews
+[
+(podcast_id:TEXT, Examples: [c61aa81c9b929a66f0c1db6cbe5d8548]),
+(title:TEXT, Examples: [really interesting!]),
+(content:TEXT),
+(rating:INTEGER, Examples: [5, 1, 3]),
+(author_id:TEXT, Examples: [F7E5A318989779D, F6BF5472689BD12, 1AB95B8E6E1309E]),
+(created_at:TEXT, Examples: [2018-04-24T12:05:16-07:00])
+]
+# Table: runs
+[
+(run_at:TEXT, Examples: [2021-05-10 02:53:00, 2021-06-06 21:34:36, 2021-07-02 18:04:55]),
+(max_rowid:INTEGER, Examples: [3266481, 3300773, 3329699]),
+(reviews_added:INTEGER, Examples: [1215223, 13139, 11561])
+]
+# Table: podcasts
+[
+(podcast_id:TEXT, Primary Key, Examples: [a00018b54eb342567c94dacfb2a3e504]),
+(itunes_id:INTEGER, Examples: [1313466221, 158973461, 139076942]),
+(slug:TEXT, Examples: [scaling-global]),
+(itunes_url:TEXT),
+(title:TEXT, Examples: [Scaling Global])
+]
+# Table: categories
+[
+(podcast_id:TEXT, Primary Key, Examples: [a00018b54eb342567c94dacfb2a3e504]),
+(category:TEXT, Primary Key, Examples: [arts, arts-performing-arts, music])
+]
+【Foreign keys】
+reviews.podcast_id=podcasts.podcast_id
+categories.podcast_id=podcasts.podcast_id

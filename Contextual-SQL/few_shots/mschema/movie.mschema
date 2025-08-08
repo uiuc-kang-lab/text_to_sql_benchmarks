@@ -1,0 +1,41 @@
+【DB_ID】 movie
+【Schema】
+# Table: movie
+[
+(MovieID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Title:TEXT, Examples: [Look Who's Talking, Driving Miss Daisy, Turner & Hooch]),
+(MPAA Rating:TEXT, Examples: [PG-13, PG, R]),
+(Budget:INTEGER, Examples: [7500000, 13000000, 14000000]),
+(Gross:INTEGER, Examples: [296000000, 145793296, 71079915]),
+(Release Date:TEXT, Examples: [1989-10-12, 1989-12-13, 1989-07-28]),
+(Genre:TEXT, Examples: [Romance, Comedy, Crime]),
+(Runtime:INTEGER, Examples: [93, 99, 100]),
+(Rating:REAL, Examples: [5.9, 7.4, 7.2]),
+(Rating Count:INTEGER, Examples: [73638, 91075, 91415]),
+(Summary:TEXT)
+]
+# Table: characters
+[
+(MovieID:INTEGER, Primary Key, Examples: [1, 2, 4]),
+(ActorID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Character Name:TEXT, Examples: [James, Mollie, Rosie]),
+(creditOrder:INTEGER, Examples: [1, 2, 3]),
+(pay:TEXT, Examples: [$5,000,000.00, $60,000,000.00, $29,000,000.00]),
+(screentime:TEXT, Examples: [0:32:30, 0:32:15, 0:29:00])
+]
+# Table: actor
+[
+(ActorID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Name:TEXT, Examples: [John Travolta, Kirstie Alley, Olympia Dukakis]),
+(Date of Birth:DATE, Examples: [1954-02-18]),
+(Birth City:TEXT, Examples: [Englewood, Wichita, Lowell]),
+(Birth Country:TEXT, Examples: [USA, West Germany, UK]),
+(Height (Inches):INTEGER, Examples: [74, 67, 63]),
+(Biography:TEXT),
+(Gender:TEXT, Examples: [Male, Female]),
+(Ethnicity:TEXT, Examples: [White, African American, Lebanese]),
+(NetWorth:TEXT, Examples: [$250,000,000.00, $40,000,000.00, $6,000,000.00])
+]
+【Foreign keys】
+characters.ActorID=actor.ActorID
+characters.MovieID=movie.MovieID

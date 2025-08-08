@@ -1,0 +1,59 @@
+【DB_ID】 software_company
+【Schema】
+# Table: Mailings1_2
+[
+(REFID:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(REF_DATE:DATETIME),
+(RESPONSE:TEXT, Examples: [false, true])
+]
+# Table: Demog
+[
+(GEOID:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(INHABITANTS_K:REAL, Examples: [30.046, 36.25, 47.645]),
+(INCOME_K:REAL, Examples: [2631.47, 3012.75, 2192.41]),
+(A_VAR1:REAL, Examples: [6.084, 4.604, 4.911]),
+(A_VAR2:REAL, Examples: [5.79, 8.309, 8.557]),
+(A_VAR3:REAL, Examples: [8.595, 6.007, 5.934]),
+(A_VAR4:REAL, Examples: [3.935, 5.938, 6.494]),
+(A_VAR5:REAL, Examples: [6.362, 8.773, 9.172]),
+(A_VAR6:REAL, Examples: [8.626, 3.579, 3.202]),
+(A_VAR7:REAL, Examples: [4.624, 6.349, 6.157]),
+(A_VAR8:REAL, Examples: [8.324, 4.694, 4.822]),
+(A_VAR9:REAL, Examples: [5.233, 6.884, 7.942]),
+(A_VAR10:REAL, Examples: [6.232, 7.062, 7.901]),
+(A_VAR11:REAL, Examples: [5.205, 7.319, 7.928]),
+(A_VAR12:REAL, Examples: [8.231, 3.72, 2.33]),
+(A_VAR13:REAL, Examples: [6.746, 6.405, 6.029]),
+(A_VAR14:REAL, Examples: [8.679, 7.202, 6.455]),
+(A_VAR15:REAL, Examples: [5.292, 4.932, 4.72]),
+(A_VAR16:REAL, Examples: [3.5, 7.969, 8.564]),
+(A_VAR17:REAL, Examples: [5.512, 8.15, 8.342]),
+(A_VAR18:REAL, Examples: [5.783, 5.633, 4.938])
+]
+# Table: Sales
+[
+(EVENTID:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(REFID:INTEGER, Examples: [0, 1, 2]),
+(EVENT_DATE:DATETIME),
+(AMOUNT:REAL, Examples: [17.907, 17.401, 13.277])
+]
+# Table: Customers
+[
+(ID:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(SEX:TEXT, Examples: [Male, Female]),
+(MARITAL_STATUS:TEXT, Examples: [Never-married, Married-civ-spouse, Divorced]),
+(GEOID:INTEGER, Examples: [61, 70, 53]),
+(EDUCATIONNUM:INTEGER, Examples: [7, 3, 4]),
+(OCCUPATION:TEXT, Examples: [Machine-op-inspct, Handlers-cleaners, Exec-managerial]),
+(age:INTEGER, Examples: [62, 78, 69])
+]
+# Table: mailings3
+[
+(REFID:INTEGER, Primary Key, Examples: [60000, 60001, 60002]),
+(REF_DATE:DATETIME),
+(RESPONSE:TEXT, Examples: [false, true])
+]
+【Foreign keys】
+Mailings1_2.REFID=Customers.ID
+Sales.REFID=Customers.ID
+Customers.GEOID=Demog.GEOID

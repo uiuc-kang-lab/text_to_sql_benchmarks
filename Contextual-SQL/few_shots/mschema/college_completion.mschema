@@ -1,0 +1,121 @@
+【DB_ID】 college_completion
+【Schema】
+# Table: institution_grads
+[
+(unitid:INTEGER, Examples: [100760, 101028, 101143]),
+(year:INTEGER, Examples: [2011, 2012, 2013]),
+(gender:TEXT, Examples: [B, M, F]),
+(race:TEXT, Examples: [X, W, B]),
+(cohort:TEXT, Examples: [2y all, 4y other, 4y bach]),
+(grad_cohort:TEXT, Examples: [446, 185, 261]),
+(grad_100:TEXT, Examples: [73, NULL, 40]),
+(grad_150:TEXT, Examples: [105, 40, 65]),
+(grad_100_rate:TEXT, Examples: [16.4, NULL, 6.7]),
+(grad_150_rate:TEXT, Examples: [23.5, 21.6, 24.9])
+]
+# Table: state_sector_grads
+[
+(stateid:INTEGER, Examples: [1, 2, 4]),
+(state:TEXT, Examples: [Alabama, Alaska, Arizona]),
+(state_abbr:TEXT, Examples: [AL, AK, AZ]),
+(control:TEXT, Examples: [Private for-profit]),
+(level:TEXT, Examples: [4-year, 2-year]),
+(year:INTEGER, Examples: [2011, 2012, 2013]),
+(gender:TEXT, Examples: [B, F, M]),
+(race:TEXT, Examples: [A, Ai, B]),
+(cohort:TEXT, Examples: [4y bach, 4y other, 2y all]),
+(grad_cohort:TEXT, Examples: [0, 1, 51]),
+(grad_100:TEXT, Examples: [0, 2, 15]),
+(grad_150:TEXT, Examples: [0, 3, 18]),
+(grad_100_rate:TEXT, Examples: [NULL, 0, 3.9]),
+(grad_150_rate:TEXT, Examples: [NULL, 0, 5.9]),
+(grad_cohort_ct:INTEGER, Examples: [9, 16, 13])
+]
+# Table: institution_details
+[
+(unitid:INTEGER, Primary Key, Examples: [100654, 100663, 100690]),
+(chronname:TEXT, Examples: [Alabama A&M University]),
+(city:TEXT, Examples: [Normal, Birmingham, Montgomery]),
+(state:TEXT, Examples: [Alabama, Alaska, Arizona]),
+(level:TEXT, Examples: [4-year, 2-year]),
+(control:TEXT, Examples: [Public]),
+(basic:TEXT, Examples: [Masters Colleges and Universities--larger programs]),
+(hbcu:TEXT, Examples: [X, NULL]),
+(flagship:TEXT, Examples: [NULL, X]),
+(long_x:REAL, Examples: [-86.568502, -86.80917, -86.17401]),
+(lat_y:REAL, Examples: [34.783368, 33.50223, 32.362609]),
+(site:TEXT, Examples: [www.aamu.edu/]),
+(student_count:INTEGER, Examples: [4051, 11502, 322]),
+(awards_per_value:REAL, Examples: [14.2, 20.9, 29.9]),
+(awards_per_state_value:REAL, Examples: [18.8, 17.8, 15.9]),
+(awards_per_natl_value:REAL, Examples: [21.5, 22.5, 16.5]),
+(exp_award_value:INTEGER, Examples: [105331, 136546, 58414]),
+(exp_award_state_value:INTEGER, Examples: [75743, 92268, 42194]),
+(exp_award_natl_value:INTEGER, Examples: [66436, 101725, 37780]),
+(exp_award_percentile:INTEGER, Examples: [90, 97, 30]),
+(ft_pct:REAL, Examples: [93.8, 72.7, 62.7]),
+(fte_value:INTEGER, Examples: [3906, 10032, 294]),
+(fte_percentile:INTEGER, Examples: [33, 67, 12]),
+(med_sat_value:TEXT, Examples: [823, 1146, NULL]),
+(med_sat_percentile:TEXT, Examples: [0, 84, NULL]),
+(aid_value:INTEGER, Examples: [7142, 6088, 2540]),
+(aid_percentile:INTEGER, Examples: [72, 50, 1]),
+(endow_value:TEXT, Examples: [NULL, 24136, 302]),
+(endow_percentile:TEXT, Examples: [NULL, 93, 1]),
+(grad_100_value:REAL, Examples: [10.0, 29.4, 0.0]),
+(grad_100_percentile:INTEGER, Examples: [15, 67, 0]),
+(grad_150_value:REAL, Examples: [29.1, 53.5, 66.7]),
+(grad_150_percentile:INTEGER, Examples: [14, 66, 72]),
+(pell_value:REAL, Examples: [71.2, 35.1, 68.4]),
+(pell_percentile:INTEGER, Examples: [98, 39, 91]),
+(retain_value:REAL, Examples: [63.1, 80.2, 37.5]),
+(retain_percentile:INTEGER, Examples: [17, 70, 2]),
+(ft_fac_value:REAL, Examples: [82.8, 92.4, 67.2]),
+(ft_fac_percentile:INTEGER, Examples: [89, 98, 71]),
+(vsa_year:TEXT, Examples: [2010, 2011, NULL]),
+(vsa_grad_after4_first:TEXT, Examples: [14.7, 22.3, NULL]),
+(vsa_grad_elsewhere_after4_first:TEXT, Examples: [2, 2.9, NULL]),
+(vsa_enroll_after4_first:TEXT, Examples: [36.5, 34.2, NULL]),
+(vsa_enroll_elsewhere_after4_first:TEXT, Examples: [16.1, 19.2, NULL]),
+(vsa_grad_after6_first:TEXT, Examples: [33, 42.6, NULL]),
+(vsa_grad_elsewhere_after6_first:TEXT, Examples: [5.3, 10.5, NULL]),
+(vsa_enroll_after6_first:TEXT, Examples: [12.5, 7.9, NULL]),
+(vsa_enroll_elsewhere_after6_first:TEXT, Examples: [14.6, 13.1, NULL]),
+(vsa_grad_after4_transfer:TEXT, Examples: [15.7, NULL, 0]),
+(vsa_grad_elsewhere_after4_transfer:TEXT, Examples: [1.5, NULL, 0]),
+(vsa_enroll_after4_transfer:TEXT, Examples: [40.9, NULL, 0]),
+(vsa_enroll_elsewhere_after4_transfer:TEXT, Examples: [17.2, NULL, 0]),
+(vsa_grad_after6_transfer:TEXT, Examples: [36.4, NULL, 0]),
+(vsa_grad_elsewhere_after6_transfer:TEXT, Examples: [5.6, NULL, 0]),
+(vsa_enroll_after6_transfer:TEXT, Examples: [17.2, NULL, 0]),
+(vsa_enroll_elsewhere_after6_transfer:TEXT, Examples: [11.1, NULL, 0]),
+(similar:TEXT),
+(state_sector_ct:INTEGER, Examples: [13, 16, 25]),
+(carnegie_ct:INTEGER, Examples: [386, 106, 252]),
+(counted_pct:TEXT, Examples: [99.7|07, 56.0|07, 100.0|07]),
+(nicknames:TEXT, Examples: [NULL, UAB, UAH]),
+(cohort_size:INTEGER, Examples: [882, 1376, 3])
+]
+# Table: state_sector_details
+[
+(stateid:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(state:TEXT, Examples: [United States, Alabama, Alaska]),
+(state_post:TEXT, Examples: [U.S., Ala., Alaska]),
+(level:TEXT, Primary Key, Examples: [2-year, 4-year]),
+(control:TEXT, Primary Key, Examples: [Private for-profit]),
+(schools_count:INTEGER, Examples: [632, 1180, 527]),
+(counted_pct:TEXT, Examples: [NULL, 61, 62]),
+(awards_per_state_value:TEXT, Examples: [NULL, 18.8, 17.8]),
+(awards_per_natl_value:REAL, Examples: [21.5, 22.5, 24.6]),
+(exp_award_state_value:TEXT, Examples: [NULL, 75743, 92268]),
+(exp_award_natl_value:INTEGER, Examples: [66436, 101725, 38763]),
+(state_appr_value:TEXT, Examples: [NULL, 290.68, 496.78]),
+(state_appr_rank:TEXT, Examples: [NULL, 11, 2]),
+(grad_rate_rank:TEXT, Examples: [23, 18, 8]),
+(awards_per_rank:TEXT, Examples: [NULL, 42, 49])
+]
+【Foreign keys】
+institution_grads.unitid=institution_details.unitid
+state_sector_grads.state=institution_details.state
+state_sector_grads.stateid=state_sector_details.stateid
+state_sector_details.state=institution_details.state

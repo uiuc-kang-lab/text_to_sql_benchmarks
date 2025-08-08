@@ -1,0 +1,67 @@
+【DB_ID】 regional_sales
+【Schema】
+# Table: Regions
+[
+(StateCode:TEXT, Primary Key, Examples: [AL, AR, AZ]),
+(State:TEXT, Examples: [Alabama, Arkansas, Arizona]),
+(Region:TEXT, Examples: [South, West, Northeast])
+]
+# Table: Products
+[
+(ProductID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Product Name:TEXT, Examples: [Cookware, Photo Frames, Table Lamps])
+]
+# Table: Store Locations
+[
+(StoreID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(City Name:TEXT, Examples: [Birmingham, Huntsville, Mobile]),
+(County:TEXT, Examples: [Shelby County/Jefferson County]),
+(StateCode:TEXT, Examples: [AL, AR, AZ]),
+(State:TEXT, Examples: [Alabama, Arkansas, Arizona]),
+(Type:TEXT, Examples: [City, Town, CDP]),
+(Latitude:REAL, Examples: [33.52744, 34.69901, 30.69436]),
+(Longitude:REAL, Examples: [-86.79905, -86.67298, -88.04305]),
+(AreaCode:INTEGER, Examples: [205, 256, 251]),
+(Population:INTEGER, Examples: [212461, 190582, 194288]),
+(Household Income:INTEGER, Examples: [89972, 78554, 76170]),
+(Median Income:INTEGER, Examples: [31061, 48775, 38776]),
+(Land Area:INTEGER, Examples: [378353942, 552604579, 361044263]),
+(Water Area:INTEGER, Examples: [6591013, 3452021, 105325210]),
+(Time Zone:TEXT, Examples: [America/Chicago, America/Phoenix, America/Los Angeles])
+]
+# Table: Sales Orders
+[
+(OrderNumber:TEXT, Primary Key, Examples: [SO - 0001000, SO - 0001001, SO - 0001002]),
+(Sales Channel:TEXT, Examples: [In-Store, Online, Distributor]),
+(WarehouseCode:TEXT, Examples: [WARE-UHY1004, WARE-NMK1003, WARE-PUJ1005]),
+(ProcuredDate:TEXT, Examples: [12/31/17, 4/10/18, 7/19/18]),
+(OrderDate:TEXT, Examples: [5/31/18, 6/1/18, 6/2/18]),
+(ShipDate:TEXT, Examples: [6/14/18, 6/22/18, 6/21/18]),
+(DeliveryDate:TEXT, Examples: [6/19/18, 7/2/18, 7/1/18]),
+(CurrencyCode:TEXT, Examples: [USD]),
+(_SalesTeamID:INTEGER, Examples: [6, 14, 21]),
+(_CustomerID:INTEGER, Examples: [15, 20, 16]),
+(_StoreID:INTEGER, Examples: [259, 196, 213]),
+(_ProductID:INTEGER, Examples: [12, 27, 16]),
+(Order Quantity:INTEGER, Examples: [5, 3, 1]),
+(Discount Applied:REAL, Examples: [0.075, 0.05, 0.1]),
+(Unit Price:TEXT, Examples: [1,963.10, 3,939.60, 1,775.50]),
+(Unit Cost:TEXT, Examples: [1,001.18, 3,348.66, 781.22])
+]
+# Table: Customers
+[
+(CustomerID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Customer Names:TEXT, Examples: [Avon Corp, WakeFern , Elorac, Corp])
+]
+# Table: Sales Team
+[
+(SalesTeamID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Sales Team:TEXT, Examples: [Adam Hernandez, Keith Griffin, Jerry Green]),
+(Region:TEXT, Examples: [Northeast, West, South])
+]
+【Foreign keys】
+Store Locations.StateCode=Regions.StateCode
+Sales Orders._ProductID=Products.ProductID
+Sales Orders._StoreID=Store Locations.StoreID
+Sales Orders._CustomerID=Customers.CustomerID
+Sales Orders._SalesTeamID=Sales Team.SalesTeamID

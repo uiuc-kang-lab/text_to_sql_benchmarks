@@ -1,0 +1,34 @@
+【DB_ID】 human_resources
+【Schema】
+# Table: position
+[
+(positionID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(positiontitle:TEXT, Examples: [Account Representative]),
+(educationrequired:TEXT, Examples: [4 year degree, 2 year degree, 6 year degree]),
+(minsalary:TEXT, Examples: [US$25,000.00, US$50,000.00, US$18,000.00]),
+(maxsalary:TEXT, Examples: [US$75,000.00, US$150,000.00, US$25,000.00])
+]
+# Table: employee
+[
+(ssn:TEXT, Primary Key, Examples: [000-01-0000, 000-02-2222, 109-87-6543]),
+(lastname:TEXT, Examples: [Milgrom, Adams, Wood]),
+(firstname:TEXT, Examples: [Patricia, Sandy, Emily]),
+(hiredate:TEXT, Examples: [10/1/04, 1/15/01, 3/12/97]),
+(salary:TEXT, Examples: [US$57,500.00, US$19,500.00, US$69,000.00]),
+(gender:TEXT, Examples: [F, M]),
+(performance:TEXT, Examples: [Average, Good, Poor]),
+(positionID:INTEGER, Examples: [2, 3, 1]),
+(locationID:INTEGER, Examples: [2, 1, 5])
+]
+# Table: location
+[
+(locationID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(locationcity:TEXT, Examples: [Atlanta, Boston, Chicago]),
+(address:TEXT, Examples: [450 Peachtree Rd, 3 Commons Blvd, 500 Loop Highway]),
+(state:TEXT, Examples: [GA, MA, IL]),
+(zipcode:INTEGER, Examples: [30316, 2190, 60620]),
+(officephone:TEXT, Examples: [(404)333-5555, (617)123-4444, (312)444-6666])
+]
+【Foreign keys】
+employee.locationID=location.locationID
+employee.positionID=position.positionID

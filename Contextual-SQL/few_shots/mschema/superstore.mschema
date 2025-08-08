@@ -1,0 +1,98 @@
+【DB_ID】 superstore
+【Schema】
+# Table: east_superstore
+[
+(Row ID:INTEGER, Primary Key, Examples: [4647, 4648, 4649]),
+(Order ID:TEXT, Examples: [CA-2011-141817, CA-2011-130092, CA-2011-118192]),
+(Order Date:DATE, Examples: [2013-01-05]),
+(Ship Date:DATE, Examples: [2013-01-12]),
+(Ship Mode:TEXT, Examples: [Standard Class, First Class, Second Class]),
+(Customer ID:TEXT, Examples: [MB-18085, SV-20365, MM-17920]),
+(Region:TEXT, Examples: [East]),
+(Product ID:TEXT, Examples: [OFF-AR-10003478, FUR-FU-10000010, OFF-PA-10002947]),
+(Sales:REAL, Examples: [19.536, 9.94, 37.408]),
+(Quantity:INTEGER, Examples: [3, 2, 7]),
+(Discount:REAL, Examples: [0.2, 0.0, 0.7]),
+(Profit:REAL, Examples: [4.884, 3.0814, 13.0928])
+]
+# Table: people
+[
+(Customer ID:TEXT, Primary Key, Examples: [AA-10315, AA-10375, AA-10480]),
+(Customer Name:TEXT, Examples: [Alex Avila, Allen Armold, Andrew Allen]),
+(Segment:TEXT, Examples: [Consumer, Home Office, Corporate]),
+(Country:TEXT, Examples: [United States]),
+(City:TEXT, Examples: [Round Rock, Omaha, Springfield]),
+(State:TEXT, Examples: [Texas, Nebraska, Missouri]),
+(Postal Code:INTEGER, Examples: [78664, 68104, 65807]),
+(Region:TEXT, Primary Key, Examples: [Central, East, West])
+]
+# Table: central_superstore
+[
+(Row ID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Order ID:TEXT, Examples: [CA-2011-103800, CA-2011-112326, CA-2011-105417]),
+(Order Date:DATE, Examples: [2013-01-03]),
+(Ship Date:DATE, Examples: [2013-01-07]),
+(Ship Mode:TEXT, Examples: [Standard Class, First Class, Second Class]),
+(Customer ID:TEXT, Examples: [DP-13000, PO-19195, VS-21820]),
+(Region:TEXT, Examples: [Central]),
+(Product ID:TEXT, Examples: [OFF-PA-10000174, OFF-LA-10003223, OFF-ST-10002743]),
+(Sales:REAL, Examples: [16.448, 11.784, 272.736]),
+(Quantity:INTEGER, Examples: [2, 3, 7]),
+(Discount:REAL, Examples: [0.2, 0.8, 0.6]),
+(Profit:REAL, Examples: [5.5512, 4.2717, -64.7748])
+]
+# Table: west_superstore
+[
+(Row ID:INTEGER, Primary Key, Examples: [13583, 13584, 13585]),
+(Order ID:TEXT, Examples: [CA-2011-130813, CA-2011-157147, CA-2011-123477]),
+(Order Date:DATE, Examples: [2013-01-06]),
+(Ship Date:DATE, Examples: [2013-01-08]),
+(Ship Mode:TEXT, Examples: [Second Class, Standard Class, First Class]),
+(Customer ID:TEXT, Examples: [LS-17230, BD-11605, DW-13195]),
+(Region:TEXT, Examples: [West]),
+(Product ID:TEXT, Examples: [OFF-PA-10002005, OFF-ST-10000078, FUR-BO-10003034]),
+(Sales:REAL, Examples: [19.44, 1325.85, 333.999]),
+(Quantity:INTEGER, Examples: [3, 5, 4]),
+(Discount:REAL, Examples: [0.0, 0.15, 0.2]),
+(Profit:REAL, Examples: [9.3312, 238.653, 3.9294])
+]
+# Table: product
+[
+(Product ID:TEXT, Primary Key, Examples: [FUR-BO-10000112, FUR-BO-10000330, FUR-BO-10000362]),
+(Product Name:TEXT),
+(Category:TEXT, Examples: [Furniture, Office Supplies, Technology]),
+(Sub-Category:TEXT, Examples: [Bookcases, Chairs, Furnishings]),
+(Region:TEXT, Primary Key, Examples: [Central, South, West])
+]
+# Table: south_superstore
+[
+(Row ID:INTEGER, Primary Key, Examples: [10343, 10344, 10345]),
+(Order ID:TEXT, Examples: [CA-2011-106054, CA-2011-167199, CA-2011-149020]),
+(Order Date:DATE, Examples: [2013-01-06]),
+(Ship Date:DATE, Examples: [2013-01-07]),
+(Ship Mode:TEXT, Examples: [First Class, Standard Class, Second Class]),
+(Customer ID:TEXT, Examples: [JO-15145, ME-17320, AJ-10780]),
+(Region:TEXT, Examples: [South]),
+(Product ID:TEXT, Examples: [OFF-AR-10002399, FUR-CH-10004063, OFF-BI-10004632]),
+(Sales:REAL, Examples: [12.78, 2573.82, 609.98]),
+(Quantity:INTEGER, Examples: [3, 9, 2]),
+(Discount:REAL, Examples: [0.0, 0.7, 0.2]),
+(Profit:REAL, Examples: [5.2398, 746.4078, 274.491])
+]
+【Foreign keys】
+east_superstore.Customer ID=people.Customer ID
+east_superstore.Region=people.Region
+east_superstore.Product ID=product.Product ID
+east_superstore.Region=product.Region
+central_superstore.Customer ID=people.Customer ID
+central_superstore.Region=people.Region
+central_superstore.Product ID=product.Product ID
+central_superstore.Region=product.Region
+west_superstore.Customer ID=people.Customer ID
+west_superstore.Region=people.Region
+west_superstore.Product ID=product.Product ID
+west_superstore.Region=product.Region
+south_superstore.Customer ID=people.Customer ID
+south_superstore.Region=people.Region
+south_superstore.Product ID=product.Product ID
+south_superstore.Region=product.Region

@@ -1,0 +1,47 @@
+【DB_ID】 airline
+【Schema】
+# Table: Air Carriers
+[
+(Code:INTEGER, Primary Key, Examples: [19031, 19032, 19033]),
+(Description:TEXT, Examples: [Mackey International Inc.: MAC])
+]
+# Table: Airlines
+[
+(FL_DATE:TEXT, Examples: [2018/8/1, 2018/8/2, 2018/8/3]),
+(OP_CARRIER_AIRLINE_ID:INTEGER, Examples: [19805, 20427, 21167]),
+(TAIL_NUM:TEXT, Examples: [N956AN, N973AN, N9006]),
+(OP_CARRIER_FL_NUM:INTEGER, Examples: [1587, 1588, 1590]),
+(ORIGIN_AIRPORT_ID:INTEGER, Examples: [12478, 14107, 11042]),
+(ORIGIN_AIRPORT_SEQ_ID:INTEGER, Examples: [1247805, 1410702, 1104205]),
+(ORIGIN_CITY_MARKET_ID:INTEGER, Examples: [31703, 30466, 30647]),
+(ORIGIN:TEXT, Examples: [JFK, PHX, CLE]),
+(DEST_AIRPORT_ID:INTEGER, Examples: [14107, 11618, 11298]),
+(DEST_AIRPORT_SEQ_ID:INTEGER, Examples: [1410702, 1161802, 1129806]),
+(DEST_CITY_MARKET_ID:INTEGER, Examples: [30466, 31703, 30194]),
+(DEST:TEXT, Examples: [PHX, EWR, DFW]),
+(CRS_DEP_TIME:INTEGER, Examples: [1640, 1512, 744]),
+(DEP_TIME:INTEGER, Examples: [1649, 1541, 741]),
+(DEP_DELAY:INTEGER, Examples: [9, 29, -3]),
+(DEP_DELAY_NEW:INTEGER, Examples: [9, 29, 0]),
+(ARR_TIME:INTEGER, Examples: [2006, 2350, 938]),
+(ARR_DELAY:INTEGER, Examples: [44, 53, -2]),
+(ARR_DELAY_NEW:INTEGER, Examples: [44, 53, 0]),
+(CANCELLED:INTEGER, Examples: [0, 1]),
+(CANCELLATION_CODE:TEXT, Examples: [A, B, C]),
+(CRS_ELAPSED_TIME:INTEGER, Examples: [342, 285, 176]),
+(ACTUAL_ELAPSED_TIME:INTEGER, Examples: [377, 309, 177]),
+(CARRIER_DELAY:INTEGER, Examples: [9, 0, 43]),
+(WEATHER_DELAY:INTEGER, Examples: [0, 2, 48]),
+(NAS_DELAY:INTEGER, Examples: [35, 53, 0]),
+(SECURITY_DELAY:INTEGER, Examples: [0, 42, 4]),
+(LATE_AIRCRAFT_DELAY:INTEGER, Examples: [0, 6, 73])
+]
+# Table: Airports
+[
+(Code:TEXT, Primary Key, Examples: [01A, 03A, 04A]),
+(Description:TEXT, Examples: [Afognak Lake, AK: Afognak Lake Airport])
+]
+【Foreign keys】
+Airlines.ORIGIN=Airports.Code
+Airlines.DEST=Airports.Code
+Airlines.OP_CARRIER_AIRLINE_ID=Air Carriers.Code

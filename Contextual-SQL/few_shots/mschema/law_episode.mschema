@@ -1,0 +1,68 @@
+【DB_ID】 law_episode
+【Schema】
+# Table: Vote
+[
+(episode_id:TEXT, Examples: [tt0629204, tt0629228, tt0629170]),
+(stars:INTEGER, Examples: [10, 9, 8]),
+(votes:INTEGER, Examples: [36, 39, 64]),
+(percent:REAL, Examples: [17.7, 19.2, 31.5])
+]
+# Table: Award
+[
+(award_id:INTEGER, Primary Key, Examples: [258, 259, 260]),
+(organization:TEXT),
+(year:INTEGER, Examples: [1999, 2000]),
+(award_category:TEXT, Examples: [Monitor, Primetime Emmy, Silver Gavel Award]),
+(award:TEXT),
+(series:TEXT, Examples: [Law and Order]),
+(episode_id:TEXT, Examples: [tt0629149, tt0629398, tt0629248]),
+(person_id:TEXT, Examples: [nm0937725, nm0792309, nm0049569]),
+(role:TEXT, Examples: [Katrina Ludlow, production mixer, re-recording mixer]),
+(result:TEXT, Examples: [Winner, Nominee])
+]
+# Table: Episode
+[
+(episode_id:TEXT, Primary Key, Examples: [tt0629146, tt0629149, tt0629153]),
+(series:TEXT, Examples: [Law and Order]),
+(season:INTEGER, Examples: [9]),
+(episode:INTEGER, Examples: [1, 2, 3]),
+(number_in_series:INTEGER, Examples: [182, 183, 184]),
+(title:TEXT, Examples: [Cherished, DWB, Bait]),
+(summary:TEXT),
+(air_date:DATE, Examples: [1998-09-23]),
+(episode_image:TEXT),
+(rating:REAL, Examples: [7.9, 7.6, 8.2]),
+(votes:INTEGER, Examples: [203, 177, 159])
+]
+# Table: Credit
+[
+(episode_id:TEXT, Primary Key, Examples: [tt0629146, tt0629149, tt0629153]),
+(person_id:TEXT, Primary Key, Examples: [nm0000973, nm0001583, nm0001832]),
+(category:TEXT, Examples: [Additional Crew]),
+(role:TEXT, Examples: [technical advisor]),
+(credited:TEXT, Examples: [true, false])
+]
+# Table: Person
+[
+(person_id:TEXT, Primary Key, Examples: [nm0000210, nm0000973, nm0001346]),
+(name:TEXT, Examples: [Julia Roberts, Rene Balcer, Billy Fox]),
+(birthdate:DATE, Examples: [1967-10-28]),
+(birth_name:TEXT, Examples: [Julia Fiona Roberts]),
+(birth_place:TEXT, Examples: [Smyrna, Montreal, Harrisburg]),
+(birth_region:TEXT, Examples: [Georgia, Quebec, Pennsylvania]),
+(birth_country:TEXT, Examples: [USA, Canada, England]),
+(height_meters:REAL, Examples: [1.73, 1.88, 1.93]),
+(nickname:TEXT, Examples: [Jules, Gus, Ed])
+]
+# Table: Keyword
+[
+(episode_id:TEXT, Primary Key, Examples: [tt0629239, tt0629397, tt0629420]),
+(keyword:TEXT, Primary Key, Examples: [nun, priest, police officer])
+]
+【Foreign keys】
+Vote.episode_id=Episode.episode_id
+Award.episode_id=Episode.episode_id
+Award.person_id=Person.person_id
+Credit.episode_id=Episode.episode_id
+Credit.person_id=Person.person_id
+Keyword.episode_id=Episode.episode_id

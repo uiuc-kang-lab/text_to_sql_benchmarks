@@ -1,0 +1,34 @@
+【DB_ID】 shooting
+【Schema】
+# Table: incidents
+[
+(case_number:TEXT, Primary Key, Examples: [031347-2015, 072458-2016, 089985-2016]),
+(date:DATE),
+(location:TEXT, Examples: [7400 Bonnie View Road]),
+(subject_statuses:TEXT, Examples: [Deceased, Shoot and Miss, Injured]),
+(subject_weapon:TEXT, Examples: [Vehicle, Shotgun, Handgun]),
+(subjects:TEXT, Examples: [Luster, Desmond Dwayne B/M]),
+(subject_count:INTEGER, Examples: [1, 2, 0]),
+(officers:TEXT, Examples: [Tollerton, Aaron W/M, Cardenas, Steven L/M, Ruben, Fredirick W/M])
+]
+# Table: officers
+[
+(case_number:TEXT, Examples: [44523A, 121982X, 605484T]),
+(race:TEXT, Examples: [L, W, B]),
+(gender:TEXT, Examples: [M, F]),
+(last_name:TEXT, Examples: [Patino, Fillingim, Padilla]),
+(first_name:TEXT, Examples: [Michael, Brian, Gilbert]),
+(full_name:TEXT, Examples: [Patino, Michael, Fillingim, Brian, Padilla, Gilbert])
+]
+# Table: subjects
+[
+(case_number:TEXT, Examples: [44523A, 121982X, 605484T]),
+(race:TEXT, Examples: [L, B, W]),
+(gender:TEXT, Examples: [M, F]),
+(last_name:TEXT, Examples: [Curry, Chavez, Salinas]),
+(first_name:TEXT, Examples: [James, Gabriel, Nick]),
+(full_name:TEXT, Examples: [Curry, James, Chavez, Gabriel, Salinas, Nick])
+]
+【Foreign keys】
+officers.case_number=incidents.case_number
+subjects.case_number=incidents.case_number

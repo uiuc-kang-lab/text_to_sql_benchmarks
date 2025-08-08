@@ -1,0 +1,55 @@
+【DB_ID】 video_games
+【Schema】
+# Table: game_publisher
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(game_id:INTEGER, Examples: [10866, 9244, 5464]),
+(publisher_id:INTEGER, Examples: [369, 328, 498])
+]
+# Table: publisher
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(publisher_name:TEXT, Examples: [10TACLE Studios])
+]
+# Table: genre
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(genre_name:TEXT, Examples: [Action, Adventure, Fighting])
+]
+# Table: region_sales
+[
+(region_id:INTEGER, Examples: [1, 2, 3]),
+(game_platform_id:INTEGER, Examples: [50, 51, 52]),
+(num_sales:REAL, Examples: [3.5, 1.43, 0.51])
+]
+# Table: region
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(region_name:TEXT, Examples: [North America, Europe, Japan])
+]
+# Table: game
+[
+(id:INTEGER, Primary Key, Examples: [44, 45, 46]),
+(genre_id:INTEGER, Examples: [4, 5, 11]),
+(game_name:TEXT, Examples: [2 Games in 1: Sonic Advance & ChuChu Rocket!])
+]
+# Table: platform
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(platform_name:TEXT, Examples: [Wii, NES, GB])
+]
+# Table: game_platform
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(game_publisher_id:INTEGER, Examples: [8564, 9852, 11063]),
+(platform_id:INTEGER, Examples: [4, 7, 15]),
+(release_year:INTEGER, Examples: [2007, 2006, 2011])
+]
+【Foreign keys】
+game_publisher.game_id=game.id
+game_publisher.publisher_id=publisher.id
+region_sales.game_platform_id=game_platform.id
+region_sales.region_id=region.id
+game.genre_id=genre.id
+game_platform.game_publisher_id=game_publisher.id
+game_platform.platform_id=platform.id

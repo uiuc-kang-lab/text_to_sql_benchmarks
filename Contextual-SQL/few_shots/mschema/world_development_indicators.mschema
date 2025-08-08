@@ -1,0 +1,94 @@
+【DB_ID】 world_development_indicators
+【Schema】
+# Table: Footnotes
+[
+(Countrycode:TEXT, Primary Key, Examples: [ABW, ADO, AFG]),
+(Seriescode:TEXT, Primary Key, Examples: [AG.LND.FRST.K2, BX.KLT.DINV.CD.WD, DC.DAC.AUSL.CD]),
+(Year:TEXT, Primary Key, Examples: [YR1990, YR2000, YR2005]),
+(Description:TEXT)
+]
+# Table: Country
+[
+(CountryCode:TEXT, Primary Key, Examples: [ABW, ADO, AFG]),
+(ShortName:TEXT, Examples: [Afghanistan, Albania, Algeria]),
+(TableName:TEXT, Examples: [Afghanistan, Albania, Algeria]),
+(LongName:TEXT, Examples: [Islamic State of Afghanistan]),
+(Alpha2Code:TEXT, Examples: [AF, AL, DZ]),
+(CurrencyUnit:TEXT, Examples: [Afghan afghani, Albanian lek, Algerian dinar]),
+(SpecialNotes:TEXT),
+(Region:TEXT, Examples: [South Asia]),
+(IncomeGroup:TEXT, Examples: [Low income, Upper middle income, High income: nonOECD]),
+(Wb2Code:TEXT, Examples: [AF, AL, DZ]),
+(NationalAccountsBaseYear:TEXT, Examples: [2002/03]),
+(NationalAccountsReferenceYear:TEXT, Examples: [1996, 2013/14, 2010]),
+(SnaPriceValuation:TEXT, Examples: [Value added at basic prices (VAB)]),
+(LendingCategory:TEXT, Examples: [IDA, IBRD, Blend]),
+(OtherGroups:TEXT, Examples: [HIPC, Euro area]),
+(SystemOfNationalAccounts:TEXT),
+(AlternativeConversionFactor:TEXT, Examples: [199196, 197184, 199095]),
+(PppSurveyYear:TEXT, Examples: [Rolling]),
+(BalanceOfPaymentsManualInUse:TEXT, Examples: [IMF Balance of Payments Manual, 6th edition.]),
+(ExternalDebtReportingStatus:TEXT, Examples: [Actual, Preliminary, Estimate]),
+(SystemOfTrade:TEXT, Examples: [General trade system, Special trade system]),
+(GovernmentAccountingConcept:TEXT, Examples: [Consolidated central government]),
+(ImfDataDisseminationStandard:TEXT, Examples: [General Data Dissemination System (GDDS)]),
+(LatestPopulationCensus:TEXT, Examples: [1979, 2011, 2008]),
+(LatestHouseholdSurvey:TEXT, Examples: [Multiple Indicator Cluster Survey (MICS), 2010/11]),
+(SourceOfMostRecentIncomeAndExpenditureData:TEXT),
+(VitalRegistrationComplete:TEXT, Examples: [Yes]),
+(LatestAgriculturalCensus:TEXT, Examples: [2013/14, 2012, 2007]),
+(LatestIndustrialData:INTEGER, Examples: [2011, 2010, 2002]),
+(LatestTradeData:INTEGER, Examples: [2013, 2006, 2012]),
+(LatestWaterWithdrawalData:INTEGER, Examples: [2000, 2006, 2001])
+]
+# Table: Series
+[
+(SeriesCode:TEXT, Primary Key, Examples: [AG.AGR.TRAC.NO, AG.CON.FERT.PT.ZS, AG.CON.FERT.ZS]),
+(Topic:TEXT),
+(IndicatorName:TEXT),
+(ShortDefinition:TEXT),
+(LongDefinition:TEXT),
+(UnitOfMeasure:TEXT, Examples: [`, %, 2005 PPP $]),
+(Periodicity:TEXT, Examples: [Annual]),
+(BasePeriod:TEXT, Examples: [2005, varies by country, 2011]),
+(OtherNotes:INTEGER),
+(AggregationMethod:TEXT, Examples: [Weighted average, Sum, Gap-filled total]),
+(LimitationsAndExceptions:TEXT),
+(NotesFromOriginalSource:TEXT),
+(GeneralComments:TEXT),
+(Source:TEXT),
+(StatisticalConceptAndMethodology:TEXT),
+(DevelopmentRelevance:TEXT),
+(RelatedSourceLinks:TEXT),
+(OtherWebLinks:INTEGER),
+(RelatedIndicators:INTEGER),
+(LicenseType:TEXT, Examples: [Open, Restricted])
+]
+# Table: SeriesNotes
+[
+(Seriescode:TEXT, Primary Key, Examples: [DT.DOD.PVLX.CD, IC.CUS.DURS.EX, IC.FRM.BNKS.ZS]),
+(Year:TEXT, Primary Key, Examples: [YR2014, YR2002, YR2003]),
+(Description:TEXT)
+]
+# Table: Indicators
+[
+(CountryName:TEXT, Examples: [Arab World]),
+(CountryCode:TEXT, Primary Key, Examples: [ABW, ADO, AFG]),
+(IndicatorName:TEXT),
+(IndicatorCode:TEXT, Primary Key, Examples: [AG.LND.AGRI.K2, AG.LND.AGRI.ZS, AG.LND.ARBL.HA]),
+(Year:INTEGER, Primary Key, Examples: [1961, 1962, 1963]),
+(Value:INTEGER, Examples: [133, 87, 6])
+]
+# Table: CountryNotes
+[
+(Countrycode:TEXT, Primary Key, Examples: [ABW, ADO, AFG]),
+(Seriescode:TEXT, Primary Key, Examples: [EG.EGY.PRIM.PP.KD, EG.ELC.RNEW.ZS, EG.FEC.RNEW.ZS]),
+(Description:TEXT)
+]
+【Foreign keys】
+Footnotes.Seriescode=Series.SeriesCode
+Footnotes.Countrycode=Country.CountryCode
+SeriesNotes.Seriescode=Series.SeriesCode
+Indicators.CountryCode=Country.CountryCode
+CountryNotes.Seriescode=Series.SeriesCode
+CountryNotes.Countrycode=Country.CountryCode

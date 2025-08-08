@@ -1,0 +1,22 @@
+【DB_ID】 mental_health_survey
+【Schema】
+# Table: Question
+[
+(questiontext:TEXT, Examples: [What is your age?]),
+(questionid:INTEGER, Primary Key, Examples: [1, 2, 3])
+]
+# Table: Survey
+[
+(SurveyID:INTEGER, Primary Key, Examples: [2014, 2016, 2017]),
+(Description:TEXT, Examples: [mental health survey for 2014])
+]
+# Table: Answer
+[
+(AnswerText:TEXT, Examples: [37, 44, 32]),
+(SurveyID:INTEGER, Examples: [2014, 2016, 2017]),
+(UserID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(QuestionID:INTEGER, Primary Key, Examples: [1, 2, 3])
+]
+【Foreign keys】
+Answer.QuestionID=Question.questionid
+Answer.SurveyID=Survey.SurveyID

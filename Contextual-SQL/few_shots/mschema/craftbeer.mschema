@@ -1,0 +1,21 @@
+【DB_ID】 craftbeer
+【Schema】
+# Table: beers
+[
+(id:INTEGER, Primary Key, Examples: [2687, 2688, 2689]),
+(brewery_id:INTEGER, Examples: [0, 1, 2]),
+(abv:REAL, Examples: [0.065, 0.087, 0.08]),
+(ibu:REAL, Examples: [65.0, 85.0, 35.0]),
+(name:TEXT, Examples: [Dale's Pale Ale, Gordon Ale (2009), Old Chub]),
+(style:TEXT, Examples: [American Pale Ale (APA)]),
+(ounces:REAL, Examples: [12.0, 16.0, 24.0])
+]
+# Table: breweries
+[
+(id:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(name:TEXT, Examples: [NorthGate Brewing ]),
+(city:TEXT, Examples: [Minneapolis, Louisville, Framingham]),
+(state:TEXT, Examples: [MN, KY, MA])
+]
+【Foreign keys】
+beers.brewery_id=breweries.id

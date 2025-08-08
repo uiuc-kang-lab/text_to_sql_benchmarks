@@ -1,0 +1,38 @@
+【DB_ID】 world
+【Schema】
+# Table: City
+[
+(ID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Name:TEXT, Examples: [Kabul, Qandahar, Herat]),
+(CountryCode:TEXT, Examples: [AFG, NLD, ANT]),
+(District:TEXT, Examples: [Kabol, Qandahar, Herat]),
+(Population:INTEGER, Examples: [1780000, 237500, 186800])
+]
+# Table: CountryLanguage
+[
+(CountryCode:TEXT, Primary Key, Examples: [ABW, AFG, AGO]),
+(Language:TEXT, Primary Key, Examples: [Dutch, English, Papiamento]),
+(IsOfficial:TEXT, Examples: [T, F]),
+(Percentage:REAL, Examples: [5.3, 9.5, 76.7])
+]
+# Table: Country
+[
+(Code:TEXT, Primary Key, Examples: [ABW, AFG, AGO]),
+(Name:TEXT, Examples: [Aruba, Afghanistan, Angola]),
+(Continent:TEXT, Examples: [North America, Asia, Africa]),
+(Region:TEXT, Examples: [Caribbean]),
+(SurfaceArea:REAL, Examples: [193.0, 652090.0, 1246700.0]),
+(IndepYear:INTEGER, Examples: [1919, 1975, 1912]),
+(Population:INTEGER, Examples: [103000, 22720000, 12878000]),
+(LifeExpectancy:REAL, Examples: [78.4, 45.9, 38.3]),
+(GNP:REAL, Examples: [828.0, 5976.0, 6648.0]),
+(GNPOld:REAL, Examples: [793.0, 7984.0, 2500.0]),
+(LocalName:TEXT, Examples: [Aruba]),
+(GovernmentForm:TEXT, Examples: [Nonmetropolitan Territory of The Netherlands]),
+(HeadOfState:TEXT, Examples: [Beatrix]),
+(Capital:INTEGER, Examples: [129, 1, 56]),
+(Code2:TEXT, Examples: [AW, AF, AO])
+]
+【Foreign keys】
+City.CountryCode=Country.Code
+CountryLanguage.CountryCode=Country.Code

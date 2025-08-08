@@ -1,0 +1,31 @@
+【DB_ID】 computer_student
+【Schema】
+# Table: person
+[
+(p_id:INTEGER, Primary Key, Examples: [3, 4, 5]),
+(professor:INTEGER, Examples: [0, 1]),
+(student:INTEGER, Examples: [1, 0]),
+(hasPosition:TEXT, Examples: [0, Faculty, Faculty_adj]),
+(inPhase:TEXT, Examples: [0, Post_Quals, Post_Generals]),
+(yearsInProgram:TEXT, Examples: [0, Year_2, Year_5])
+]
+# Table: taughtBy
+[
+(course_id:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(p_id:INTEGER, Primary Key, Examples: [40, 180, 279])
+]
+# Table: advisedBy
+[
+(p_id:INTEGER, Primary Key, Examples: [6, 9, 13]),
+(p_id_dummy:INTEGER, Primary Key, Examples: [5, 7, 29])
+]
+# Table: course
+[
+(course_id:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(courseLevel:TEXT, Examples: [Level_500, Level_300, Level_400])
+]
+【Foreign keys】
+taughtBy.p_id=person.p_id
+taughtBy.course_id=course.course_id
+advisedBy.p_id=person.p_id
+advisedBy.p_id_dummy=person.p_id

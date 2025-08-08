@@ -1,0 +1,53 @@
+【DB_ID】 language_corpus
+【Schema】
+# Table: langs
+[
+(lid:INTEGER, Primary Key, Examples: [1]),
+(lang:TEXT, Examples: [ca]),
+(locale:TEXT, Examples: [ca_ES]),
+(pages:INTEGER, Examples: [1129144]),
+(words:INTEGER, Examples: [2764996])
+]
+# Table: pages_words
+[
+(pid:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(wid:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(occurrences:INTEGER, Examples: [30, 8, 2])
+]
+# Table: biwords
+[
+(lid:INTEGER, Primary Key, Examples: [1]),
+(w1st:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(w2nd:INTEGER, Primary Key, Examples: [2, 4, 25]),
+(occurrences:INTEGER, Examples: [4, 3, 13])
+]
+# Table: langs_words
+[
+(lid:INTEGER, Primary Key, Examples: [1]),
+(wid:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(occurrences:INTEGER, Examples: [242, 16841, 48700])
+]
+# Table: pages
+[
+(pid:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(lid:INTEGER, Examples: [1]),
+(page:INTEGER, Examples: [1, 2, 8]),
+(revision:INTEGER, Examples: [28236978, 24086480, 26230310]),
+(title:TEXT, Examples: [Àbac, Abadia, Adagi]),
+(words:INTEGER, Examples: [1081, 68, 304])
+]
+# Table: words
+[
+(wid:INTEGER, Primary Key, Examples: [2148990, 2506463, 154840]),
+(word:TEXT, Examples: [+,2, +,33, +,4]),
+(occurrences:INTEGER, Examples: [242, 16841, 48700])
+]
+【Foreign keys】
+pages_words.wid=words.wid
+pages_words.pid=pages.pid
+biwords.w2nd=words.wid
+biwords.w1st=words.wid
+biwords.lid=langs.lid
+langs_words.wid=words.wid
+langs_words.lid=langs.lid
+pages.lid=langs.lid

@@ -1,0 +1,155 @@
+【DB_ID】 formula_1
+【Schema】
+# Table: races
+[
+(raceId:INTEGER, Primary Key, Examples: [837, 833, 838]),
+(year:INTEGER, Examples: [2009, 2008, 2007]),
+(round:INTEGER, Examples: [1, 2, 3]),
+(circuitId:INTEGER, Examples: [1, 2, 17]),
+(name:TEXT, Examples: [Australian Grand Prix]),
+(date:DATE, Examples: [2009-03-29]),
+(time:TEXT, Examples: [06:00:00, 09:00:00, 07:00:00]),
+(url:TEXT)
+]
+# Table: circuits
+[
+(circuitId:INTEGER, Primary Key, Examples: [23, 61, 29]),
+(circuitRef:TEXT, Examples: [sepang, bahrain, catalunya]),
+(name:TEXT, Examples: [Sepang International Circuit]),
+(location:TEXT, Examples: [Kuala Lumpur, Sakhir, Montmeló]),
+(country:TEXT, Examples: [Malaysia, Bahrain, Spain]),
+(lat:REAL, Examples: [2.76083, 26.0325, 41.57]),
+(lng:REAL, Examples: [101.738, 50.5106, 2.26111]),
+(alt:INTEGER),
+(url:TEXT)
+]
+# Table: lapTimes
+[
+(raceId:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(driverId:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(lap:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(position:INTEGER, Examples: [13, 12, 11]),
+(time:TEXT, Examples: [1:49.088, 1:33.740, 1:31.600]),
+(milliseconds:INTEGER, Examples: [109088, 93740, 91600])
+]
+# Table: drivers
+[
+(driverId:INTEGER, Primary Key, Examples: [452, 625, 103]),
+(driverRef:TEXT, Examples: [hamilton, heidfeld, rosberg]),
+(number:INTEGER, Examples: [44, 6, 14]),
+(code:TEXT, Examples: [HAM, HEI, ROS]),
+(forename:TEXT, Examples: [Lewis, Nick, Nico]),
+(surname:TEXT, Examples: [Hamilton, Heidfeld, Rosberg]),
+(dob:DATE, Examples: [1985-01-07]),
+(nationality:TEXT, Examples: [British, German, Spanish]),
+(url:TEXT)
+]
+# Table: pitStops
+[
+(raceId:INTEGER, Primary Key, Examples: [841, 842, 843]),
+(driverId:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(stop:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(lap:INTEGER, Examples: [16, 36, 15]),
+(time:TEXT, Examples: [17:28:24, 17:59:29, 17:27:41]),
+(duration:TEXT, Examples: [23.227, 23.199, 22.994]),
+(milliseconds:INTEGER, Examples: [23227, 23199, 22994])
+]
+# Table: constructorStandings
+[
+(constructorStandingsId:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(raceId:INTEGER, Examples: [18, 19, 20]),
+(constructorId:INTEGER, Examples: [1, 2, 3]),
+(points:REAL, Examples: [14.0, 8.0, 9.0]),
+(position:INTEGER, Examples: [1, 3, 2]),
+(positionText:TEXT, Examples: [1, 3, 2]),
+(wins:INTEGER, Examples: [1, 0, 2])
+]
+# Table: constructorResults
+[
+(constructorResultsId:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(raceId:INTEGER, Examples: [18, 19, 20]),
+(constructorId:INTEGER, Examples: [1, 2, 3]),
+(points:REAL, Examples: [14.0, 8.0, 9.0]),
+(status:TEXT, Examples: [D])
+]
+# Table: results
+[
+(resultId:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(raceId:INTEGER, Examples: [18, 19, 20]),
+(driverId:INTEGER, Examples: [1, 2, 3]),
+(constructorId:INTEGER, Examples: [1, 2, 3]),
+(number:INTEGER, Examples: [22, 3, 7]),
+(grid:INTEGER, Examples: [1, 5, 7]),
+(position:INTEGER, Examples: [1, 2, 3]),
+(positionText:TEXT, Examples: [1, 2, 3]),
+(positionOrder:INTEGER, Examples: [1, 2, 3]),
+(points:REAL, Examples: [10.0, 8.0, 6.0]),
+(laps:INTEGER, Examples: [58, 57, 55]),
+(time:TEXT, Examples: [1:34:50.616, +5.478, +8.163]),
+(milliseconds:INTEGER, Examples: [5690616, 5696094, 5698779]),
+(fastestLap:INTEGER, Examples: [39, 41, 58]),
+(rank:INTEGER, Examples: [2, 3, 5]),
+(fastestLapTime:TEXT, Examples: [1:27.452, 1:27.739, 1:28.090]),
+(fastestLapSpeed:TEXT, Examples: [218.300, 217.586, 216.719]),
+(statusId:INTEGER, Examples: [1, 11, 5])
+]
+# Table: seasons
+[
+(year:INTEGER, Primary Key, Examples: [1950, 1951, 1952]),
+(url:TEXT)
+]
+# Table: driverStandings
+[
+(driverStandingsId:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(raceId:INTEGER, Examples: [18, 19, 20]),
+(driverId:INTEGER, Examples: [1, 2, 3]),
+(points:REAL, Examples: [10.0, 8.0, 6.0]),
+(position:INTEGER, Examples: [1, 2, 3]),
+(positionText:TEXT, Examples: [1, 2, 3]),
+(wins:INTEGER, Examples: [1, 0, 2])
+]
+# Table: status
+[
+(statusId:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(status:TEXT, Examples: [Finished, Disqualified, Accident])
+]
+# Table: constructors
+[
+(constructorId:INTEGER, Primary Key, Examples: [147, 39, 54]),
+(constructorRef:TEXT, Examples: [mclaren, bmw_sauber, williams]),
+(name:TEXT, Examples: [AFM, AGS, ATS]),
+(nationality:TEXT, Examples: [British, German, French]),
+(url:TEXT)
+]
+# Table: qualifying
+[
+(qualifyId:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(raceId:INTEGER, Examples: [18, 19, 20]),
+(driverId:INTEGER, Examples: [1, 9, 5]),
+(constructorId:INTEGER, Examples: [1, 2, 6]),
+(number:INTEGER, Examples: [22, 4, 23]),
+(position:INTEGER, Examples: [1, 2, 3]),
+(q1:TEXT, Examples: [1:26.572, 1:26.103, 1:25.664]),
+(q2:TEXT, Examples: [1:25.187, 1:25.315, 1:25.452]),
+(q3:TEXT, Examples: [1:26.714, 1:26.869, 1:27.079])
+]
+【Foreign keys】
+races.year=seasons.year
+races.circuitId=circuits.circuitId
+lapTimes.raceId=races.raceId
+lapTimes.driverId=drivers.driverId
+pitStops.raceId=races.raceId
+pitStops.driverId=drivers.driverId
+constructorStandings.raceId=races.raceId
+constructorStandings.constructorId=constructors.constructorId
+constructorResults.raceId=races.raceId
+constructorResults.constructorId=constructors.constructorId
+results.raceId=races.raceId
+results.driverId=drivers.driverId
+results.constructorId=constructors.constructorId
+results.statusId=status.statusId
+driverStandings.raceId=races.raceId
+driverStandings.driverId=drivers.driverId
+qualifying.raceId=races.raceId
+qualifying.driverId=drivers.driverId
+qualifying.constructorId=constructors.constructorId

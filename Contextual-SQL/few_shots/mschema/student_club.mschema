@@ -1,0 +1,83 @@
+【DB_ID】 student_club
+【Schema】
+# Table: zip_code
+[
+(zip_code:INTEGER, Primary Key, Examples: [501, 544, 601]),
+(type:TEXT, Examples: [Unique, Standard, PO Box]),
+(city:TEXT, Examples: [Holtsville, Adjuntas, Aguada]),
+(county:TEXT, Examples: [Suffolk County, Adjuntas Municipio, Aguada Municipio]),
+(state:TEXT, Examples: [New York, Puerto Rico, Massachusetts]),
+(short_state:TEXT, Examples: [NY, PR, MA])
+]
+# Table: budget
+[
+(budget_id:TEXT, Primary Key, Examples: [rec0QmEc3cSQFQ6V2, rec1bG6HSft7XIvTP, rec1z6ISJU2HdIsVm]),
+(category:TEXT, Examples: [Advertisement, Food, Speaker Gifts]),
+(spent:REAL, Examples: [67.81, 121.14, 20.2]),
+(remaining:REAL, Examples: [7.19, 28.86, -0.199999999999999]),
+(amount:INTEGER, Examples: [75, 150, 20]),
+(event_status:TEXT, Examples: [Closed, Open, Planning]),
+(link_to_event:TEXT, Examples: [recI43CzsZ0Q625ma, recggMW2eyCYceNcy, recJ4Witp9tpjaugn])
+]
+# Table: event
+[
+(event_id:TEXT, Primary Key, Examples: [rec0Si5cQ4rJRVzd6, rec0akZnLLpGUloLH, rec0dZPcWXF0QjNnE]),
+(event_name:TEXT, Examples: [March Meeting]),
+(event_date:TEXT, Examples: [2020-03-10T12:00:00, 2020-01-14T09:30:00, 2019-11-24T09:00:00]),
+(type:TEXT, Examples: [Meeting, Election, Game]),
+(notes:TEXT),
+(location:TEXT, Examples: [MU 215]),
+(status:TEXT, Examples: [Open, Planning, Closed])
+]
+# Table: major
+[
+(major_id:TEXT, Primary Key, Examples: [rec06DF6vZ1CyPKpc, rec09LedkREyskCNv, rec0Eanv576RhQllI]),
+(major_name:TEXT, Examples: [Outdoor Product Design and Development]),
+(department:TEXT),
+(college:TEXT, Examples: [College of Agriculture and Applied Sciences])
+]
+# Table: attendance
+[
+(link_to_event:TEXT, Primary Key, Examples: [rec2N69DMcrqN9PJC, rec5XDvJLyxDsGZWc, recEVTik3MlqbvLFi]),
+(link_to_member:TEXT, Primary Key, Examples: [recD078PnS3x2doBe, recP6DJPyi5donvXL, rec28ORZgcm1dtqBZ])
+]
+# Table: income
+[
+(income_id:TEXT, Primary Key, Examples: [rec0s9ZrO15zhzUeE, rec7f5XMQZexgtQJo, rec8BUJa8GXUjiglg]),
+(date_received:TEXT, Examples: [2019-10-17, 2019-09-04, 2019-10-08]),
+(amount:INTEGER, Examples: [50, 200, 3000]),
+(source:TEXT, Examples: [Dues, Fundraising, School Appropration]),
+(notes:TEXT),
+(link_to_member:TEXT, Examples: [reccW7q1KkhSKZsea, recTjHY5xXhvkCdVT, recUdRhbhcEO1Hk5r])
+]
+# Table: expense
+[
+(expense_id:TEXT, Primary Key, Examples: [rec017x6R3hQqkLAo, rec1nIjoZKTYayqZ6, rec1oMgNFt7Y0G40x]),
+(expense_description:TEXT, Examples: [Post Cards, Posters, Water, Cookies, Pizza]),
+(expense_date:TEXT, Examples: [2019-08-20, 2019-10-08, 2019-09-10]),
+(cost:REAL, Examples: [122.06, 20.2, 51.81]),
+(approved:TEXT, Examples: [true]),
+(link_to_member:TEXT, Examples: [rec4BLdZHS2Blfp4v, recro8T1MPMwRadVH, recD078PnS3x2doBe]),
+(link_to_budget:TEXT, Examples: [recvKTAWAFKkVNnXQ, recy8KY5bUdzF81vv, recwXIiKoBMjXJsGZ])
+]
+# Table: member
+[
+(member_id:TEXT, Primary Key, Examples: [rec1x5zBFIqoOuPW8, rec280Sk7o31iG0Tx, rec28ORZgcm1dtqBZ]),
+(first_name:TEXT, Examples: [Angela, Grant, Luisa]),
+(last_name:TEXT, Examples: [Sanders, Gilmour, Guidi]),
+(email:TEXT),
+(position:TEXT, Examples: [Member, Inactive, President]),
+(t_shirt_size:TEXT, Examples: [Medium, X-Large, Large]),
+(phone:TEXT, Examples: [(651) 928-4507, 403-555-1310, 442-555-5882]),
+(zip:INTEGER, Examples: [55108, 29440, 10002]),
+(link_to_major:TEXT, Examples: [recxK3MHQFbR9J5uO, rec7BxKpjJ7bNph3O, recdIBgeU38UbV2sy])
+]
+【Foreign keys】
+budget.link_to_event=event.event_id
+attendance.link_to_event=event.event_id
+attendance.link_to_member=member.member_id
+income.link_to_member=member.member_id
+expense.link_to_budget=budget.budget_id
+expense.link_to_member=member.member_id
+member.link_to_major=major.major_id
+member.zip=zip_code.zip_code

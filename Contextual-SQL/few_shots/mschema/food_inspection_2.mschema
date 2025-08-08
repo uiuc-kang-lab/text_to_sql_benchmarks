@@ -1,0 +1,64 @@
+【DB_ID】 food_inspection_2
+【Schema】
+# Table: employee
+[
+(employee_id:INTEGER, Primary Key, Examples: [103705, 104633, 106581]),
+(first_name:TEXT, Examples: [Anastasia, Joshua, Zach]),
+(last_name:TEXT, Examples: [Hansen, Rosa, Barber]),
+(address:TEXT, Examples: [6023 S Elizabeth St, 5000 N Wolcott Ave, 7522 N Oleander Ave]),
+(city:TEXT, Examples: [Chicago, Park Forest, Hoffman Estates]),
+(state:TEXT, Examples: [IL]),
+(zip:INTEGER, Examples: [60636, 60640, 60631]),
+(phone:TEXT, Examples: [(773) 424-8729, (773) 293-6409, (219) 473-0757]),
+(title:TEXT, Examples: [Sanitarian, Supervisor, Division Manager]),
+(salary:INTEGER, Examples: [79300, 82000, 79900]),
+(supervisor:INTEGER, Examples: [177316, 186742, 179582])
+]
+# Table: violation
+[
+(inspection_id:INTEGER, Primary Key, Examples: [44247, 44248, 44249]),
+(point_id:INTEGER, Primary Key, Examples: [30, 32, 33]),
+(fine:INTEGER, Examples: [100, 0, 500]),
+(inspector_comment:TEXT)
+]
+# Table: establishment
+[
+(license_no:INTEGER, Primary Key, Examples: [1, 2, 9]),
+(dba_name:TEXT, Examples: [HARVEST CRUSADES MINISTRIES]),
+(aka_name:TEXT, Examples: [COSI]),
+(facility_type:TEXT, Examples: [Special Event, Restaurant, TAVERN]),
+(risk_level:INTEGER, Examples: [2, 1, 3]),
+(address:TEXT, Examples: [118 N CENTRAL AVE , 230 W MONROE ST , 116 S MICHIGAN AVE ]),
+(city:TEXT, Examples: [CHICAGO, Chicago, chicago]),
+(state:TEXT, Examples: [IL]),
+(zip:INTEGER, Examples: [60644, 60606, 60603]),
+(latitude:REAL, Examples: [41.8828450747188, 41.8807571586472, 41.8803958382596]),
+(longitude:REAL, Examples: [-87.7650954520439, -87.6347092983425, -87.6245017215946]),
+(ward:INTEGER, Examples: [29, 42, 18])
+]
+# Table: inspection
+[
+(inspection_id:INTEGER, Primary Key, Examples: [44247, 44248, 44249]),
+(inspection_date:DATE, Examples: [2010-01-05]),
+(inspection_type:TEXT, Examples: [Complaint]),
+(results:TEXT, Examples: [Pass, Pass w/ Conditions, Fail]),
+(employee_id:INTEGER, Examples: [141319, 143902, 143487]),
+(license_no:INTEGER, Examples: [1222441, 1336561, 1334073]),
+(followup_to:INTEGER, Examples: [67871, 248210, 233215])
+]
+# Table: inspection_point
+[
+(point_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Description:TEXT),
+(category:TEXT, Examples: [Food Protection]),
+(code:TEXT, Examples: [7-38-005 (B) (B-2), 7-38-005 (A), 7-38-010 (A) (B)]),
+(fine:INTEGER, Examples: [500, 250, 100]),
+(point_level:TEXT, Examples: [Critical, Serious , Minor   ])
+]
+【Foreign keys】
+employee.supervisor=employee.employee_id
+violation.inspection_id=inspection.inspection_id
+violation.point_id=inspection_point.point_id
+inspection.employee_id=employee.employee_id
+inspection.license_no=establishment.license_no
+inspection.followup_to=inspection.inspection_id

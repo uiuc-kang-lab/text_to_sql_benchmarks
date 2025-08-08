@@ -1,0 +1,128 @@
+【DB_ID】 legislator
+【Schema】
+# Table: current-terms
+[
+(address:TEXT),
+(bioguide:TEXT, Primary Key, Examples: [A000055, A000360, A000367]),
+(caucus:TEXT, Examples: [Democrat]),
+(chamber:TEXT, Examples: [senate, house]),
+(class:REAL, Examples: [1.0, 2.0, 3.0]),
+(contact_form:TEXT),
+(district:REAL, Examples: [13.0, 1.0, 3.0]),
+(end:TEXT, Primary Key, Examples: [1999-01-03, 2001-01-03, 2003-01-03]),
+(fax:TEXT, Examples: [202-228-6321, 202-228-0514, 202-224-1651]),
+(last:TEXT, Examples: [Menendez]),
+(name:TEXT, Examples: [Stewart Lee Udall, Morris K. Udall, Mark Udall]),
+(office:TEXT, Examples: [713 Hart Senate Office Building]),
+(party:TEXT, Examples: [Democrat, Republican, Independent]),
+(party_affiliations:TEXT),
+(phone:TEXT, Examples: [202-224-2315, 202-224-3441, 202-224-4524]),
+(relation:TEXT, Examples: [son, nephew, cousin]),
+(rss_url:TEXT),
+(start:TEXT, Examples: [1993-01-05, 1995-01-04, 1997-01-07]),
+(state:TEXT, Examples: [OH, WA, MD]),
+(state_rank:TEXT, Examples: [senior, junior]),
+(title:TEXT, Examples: [Minority Whip, Majority Whip, Minority Leader]),
+(type:TEXT, Examples: [rep, sen]),
+(url:TEXT)
+]
+# Table: historical-terms
+[
+(address:TEXT),
+(bioguide:TEXT, Primary Key, Examples: [A000001, A000002, A000003]),
+(chamber:TEXT, Examples: [house, senate]),
+(class:REAL, Examples: [2.0, 1.0, 3.0]),
+(contact_form:TEXT),
+(district:REAL, Examples: [9.0, 2.0, 6.0]),
+(end:TEXT, Examples: [1793-03-03, 1791-03-03, 1795-03-03]),
+(fax:TEXT, Examples: [202-228-6363, 202-226-6299, 202-226-0893]),
+(last:TEXT, Examples: [Levy, Lambert, Bono]),
+(middle:TEXT),
+(name:TEXT),
+(office:TEXT, Examples: [248 Russell Senate Office Building]),
+(party:TEXT, Examples: [Anti-Administration, Pro-Administration, Republican]),
+(party_affiliations:TEXT),
+(phone:TEXT, Examples: [202-224-4024, 202-224-4543, 202-225-2706]),
+(relation:TEXT),
+(rss_url:TEXT),
+(start:TEXT, Examples: [1789-03-04, 1790-01-01, 1791-10-24]),
+(state:TEXT, Examples: [DE, VA, SC]),
+(state_rank:TEXT, Examples: [junior, senior]),
+(title:TEXT, Examples: [Majority Leader, Speaker]),
+(type:TEXT, Examples: [sen, rep]),
+(url:TEXT)
+]
+# Table: current
+[
+(ballotpedia_id:TEXT, Examples: [Sherrod Brown, Maria Cantwell, Ben Cardin]),
+(bioguide_id:TEXT, Primary Key, Examples: [A000055, A000360, A000367]),
+(birthday_bio:DATE, Examples: [1952-11-09]),
+(cspan_id:REAL, Primary Key, Examples: [45516.0, 5.0, 1033767.0]),
+(fec_id:TEXT, Examples: [['H2OH13033', 'S6OH00163']]),
+(first_name:TEXT, Examples: [Sherrod, Maria, Benjamin]),
+(gender_bio:TEXT, Examples: [M, F]),
+(google_entity_id_id:TEXT, Examples: [kg:/m/034s80, kg:/m/01x68t, kg:/m/025k3k]),
+(govtrack_id:INTEGER, Examples: [400050, 300018, 400064]),
+(house_history_id:REAL, Examples: [9996.0, 10608.0, 10629.0]),
+(icpsr_id:REAL, Examples: [29389.0, 39310.0, 15408.0]),
+(last_name:TEXT, Examples: [Brown, Cantwell, Cardin]),
+(lis_id:TEXT, Examples: [S307, S275, S308]),
+(maplight_id:REAL, Examples: [168.0, 544.0, 182.0]),
+(middle_name:TEXT, Examples: [L., Richard, P.]),
+(nickname_name:TEXT, Examples: [Bob, Bernie, Jim]),
+(official_full_name:TEXT, Examples: [Sherrod Brown, Maria Cantwell, Benjamin L. Cardin]),
+(opensecrets_id:TEXT, Examples: [N00003535, N00007836, N00001955]),
+(religion_bio:TEXT, Examples: [Lutheran, Roman Catholic, Jewish]),
+(suffix_name:TEXT, Examples: [Jr., III, II]),
+(thomas_id:INTEGER, Examples: [136, 172, 174]),
+(votesmart_id:REAL, Examples: [27018.0, 27122.0, 26888.0]),
+(wikidata_id:TEXT, Examples: [Q381880, Q22250, Q723295]),
+(wikipedia_id:TEXT, Examples: [Sherrod Brown, Maria Cantwell, Ben Cardin])
+]
+# Table: social-media
+[
+(bioguide:TEXT, Primary Key, Examples: [A000055, A000360, A000367]),
+(facebook:TEXT, Examples: [congresswomanaumuaamata]),
+(facebook_id:REAL, Examples: [1537155909907320.0, 186203844738421.0, 351671691660938.0]),
+(govtrack:REAL, Examples: [412664.0, 412428.0, 412667.0]),
+(instagram:TEXT, Examples: [senjoniernst, senatorwarner, SenWhitehouse]),
+(instagram_id:REAL, Examples: [1582702853.0, 515327940.0, 1559860900.0]),
+(thomas:INTEGER, Examples: [2222, 2019, 2283]),
+(twitter:TEXT, Examples: [RepAmata, RepToddYoung, SenJoniErnst]),
+(twitter_id:REAL, Examples: [3026622545.0, 234128524.0, 2856787757.0]),
+(youtube:TEXT, Examples: [RepToddYoung, RepYoder, RepJohnYarmuth]),
+(youtube_id:TEXT, Examples: [UCGdrLQbt1PYDTPsampx4t1A])
+]
+# Table: historical
+[
+(ballotpedia_id:TEXT, Examples: [Mo Cowan, Jo Bonner, Rodney Alexander]),
+(bioguide_id:TEXT, Primary Key, Examples: [A000001, A000002, A000003]),
+(bioguide_previous_id:TEXT, Examples: [['F000246'], ['L000266'], ['W000790']]),
+(birthday_bio:TEXT, Examples: [1745-04-02, 1742-03-21, 1743-06-16]),
+(cspan_id:TEXT, Examples: [12590.0, 4479.0, 103.0]),
+(fec_id:TEXT, Examples: [['S6CO00168'], ['S2MN00126'], ['S0ID00057']]),
+(first_name:TEXT, Examples: [Richard, Theodorick, Aedanus]),
+(gender_bio:TEXT, Examples: [M, F]),
+(google_entity_id_id:TEXT, Examples: [kg:/m/02pz46, kg:/m/033mf4, kg:/m/03yccv]),
+(govtrack_id:INTEGER, Examples: [401222, 401521, 402032]),
+(house_history_alternate_id:TEXT, Examples: [13283.0]),
+(house_history_id:REAL, Examples: [9479.0, 10177.0, 10687.0]),
+(icpsr_id:REAL, Examples: [507.0, 786.0, 1260.0]),
+(last_name:TEXT, Examples: [Bassett, Bland, Burke]),
+(lis_id:TEXT, Examples: [S134, S135, S138]),
+(maplight_id:TEXT, Examples: [232.0, 581.0, 585.0]),
+(middle_name:TEXT, Examples: [Samuel, Henry, Jenifer]),
+(nickname_name:TEXT, Examples: [of Carrollton, of Colchester, of Milton]),
+(official_full_name:TEXT, Examples: [Enid Greene Waldholtz]),
+(opensecrets_id:TEXT, Examples: [N00008333, N00006953, N00009160]),
+(religion_bio:TEXT, Examples: [Baptist, Roman Catholic, Methodist]),
+(suffix_name:TEXT, Examples: [Jr., Sr., II]),
+(thomas_id:TEXT, Examples: [01308, 01270, 01281]),
+(votesmart_id:TEXT, Examples: [52156.0, 128775.0, 26829.0]),
+(wikidata_id:TEXT, Examples: [Q518823, Q1749152, Q380504]),
+(wikipedia_id:TEXT, Examples: [Richard Bassett (politician)])
+]
+【Foreign keys】
+current-terms.bioguide=current.bioguide_id
+historical-terms.bioguide=historical.bioguide_id
+social-media.bioguide=current.bioguide_id

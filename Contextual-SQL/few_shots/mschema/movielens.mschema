@@ -1,0 +1,54 @@
+【DB_ID】 movielens
+【Schema】
+# Table: movies2actors
+[
+(movieid:INTEGER, Primary Key, Examples: [1672052, 1672111, 1672580]),
+(actorid:INTEGER, Primary Key, Examples: [88796, 88848, 121878]),
+(cast_num:INTEGER, Examples: [0, 1, 2])
+]
+# Table: actors
+[
+(actorid:INTEGER, Primary Key, Examples: [4, 16, 28]),
+(a_gender:TEXT, Examples: [M, F]),
+(a_quality:INTEGER, Examples: [4, 0, 3])
+]
+# Table: movies
+[
+(movieid:INTEGER, Primary Key, Examples: [1672052, 1672111, 1672580]),
+(year:INTEGER, Examples: [3, 4, 1]),
+(isEnglish:TEXT, Examples: [T, F]),
+(country:TEXT, Examples: [other, USA, France]),
+(runningtime:INTEGER, Examples: [2, 3, 0])
+]
+# Table: u2base
+[
+(userid:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(movieid:INTEGER, Primary Key, Examples: [1684486, 1685309, 1685493]),
+(rating:TEXT, Examples: [1, 2, 3])
+]
+# Table: directors
+[
+(directorid:INTEGER, Primary Key, Examples: [7387, 12945, 15725]),
+(d_quality:INTEGER, Examples: [0, 1, 2]),
+(avg_revenue:INTEGER, Examples: [0, 1, 2])
+]
+# Table: movies2directors
+[
+(movieid:INTEGER, Primary Key, Examples: [1672052, 1672111, 1672580]),
+(directorid:INTEGER, Primary Key, Examples: [22397, 54934, 297253]),
+(genre:TEXT, Examples: [Action, Adventure, Animation])
+]
+# Table: users
+[
+(userid:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(age:TEXT, Examples: [1, 56, 25]),
+(u_gender:TEXT, Examples: [F, M]),
+(occupation:TEXT, Examples: [2, 3, 4])
+]
+【Foreign keys】
+movies2actors.actorid=actors.actorid
+movies2actors.movieid=movies.movieid
+u2base.movieid=movies.movieid
+u2base.userid=users.userid
+movies2directors.directorid=directors.directorid
+movies2directors.movieid=movies.movieid

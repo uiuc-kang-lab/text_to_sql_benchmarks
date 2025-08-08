@@ -1,0 +1,178 @@
+【DB_ID】 soccer_2016
+【Schema】
+# Table: Country
+[
+(Country_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Country_Name:TEXT, Examples: [India, South Africa, U.A.E])
+]
+# Table: Bowling_Style
+[
+(Bowling_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Bowling_skill:TEXT, Examples: [Right-arm medium])
+]
+# Table: Match
+[
+(Match_Id:INTEGER, Primary Key, Examples: [335987, 335988, 335989]),
+(Team_1:INTEGER, Examples: [2, 4, 6]),
+(Team_2:INTEGER, Examples: [1, 3, 5]),
+(Match_Date:DATE, Examples: [2008-04-18]),
+(Season_Id:INTEGER, Examples: [1, 2, 3]),
+(Venue_Id:INTEGER, Examples: [1, 2, 3]),
+(Toss_Winner:INTEGER, Examples: [2, 3, 5]),
+(Toss_Decide:INTEGER, Examples: [1, 2]),
+(Win_Type:INTEGER, Examples: [1, 2, 4]),
+(Win_Margin:INTEGER, Examples: [140, 33, 9]),
+(Outcome_type:INTEGER, Examples: [1, 3, 2]),
+(Match_Winner:INTEGER, Examples: [1, 3, 6]),
+(Man_of_the_Match:INTEGER, Examples: [2, 19, 90])
+]
+# Table: Outcome
+[
+(Outcome_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Outcome_Type:TEXT, Examples: [Result, No Result, Superover])
+]
+# Table: Toss_Decision
+[
+(Toss_Id:INTEGER, Primary Key, Examples: [1, 2]),
+(Toss_Name:TEXT, Examples: [field, bat])
+]
+# Table: Batsman_Scored
+[
+(Match_Id:INTEGER, Primary Key, Examples: [335987, 335988, 335989]),
+(Over_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Ball_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Runs_Scored:INTEGER, Examples: [0, 1, 4]),
+(Innings_No:INTEGER, Primary Key, Examples: [1, 2, 3])
+]
+# Table: City
+[
+(City_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(City_Name:TEXT, Examples: [Bangalore, Chandigarh, Delhi]),
+(Country_id:INTEGER, Examples: [1, 2, 3])
+]
+# Table: Batting_Style
+[
+(Batting_Id:INTEGER, Primary Key, Examples: [1, 2]),
+(Batting_hand:TEXT, Examples: [Left-hand bat, Right-hand bat])
+]
+# Table: Extra_Type
+[
+(Extra_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Extra_Name:TEXT, Examples: [legbyes, wides, byes])
+]
+# Table: Player_Match
+[
+(Match_Id:INTEGER, Primary Key, Examples: [335987, 335988, 335989]),
+(Player_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Role_Id:INTEGER, Primary Key, Examples: [1, 3, 2]),
+(Team_Id:INTEGER, Examples: [1, 2, 3])
+]
+# Table: Win_By
+[
+(Win_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Win_Type:TEXT, Examples: [runs, wickets, NO Result])
+]
+# Table: Out_Type
+[
+(Out_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Out_Name:TEXT, Examples: [caught, bowled, run out])
+]
+# Table: Venue
+[
+(Venue_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Venue_Name:TEXT, Examples: [M Chinnaswamy Stadium]),
+(City_Id:INTEGER, Examples: [1, 2, 3])
+]
+# Table: Extra_Runs
+[
+(Match_Id:INTEGER, Primary Key, Examples: [335987, 335988, 335989]),
+(Over_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Ball_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Extra_Type_Id:INTEGER, Examples: [1, 2, 3]),
+(Extra_Runs:INTEGER, Examples: [1, 4, 5]),
+(Innings_No:INTEGER, Primary Key, Examples: [1, 2, 3])
+]
+# Table: Rolee
+[
+(Role_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Role_Desc:TEXT, Examples: [Captain, Keeper, Player])
+]
+# Table: Wicket_Taken
+[
+(Match_Id:INTEGER, Primary Key, Examples: [335987, 335988, 335989]),
+(Over_Id:INTEGER, Primary Key, Examples: [2, 3, 5]),
+(Ball_Id:INTEGER, Primary Key, Examples: [1, 2, 5]),
+(Player_Out:INTEGER, Examples: [6, 8, 9]),
+(Kind_Out:INTEGER, Examples: [2, 1, 3]),
+(Fielders:INTEGER, Examples: [83, 9, 3]),
+(Innings_No:INTEGER, Primary Key, Examples: [2, 1, 3])
+]
+# Table: Team
+[
+(Team_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Team_Name:TEXT, Examples: [Kolkata Knight Riders])
+]
+# Table: Umpire
+[
+(Umpire_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Umpire_Name:TEXT, Examples: [Asad Rauf, MR Benson, Aleem Dar]),
+(Umpire_Country:INTEGER, Examples: [6, 10, 4])
+]
+# Table: Season
+[
+(Season_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Man_of_the_Series:INTEGER, Examples: [32, 53, 133]),
+(Orange_Cap:INTEGER, Examples: [100, 18, 133]),
+(Purple_Cap:INTEGER, Examples: [102, 61, 131]),
+(Season_Year:INTEGER, Examples: [2008, 2009, 2010])
+]
+# Table: Ball_by_Ball
+[
+(Match_Id:INTEGER, Primary Key, Examples: [335987, 335988, 335989]),
+(Over_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Ball_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Innings_No:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Team_Batting:INTEGER, Examples: [1, 2, 3]),
+(Team_Bowling:INTEGER, Examples: [2, 1, 4]),
+(Striker_Batting_Position:INTEGER, Examples: [1, 2, 3]),
+(Striker:INTEGER, Examples: [1, 6, 2]),
+(Non_Striker:INTEGER, Examples: [2, 7, 1]),
+(Bowler:INTEGER, Examples: [14, 106, 15])
+]
+# Table: Player
+[
+(Player_Id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Player_Name:TEXT, Examples: [SC Ganguly, BB McCullum, RT Ponting]),
+(DOB:DATE, Examples: [1972-07-08]),
+(Batting_hand:INTEGER, Examples: [1, 2]),
+(Bowling_skill:INTEGER, Examples: [1, 2, 3]),
+(Country_Name:INTEGER, Examples: [1, 4, 5])
+]
+【Foreign keys】
+Country.Country_Id=Country.Country_Id
+Match.Team_1=Team.Team_Id
+Match.Team_2=Team.Team_Id
+Match.Season_Id=Season.Season_Id
+Match.Venue_Id=Venue.Venue_Id
+Match.Toss_Winner=Team.Team_Id
+Match.Toss_Decide=Toss_Decision.Toss_Id
+Match.Win_Type=Win_By.Win_Id
+Match.Outcome_type=Out_Type.Out_Id
+Match.Match_Winner=Team.Team_Id
+Match.Man_of_the_Match=Player.Player_Id
+Batsman_Scored.Match_Id=Match.Match_Id
+Player_Match.Match_Id=Match.Match_Id
+Player_Match.Player_Id=Player.Player_Id
+Player_Match.Team_Id=Team.Team_Id
+Player_Match.Role_Id=Rolee.Role_Id
+Venue.City_Id=City.City_Id
+Extra_Runs.Extra_Type_Id=Extra_Type.Extra_Id
+Wicket_Taken.Match_Id=Match.Match_Id
+Wicket_Taken.Player_Out=Player.Player_Id
+Wicket_Taken.Kind_Out=Out_Type.Out_Id
+Wicket_Taken.Fielders=Player.Player_Id
+Umpire.Umpire_Country=Country.Country_Id
+Ball_by_Ball.Match_Id=Match.Match_Id
+Player.Batting_hand=Batting_Style.Batting_Id
+Player.Bowling_skill=Bowling_Style.Bowling_Id
+Player.Country_Name=Country.Country_Id

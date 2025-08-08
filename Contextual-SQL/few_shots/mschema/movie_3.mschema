@@ -1,0 +1,162 @@
+【DB_ID】 movie_3
+【Schema】
+# Table: inventory
+[
+(inventory_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(film_id:INTEGER, Examples: [1, 2, 3]),
+(store_id:INTEGER, Examples: [1, 2]),
+(last_update:DATETIME)
+]
+# Table: film_actor
+[
+(actor_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(film_id:INTEGER, Primary Key, Examples: [1, 23, 25]),
+(last_update:DATETIME)
+]
+# Table: film_text
+[
+(film_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(title:TEXT, Examples: [ACADEMY DINOSAUR, ACE GOLDFINGER, ADAPTATION HOLES]),
+(description:TEXT)
+]
+# Table: film_category
+[
+(film_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(category_id:INTEGER, Primary Key, Examples: [6, 11, 8]),
+(last_update:DATETIME)
+]
+# Table: store
+[
+(store_id:INTEGER, Primary Key, Examples: [1, 2]),
+(manager_staff_id:INTEGER, Examples: [1, 2]),
+(address_id:INTEGER, Examples: [1, 2]),
+(last_update:DATETIME)
+]
+# Table: film
+[
+(film_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(title:TEXT, Examples: [ACADEMY DINOSAUR, ACE GOLDFINGER, ADAPTATION HOLES]),
+(description:TEXT),
+(release_year:TEXT, Examples: [2006]),
+(language_id:INTEGER, Examples: [1]),
+(original_language_id:INTEGER),
+(rental_duration:INTEGER, Examples: [6, 3, 7]),
+(rental_rate:REAL, Examples: [0.99, 4.99, 2.99]),
+(length:INTEGER, Examples: [86, 48, 50]),
+(replacement_cost:REAL, Examples: [20.99, 12.99, 18.99]),
+(rating:TEXT, Examples: [PG, G, NC-17]),
+(special_features:TEXT, Examples: [Deleted Scenes,Behind the Scenes]),
+(last_update:DATETIME)
+]
+# Table: payment
+[
+(payment_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(customer_id:INTEGER, Examples: [1, 2, 3]),
+(staff_id:INTEGER, Examples: [1, 2]),
+(rental_id:INTEGER, Examples: [76, 573, 1185]),
+(amount:REAL, Examples: [2.99, 0.99, 5.99]),
+(payment_date:DATETIME),
+(last_update:DATETIME)
+]
+# Table: staff
+[
+(staff_id:INTEGER, Primary Key, Examples: [1, 2]),
+(first_name:TEXT, Examples: [Mike, Jon]),
+(last_name:TEXT, Examples: [Hillyer, Stephens]),
+(address_id:INTEGER, Examples: [3, 4]),
+(picture:BLOB),
+(email:TEXT),
+(store_id:INTEGER, Examples: [1, 2]),
+(active:INTEGER, Examples: [1]),
+(username:TEXT, Examples: [Mike, Jon]),
+(password:TEXT, Examples: [8cb2237d0679ca88db6464eac60da96345513964]),
+(last_update:DATETIME)
+]
+# Table: category
+[
+(category_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(name:TEXT, Examples: [Action, Animation, Children]),
+(last_update:DATETIME)
+]
+# Table: address
+[
+(address_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(address:TEXT, Examples: [47 MySakila Drive, 28 MySQL Boulevard, 23 Workhaven Lane]),
+(address2:TEXT),
+(district:TEXT, Examples: [Alberta, QLD, Nagasaki]),
+(city_id:INTEGER, Examples: [300, 576, 463]),
+(postal_code:TEXT, Examples: [35200, 17886, 83579]),
+(phone:TEXT, Examples: [14033335568, 6172235589, 28303384290]),
+(last_update:DATETIME)
+]
+# Table: city
+[
+(city_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(city:TEXT, Examples: [A Corua (La Corua), Abha, Abu Dhabi]),
+(country_id:INTEGER, Examples: [87, 82, 101]),
+(last_update:DATETIME)
+]
+# Table: rental
+[
+(rental_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(rental_date:DATETIME),
+(inventory_id:INTEGER, Examples: [367, 1525, 1711]),
+(customer_id:INTEGER, Examples: [130, 459, 408]),
+(return_date:DATETIME),
+(staff_id:INTEGER, Examples: [1, 2]),
+(last_update:DATETIME)
+]
+# Table: country
+[
+(country_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(country:TEXT, Examples: [Afghanistan, Algeria, American Samoa]),
+(last_update:DATETIME)
+]
+# Table: actor
+[
+(actor_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(first_name:TEXT, Examples: [PENELOPE, NICK, ED]),
+(last_name:TEXT, Examples: [GUINESS, WAHLBERG, CHASE]),
+(last_update:DATETIME)
+]
+# Table: language
+[
+(language_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(name:TEXT, Examples: [English, Italian, Japanese]),
+(last_update:DATETIME)
+]
+# Table: customer
+[
+(customer_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(store_id:INTEGER, Examples: [1, 2]),
+(first_name:TEXT, Examples: [MARY, PATRICIA, LINDA]),
+(last_name:TEXT, Examples: [SMITH, JOHNSON, WILLIAMS]),
+(email:TEXT),
+(address_id:INTEGER, Examples: [5, 6, 7]),
+(active:INTEGER, Examples: [1, 0]),
+(create_date:DATETIME),
+(last_update:DATETIME)
+]
+【Foreign keys】
+inventory.store_id=store.store_id
+inventory.film_id=film.film_id
+film_actor.film_id=film.film_id
+film_actor.actor_id=actor.actor_id
+film_category.category_id=category.category_id
+film_category.film_id=film.film_id
+store.address_id=address.address_id
+store.manager_staff_id=staff.staff_id
+film.original_language_id=language.language_id
+film.language_id=language.language_id
+payment.rental_id=rental.rental_id
+payment.staff_id=staff.staff_id
+payment.customer_id=customer.customer_id
+staff.store_id=store.store_id
+staff.address_id=address.address_id
+address.city_id=city.city_id
+city.country_id=country.country_id
+rental.staff_id=staff.staff_id
+rental.customer_id=customer.customer_id
+rental.inventory_id=inventory.inventory_id
+customer.address_id=address.address_id
+customer.store_id=store.store_id

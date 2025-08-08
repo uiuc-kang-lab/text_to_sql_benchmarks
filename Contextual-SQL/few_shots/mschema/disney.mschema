@@ -1,0 +1,45 @@
+【DB_ID】 disney
+【Schema】
+# Table: director
+[
+(name:TEXT, Primary Key, Examples: [101 Dalmatians, Aladdin, Alice in Wonderland]),
+(director:TEXT, Examples: [David Hand, Ben Sharpsteen, full credits])
+]
+# Table: voice-actors
+[
+(character:TEXT, Primary Key, Examples: [Abby Mallard, Abigail Gabble, Abis Mal]),
+(voice-actor:TEXT, Examples: [Joan Cusack, Monica Evans, Jason Alexander]),
+(movie:TEXT, Examples: [Chicken Little, The Aristocats, The Return of Jafar])
+]
+# Table: characters
+[
+(movie_title:TEXT, Primary Key, Examples: [Aladdin]),
+(release_date:TEXT, Examples: [21-Dec-37, 7-Feb-40, 13-Nov-40]),
+(hero:TEXT, Examples: [Snow White, Pinocchio, Dumbo]),
+(villian:TEXT, Examples: [Evil Queen, Stromboli, Chernabog]),
+(song:TEXT, Examples: [Some Day My Prince Will Come])
+]
+# Table: revenue
+[
+(Year:INTEGER, Primary Key, Examples: [1991, 1992, 1993]),
+(Studio Entertainment[NI 1]:REAL, Examples: [2593.0, 3115.0, 3673.4]),
+(Disney Consumer Products[NI 2]:REAL, Examples: [724.0, 1081.0, 1415.1]),
+(Disney Interactive[NI 3][Rev 1]:INTEGER, Examples: [174, 260, 206]),
+(Walt Disney Parks and Resorts:REAL, Examples: [2794.0, 3306.0, 3440.7]),
+(Disney Media Networks:TEXT, Examples: [359, 414, 4,142]),
+(Total:INTEGER, Examples: [6111, 7502, 8529])
+]
+# Table: movies_total_gross
+[
+(movie_title:TEXT, Primary Key, Examples: [101 Dalmatians]),
+(release_date:TEXT, Primary Key, Examples: [Jan 25, 1961, Nov 27, 1996, Nov 22, 2000]),
+(genre:TEXT, Examples: [Musical, Adventure, Drama]),
+(MPAA_rating:TEXT, Examples: [G, Not Rated, PG]),
+(total_gross:TEXT, Examples: [$184,925,485, $84,300,000, $83,320,000]),
+(inflation_adjusted_gross:TEXT, Examples: [$5,228,953,251, $2,188,229,052, $2,187,090,808])
+]
+【Foreign keys】
+director.name=characters.movie_title
+voice-actors.movie=characters.movie_title
+characters.hero=voice-actors.character
+movies_total_gross.movie_title=characters.movie_title

@@ -1,0 +1,30 @@
+【DB_ID】 genes
+【Schema】
+# Table: Genes
+[
+(GeneID:TEXT, Examples: [G234064, G234065, G234070]),
+(Essential:TEXT, Examples: [Essential, Non-Essential, ?]),
+(Class:TEXT, Examples: [GTP/GDP-exchange factors (GEFs)]),
+(Complex:TEXT, Examples: [Translation complexes]),
+(Phenotype:TEXT, Examples: [?]),
+(Motif:TEXT, Examples: [PS00824, PS00825, ?]),
+(Chromosome:INTEGER, Examples: [1, 2, 3]),
+(Function:TEXT),
+(Localization:TEXT, Examples: [cytoplasm, cytoskeleton, nucleus])
+]
+# Table: Interactions
+[
+(GeneID1:TEXT, Primary Key, Examples: [G234064, G234065, G234073]),
+(GeneID2:TEXT, Primary Key, Examples: [G234126, G235065, G234371]),
+(Type:TEXT, Examples: [Genetic-Physical, Genetic, Physical]),
+(Expression_Corr:REAL, Examples: [0.914095071, 0.751584888, 0.823773738])
+]
+# Table: Classification
+[
+(GeneID:TEXT, Primary Key, Examples: [G234064, G234065, G234070]),
+(Localization:TEXT, Examples: [cytoplasm, cytoskeleton, nucleus])
+]
+【Foreign keys】
+Genes.GeneID=Classification.GeneID
+Interactions.GeneID1=Classification.GeneID
+Interactions.GeneID2=Classification.GeneID

@@ -1,0 +1,76 @@
+【DB_ID】 retail_world
+【Schema】
+# Table: Suppliers
+[
+(SupplierID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(SupplierName:TEXT, Examples: [Exotic Liquid]),
+(ContactName:TEXT, Examples: [Charlotte Cooper, Shelley Burke, Regina Murphy]),
+(Address:TEXT, Examples: [49 Gilbert St., P.O. Box 78934, 707 Oxford Rd.]),
+(City:TEXT, Examples: [Londona, New Orleans, Ann Arbor]),
+(PostalCode:TEXT, Examples: [EC1 4SD, 70117, 48104]),
+(Country:TEXT, Examples: [UK, USA, Japan]),
+(Phone:TEXT, Examples: [(171) 555-2222, (100) 555-4822, (313) 555-5735])
+]
+# Table: Products
+[
+(ProductID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(ProductName:TEXT, Examples: [Chais, Chang, Aniseed Syrup]),
+(SupplierID:INTEGER, Examples: [1, 2, 3]),
+(CategoryID:INTEGER, Examples: [1, 2, 7]),
+(Unit:TEXT, Examples: [10 boxes x 20 bags, 24 - 12 oz bottles, 12 - 550 ml bottles]),
+(Price:REAL, Examples: [18.0, 19.0, 10.0])
+]
+# Table: Orders
+[
+(OrderID:INTEGER, Primary Key, Examples: [10248, 10249, 10250]),
+(CustomerID:INTEGER, Examples: [90, 81, 34]),
+(EmployeeID:INTEGER, Examples: [5, 6, 4]),
+(OrderDate:DATETIME, Examples: [1996-07-04 00:00:00]),
+(ShipperID:INTEGER, Examples: [3, 1, 2])
+]
+# Table: OrderDetails
+[
+(OrderDetailID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(OrderID:INTEGER, Examples: [10248, 10249, 10250]),
+(ProductID:INTEGER, Examples: [11, 42, 72]),
+(Quantity:INTEGER, Examples: [12, 10, 5])
+]
+# Table: Categories
+[
+(CategoryID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(CategoryName:TEXT, Examples: [Beverages, Condiments, Confections]),
+(Description:TEXT)
+]
+# Table: Customers
+[
+(CustomerID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(CustomerName:TEXT, Examples: [Alfreds Futterkiste]),
+(ContactName:TEXT, Examples: [Maria Anders, Ana Trujillo, Antonio Moreno]),
+(Address:TEXT, Examples: [Obere Str. 57]),
+(City:TEXT, Examples: [Berlin, México D.F., London]),
+(PostalCode:TEXT, Examples: [12209, 5021, 5023]),
+(Country:TEXT, Examples: [Germany, Mexico, UK])
+]
+# Table: Employees
+[
+(EmployeeID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(LastName:TEXT, Examples: [Davolio, Fuller, Leverling]),
+(FirstName:TEXT, Examples: [Nancy, Andrew, Janet]),
+(BirthDate:DATE, Examples: [1968-12-08]),
+(Photo:TEXT, Examples: [EmpID1.pic, EmpID2.pic, EmpID3.pic]),
+(Notes:TEXT)
+]
+# Table: Shippers
+[
+(ShipperID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(ShipperName:TEXT, Examples: [Speedy Express, United Package, Federal Shipping]),
+(Phone:TEXT, Examples: [(503) 555-9831, (503) 555-3199, (503) 555-9931])
+]
+【Foreign keys】
+Products.CategoryID=Categories.CategoryID
+Products.SupplierID=Suppliers.SupplierID
+Orders.EmployeeID=Employees.EmployeeID
+Orders.CustomerID=Customers.CustomerID
+Orders.ShipperID=Shippers.ShipperID
+OrderDetails.OrderID=Orders.OrderID
+OrderDetails.ProductID=Products.ProductID

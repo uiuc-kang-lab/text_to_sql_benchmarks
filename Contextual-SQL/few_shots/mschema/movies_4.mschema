@@ -1,0 +1,124 @@
+【DB_ID】 movies_4
+【Schema】
+# Table: movie
+[
+(movie_id:INTEGER, Primary Key, Examples: [5, 11, 12]),
+(title:TEXT, Examples: [Four Rooms, Star Wars, Finding Nemo]),
+(budget:INTEGER, Examples: [4000000, 11000000, 94000000]),
+(homepage:TEXT),
+(overview:TEXT),
+(popularity:REAL, Examples: [22.87623, 126.393695, 85.688789]),
+(release_date:DATE, Examples: [1995-12-09]),
+(revenue:INTEGER, Examples: [4300000, 775398007, 940335536]),
+(runtime:INTEGER, Examples: [98, 121, 100]),
+(movie_status:TEXT, Examples: [Released, Rumored, Post Production]),
+(tagline:TEXT),
+(vote_average:REAL, Examples: [6.5, 8.1, 7.6]),
+(vote_count:INTEGER, Examples: [530, 6624, 6122])
+]
+# Table: production_country
+[
+(movie_id:INTEGER, Examples: [5, 11, 12]),
+(country_id:INTEGER, Examples: [214, 131, 152])
+]
+# Table: movie_crew
+[
+(movie_id:INTEGER, Examples: [285, 559, 767]),
+(person_id:INTEGER, Examples: [120, 1704, 770]),
+(department_id:INTEGER, Examples: [1, 2, 3]),
+(job:TEXT, Examples: [Director of Photography])
+]
+# Table: movie_keywords
+[
+(movie_id:INTEGER, Examples: [5, 11, 12]),
+(keyword_id:INTEGER, Examples: [612, 613, 616])
+]
+# Table: movie_languages
+[
+(movie_id:INTEGER, Examples: [5, 11, 12]),
+(language_id:INTEGER, Examples: [24574, 24575, 24576]),
+(language_role_id:INTEGER, Examples: [2, 1])
+]
+# Table: movie_cast
+[
+(movie_id:INTEGER, Examples: [285, 559, 767]),
+(person_id:INTEGER, Examples: [85, 114, 116]),
+(character_name:TEXT, Examples: [Captain Jack Sparrow, Will Turner, Elizabeth Swann]),
+(gender_id:INTEGER, Examples: [2, 1, 0]),
+(cast_order:INTEGER, Examples: [0, 1, 2])
+]
+# Table: genre
+[
+(genre_id:INTEGER, Primary Key, Examples: [12, 14, 16]),
+(genre_name:TEXT, Examples: [Adventure, Fantasy, Animation])
+]
+# Table: movie_genres
+[
+(movie_id:INTEGER, Examples: [5, 11, 12]),
+(genre_id:INTEGER, Examples: [35, 80, 12])
+]
+# Table: person
+[
+(person_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(person_name:TEXT, Examples: [George Lucas, Mark Hamill, Harrison Ford])
+]
+# Table: movie_company
+[
+(movie_id:INTEGER, Examples: [5, 11, 12]),
+(company_id:INTEGER, Examples: [14, 59, 1])
+]
+# Table: language_role
+[
+(role_id:INTEGER, Primary Key, Examples: [1, 2]),
+(language_role:TEXT, Examples: [Original, Spoken])
+]
+# Table: gender
+[
+(gender_id:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(gender:TEXT, Examples: [Unspecified, Female, Male])
+]
+# Table: keyword
+[
+(keyword_id:INTEGER, Primary Key, Examples: [30, 65, 74]),
+(keyword_name:TEXT, Examples: [individual, holiday, germany])
+]
+# Table: department
+[
+(department_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(department_name:TEXT, Examples: [Camera, Directing, Production])
+]
+# Table: country
+[
+(country_id:INTEGER, Primary Key, Examples: [128, 129, 130]),
+(country_iso_code:TEXT, Examples: [AE, AF, AO]),
+(country_name:TEXT, Examples: [United Arab Emirates, Afghanistan, Angola])
+]
+# Table: language
+[
+(language_id:INTEGER, Primary Key, Examples: [24574, 24575, 24576]),
+(language_code:TEXT, Examples: [en, sv, de]),
+(language_name:TEXT, Examples: [English, svenska, Deutsch])
+]
+# Table: production_company
+[
+(company_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(company_name:TEXT, Examples: [Lucasfilm])
+]
+【Foreign keys】
+production_country.country_id=country.country_id
+production_country.movie_id=movie.movie_id
+movie_crew.department_id=department.department_id
+movie_crew.movie_id=movie.movie_id
+movie_crew.person_id=person.person_id
+movie_keywords.keyword_id=keyword.keyword_id
+movie_keywords.movie_id=movie.movie_id
+movie_languages.language_id=language.language_id
+movie_languages.movie_id=movie.movie_id
+movie_languages.language_role_id=language_role.role_id
+movie_cast.gender_id=gender.gender_id
+movie_cast.movie_id=movie.movie_id
+movie_cast.person_id=person.person_id
+movie_genres.genre_id=genre.genre_id
+movie_genres.movie_id=movie.movie_id
+movie_company.company_id=production_company.company_id
+movie_company.movie_id=movie.movie_id

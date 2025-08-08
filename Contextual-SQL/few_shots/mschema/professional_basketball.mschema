@@ -1,0 +1,202 @@
+【DB_ID】 professional_basketball
+【Schema】
+# Table: players_teams
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(playerID:TEXT, Examples: [abdelal01, abdulka01, abdulma01]),
+(year:INTEGER, Examples: [1990, 1991, 1992]),
+(stint:INTEGER, Examples: [1, 2, 0]),
+(tmID:TEXT, Examples: [POR, MIL, BOS]),
+(lgID:TEXT, Examples: [NBA, NBL, ABA]),
+(GP:INTEGER, Examples: [43, 71, 12]),
+(GS:INTEGER, Examples: [0, 69, 62]),
+(minutes:INTEGER, Examples: [290, 934, 159]),
+(points:INTEGER, Examples: [135, 432, 64]),
+(oRebounds:INTEGER, Examples: [27, 81, 12]),
+(dRebounds:INTEGER, Examples: [62, 179, 25]),
+(rebounds:INTEGER, Examples: [89, 260, 37]),
+(assists:INTEGER, Examples: [12, 30, 10]),
+(steals:INTEGER, Examples: [4, 25, 6]),
+(blocks:INTEGER, Examples: [12, 17, 4]),
+(turnovers:INTEGER, Examples: [22, 66, 0]),
+(PF:INTEGER, Examples: [39, 132, 24]),
+(fgAttempted:INTEGER, Examples: [116, 361, 56]),
+(fgMade:INTEGER, Examples: [55, 178, 26]),
+(ftAttempted:INTEGER, Examples: [44, 101, 16]),
+(ftMade:INTEGER, Examples: [25, 76, 12]),
+(threeAttempted:INTEGER, Examples: [0, 1, 2]),
+(threeMade:INTEGER, Examples: [0, 1, 24]),
+(PostGP:INTEGER, Examples: [5, 8, 0]),
+(PostGS:INTEGER, Examples: [0, 6, 3]),
+(PostMinutes:INTEGER, Examples: [13, 25, 0]),
+(PostPoints:INTEGER, Examples: [4, 12, 0]),
+(PostoRebounds:INTEGER, Examples: [1, 0, 2]),
+(PostdRebounds:INTEGER, Examples: [2, 4, 0]),
+(PostRebounds:INTEGER, Examples: [3, 4, 0]),
+(PostAssists:INTEGER, Examples: [0, 2, 1]),
+(PostSteals:INTEGER, Examples: [0, 20, 19]),
+(PostBlocks:INTEGER, Examples: [0, 1, 39]),
+(PostTurnovers:INTEGER, Examples: [0, 2, 9]),
+(PostPF:INTEGER, Examples: [0, 4, 7]),
+(PostfgAttempted:INTEGER, Examples: [6, 10, 0]),
+(PostfgMade:INTEGER, Examples: [2, 5, 0]),
+(PostftAttempted:INTEGER, Examples: [0, 4, 101]),
+(PostftMade:INTEGER, Examples: [0, 2, 74]),
+(PostthreeAttempted:INTEGER, Examples: [0, 1, 2]),
+(PostthreeMade:INTEGER, Examples: [0, 12, 2]),
+(note:TEXT, Examples: [C])
+]
+# Table: draft
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(draftYear:INTEGER, Examples: [1967, 1968, 1969]),
+(draftRound:INTEGER, Examples: [0, 1, 2]),
+(draftSelection:INTEGER, Examples: [0, 3, 4]),
+(draftOverall:INTEGER, Examples: [0, 3, 4]),
+(tmID:TEXT, Examples: [ANA, DNR, DLC]),
+(firstName:TEXT, Examples: [Darrell, Bob, Mike]),
+(lastName:TEXT, Examples: [Hardy, Krulish, Lewis]),
+(suffixName:TEXT, Examples: [Jr.]),
+(playerID:TEXT, Examples: [hardyda01, lewisbo01, lynnmi01]),
+(draftFrom:TEXT, Examples: [Baylor, Pacific, North Carolina]),
+(lgID:TEXT, Examples: [ABA, NBA])
+]
+# Table: series_post
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(year:INTEGER, Examples: [1946, 1947, 1948]),
+(round:TEXT, Examples: [F, QF, SF]),
+(series:TEXT, Examples: [O, M, N]),
+(tmIDWinner:TEXT, Examples: [PHW, NYK, CHS]),
+(lgIDWinner:TEXT, Examples: [NBA, ABA]),
+(tmIDLoser:TEXT, Examples: [CHS, CLR, STB]),
+(lgIDLoser:TEXT, Examples: [NBA, ABA]),
+(W:INTEGER, Examples: [4, 2, 1]),
+(L:INTEGER, Examples: [1, 0, 2])
+]
+# Table: players
+[
+(playerID:TEXT, Primary Key, Examples: [abdelal01, abdulka01, abdulma01]),
+(useFirst:TEXT, Examples: [Alaa, Kareem, Mahdi]),
+(firstName:TEXT, Examples: [Alaa, Kareem, Mahdi]),
+(middleName:TEXT, Examples: [Shareef, Craig, Edward]),
+(lastName:TEXT, Examples: [Abdelnaby, Abdul-Jabbar, Abdul-Rahman]),
+(nameGiven:TEXT, Examples: [nameGiven, Mort, Robert]),
+(fullGivenName:TEXT, Examples: [Ferdinand Lewis Alcindor, Jr.]),
+(nameSuffix:TEXT, Examples: [Jr., III, nameSuffix]),
+(nameNick:TEXT, Examples: [Lew, Cap, Walt, Don, The Kangaroo]),
+(pos:TEXT, Examples: [F-C, C, G]),
+(firstseason:INTEGER, Examples: [0, 1951]),
+(lastseason:INTEGER, Examples: [0, 1951]),
+(height:REAL, Examples: [82.0, 85.0, 74.0]),
+(weight:INTEGER, Examples: [240, 225, 185]),
+(college:TEXT, Examples: [Duke, UCLA, Louisiana State]),
+(collegeOther:TEXT, Examples: [Santa Monica City, Michigan, Louisville]),
+(birthDate:DATE, Examples: [1968-06-24]),
+(birthCity:TEXT, Examples: [Cairo, New York, Wilmington]),
+(birthState:TEXT, Examples: [NY, DE, MS]),
+(birthCountry:TEXT, Examples: [EGY, USA, FRA]),
+(highSchool:TEXT, Examples: [Bloomfield Senior, Power Memorial, Overbrook / Moton]),
+(hsCity:TEXT, Examples: [Bloomfield]),
+(hsState:TEXT, Examples: [NJ, NY, PA / MD]),
+(hsCountry:TEXT, Examples: [USA, FRA, NGR]),
+(deathDate:DATE),
+(race:TEXT, Examples: [B, W, O])
+]
+# Table: teams
+[
+(year:INTEGER, Primary Key, Examples: [1937, 1938, 1939]),
+(lgID:TEXT, Examples: [NBL, NBA, PBLA]),
+(tmID:TEXT, Primary Key, Examples: [AFS, AGW, BFB]),
+(franchID:TEXT, Examples: [AFS, AGW, BFB]),
+(confID:TEXT, Examples: [EC, WC]),
+(divID:TEXT, Examples: [EA, WE, ED]),
+(rank:INTEGER, Examples: [1, 2, 4]),
+(confRank:INTEGER, Examples: [0, 4, 3]),
+(playoff:TEXT, Examples: [CF, WC, LC]),
+(name:TEXT, Examples: [Akron Firestone Non-Skids]),
+(o_fgm:INTEGER, Examples: [249, 243, 108]),
+(o_ftm:INTEGER, Examples: [183, 159, 46]),
+(o_pts:INTEGER, Examples: [681, 645, 262]),
+(d_pts:INTEGER, Examples: [578, 498, 275]),
+(homeWon:INTEGER, Examples: [8, 2, 3]),
+(homeLost:INTEGER, Examples: [1, 2, 3]),
+(awayWon:INTEGER, Examples: [5, 1, 0]),
+(awayLost:INTEGER, Examples: [3, 4, 5]),
+(won:INTEGER, Examples: [14, 13, 3]),
+(lost:INTEGER, Examples: [4, 5, 6]),
+(games:INTEGER, Examples: [18, 9, 10]),
+(arena:TEXT, Examples: [Boston Garden, Chicago Stadium, Cleveland Arena])
+]
+# Table: awards_coaches
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(year:INTEGER, Examples: [1962, 1963, 1964]),
+(coachID:TEXT, Examples: [gallaha01, hannual01, auerbre01]),
+(award:TEXT, Examples: [NBA Coach of the Year]),
+(lgID:TEXT, Examples: [NBA, ABA]),
+(note:TEXT, Examples: [tie])
+]
+# Table: awards_players
+[
+(playerID:TEXT, Primary Key, Examples: [abdulka01, abdulma02, adamsal01]),
+(award:TEXT, Primary Key, Examples: [All-Defensive Second Team]),
+(year:INTEGER, Primary Key, Examples: [1969, 1970, 1971]),
+(lgID:TEXT, Examples: [NBA, ABA, NBL]),
+(note:TEXT, Examples: [tie]),
+(pos:TEXT, Examples: [C, F, G])
+]
+# Table: player_allstar
+[
+(playerID:TEXT, Primary Key, Examples: [abdulka01, abdursh01, adamsal01]),
+(last_name:TEXT, Examples: [Abdul-Jabbar, A-Rahim, Adams]),
+(first_name:TEXT, Examples: [Kareem, Shareef, Alvan]),
+(season_id:INTEGER, Primary Key, Examples: [1969, 1970, 1971]),
+(conference:TEXT, Examples: [East, West, Weset]),
+(league_id:TEXT, Examples: [NBA, ABA]),
+(games_played:INTEGER, Examples: [1]),
+(minutes:INTEGER, Examples: [18, 30, 19]),
+(points:INTEGER, Examples: [10, 19, 12]),
+(o_rebounds:INTEGER, Examples: [1, 2, 0]),
+(d_rebounds:INTEGER, Examples: [2, 5, 0]),
+(rebounds:INTEGER, Examples: [11, 14, 7]),
+(assists:INTEGER, Examples: [4, 1, 2]),
+(steals:INTEGER, Examples: [3, 0, 1]),
+(blocks:INTEGER, Examples: [2, 0, 1]),
+(turnovers:INTEGER, Examples: [1, 0, 3]),
+(personal_fouls:INTEGER, Examples: [3, 2, 0]),
+(fg_attempted:INTEGER, Examples: [8, 16, 10]),
+(fg_made:INTEGER, Examples: [4, 8, 5]),
+(ft_attempted:INTEGER, Examples: [2, 4, 0]),
+(ft_made:INTEGER, Examples: [2, 3, 0]),
+(three_attempted:INTEGER, Examples: [0, 1, 6]),
+(three_made:INTEGER, Examples: [0, 1, 3])
+]
+# Table: coaches
+[
+(coachID:TEXT, Primary Key, Examples: [adelmri01, adubari01, aingeda01]),
+(year:INTEGER, Primary Key, Examples: [1988, 1989, 1990]),
+(tmID:TEXT, Primary Key, Examples: [POR, GSW, SAC]),
+(lgID:TEXT, Examples: [NBA, ABA, ABL1]),
+(stint:INTEGER, Primary Key, Examples: [2, 1, 4]),
+(won:INTEGER, Examples: [14, 59, 63]),
+(lost:INTEGER, Examples: [21, 23, 19]),
+(post_wins:INTEGER, Examples: [0, 12, 9]),
+(post_losses:INTEGER, Examples: [3, 9, 7])
+]
+【Foreign keys】
+players_teams.tmID=teams.tmID
+players_teams.year=teams.year
+players_teams.playerID=players.playerID
+draft.tmID=teams.tmID
+draft.draftYear=teams.year
+series_post.tmIDWinner=teams.tmID
+series_post.year=teams.year
+series_post.tmIDLoser=teams.tmID
+series_post.year=teams.year
+awards_coaches.coachID=coaches.coachID
+awards_coaches.year=coaches.year
+awards_players.playerID=players.playerID
+player_allstar.playerID=players.playerID
+coaches.tmID=teams.tmID
+coaches.year=teams.year

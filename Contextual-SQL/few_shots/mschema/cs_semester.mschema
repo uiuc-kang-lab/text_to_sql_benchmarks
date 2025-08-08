@@ -1,0 +1,50 @@
+【DB_ID】 cs_semester
+【Schema】
+# Table: student
+[
+(student_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(f_name:TEXT, Examples: [Kerry, Chrysa, Elsy]),
+(l_name:TEXT, Examples: [Pryor, Dine-Hart, Shiril]),
+(phone_number:TEXT, Examples: [(243) 6836472, (672) 9245255, (521) 7680522]),
+(email:TEXT),
+(intelligence:INTEGER, Examples: [5, 2, 1]),
+(gpa:REAL, Examples: [2.4, 2.7, 3.5]),
+(type:TEXT, Examples: [RPG, TPG, UG])
+]
+# Table: registration
+[
+(course_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(student_id:INTEGER, Primary Key, Examples: [2, 3, 4]),
+(grade:TEXT, Examples: [A, B, C]),
+(sat:INTEGER, Examples: [5, 4, 3])
+]
+# Table: course
+[
+(course_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(name:TEXT, Examples: [Machine Learning Theory]),
+(credit:INTEGER, Examples: [3, 2]),
+(diff:INTEGER, Examples: [3, 4, 1])
+]
+# Table: prof
+[
+(prof_id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(gender:TEXT, Examples: [Male, Female]),
+(first_name:TEXT, Examples: [Nathaniel, Zhihua, Ogdon]),
+(last_name:TEXT, Examples: [Pigford, Zhou, Zywicki]),
+(email:TEXT),
+(popularity:INTEGER, Examples: [3, 2]),
+(teachingability:INTEGER, Examples: [5, 1, 2]),
+(graduate_from:TEXT, Examples: [University of Washington])
+]
+# Table: RA
+[
+(student_id:INTEGER, Primary Key, Examples: [2, 5, 6]),
+(capability:INTEGER, Examples: [2, 5, 4]),
+(prof_id:INTEGER, Primary Key, Examples: [7, 10, 13]),
+(salary:TEXT, Examples: [med, high, low])
+]
+【Foreign keys】
+registration.course_id=course.course_id
+registration.student_id=student.student_id
+RA.prof_id=prof.prof_id
+RA.student_id=student.student_id

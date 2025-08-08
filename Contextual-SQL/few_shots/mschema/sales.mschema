@@ -1,0 +1,34 @@
+【DB_ID】 sales
+【Schema】
+# Table: Employees
+[
+(EmployeeID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(FirstName:TEXT, Examples: [Abraham, Reginald, Cheryl]),
+(MiddleInitial:TEXT, Examples: [e, l, a]),
+(LastName:TEXT, Examples: [Bennet, Blotchet-Halls, Carson])
+]
+# Table: Sales
+[
+(SalesID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(SalesPersonID:INTEGER, Examples: [17, 5, 8]),
+(CustomerID:INTEGER, Examples: [10482, 1964, 12300]),
+(ProductID:INTEGER, Examples: [500, 306, 123]),
+(Quantity:INTEGER, Examples: [500, 810, 123])
+]
+# Table: Products
+[
+(ProductID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Name:TEXT, Examples: [Adjustable Race, Bearing Ball, BB Ball Bearing]),
+(Price:REAL, Examples: [1.6, 0.8, 2.4])
+]
+# Table: Customers
+[
+(CustomerID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(FirstName:TEXT, Examples: [Aaron, Abby, Abe]),
+(MiddleInitial:TEXT, Examples: [A, B, C]),
+(LastName:TEXT, Examples: [Alexander, Bryant, Butler])
+]
+【Foreign keys】
+Sales.SalesPersonID=Employees.EmployeeID
+Sales.CustomerID=Customers.CustomerID
+Sales.ProductID=Products.ProductID

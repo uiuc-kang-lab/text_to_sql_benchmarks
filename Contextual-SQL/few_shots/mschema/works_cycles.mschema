@@ -1,0 +1,740 @@
+【DB_ID】 works_cycles
+【Schema】
+# Table: WorkOrderRouting
+[
+(WorkOrderID:INTEGER, Primary Key, Examples: [13, 14, 15]),
+(ProductID:INTEGER, Primary Key, Examples: [747, 748, 749]),
+(OperationSequence:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(LocationID:INTEGER, Examples: [10, 20, 30]),
+(ScheduledStartDate:DATETIME),
+(ScheduledEndDate:DATETIME),
+(ActualStartDate:DATETIME),
+(ActualEndDate:DATETIME),
+(ActualResourceHrs:REAL, Examples: [4.1, 3.5, 1.0]),
+(PlannedCost:REAL, Examples: [92.25, 87.5, 14.5]),
+(ActualCost:REAL, Examples: [92.25, 87.5, 14.5]),
+(ModifiedDate:DATETIME)
+]
+# Table: Currency
+[
+(CurrencyCode:TEXT, Primary Key, Examples: [AED, AFA, ALL]),
+(Name:TEXT, Examples: [Afghani, Algerian Dinar, Argentine Peso]),
+(ModifiedDate:DATETIME)
+]
+# Table: CreditCard
+[
+(CreditCardID:INTEGER, Primary Key, Examples: [11935, 12094, 10246]),
+(CardType:TEXT, Examples: [SuperiorCard, Distinguish, ColonialVoice]),
+(CardNumber:TEXT, Examples: [11111000471254, 11111002034157, 11111005230447]),
+(ExpMonth:INTEGER, Examples: [11, 8, 7]),
+(ExpYear:INTEGER, Examples: [2006, 2005, 2007]),
+(ModifiedDate:DATETIME)
+]
+# Table: Culture
+[
+(CultureID:TEXT, Primary Key, Examples: [ar, en, es]),
+(Name:TEXT, Examples: [Arabic, Chinese, English]),
+(ModifiedDate:DATETIME)
+]
+# Table: Password
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(PasswordHash:TEXT, Examples: [pbFwXWE99vobT6g+vPWFy93NtUU/orrIWafF01hccfM=]),
+(PasswordSalt:TEXT, Examples: [bE3XiWw=, EjJaC3U=, wbPZqMw=]),
+(rowguid:TEXT, Examples: [329EACBE-C883-4F48-B8B6-17AA4627EFFF]),
+(ModifiedDate:DATETIME)
+]
+# Table: CountryRegionCurrency
+[
+(CountryRegionCode:TEXT, Primary Key, Examples: [AE, AR, AT]),
+(CurrencyCode:TEXT, Primary Key, Examples: [AED, ARS, ATS]),
+(ModifiedDate:DATETIME)
+]
+# Table: SalesPerson
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [287, 275, 288]),
+(TerritoryID:INTEGER, Examples: [2, 4, 3]),
+(SalesQuota:REAL, Examples: [300000.0, 250000.0]),
+(Bonus:REAL, Examples: [0.0, 4100.0, 2000.0]),
+(CommissionPct:REAL, Examples: [0.0, 0.012, 0.015]),
+(SalesYTD:REAL, Examples: [559697.5639, 3763178.1787, 4251368.5497]),
+(SalesLastYear:REAL, Examples: [0.0, 1750406.4785, 1439156.0291]),
+(rowguid:TEXT, Examples: [1DD1F689-DF74-4149-8600-59555EEF154B]),
+(ModifiedDate:DATETIME)
+]
+# Table: SpecialOffer
+[
+(SpecialOfferID:INTEGER, Primary Key, Examples: [1, 15, 9]),
+(Description:TEXT, Examples: [No Discount]),
+(DiscountPct:REAL, Examples: [0.0]),
+(Type:TEXT, Examples: [No Discount, Volume Discount, Discontinued Product]),
+(Category:TEXT, Examples: [No Discount, Reseller, Customer]),
+(StartDate:DATETIME),
+(EndDate:DATETIME),
+(MinQty:INTEGER, Examples: [0, 11, 15]),
+(MaxQty:INTEGER, Examples: [14, 24, 40]),
+(rowguid:TEXT, Examples: [0290C4F5-191F-4337-AB6B-0A2DDE03CBF9]),
+(ModifiedDate:DATETIME)
+]
+# Table: SalesTerritoryHistory
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [275, 276, 277]),
+(TerritoryID:INTEGER, Primary Key, Examples: [2, 3, 4]),
+(StartDate:DATETIME, Primary Key),
+(EndDate:DATETIME),
+(rowguid:TEXT, Examples: [009F7660-44A6-4ADF-BD4B-A5D1B79993F5]),
+(ModifiedDate:DATETIME)
+]
+# Table: PurchaseOrderHeader
+[
+(PurchaseOrderID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(RevisionNumber:INTEGER, Examples: [4, 5, 6]),
+(Status:INTEGER, Examples: [4, 1, 3]),
+(EmployeeID:INTEGER, Examples: [258, 254, 257]),
+(VendorID:INTEGER, Examples: [1580, 1496, 1494]),
+(ShipMethodID:INTEGER, Examples: [3, 5, 2]),
+(OrderDate:DATETIME),
+(ShipDate:DATETIME),
+(SubTotal:REAL, Examples: [201.04, 272.1015, 8847.3]),
+(TaxAmt:REAL, Examples: [16.0832, 21.7681, 707.784]),
+(Freight:REAL, Examples: [5.026, 6.8025, 221.1825]),
+(TotalDue:REAL, Examples: [222.1492, 300.6721, 9776.2665]),
+(ModifiedDate:DATETIME)
+]
+# Table: SalesTerritory
+[
+(TerritoryID:INTEGER, Primary Key, Examples: [2, 10, 6]),
+(Name:TEXT, Examples: [Australia, Canada, Central]),
+(CountryRegionCode:TEXT, Examples: [US, CA, FR]),
+(Group:TEXT, Examples: [North America, Europe, Pacific]),
+(SalesYTD:REAL, Examples: [7887186.7882, 2402176.8476, 3072175.118]),
+(SalesLastYear:REAL, Examples: [3298694.4938, 3607148.9371, 3205014.0767]),
+(CostYTD:REAL, Examples: [0.0]),
+(CostLastYear:REAL, Examples: [0.0]),
+(rowguid:TEXT, Examples: [00FB7309-96CC-49E2-8363-0A1BA72486F2]),
+(ModifiedDate:DATETIME)
+]
+# Table: SpecialOfferProduct
+[
+(SpecialOfferID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(ProductID:INTEGER, Primary Key, Examples: [680, 706, 707]),
+(rowguid:TEXT, Examples: [0020931C-087C-42F8-B441-EBE3D3B5F51E]),
+(ModifiedDate:DATETIME)
+]
+# Table: SalesOrderHeaderSalesReason
+[
+(SalesOrderID:INTEGER, Primary Key, Examples: [43697, 43702, 43703]),
+(SalesReasonID:INTEGER, Primary Key, Examples: [5, 9, 2]),
+(ModifiedDate:DATETIME)
+]
+# Table: ProductModel
+[
+(ProductModelID:INTEGER, Primary Key, Examples: [82, 57, 51]),
+(Name:TEXT, Examples: [All-Purpose Bike Stand]),
+(CatalogDescription:TEXT),
+(Instructions:TEXT),
+(rowguid:TEXT, Examples: [00CE9171-8944-4D49-BA37-485C1D122F5C]),
+(ModifiedDate:DATETIME)
+]
+# Table: UnitMeasure
+[
+(UnitMeasureCode:TEXT, Primary Key, Examples: [BOX, BTL, C]),
+(Name:TEXT, Examples: [Bottle, Boxes, Canister]),
+(ModifiedDate:DATETIME)
+]
+# Table: CountryRegion
+[
+(CountryRegionCode:TEXT, Primary Key, Examples: [AD, AE, AF]),
+(Name:TEXT, Examples: [Afghanistan, Albania, Algeria]),
+(ModifiedDate:DATETIME)
+]
+# Table: Department
+[
+(DepartmentID:INTEGER, Primary Key, Examples: [12, 1, 16]),
+(Name:TEXT, Examples: [Document Control, Engineering, Executive]),
+(GroupName:TEXT, Examples: [Research and Development]),
+(ModifiedDate:DATETIME)
+]
+# Table: Vendor
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [1596, 1496, 1494]),
+(AccountNumber:TEXT, Examples: [ADATUM0001, ADVANCED0001, ALLENSON0001]),
+(Name:TEXT, Examples: [Australia Bike Retailer]),
+(CreditRating:INTEGER, Examples: [1, 2, 4]),
+(PreferredVendorStatus:INTEGER, Examples: [1, 0]),
+(ActiveFlag:INTEGER, Examples: [1, 0]),
+(PurchasingWebServiceURL:TEXT, Examples: [www.litwareinc.com/]),
+(ModifiedDate:DATETIME)
+]
+# Table: BusinessEntity
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [8722, 4079, 17708]),
+(rowguid:TEXT, Examples: [00021813-91EF-4A97-9682-0D2AC8C9EA97]),
+(ModifiedDate:DATETIME)
+]
+# Table: SalesTaxRate
+[
+(SalesTaxRateID:INTEGER, Primary Key, Examples: [1, 4, 18]),
+(StateProvinceID:INTEGER, Examples: [1, 6, 7]),
+(TaxType:INTEGER, Examples: [1, 2, 3]),
+(TaxRate:REAL, Examples: [14.0, 14.25, 7.0]),
+(Name:TEXT, Examples: [Canadian GST + Alberta Provincial Tax]),
+(rowguid:TEXT, Examples: [05C4FFDB-4F84-4CDF-ABE5-FDF3216EA74E]),
+(ModifiedDate:DATETIME)
+]
+# Table: EmployeeDepartmentHistory
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(DepartmentID:INTEGER, Primary Key, Examples: [16, 1, 2]),
+(ShiftID:INTEGER, Primary Key, Examples: [1, 3, 2]),
+(StartDate:DATE, Primary Key, Examples: [2009-01-14]),
+(EndDate:DATE, Examples: [2010-05-30]),
+(ModifiedDate:DATETIME)
+]
+# Table: ScrapReason
+[
+(ScrapReasonID:INTEGER, Primary Key, Examples: [1, 2, 4]),
+(Name:TEXT, Examples: [Brake assembly not as ordered]),
+(ModifiedDate:DATETIME)
+]
+# Table: ProductListPriceHistory
+[
+(ProductID:INTEGER, Primary Key, Examples: [707, 708, 709]),
+(StartDate:DATE, Primary Key),
+(EndDate:DATE),
+(ListPrice:REAL, Examples: [33.6442, 34.99, 9.5]),
+(ModifiedDate:DATETIME)
+]
+# Table: ProductProductPhoto
+[
+(ProductID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(ProductPhotoID:INTEGER, Primary Key, Examples: [1, 160, 162]),
+(Primary:INTEGER, Examples: [1]),
+(ModifiedDate:DATETIME)
+]
+# Table: ProductVendor
+[
+(ProductID:INTEGER, Primary Key, Examples: [1, 2, 4]),
+(BusinessEntityID:INTEGER, Primary Key, Examples: [1580, 1688, 1650]),
+(AverageLeadTime:INTEGER, Examples: [17, 19, 15]),
+(StandardPrice:REAL, Examples: [47.87, 39.92, 54.31]),
+(LastReceiptCost:REAL, Examples: [50.2635, 41.916, 57.0255]),
+(LastReceiptDate:DATETIME),
+(MinOrderQty:INTEGER, Examples: [1, 100, 20]),
+(MaxOrderQty:INTEGER, Examples: [5, 1000, 100]),
+(OnOrderQty:INTEGER, Examples: [3, 300, 60]),
+(UnitMeasureCode:TEXT, Examples: [CS, CTN, EA]),
+(ModifiedDate:DATETIME)
+]
+# Table: Person
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [14617, 18779, 17993]),
+(PersonType:TEXT, Examples: [EM, SP, SC]),
+(NameStyle:INTEGER, Examples: [0]),
+(Title:TEXT, Examples: [Ms., Mr., Sr.]),
+(FirstName:TEXT, Examples: [Ken, Terri, Roberto]),
+(MiddleName:TEXT, Examples: [J, Lee, A]),
+(LastName:TEXT, Examples: [Sánchez, Duffy, Tamburello]),
+(Suffix:TEXT, Examples: [III, Jr., II]),
+(EmailPromotion:INTEGER, Examples: [0, 1, 2]),
+(AdditionalContactInfo:TEXT),
+(Demographics:TEXT),
+(rowguid:TEXT, Examples: [000191EF-7424-4A5F-AB19-0852B1F0B78D]),
+(ModifiedDate:DATETIME)
+]
+# Table: Address
+[
+(AddressID:INTEGER, Primary Key, Examples: [18089, 23192, 25702]),
+(AddressLine1:TEXT, Examples: [#500-75 O'Connor Street]),
+(AddressLine2:TEXT, Examples: [Space 55, Unit B-105, #3]),
+(City:TEXT, Examples: [Ottawa, Burnaby, Dunkerque]),
+(StateProvinceID:INTEGER, Examples: [57, 7, 145]),
+(PostalCode:TEXT, Examples: [K4B 1S2, V5A 4X1, 59140]),
+(SpatialLocation:TEXT),
+(rowguid:TEXT, Examples: [00093F9C-0487-4723-B376-D90FF565AD6F]),
+(ModifiedDate:DATETIME)
+]
+# Table: ProductModelProductDescriptionCulture
+[
+(ProductModelID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(ProductDescriptionID:INTEGER, Primary Key, Examples: [1199, 1467, 1589]),
+(CultureID:TEXT, Primary Key, Examples: [en, ar, fr]),
+(ModifiedDate:DATETIME)
+]
+# Table: Store
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [630, 956, 1954]),
+(Name:TEXT, Examples: [Next-Door Bike Store]),
+(SalesPersonID:INTEGER, Examples: [279, 276, 277]),
+(Demographics:TEXT),
+(rowguid:TEXT, Examples: [004EA91C-FCD4-4973-87EF-9059C6E20BB5]),
+(ModifiedDate:DATETIME)
+]
+# Table: TransactionHistory
+[
+(TransactionID:INTEGER, Primary Key, Examples: [100000, 100001, 100002]),
+(ProductID:INTEGER, Examples: [784, 794, 797]),
+(ReferenceOrderID:INTEGER, Examples: [41590, 41591, 41592]),
+(ReferenceOrderLineID:INTEGER, Examples: [0, 1, 2]),
+(TransactionDate:DATETIME),
+(TransactionType:TEXT, Examples: [W, S, P]),
+(Quantity:INTEGER, Examples: [2, 1, 3]),
+(ActualCost:REAL, Examples: [0.0, 6.0, 875.0]),
+(ModifiedDate:DATETIME)
+]
+# Table: ProductDescription
+[
+(ProductDescriptionID:INTEGER, Primary Key, Examples: [1954, 1370, 1662]),
+(Description:TEXT, Examples: [Chromoly steel.]),
+(rowguid:TEXT, Examples: [00FFDFAC-0207-4DF0-8051-7D3C884816F3]),
+(ModifiedDate:DATETIME)
+]
+# Table: Customer
+[
+(CustomerID:INTEGER, Primary Key),
+(PersonID:INTEGER),
+(StoreID:INTEGER),
+(TerritoryID:INTEGER),
+(AccountNumber:TEXT),
+(rowguid:TEXT),
+(ModifiedDate:DATETIME)
+]
+# Table: StateProvince
+[
+(StateProvinceID:INTEGER, Primary Key, Examples: [103, 101, 152]),
+(StateProvinceCode:TEXT, Examples: [01, 02, 03]),
+(CountryRegionCode:TEXT, Examples: [FR, CA, US]),
+(IsOnlyStateProvinceFlag:INTEGER, Examples: [0, 1]),
+(Name:TEXT, Examples: [Ain, Aisne, Alabama]),
+(TerritoryID:INTEGER, Examples: [6, 1, 5]),
+(rowguid:TEXT, Examples: [00723E00-C976-401D-A92B-E582DF3D6E01]),
+(ModifiedDate:DATETIME)
+]
+# Table: SalesOrderDetail
+[
+(SalesOrderID:INTEGER, Examples: [43659, 43660, 43661]),
+(SalesOrderDetailID:INTEGER, Primary Key, Examples: [54351, 90855, 78765]),
+(CarrierTrackingNumber:TEXT, Examples: [4911-403C-98, 6431-4D57-83, 4E0A-4F89-AE]),
+(OrderQty:INTEGER, Examples: [1, 3, 2]),
+(ProductID:INTEGER, Examples: [776, 777, 778]),
+(SpecialOfferID:INTEGER, Examples: [1, 2, 3]),
+(UnitPrice:REAL, Examples: [2025.0, 2040.0, 29.0]),
+(UnitPriceDiscount:REAL, Examples: [0.0]),
+(LineTotal:REAL, Examples: [2025.0, 6075.0, 2040.0]),
+(rowguid:TEXT, Examples: [0000C99C-2B71-4885-B976-C1CCAE896EF2]),
+(ModifiedDate:DATETIME)
+]
+# Table: CurrencyRate
+[
+(CurrencyRateID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(CurrencyRateDate:DATETIME),
+(FromCurrencyCode:TEXT, Examples: [USD]),
+(ToCurrencyCode:TEXT, Examples: [ARS, AUD, BRL]),
+(AverageRate:REAL, Examples: [1.0, 1.5491, 1.9379]),
+(EndOfDayRate:REAL, Examples: [1.0002, 1.55, 1.9419]),
+(ModifiedDate:DATETIME)
+]
+# Table: SalesPersonQuotaHistory
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [274, 275, 276]),
+(QuotaDate:DATETIME, Primary Key),
+(SalesQuota:REAL, Examples: [28000.0, 7000.0, 91000.0]),
+(rowguid:TEXT, Examples: [00F2F9F8-5158-4436-B134-7E0C462289E5]),
+(ModifiedDate:DATETIME)
+]
+# Table: ProductPhoto
+[
+(ProductPhotoID:INTEGER, Primary Key, Examples: [69, 70, 72]),
+(ThumbNailPhoto:BLOB),
+(ThumbnailPhotoFileName:TEXT, Examples: [racer02_black_f_small.gif]),
+(LargePhoto:BLOB),
+(LargePhotoFileName:TEXT, Examples: [racer02_black_f_large.gif]),
+(ModifiedDate:DATETIME)
+]
+# Table: WorkOrder
+[
+(WorkOrderID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(ProductID:INTEGER, Examples: [722, 725, 726]),
+(OrderQty:INTEGER, Examples: [8, 15, 9]),
+(StockedQty:INTEGER, Examples: [8, 15, 9]),
+(ScrappedQty:INTEGER, Examples: [0, 1, 3]),
+(StartDate:DATETIME),
+(EndDate:DATETIME),
+(DueDate:DATETIME),
+(ScrapReasonID:INTEGER, Examples: [7, 11, 14]),
+(ModifiedDate:DATETIME)
+]
+# Table: AddressType
+[
+(AddressTypeID:INTEGER, Primary Key, Examples: [4, 2, 3]),
+(Name:TEXT, Examples: [Archive, Billing, Home]),
+(rowguid:TEXT, Examples: [24CB3088-4345-47C4-86C5-17B535133D1E]),
+(ModifiedDate:DATETIME)
+]
+# Table: EmailAddress
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(EmailAddressID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(EmailAddress:TEXT),
+(rowguid:TEXT, Examples: [8A1901E4-671B-431A-871C-EADB2942E9EE]),
+(ModifiedDate:DATETIME)
+]
+# Table: ProductCategory
+[
+(ProductCategoryID:INTEGER, Primary Key, Examples: [3, 4, 2]),
+(Name:TEXT, Examples: [Accessories, Bikes, Clothing]),
+(rowguid:TEXT, Examples: [10A7C342-CA82-48D4-8A38-46A2EB089B74]),
+(ModifiedDate:DATETIME)
+]
+# Table: Shift
+[
+(ShiftID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Name:TEXT, Examples: [Day, Evening, Night]),
+(StartTime:TEXT, Examples: [07:00:00, 15:00:00, 23:00:00]),
+(EndTime:TEXT, Examples: [15:00:00, 23:00:00, 07:00:00]),
+(ModifiedDate:DATETIME)
+]
+# Table: Employee
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [151, 170, 121]),
+(NationalIDNumber:TEXT, Examples: [10708100, 109272464, 112432117]),
+(LoginID:TEXT, Examples: [adventure-works\alan0]),
+(OrganizationNode:TEXT, Examples: [/1/, /1/1/, /1/1/1/]),
+(OrganizationLevel:INTEGER, Examples: [1, 2, 3]),
+(JobTitle:TEXT, Examples: [Chief Executive Officer]),
+(BirthDate:DATE, Examples: [1969-01-29]),
+(MaritalStatus:TEXT, Examples: [S, M]),
+(Gender:TEXT, Examples: [M, F]),
+(HireDate:DATE, Examples: [2009-01-14]),
+(SalariedFlag:INTEGER, Examples: [1, 0]),
+(VacationHours:INTEGER, Examples: [99, 1, 2]),
+(SickLeaveHours:INTEGER, Examples: [69, 20, 21]),
+(CurrentFlag:INTEGER, Examples: [1]),
+(rowguid:TEXT, Examples: [00027A8C-C2F8-4A31-ABA8-8A203638B8F1]),
+(ModifiedDate:DATETIME)
+]
+# Table: BusinessEntityAddress
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(AddressID:INTEGER, Primary Key, Examples: [249, 293, 224]),
+(AddressTypeID:INTEGER, Primary Key, Examples: [2, 3, 5]),
+(rowguid:TEXT, Examples: [00013363-E32F-4615-9439-AFF156D480AE]),
+(ModifiedDate:DATETIME)
+]
+# Table: ShipMethod
+[
+(ShipMethodID:INTEGER, Primary Key, Examples: [4, 3, 2]),
+(Name:TEXT, Examples: [CARGO TRANSPORT 5, OVERNIGHT J-FAST, OVERSEAS - DELUXE]),
+(ShipBase:REAL, Examples: [3.95, 9.95, 29.95]),
+(ShipRate:REAL, Examples: [0.99, 1.99, 2.99]),
+(rowguid:TEXT, Examples: [107E8356-E7A8-463D-B60C-079FFF467F3F]),
+(ModifiedDate:DATETIME)
+]
+# Table: ContactType
+[
+(ContactTypeID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Name:TEXT, Examples: [Accounting Manager]),
+(ModifiedDate:DATETIME)
+]
+# Table: TransactionHistoryArchive
+[
+(TransactionID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(ProductID:INTEGER, Examples: [1, 359, 360]),
+(ReferenceOrderID:INTEGER, Examples: [1, 2, 3]),
+(ReferenceOrderLineID:INTEGER, Examples: [1, 2, 3]),
+(TransactionDate:DATETIME),
+(TransactionType:TEXT, Examples: [P, S, W]),
+(Quantity:INTEGER, Examples: [4, 3, 550]),
+(ActualCost:REAL, Examples: [50.0, 45.0, 46.0]),
+(ModifiedDate:DATETIME)
+]
+# Table: SalesOrderHeader
+[
+(SalesOrderID:INTEGER, Primary Key, Examples: [71821, 44088, 62204]),
+(RevisionNumber:INTEGER, Examples: [8, 9]),
+(OrderDate:DATETIME),
+(DueDate:DATETIME),
+(ShipDate:DATETIME),
+(Status:INTEGER, Examples: [5]),
+(OnlineOrderFlag:INTEGER, Examples: [0, 1]),
+(SalesOrderNumber:TEXT, Examples: [SO43659, SO43660, SO43661]),
+(PurchaseOrderNumber:TEXT, Examples: [PO522145787, PO18850127500, PO18473189620]),
+(AccountNumber:TEXT, Examples: [10-4020-000676, 10-4020-000117, 10-4020-000442]),
+(CustomerID:INTEGER, Examples: [29825, 29672, 29734]),
+(SalesPersonID:INTEGER, Examples: [279, 282, 276]),
+(TerritoryID:INTEGER, Examples: [5, 6, 4]),
+(BillToAddressID:INTEGER, Examples: [985, 921, 517]),
+(ShipToAddressID:INTEGER, Examples: [985, 921, 517]),
+(ShipMethodID:INTEGER, Examples: [5, 1]),
+(CreditCardID:INTEGER, Examples: [16281, 5618, 1346]),
+(CreditCardApprovalCode:TEXT, Examples: [105041Vi84182, 115213Vi29411, 85274Vi6854]),
+(CurrencyRateID:INTEGER, Examples: [4, 8, 2]),
+(SubTotal:REAL, Examples: [20565.6206, 1294.2529, 32726.4786]),
+(TaxAmt:REAL, Examples: [1971.5149, 124.2483, 3153.7696]),
+(Freight:REAL, Examples: [616.0984, 38.8276, 985.553]),
+(TotalDue:REAL, Examples: [23153.2339, 1457.3288, 36865.8012]),
+(Comment:TEXT),
+(rowguid:TEXT, Examples: [0000DE87-AB3F-4920-AC46-C404834241A0]),
+(ModifiedDate:DATETIME)
+]
+# Table: ProductReview
+[
+(ProductReviewID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(ProductID:INTEGER, Examples: [709, 937, 798]),
+(ReviewerName:TEXT, Examples: [John Smith, David, Jill]),
+(ReviewDate:DATETIME),
+(EmailAddress:TEXT),
+(Rating:INTEGER, Examples: [5, 4, 2]),
+(Comments:TEXT),
+(ModifiedDate:DATETIME)
+]
+# Table: Product
+[
+(ProductID:INTEGER, Primary Key, Examples: [921, 351, 776]),
+(Name:TEXT, Examples: [AWC Logo Cap]),
+(ProductNumber:TEXT, Examples: [AR-5381, BA-8327, BB-7421]),
+(MakeFlag:INTEGER, Examples: [0, 1]),
+(FinishedGoodsFlag:INTEGER, Examples: [0, 1]),
+(Color:TEXT, Examples: [Black, Silver, Red]),
+(SafetyStockLevel:INTEGER, Examples: [1000, 800, 500]),
+(ReorderPoint:INTEGER, Examples: [750, 600, 375]),
+(StandardCost:REAL, Examples: [0.0, 98.77, 108.99]),
+(ListPrice:REAL, Examples: [0.0, 133.34, 147.14]),
+(Size:TEXT, Examples: [58, M, L]),
+(SizeUnitMeasureCode:TEXT, Examples: [CM]),
+(WeightUnitMeasureCode:TEXT, Examples: [G, LB]),
+(Weight:REAL, Examples: [435.0, 450.0, 400.0]),
+(DaysToManufacture:INTEGER, Examples: [0, 1, 2]),
+(ProductLine:TEXT, Examples: [R, S, M]),
+(Class:TEXT, Examples: [L, M, H]),
+(Style:TEXT, Examples: [U, W, M]),
+(ProductSubcategoryID:INTEGER, Examples: [14, 31, 23]),
+(ProductModelID:INTEGER, Examples: [6, 33, 18]),
+(SellStartDate:DATETIME),
+(SellEndDate:DATETIME),
+(DiscontinuedDate:DATETIME),
+(rowguid:TEXT, Examples: [01A8C3FC-ED52-458E-A634-D5B6E2ACCFED]),
+(ModifiedDate:DATETIME)
+]
+# Table: BusinessEntityContact
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [292, 294, 296]),
+(PersonID:INTEGER, Primary Key, Examples: [291, 293, 295]),
+(ContactTypeID:INTEGER, Primary Key, Examples: [11, 14, 15]),
+(rowguid:TEXT, Examples: [0022434C-E325-47B0-92A0-7302FFA5046F]),
+(ModifiedDate:DATETIME)
+]
+# Table: ProductCostHistory
+[
+(ProductID:INTEGER, Primary Key, Examples: [707, 708, 709]),
+(StartDate:DATE, Primary Key),
+(EndDate:DATE),
+(StandardCost:REAL, Examples: [12.0278, 13.8782, 13.0863]),
+(ModifiedDate:DATETIME)
+]
+# Table: PersonCreditCard
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [293, 295, 297]),
+(CreditCardID:INTEGER, Primary Key, Examples: [17038, 15369, 8010]),
+(ModifiedDate:DATETIME)
+]
+# Table: BillOfMaterials
+[
+(BillOfMaterialsID:INTEGER, Primary Key, Examples: [893, 271, 34]),
+(ProductAssemblyID:INTEGER, Examples: [3, 316, 324]),
+(ComponentID:INTEGER, Examples: [749, 750, 751]),
+(StartDate:DATETIME),
+(EndDate:DATETIME),
+(UnitMeasureCode:TEXT, Examples: [EA, IN, OZ]),
+(BOMLevel:INTEGER, Examples: [2, 1, 0]),
+(PerAssemblyQty:REAL, Examples: [1.0, 3.0, 2.0]),
+(ModifiedDate:DATETIME)
+]
+# Table: ProductDocument
+[
+(ProductID:INTEGER, Primary Key, Examples: [317, 318, 319]),
+(DocumentNode:TEXT, Primary Key, Examples: [/2/1/, /3/1/, /3/2/]),
+(ModifiedDate:DATETIME)
+]
+# Table: ProductInventory
+[
+(ProductID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(LocationID:INTEGER, Primary Key, Examples: [1, 6, 50]),
+(Shelf:TEXT, Examples: [A, B, C]),
+(Bin:INTEGER, Examples: [1, 5, 2]),
+(Quantity:INTEGER, Examples: [408, 324, 353]),
+(rowguid:TEXT, Examples: [47A24246-6C43-48EB-968F-025738A8A410]),
+(ModifiedDate:DATETIME)
+]
+# Table: PurchaseOrderDetail
+[
+(PurchaseOrderID:INTEGER, Examples: [1, 2, 3]),
+(PurchaseOrderDetailID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(DueDate:DATETIME),
+(OrderQty:INTEGER, Examples: [4, 3, 550]),
+(ProductID:INTEGER, Examples: [1, 359, 360]),
+(UnitPrice:REAL, Examples: [50.0, 45.0, 46.0]),
+(LineTotal:REAL, Examples: [201.0, 135.0, 137.0]),
+(ReceivedQty:REAL, Examples: [3.0, 550.0, 2.0]),
+(RejectedQty:REAL, Examples: [0.0, 1.0, 82.0]),
+(StockedQty:REAL, Examples: [3.0, 550.0, 1.0]),
+(ModifiedDate:DATETIME)
+]
+# Table: ShoppingCartItem
+[
+(ShoppingCartItemID:INTEGER, Primary Key, Examples: [2, 4, 5]),
+(ShoppingCartID:TEXT, Examples: [14951, 20621]),
+(Quantity:INTEGER, Examples: [3, 4, 7]),
+(ProductID:INTEGER, Examples: [862, 881, 874]),
+(DateCreated:DATETIME),
+(ModifiedDate:DATETIME)
+]
+# Table: Location
+[
+(LocationID:INTEGER, Primary Key, Examples: [30, 60, 7]),
+(Name:TEXT, Examples: [Debur and Polish]),
+(CostRate:REAL, Examples: [0.0, 22.5, 25.0]),
+(Availability:REAL, Examples: [0.0, 96.0, 108.0]),
+(ModifiedDate:DATETIME)
+]
+# Table: JobCandidate
+[
+(JobCandidateID:INTEGER, Primary Key, Examples: [2, 3, 4]),
+(BusinessEntityID:INTEGER, Examples: [274, 212]),
+(Resume:TEXT),
+(ModifiedDate:DATETIME)
+]
+# Table: PhoneNumberType
+[
+(PhoneNumberTypeID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Name:TEXT, Examples: [Cell, Home, Work]),
+(ModifiedDate:DATETIME)
+]
+# Table: SalesReason
+[
+(SalesReasonID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(Name:TEXT, Examples: [Price]),
+(ReasonType:TEXT, Examples: [Other, Promotion, Marketing]),
+(ModifiedDate:DATETIME)
+]
+# Table: Document
+[
+(DocumentNode:TEXT, Primary Key, Examples: [/, /1/, /2/]),
+(DocumentLevel:INTEGER, Examples: [0, 1, 2]),
+(Title:TEXT, Examples: [Documents, Overview, Introduction 1]),
+(Owner:INTEGER, Examples: [217, 219, 220]),
+(FolderFlag:INTEGER, Examples: [1, 0]),
+(FileName:TEXT, Examples: [Documents, Overview, Introduction 1.doc]),
+(FileExtension:TEXT, Examples: [.doc]),
+(Revision:TEXT, Examples: [0, 4, 2]),
+(ChangeNumber:INTEGER, Examples: [0, 28, 8]),
+(Status:INTEGER, Examples: [2, 1, 3]),
+(DocumentSummary:TEXT),
+(Document:BLOB),
+(rowguid:TEXT, Examples: [26A266F1-1D23-40E2-AF48-6AB8D954FE37]),
+(ModifiedDate:DATETIME)
+]
+# Table: EmployeePayHistory
+[
+(BusinessEntityID:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(RateChangeDate:DATETIME, Primary Key),
+(Rate:REAL, Examples: [125.5, 63.4615, 43.2692]),
+(PayFrequency:INTEGER, Examples: [2, 1]),
+(ModifiedDate:DATETIME)
+]
+# Table: ProductSubcategory
+[
+(ProductSubcategoryID:INTEGER, Primary Key, Examples: [2, 3, 15]),
+(ProductCategoryID:INTEGER, Examples: [1, 2, 3]),
+(Name:TEXT, Examples: [Bib-Shorts, Bike Racks, Bike Stands]),
+(rowguid:TEXT, Examples: [000310C0-BCC8-42C4-B0C3-45AE611AF06B]),
+(ModifiedDate:DATETIME)
+]
+【Foreign keys】
+WorkOrderRouting.WorkOrderID=WorkOrder.WorkOrderID
+WorkOrderRouting.LocationID=Location.LocationID
+Password.BusinessEntityID=Person.BusinessEntityID
+CountryRegionCurrency.CountryRegionCode=CountryRegion.CountryRegionCode
+CountryRegionCurrency.CurrencyCode=Currency.CurrencyCode
+SalesPerson.BusinessEntityID=Employee.BusinessEntityID
+SalesPerson.TerritoryID=SalesTerritory.TerritoryID
+SalesTerritoryHistory.BusinessEntityID=SalesPerson.BusinessEntityID
+SalesTerritoryHistory.TerritoryID=SalesTerritory.TerritoryID
+PurchaseOrderHeader.EmployeeID=Employee.BusinessEntityID
+PurchaseOrderHeader.VendorID=Vendor.BusinessEntityID
+PurchaseOrderHeader.ShipMethodID=ShipMethod.ShipMethodID
+SalesTerritory.CountryRegionCode=CountryRegion.CountryRegionCode
+SpecialOfferProduct.SpecialOfferID=SpecialOffer.SpecialOfferID
+SpecialOfferProduct.ProductID=Product.ProductID
+SalesOrderHeaderSalesReason.SalesOrderID=SalesOrderHeader.SalesOrderID
+SalesOrderHeaderSalesReason.SalesReasonID=SalesReason.SalesReasonID
+Vendor.BusinessEntityID=BusinessEntity.BusinessEntityID
+SalesTaxRate.StateProvinceID=StateProvince.StateProvinceID
+EmployeeDepartmentHistory.ShiftID=Shift.ShiftID
+EmployeeDepartmentHistory.DepartmentID=Department.DepartmentID
+EmployeeDepartmentHistory.BusinessEntityID=Employee.BusinessEntityID
+ProductListPriceHistory.ProductID=Product.ProductID
+ProductProductPhoto.ProductID=Product.ProductID
+ProductProductPhoto.ProductPhotoID=ProductPhoto.ProductPhotoID
+ProductVendor.ProductID=Product.ProductID
+ProductVendor.BusinessEntityID=Vendor.BusinessEntityID
+ProductVendor.UnitMeasureCode=UnitMeasure.UnitMeasureCode
+Person.BusinessEntityID=BusinessEntity.BusinessEntityID
+Address.StateProvinceID=StateProvince.StateProvinceID
+ProductModelProductDescriptionCulture.ProductModelID=ProductModel.ProductModelID
+ProductModelProductDescriptionCulture.ProductDescriptionID=ProductDescription.ProductDescriptionID
+ProductModelProductDescriptionCulture.CultureID=Culture.CultureID
+Store.BusinessEntityID=BusinessEntity.BusinessEntityID
+Store.SalesPersonID=SalesPerson.BusinessEntityID
+TransactionHistory.ProductID=Product.ProductID
+Customer.PersonID=Person.BusinessEntityID
+Customer.TerritoryID=SalesTerritory.TerritoryID
+Customer.StoreID=Store.BusinessEntityID
+StateProvince.TerritoryID=SalesTerritory.TerritoryID
+StateProvince.CountryRegionCode=CountryRegion.CountryRegionCode
+SalesOrderDetail.SalesOrderID=SalesOrderHeader.SalesOrderID
+SalesOrderDetail.SpecialOfferID=SpecialOfferProduct.SpecialOfferID
+SalesOrderDetail.ProductID=SpecialOfferProduct.ProductID
+CurrencyRate.ToCurrencyCode=Currency.CurrencyCode
+CurrencyRate.FromCurrencyCode=Currency.CurrencyCode
+SalesPersonQuotaHistory.BusinessEntityID=SalesPerson.BusinessEntityID
+WorkOrder.ProductID=Product.ProductID
+WorkOrder.ScrapReasonID=ScrapReason.ScrapReasonID
+EmailAddress.BusinessEntityID=Person.BusinessEntityID
+Employee.BusinessEntityID=Person.BusinessEntityID
+BusinessEntityAddress.AddressID=Address.AddressID
+BusinessEntityAddress.AddressTypeID=AddressType.AddressTypeID
+BusinessEntityAddress.BusinessEntityID=BusinessEntity.BusinessEntityID
+SalesOrderHeader.CurrencyRateID=CurrencyRate.CurrencyRateID
+SalesOrderHeader.CreditCardID=CreditCard.CreditCardID
+SalesOrderHeader.ShipMethodID=Address.AddressID
+SalesOrderHeader.ShipToAddressID=Address.AddressID
+SalesOrderHeader.BillToAddressID=Address.AddressID
+SalesOrderHeader.TerritoryID=SalesTerritory.TerritoryID
+SalesOrderHeader.SalesPersonID=SalesPerson.BusinessEntityID
+SalesOrderHeader.CustomerID=Customer.CustomerID
+ProductReview.ProductID=Product.ProductID
+Product.ProductModelID=ProductModel.ProductModelID
+Product.ProductSubcategoryID=ProductSubcategory.ProductSubcategoryID
+Product.WeightUnitMeasureCode=UnitMeasure.UnitMeasureCode
+Product.SizeUnitMeasureCode=UnitMeasure.UnitMeasureCode
+BusinessEntityContact.BusinessEntityID=BusinessEntity.BusinessEntityID
+BusinessEntityContact.ContactTypeID=ContactType.ContactTypeID
+BusinessEntityContact.PersonID=Person.BusinessEntityID
+ProductCostHistory.ProductID=Product.ProductID
+PersonCreditCard.CreditCardID=CreditCard.CreditCardID
+PersonCreditCard.BusinessEntityID=Person.BusinessEntityID
+BillOfMaterials.UnitMeasureCode=UnitMeasure.UnitMeasureCode
+BillOfMaterials.ComponentID=Product.ProductID
+BillOfMaterials.ProductAssemblyID=Product.ProductID
+ProductDocument.ProductID=Product.ProductID
+ProductDocument.DocumentNode=Document.DocumentNode
+ProductInventory.ProductID=Product.ProductID
+ProductInventory.LocationID=Location.LocationID
+PurchaseOrderDetail.PurchaseOrderID=PurchaseOrderHeader.PurchaseOrderID
+PurchaseOrderDetail.ProductID=Product.ProductID
+ShoppingCartItem.ProductID=Product.ProductID
+JobCandidate.BusinessEntityID=Employee.BusinessEntityID
+Document.Owner=Employee.BusinessEntityID
+EmployeePayHistory.BusinessEntityID=Employee.BusinessEntityID
+ProductSubcategory.ProductCategoryID=ProductCategory.ProductCategoryID

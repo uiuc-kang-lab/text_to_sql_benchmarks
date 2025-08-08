@@ -1,0 +1,20 @@
+【DB_ID】 music_tracker
+【Schema】
+# Table: tags
+[
+(index:INTEGER, Primary Key, Examples: [0, 1, 2]),
+(id:INTEGER, Examples: [0, 2, 3]),
+(tag:TEXT, Examples: [1970s, funk, disco])
+]
+# Table: torrents
+[
+(groupName:TEXT, Examples: [superappin&#39;]),
+(totalSnatched:INTEGER, Examples: [239, 156, 480]),
+(artist:TEXT, Examples: [grandmaster flash & the furious five]),
+(groupYear:INTEGER, Examples: [1979, 1980, 1981]),
+(releaseType:TEXT, Examples: [single, album, live album]),
+(groupId:INTEGER, Examples: [720949, 728752, 18513]),
+(id:INTEGER, Primary Key, Examples: [0, 1, 2])
+]
+【Foreign keys】
+tags.id=torrents.id

@@ -1,0 +1,322 @@
+【DB_ID】 mondial_geo
+【Schema】
+# Table: religion
+[
+(Country:TEXT, Primary Key, Examples: [BERM, AUS, AXA]),
+(Name:TEXT, Primary Key, Examples: [African Methodist Episcopal]),
+(Percentage:REAL, Examples: [11.0, 26.1, 29.0])
+]
+# Table: population
+[
+(Country:TEXT, Primary Key, Examples: [A, AFG, AG]),
+(Population_Growth:REAL, Examples: [0.41, 4.78, 0.76]),
+(Infant_Mortality:REAL, Examples: [6.2, 149.7, 17.2])
+]
+# Table: province
+[
+(Name:TEXT, Primary Key, Examples: [AG, AI, AR]),
+(Country:TEXT, Primary Key, Examples: [CH, SUD, GB]),
+(Population:INTEGER, Examples: [1599605, 110700, 1263000]),
+(Area:REAL, Examples: [238792.0, 1130.0, 10794.0]),
+(Capital:TEXT, Examples: [Malakal, Colwyn Bay, LAquila]),
+(CapProv:TEXT, Examples: [Aali an Nil, Aberconwy and Colwyn, Abruzzo])
+]
+# Table: islandIn
+[
+(Island:TEXT, Examples: [Island, Svalbard, Greenland]),
+(Sea:TEXT, Examples: [Sea, Norwegian Sea, Barents Sea]),
+(Lake:TEXT, Examples: [Lake, Ozero Baikal, Lake Toba]),
+(River:TEXT, Examples: [River])
+]
+# Table: geo_estuary
+[
+(River:TEXT, Primary Key, Examples: [River]),
+(Country:TEXT, Primary Key, Examples: [Coun, SUD, AFG]),
+(Province:TEXT, Primary Key, Examples: [AG, Aali an Nil, Afghanistan])
+]
+# Table: isMember
+[
+(Country:TEXT, Primary Key, Examples: [A, AFG, AG]),
+(Organization:TEXT, Primary Key, Examples: [AG, ANC, AfDB]),
+(Type:TEXT, Examples: [Type, nonregional member, observer])
+]
+# Table: ethnicGroup
+[
+(Country:TEXT, Primary Key, Examples: [GE, EAU, DJI]),
+(Name:TEXT, Primary Key, Examples: [Abkhaz, Acholi, Afar]),
+(Percentage:REAL, Examples: [1.8, 4.0, 35.0])
+]
+# Table: geo_desert
+[
+(Desert:TEXT, Primary Key, Examples: [Desert, Rub Al Chali, Dascht-e-Margoh]),
+(Country:TEXT, Primary Key, Examples: [Coun, UAE, AFG]),
+(Province:TEXT, Primary Key, Examples: [Abu Dhabi, Afghanistan, Ahal])
+]
+# Table: continent
+[
+(Name:TEXT, Primary Key, Examples: [Africa, America, Asia]),
+(Area:REAL, Examples: [30254700.0, 39872000.0, 45095300.0])
+]
+# Table: mountain
+[
+(Name:TEXT, Primary Key),
+(Mountains:TEXT),
+(Height:REAL),
+(Type:TEXT),
+(Longitude:REAL),
+(Latitude:REAL)
+]
+# Table: geo_mountain
+[
+(Mountain:TEXT, Primary Key, Examples: [Mountain, Gran Sasso, Tirich Mir]),
+(Country:TEXT, Primary Key, Examples: [Coun, I, AFG]),
+(Province:TEXT, Primary Key, Examples: [Abruzzo, Afghanistan, Agri])
+]
+# Table: city
+[
+(Name:TEXT, Primary Key, Examples: [Aachen, Aalborg, Aarau]),
+(Country:TEXT, Examples: [D, DK, CH]),
+(Province:TEXT, Primary Key, Examples: [Nordrhein Westfalen, Denmark, AG]),
+(Population:INTEGER, Examples: [247113, 113865, 194345]),
+(Longitude:REAL, Examples: [10.0, 10.1, -4.0]),
+(Latitude:REAL, Examples: [57.0, 56.1, 5.3])
+]
+# Table: country
+[
+(Name:TEXT, Examples: [Afghanistan, Albania, Algeria]),
+(Code:TEXT, Primary Key, Examples: [A, AFG, AG]),
+(Capital:TEXT, Examples: [Vienna, Kabul, Saint Johns]),
+(Province:TEXT, Examples: [Vienna, Afghanistan, Antigua and Barbuda]),
+(Area:REAL, Examples: [83850.0, 647500.0, 442.0]),
+(Population:INTEGER, Examples: [8023244, 22664136, 65647])
+]
+# Table: target
+[
+(Country:TEXT, Primary Key, Examples: [A, AFG, AL]),
+(Target:TEXT, Examples: [Target, Christian, non-Christian])
+]
+# Table: language
+[
+(Country:TEXT, Primary Key, Examples: [AFG, NAM, MK]),
+(Name:TEXT, Primary Key, Examples: [Afghan Persian, Afrikaans, Albanian]),
+(Percentage:REAL, Examples: [50.0, 60.0, 21.0])
+]
+# Table: geo_island
+[
+(Island:TEXT, Primary Key, Examples: [Aland, Alicudi, Ambon]),
+(Country:TEXT, Primary Key, Examples: [Alan, Lipa, Molu]),
+(Province:TEXT, Primary Key, Examples: [101, 102, 10244])
+]
+# Table: island
+[
+(Name:TEXT, Primary Key, Examples: [Aland, Alicudi, Ambon]),
+(Islands:TEXT, Examples: [Aland Islands, Lipari Islands, Moluccan Islands]),
+(Area:REAL, Examples: [650.0, 5.2, 775.0]),
+(Height:REAL, Examples: [675.0, 1225.0, 32.0]),
+(Type:TEXT, Examples: [volcanic, lime, coral]),
+(Longitude:REAL, Examples: [20.0, 14.4, 128.2]),
+(Latitude:REAL, Examples: [60.1, 38.6, -3.7])
+]
+# Table: geo_lake
+[
+(Lake:TEXT, Primary Key, Examples: [Lake, Barrage de Mbakaou, Lake Nicaragua]),
+(Country:TEXT, Primary Key, Examples: [Coun, CAM, CR]),
+(Province:TEXT, Primary Key, Examples: [Adamaoua, Alajuela, Albania])
+]
+# Table: encompasses
+[
+(Country:TEXT, Primary Key, Examples: [A, AFG, AG]),
+(Continent:TEXT, Primary Key, Examples: [Europe, Asia, America]),
+(Percentage:REAL, Examples: [100.0, 90.0, 10.0])
+]
+# Table: economy
+[
+(Country:TEXT, Primary Key, Examples: [A, AFG, AG]),
+(GDP:REAL, Examples: [152000.0, 12800.0, 425.0]),
+(Agriculture:REAL, Examples: [2.0, 65.0, 3.5]),
+(Service:REAL, Examples: [34.0, 15.0, 19.3]),
+(Industry:REAL, Examples: [64.0, 20.0, 77.2]),
+(Inflation:REAL, Examples: [2.3, 3.5, 16.0])
+]
+# Table: geo_sea
+[
+(Sea:TEXT, Primary Key, Examples: [Sea, Mediterranean Sea, Persian Gulf]),
+(Country:TEXT, Primary Key, Examples: [Coun, I, UAE]),
+(Province:TEXT, Primary Key, Examples: [Abruzzo, Abu Dhabi, Adana])
+]
+# Table: mergesWith
+[
+(Sea1:TEXT, Primary Key, Examples: [Andaman Sea, Arabian Sea, Arctic Ocean]),
+(Sea2:TEXT, Primary Key, Examples: [Sea2, Gulf of Bengal, Indian Ocean])
+]
+# Table: geo_source
+[
+(River:TEXT, Primary Key, Examples: [River, White Nile, Amudarja]),
+(Country:TEXT, Primary Key, Examples: [Coun, SUD, AFG]),
+(Province:TEXT, Primary Key, Examples: [Aali an Nil, Afghanistan, Agri])
+]
+# Table: desert
+[
+(Name:TEXT, Primary Key, Examples: [Arabian Desert, Atacama, Azaouad]),
+(Area:REAL, Examples: [50000.0, 181300.0, 80000.0]),
+(Longitude:REAL, Examples: [26.0, -69.25, 0.0]),
+(Latitude:REAL, Examples: [33.0, -24.5, 20.0])
+]
+# Table: borders
+[
+(Country1:TEXT, Primary Key, Examples: [A, AFG, AL]),
+(Country2:TEXT, Primary Key, Examples: [CH, CZ, D]),
+(Length:REAL, Examples: [164.0, 362.0, 784.0])
+]
+# Table: lake
+[
+(Name:TEXT, Primary Key, Examples: [Ammersee, Arresoe, Atlin Lake]),
+(Area:REAL, Examples: [46.6, 40.2, 798.0]),
+(Depth:REAL, Examples: [81.1, 5.6, 283.0]),
+(Altitude:REAL, Examples: [533.0, 668.0, 104.0]),
+(Type:TEXT, Examples: [artificial, salt, caldera]),
+(River:TEXT, Examples: [Ammer, Yukon River, Sanaga]),
+(Longitude:REAL, Examples: [11.6, 12.1, -133.75]),
+(Latitude:REAL, Examples: [48.0, 56.0, 59.5])
+]
+# Table: located
+[
+(City:TEXT, Examples: [City, Shkoder, Durres]),
+(Province:TEXT, Examples: [Province]),
+(Country:TEXT, Examples: [Coun, AL, GR]),
+(River:TEXT, Examples: [River, Donau, Save]),
+(Lake:TEXT, Examples: [Lake, Lake Skutari, Bodensee]),
+(Sea:TEXT, Examples: [Sea, Mediterranean Sea, Atlantic Ocean])
+]
+# Table: mountainOnIsland
+[
+(Mountain:TEXT, Primary Key, Examples: [Andringitra, Asahi-Dake, Barbeau Peak]),
+(Island:TEXT, Primary Key, Examples: [Island, Madagaskar, Hokkaido])
+]
+# Table: politics
+[
+(Country:TEXT, Primary Key, Examples: [A, AFG, AG]),
+(Independence:DATE),
+(Dependent:TEXT, Examples: [Depe, USA, NL]),
+(Government:TEXT, Examples: [Government])
+]
+# Table: sea
+[
+(Name:TEXT, Primary Key, Examples: [Andaman Sea, Arabian Sea, Arctic Ocean]),
+(Depth:REAL, Examples: [3113.0, 5203.0, 5608.0])
+]
+# Table: organization
+[
+(Abbreviation:TEXT, Primary Key, Examples: [ABEDA, ACC, ACCT]),
+(Name:TEXT, Examples: [ASEAN-Mekong Basin Development Group]),
+(City:TEXT, Examples: [City, Khartoum, Paris]),
+(Country:TEXT, Examples: [Coun, SUD, F]),
+(Province:TEXT, Examples: [Province, al Khartum, Ile de France]),
+(Established:DATE)
+]
+# Table: river
+[
+(Name:TEXT, Primary Key, Examples: [Aare, Adda, Akagera]),
+(River:TEXT, Examples: [Rhein, Po, Ohio River]),
+(Lake:TEXT, Examples: [Brienzersee, Lago di Como, Lake Victoria]),
+(Sea:TEXT, Examples: [Atlantic Ocean, Sea of Okhotsk, Mediterranean Sea]),
+(Length:REAL, Examples: [288.0, 313.0, 275.0]),
+(SourceLongitude:REAL, Examples: [8.2, 10.3, 29.3]),
+(SourceLatitude:REAL, Examples: [46.55, -2.5, 41.9]),
+(Mountains:TEXT, Examples: [Alps]),
+(SourceAltitude:REAL, Examples: [2310.0, 2235.0, 2700.0]),
+(EstuaryLongitude:REAL, Examples: [8.22, 9.88, 33.0]),
+(EstuaryLatitude:REAL, Examples: [47.61, 45.13, -1.0])
+]
+# Table: geo_river
+[
+(River:TEXT, Primary Key, Examples: [River]),
+(Country:TEXT, Primary Key, Examples: [Coun, SUD, IRQ]),
+(Province:TEXT, Primary Key, Examples: [AG, Aali an Nil, Ad Tamim])
+]
+# Table: locatedOn
+[
+(City:TEXT, Primary Key, Examples: [Aberdeen, Aberystwyth, Adamstown]),
+(Province:TEXT, Primary Key, Examples: [Province, Grampian, Ceredigion]),
+(Country:TEXT, Primary Key, Examples: [Coun, GB, PITC]),
+(Island:TEXT, Primary Key, Examples: [Island, Great Britain, Pitcairn])
+]
+【Foreign keys】
+religion.Country=country.Code
+population.Country=country.Code
+province.Country=country.Code
+islandIn.River=river.Name
+islandIn.Lake=lake.Name
+islandIn.Sea=sea.Name
+islandIn.Island=island.Name
+geo_estuary.Province=province.Name
+geo_estuary.Country=province.Country
+geo_estuary.Country=country.Code
+geo_estuary.River=river.Name
+isMember.Organization=organization.Abbreviation
+isMember.Country=country.Code
+ethnicGroup.Country=country.Code
+geo_desert.Province=province.Name
+geo_desert.Country=province.Country
+geo_desert.Country=country.Code
+geo_desert.Desert=desert.Name
+geo_mountain.Province=province.Name
+geo_mountain.Country=province.Country
+geo_mountain.Country=country.Code
+geo_mountain.Mountain=mountain.Name
+city.Province=province.Name
+city.Country=province.Country
+city.Country=country.Code
+target.Country=country.Code
+language.Country=country.Code
+geo_island.Province=province.Name
+geo_island.Country=province.Country
+geo_island.Country=country.Code
+geo_island.Island=island.Name
+geo_lake.Province=province.Name
+geo_lake.Country=province.Country
+geo_lake.Country=country.Code
+geo_lake.Lake=lake.Name
+encompasses.Continent=continent.Name
+encompasses.Country=country.Code
+economy.Country=country.Code
+geo_sea.Province=province.Name
+geo_sea.Country=province.Country
+geo_sea.Country=country.Code
+geo_sea.Sea=sea.Name
+mergesWith.Sea2=sea.Name
+mergesWith.Sea1=sea.Name
+geo_source.Province=province.Name
+geo_source.Country=province.Country
+geo_source.Country=country.Code
+geo_source.River=river.Name
+borders.Country2=country.Code
+borders.Country1=country.Code
+located.Province=province.Name
+located.Country=province.Country
+located.City=city.Name
+located.Province=city.Province
+located.Sea=sea.Name
+located.Lake=lake.Name
+located.River=river.Name
+located.Country=country.Code
+mountainOnIsland.Island=island.Name
+mountainOnIsland.Mountain=mountain.Name
+politics.Dependent=country.Code
+politics.Country=country.Code
+organization.Province=province.Name
+organization.Country=province.Country
+organization.City=city.Name
+organization.Province=city.Province
+organization.Country=country.Code
+river.Lake=lake.Name
+geo_river.Province=province.Name
+geo_river.Country=province.Country
+geo_river.Country=country.Code
+geo_river.River=river.Name
+locatedOn.Province=province.Name
+locatedOn.Country=province.Country
+locatedOn.City=city.Name
+locatedOn.Province=city.Province
+locatedOn.Island=island.Name
+locatedOn.Country=country.Code

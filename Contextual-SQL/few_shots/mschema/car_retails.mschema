@@ -1,0 +1,94 @@
+【DB_ID】 car_retails
+【Schema】
+# Table: orderdetails
+[
+(orderNumber:INTEGER, Primary Key, Examples: [10100, 10101, 10102]),
+(productCode:TEXT, Primary Key, Examples: [S18_1749, S18_2248, S18_4409]),
+(quantityOrdered:INTEGER, Examples: [30, 50, 22]),
+(priceEach:REAL, Examples: [136.0, 55.09, 75.46]),
+(orderLineNumber:INTEGER, Examples: [3, 2, 4])
+]
+# Table: offices
+[
+(officeCode:TEXT, Primary Key, Examples: [1, 2, 3]),
+(city:TEXT, Examples: [San Francisco, Boston, NYC]),
+(phone:TEXT, Examples: [+1 650 219 4782, +1 215 837 0825, +1 212 555 3000]),
+(addressLine1:TEXT, Examples: [100 Market Street, 1550 Court Place, 523 East 53rd Street]),
+(addressLine2:TEXT, Examples: [Suite 300, Suite 102, apt. 5A]),
+(state:TEXT, Examples: [CA, MA, NY]),
+(country:TEXT, Examples: [USA, France, Japan]),
+(postalCode:TEXT, Examples: [94080, 02107, 10022]),
+(territory:TEXT, Examples: [NA, EMEA, Japan])
+]
+# Table: employees
+[
+(employeeNumber:INTEGER, Primary Key, Examples: [1002, 1056, 1076]),
+(lastName:TEXT, Examples: [Murphy, Patterson, Firrelli]),
+(firstName:TEXT, Examples: [Diane, Mary, Jeff]),
+(extension:TEXT, Examples: [x5800, x4611, x9273]),
+(email:TEXT),
+(officeCode:TEXT, Examples: [1, 6, 4]),
+(reportsTo:INTEGER, Examples: [1002, 1056, 1143]),
+(jobTitle:TEXT, Examples: [President, VP Sales, VP Marketing])
+]
+# Table: orders
+[
+(orderNumber:INTEGER, Primary Key, Examples: [10100, 10101, 10102]),
+(orderDate:DATE, Examples: [2003-01-06]),
+(requiredDate:DATE, Examples: [2003-01-13]),
+(shippedDate:DATE, Examples: [2003-01-10]),
+(status:TEXT, Examples: [Shipped, Resolved, Cancelled]),
+(comments:TEXT),
+(customerNumber:INTEGER, Examples: [363, 128, 181])
+]
+# Table: customers
+[
+(customerNumber:INTEGER, Primary Key, Examples: [103, 112, 114]),
+(customerName:TEXT, Examples: [Atelier graphique]),
+(contactLastName:TEXT, Examples: [Schmitt, King, Ferguson]),
+(contactFirstName:TEXT, Examples: [Carine , Jean, Peter]),
+(phone:TEXT, Examples: [40.32.2555, 7025551838, 03 9520 4555]),
+(addressLine1:TEXT, Examples: [54, rue Royale, 8489 Strong St., 636 St Kilda Road]),
+(addressLine2:TEXT, Examples: [Level 3]),
+(city:TEXT, Examples: [Nantes, Las Vegas, Melbourne]),
+(state:TEXT, Examples: [NV, Victoria, CA]),
+(postalCode:TEXT, Examples: [44000, 83030, 3004]),
+(country:TEXT, Examples: [France, USA, Australia]),
+(salesRepEmployeeNumber:INTEGER, Examples: [1370, 1166, 1611]),
+(creditLimit:REAL, Examples: [21000.0, 71800.0, 117300.0])
+]
+# Table: products
+[
+(productCode:TEXT, Primary Key, Examples: [S10_1678, S10_1949, S10_2016]),
+(productName:TEXT, Examples: [1969 Harley Davidson Ultimate Chopper]),
+(productLine:TEXT, Examples: [Motorcycles, Classic Cars, Trucks and Buses]),
+(productScale:TEXT, Examples: [1:10, 1:12, 1:18]),
+(productVendor:TEXT, Examples: [Min Lin Diecast]),
+(productDescription:TEXT),
+(quantityInStock:INTEGER, Examples: [7933, 7305, 6625]),
+(buyPrice:REAL, Examples: [48.81, 98.58, 68.99]),
+(MSRP:REAL, Examples: [95.7, 214.3, 118.94])
+]
+# Table: payments
+[
+(customerNumber:INTEGER, Primary Key, Examples: [103, 112, 114]),
+(checkNumber:TEXT, Primary Key, Examples: [HQ336336, JM555205, OM314933]),
+(paymentDate:DATE, Examples: [2004-10-19]),
+(amount:REAL, Examples: [6066.78, 14571.44, 1676.14])
+]
+# Table: productlines
+[
+(productLine:TEXT, Primary Key, Examples: [Classic Cars, Motorcycles, Planes]),
+(textDescription:TEXT),
+(htmlDescription:TEXT),
+(image:BLOB)
+]
+【Foreign keys】
+orderdetails.productCode=products.productCode
+orderdetails.orderNumber=orders.orderNumber
+employees.officeCode=offices.officeCode
+employees.reportsTo=employees.employeeNumber
+orders.customerNumber=customers.customerNumber
+customers.salesRepEmployeeNumber=employees.employeeNumber
+products.productLine=productlines.productLine
+payments.customerNumber=customers.customerNumber

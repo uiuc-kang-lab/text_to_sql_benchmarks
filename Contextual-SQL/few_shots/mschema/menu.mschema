@@ -1,0 +1,63 @@
+【DB_ID】 menu
+【Schema】
+# Table: MenuItem
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(menu_page_id:INTEGER, Examples: [1389, 3079, 1388]),
+(price:REAL, Examples: [0.4, 0.6, 0.5]),
+(high_price:REAL, Examples: [1.0, 3.0, 1.5]),
+(dish_id:INTEGER, Examples: [1, 2, 3]),
+(created_at:TEXT, Examples: [2011-03-28 15:00:44 UTC]),
+(updated_at:TEXT, Examples: [2011-04-19 04:33:15 UTC]),
+(xpos:REAL, Examples: [0.111429, 0.438571, 0.14]),
+(ypos:REAL, Examples: [0.254735, 0.261922, 0.26272])
+]
+# Table: MenuPage
+[
+(id:INTEGER, Primary Key, Examples: [119, 120, 121]),
+(menu_id:INTEGER, Examples: [12460, 12461, 12462]),
+(page_number:INTEGER, Examples: [1, 2, 3]),
+(image_id:REAL, Examples: [1603595.0, 1603596.0, 1603597.0]),
+(full_height:INTEGER, Examples: [7230, 5428, 3074]),
+(full_width:INTEGER, Examples: [5428, 7230, 2046]),
+(uuid:TEXT, Examples: [510d47e4-2955-a3d9-e040-e00a18064a99])
+]
+# Table: Menu
+[
+(id:INTEGER, Primary Key, Examples: [12463, 12464, 12465]),
+(name:TEXT, Examples: [The Modern, Restaurant, El Fuerte Del Palmar]),
+(sponsor:TEXT, Examples: [HOTEL EASTMAN]),
+(event:TEXT, Examples: [BREAKFAST, [DINNER], FRUHSTUCK/BREAKFAST;]),
+(venue:TEXT, Examples: [COMMERCIAL, SOC;, EDUC;]),
+(place:TEXT, Examples: [HOT SPRINGS, AR]),
+(physical_description:TEXT, Examples: [CARD; 4.75X7.5;]),
+(occasion:TEXT, Examples: [EASTER;, ANNIVERSARY;, DAILY;]),
+(notes:TEXT),
+(call_number:TEXT, Examples: [1900-2822, 1900-2825, 1900-2827]),
+(keywords:TEXT),
+(language:TEXT),
+(date:DATE, Examples: [1900-04-15]),
+(location:TEXT, Examples: [Hotel Eastman]),
+(location_type:TEXT),
+(currency:TEXT, Examples: [Dollars, Cents, Francs]),
+(currency_symbol:TEXT, Examples: [$, c, FF]),
+(status:TEXT, Examples: [complete]),
+(page_count:INTEGER, Examples: [2, 4, 12]),
+(dish_count:INTEGER, Examples: [67, 34, 84])
+]
+# Table: Dish
+[
+(id:INTEGER, Primary Key, Examples: [1, 2, 3]),
+(name:TEXT, Examples: [Consomme printaniere royal]),
+(description:TEXT),
+(menus_appeared:INTEGER, Examples: [8, 111, 14]),
+(times_appeared:INTEGER, Examples: [8, 117, 14]),
+(first_appeared:INTEGER, Examples: [1897, 1895, 1893]),
+(last_appeared:INTEGER, Examples: [1927, 1960, 1917]),
+(lowest_price:REAL, Examples: [0.2, 0.1, 0.25]),
+(highest_price:REAL, Examples: [0.4, 0.8, 1.0])
+]
+【Foreign keys】
+MenuItem.dish_id=Dish.id
+MenuItem.menu_page_id=MenuPage.id
+MenuPage.menu_id=Menu.id
