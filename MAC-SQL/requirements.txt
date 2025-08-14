@@ -1,0 +1,10 @@
+openai==1.99.9
+# transformers==4.33.0
+func_timeout
+sqlparse
+requests
+pandas
+tiktoken
+tqdm
+nltk
+flask
