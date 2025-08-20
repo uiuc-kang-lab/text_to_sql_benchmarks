@@ -21,7 +21,7 @@
     "353": "SELECT `sets`.`name`, `sets`.`totalSetSize` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setCode` WHERE `set_translations`.`language` = 'Italian';\t----- bird -----\tcard_games",
     "378": "SELECT `id` FROM `cards` WHERE `cardKingdomFoilId` IS NOT NULL AND `cardKingdomId` IS NOT NULL AND `hasFoil` = 1 AND `hasNonFoil` = 1;\t----- bird -----\tcard_games",
     "394": "SELECT COUNT(DISTINCT `id`) FROM `cards` WHERE `borderColor` = 'white' AND `cardKingdomFoilId` IS NOT NULL AND `cardKingdomId` IS NOT NULL;\t----- bird -----\tcard_games",
-    "406": "SELECT `cards`.`id` FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `cards`.`types` = 'Creature' AND `legalities`.`status` = 'Legal';\t----- bird -----\tcard_games",
+    "406": "SELECT `cards`.`id` FROM `cards` INNER JOIN `legalities` ON `cards`.`uuid` = `legalities`.`uuid` WHERE `legalities`.`status` = 'Legal' AND `cards`.`types` LIKE '%Creature%';\t----- bird -----\tcard_games",
     "416": "SELECT CAST(SUM(CASE WHEN `foreign_data`.`language` = 'French' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(`cards`.`id`) FROM `cards` LEFT JOIN `foreign_data` ON `cards`.`uuid` = `foreign_data`.`uuid` WHERE `cards`.`power` IS NULL OR `cards`.`power` = '*';\t----- bird -----\tcard_games",
     "428": "SELECT `sets`.`name`, `set_translations`.`translation` FROM `sets` INNER JOIN `set_translations` ON `sets`.`code` = `set_translations`.`setCode` WHERE `set_translations`.`id` = 5;\t----- bird -----\tcard_games",
     "442": "SELECT `baseSetSize`, `code` FROM `sets` WHERE `block` IN ('Masques', 'Mirage');\t----- bird -----\tcard_games",

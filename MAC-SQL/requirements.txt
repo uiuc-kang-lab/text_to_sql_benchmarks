@@ -8,3 +8,4 @@ tiktoken
 tqdm
 nltk
 flask
+python-dotenv

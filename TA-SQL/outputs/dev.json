@@ -21,7 +21,7 @@
     "353": " SELECT sets.name, sets.totalSetSize FROM set_translations INNER JOIN sets ON set_translations.setCode = sets.code WHERE set_translations.language = 'Italian'; \t----- bird -----\tcard_games",
     "378": " SELECT cards.id FROM cards WHERE cards.hasFoil = 1   AND cards.hasNonFoil = 1   AND cards.cardKingdomFoilId IS NOT NULL   AND cards.cardKingdomId IS NOT NULL; \t----- bird -----\tcard_games",
     "394": " SELECT COUNT(DISTINCT cards.id)  FROM cards  WHERE cards.borderColor = 'white'  AND cards.cardKingdomFoilId IS NOT NULL  AND cards.cardKingdomId IS NOT NULL; \t----- bird -----\tcard_games",
-    "406": " SELECT cards.id FROM cards INNER JOIN legalities ON cards.uuid = legalities.uuid WHERE legalities.status = 'Legal' AND cards.types LIKE '%Creature%' \t----- bird -----\tcard_games",
+    "406": " SELECT cards.id FROM cards INNER JOIN legalities ON cards.uuid = legalities.uuid WHERE legalities.status = 'Legal' AND cards.types LIKE '%Creature%'  \t----- bird -----\tcard_games",
     "416": " SELECT (CAST(COUNT(*) AS REAL) * 100 / (SELECT COUNT(*) FROM cards WHERE power IS NULL OR power = '*')) AS percentage FROM cards INNER JOIN foreign_data ON cards.uuid = foreign_data.uuid WHERE (cards.power IS NULL OR cards.power = '*') AND foreign_data.language = 'French'; \t----- bird -----\tcard_games",
     "428": " SELECT sets.name, set_translations.translation FROM sets INNER JOIN set_translations ON set_translations.setCode = sets.code WHERE sets.id = 5; \t----- bird -----\tcard_games",
     "442": " SELECT baseSetSize, code FROM sets WHERE block IN ('Masques', 'Mirage'); \t----- bird -----\tcard_games",
