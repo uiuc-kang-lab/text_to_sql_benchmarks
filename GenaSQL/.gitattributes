@@ -1,0 +1,2 @@
+src/bird_data/valid_multi_table_queries.json filter=lfs diff=lfs merge=lfs -text
+src/bird_data/valid_multi_table_queries_embeddings.npy filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,5 @@
+BIRD Train data used under the CC BY-NC 4.0 license
+
+Li, J., Hui, B., Qu, G., Yang, J., Li, B., Li, B., Wang, B., Qin, B., Geng, R., Huo, N., et al. (2024). 
+Can LLM already serve as a database interface? A big bench for large-scale database grounded text-to-SQLs. 
+Advances in Neural Information Processing Systems, 36.

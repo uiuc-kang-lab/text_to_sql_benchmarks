@@ -1,0 +1,23 @@
+top_k: 3
+
+configs:
+  - schema_format: sql_create
+    schema_filtering: column
+    generator: openai
+    model: gpt-4o
+  - schema_format: m_schema
+    schema_filtering: column
+    generator: openai
+    model: gpt-4o
+  - schema_format: m_schema
+    schema_filtering: table
+    generator: openai
+    model: gpt-4o
+  - schema_format: mac_schema
+    schema_filtering: none
+    generator: openai
+    model: gpt-4o
+  - schema_format: mac_schema
+    schema_filtering: column
+    generator: openai
+    model: gpt-4o
