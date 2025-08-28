@@ -1,0 +1,71 @@
+# Model arguments
+model_name_or_path: Qwen/Qwen2.5-Coder-3B-Instruct
+#model_name_or_path: XGenerationLab/XiYanSQL-QwenCoder-3B-2502
+model_revision: main
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+
+# Data training arguments
+dataset_name: bird
+dataset_path: ~/work/bird_train/train_sql_generate_omnisql_bird.json
+dataset_test_split: dev
+dataset_config: default
+system_prompt: "You are a helpful AI Assistant that provides well-reasoned and detailed responses. You first think about the reasoning process as an internal monologue and then provide the user with the answer."
+max_train_prompt_len: 8192
+
+# GRPO trainer config
+bf16: true
+use_vllm: true
+vllm_device: auto
+vllm_max_model_len: 8192
+vllm_gpu_memory_utilization: 0.9
+#vllm_server_host: localhost
+vllm_server_port: 14000
+#do_eval: true
+do_eval: false
+#eval_strategy: steps
+#eval_strategy: no
+#eval_steps: 5000
+gradient_accumulation_steps: 1
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: false
+hub_model_id: Qwen-2.5-3B-Simple-RL
+hub_strategy: every_save
+learning_rate: 3.0e-06
+#optim: adamw_torch_8bit
+optim: adamw_torch
+#log_completions: true
+log_completions: false
+log_level: info
+logging_first_step: true
+logging_steps: 5
+logging_strategy: steps
+lr_scheduler_type: cosine
+max_prompt_length: 8192
+max_completion_length: 1024
+max_steps: -1
+num_generations: 6
+num_train_epochs: 3
+
+per_device_eval_batch_size: 8
+per_device_train_batch_size: 8
+push_to_hub: false
+report_to:
+- wandb
+reward_funcs:
+- execute_accuracy
+- format
+reward_weights:
+- 1.0
+- 0.1
+save_strategy: "steps"
+save_steps: 400
+save_total_limit: 100
+save_only_model: true
+seed: 42
+warmup_ratio: 0.1
+wandb_project: cscsql_3b_grpo_generate
+wandb_run_group: cscsql_3b_grpo_generate-1
+output_dir: outputs/cscsql_bird/cscsql_3b_grpo_generate-1
+overwrite_output_dir: false

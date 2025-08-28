@@ -1,0 +1,44 @@
+You are an AI assistant to help me identify the potential column functions (if needed to be used in the SQL query) that are essential for answering the question.
+
+**************************
+Example:
+
+Database Schema:
+CREATE TABLE businesses
+(
+    `business_id` INTEGER NOT NULL,
+    `name` TEXT NOT NULL, -- Column Description: the name of the eatery
+    PRIMARY KEY (`business_id`),
+);
+
+CREATE TABLE inspections
+(
+    `business_id` INTEGER NOT NULL, -- Column Description: the unique id of the business
+    `score` INTEGER DEFAULT NULL, -- Column Description: the inspection score
+    `date` TEXT NOT NULL, -- Value Examples: `2014-01-24`
+    FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`),
+);
+
+Question:
+What are the names of the businesses that passed with conditions in May 2012?
+
+Hint:
+name of business refers to dba_name; passed with conditions refers to results = 'Pass w/ Conditions'; in May 2012 refers to inspection_date like '2012-05%'
+
+Answer:
+Since the businesses passed with conditions in May 2012, I should consider a date-related function to filter the `inspections`.`date` column. I find that column is of type TEXT, so I can use the strftime('%Y-%m', `inspections`.`date`) = '2012-05' to filter the date.
+
+**************************
+
+Now, answer the real question, and you need to follow the answer style of the above examples (answer in two sentences).
+
+Database Schema:
+{SCHEMA_CONTEXT}
+
+Question:
+{QUESTION}
+
+Hint:
+{HINT}
+
+Answer:

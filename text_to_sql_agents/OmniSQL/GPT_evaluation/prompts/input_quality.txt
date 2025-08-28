@@ -1,0 +1,31 @@
+Task Overview:
+You are a data science expert. Below, you are provided with a database schema and a question. Your goal is to assess the quality of question. Please evaluate the following response based on the criteria outlined below. Focus on the quality of the question, follows the instructions, and addresses the task.
+
+
+Evaluation Criteria:
+1. Unambiguous Phrasing: Is the question clearly worded in the natural language?
+2. Consistency with Database Schema: Is the question logically feasible given the schema? For example, avoid asking for data from a table that doesn’t exist or querying on columns that don’t exist.
+3. Proper Grammar: Is the question grammatically correct, with clear syntax and no spelling errors?
+4. Real-world Relevance: Does this question address the actual needs of users?
+
+
+Leveling Criteria:
+Excellent: The question meets the requirement fully and flawlessly, with no issues or missing elements.
+Good: The question meets most of the requirements but has minor issues that do not significantly affect the outcome.
+Average: The question partially meets the requirements but contains some mistakes or oversights that impact the result.
+Poor: The question fails to meet key requirements and is mostly incorrect.
+
+Output Format:
+For each evaluation criterion, provide your decision in the following JSON format. The evaluation for each criterion should include a level and a brief explanation of the reasoning behind it.
+```json
+{
+  "Unambiguous Phrasing": ["level", "explanation"],
+  "Consistency with Database Schema": ["level", "explanation"],
+  "Proper Grammar": ["level", "explanation"],
+  "Real-world Relevance": ["level", "explanation"]
+}
+```
+"level" should be one of: "Excellent", "Good", "Average", or "Poor".
+"explanation" should provide a brief rationale for your chosen level.
+
+Please think through the process step by step before making your final decision.

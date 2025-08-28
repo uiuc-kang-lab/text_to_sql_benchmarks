@@ -1,0 +1,167 @@
+Task Overview:
+You are a data science expert. Below, you are provided with a database schema and a natural language question. Your task is to understand the schema and generate a valid SQL query to answer the question.
+
+Database Engine:
+SQLite
+
+Database Schema:
+CREATE TABLE cards (
+    id integer, -- unique id number identifying the cards, example: [41138, 1349]
+    artist text, -- example: ['Pete Venters', 'Volkan Baǵa']
+    asciiName text, -- example: ['El-Hajjaj', 'Junun Efreet']
+    availability text, -- example: ['mtgo,paper', 'paper']
+    borderColor text, -- example: ['black', 'white']
+    cardKingdomFoilId text, -- example: ['123094', '123095']
+    cardKingdomId text, -- example: ['122719', '122720']
+    colorIdentity text, -- example: ['W', 'B']
+    colorIndicator text, -- example: ['U', 'G']
+    colors text, -- example: ['W', 'B']
+    convertedManaCost real, -- example: [7.0, 5.0]
+    duelDeck text, -- example: ['a', 'b']
+    edhrecRank integer, -- rec Rank in edh, example: [15650, 12702]
+    faceConvertedManaCost real, -- example: [4.0, 5.0]
+    faceName text, -- example: ['Dusk', 'Dawn']
+    flavorName text, -- example: ['Godzilla, King of the Monsters', 'King Caesar, Ancient Guardian']
+    flavorText text, -- example: ['Every tear shed is a drop of immortality', 'The perfect antidote for a tightly packe']
+    frameEffects text, -- example: ['legendary', 'nyxtouched']
+    frameVersion text, -- example: ['2003', '1993']
+    hand text, -- example: ['1', '0']
+    hasAlternativeDeckLimit integer, -- example: [0, 1]
+    hasContentWarning integer, -- example: [0, 1]
+    hasFoil integer, -- example: [0, 1]
+    hasNonFoil integer, -- example: [1, 0]
+    isAlternative integer, -- example: [0, 1]
+    isFullArt integer, -- example: [0, 1]
+    isOnlineOnly integer, -- example: [0, 1]
+    isOversized integer, -- example: [0, 1]
+    isPromo integer, -- is Promotion, example: [0, 1]
+    isReprint integer, -- example: [1, 0]
+    isReserved integer, -- example: [0, 1]
+    isStarter integer, -- example: [0, 1]
+    isStorySpotlight integer, -- example: [0, 1]
+    isTextless integer, -- example: [0, 1]
+    isTimeshifted integer, -- example: [0, 1]
+    keywords text, -- example: ['First strike', 'Flying']
+    layout text, -- example: ['normal', 'aftermath']
+    leadershipSkills text, -- example: ["{'brawl': False, 'commander': True, 'oat", "{'brawl': False, 'commander': False, 'oa"]
+    life text, -- example: ['-5', '-1']
+    loyalty text, -- example: ['6', '3']
+    manaCost text, -- example: ['{5}{W}{W}', '{4}{W}']
+    mcmId text, -- example: ['16165', '16166']
+    mcmMetaId text, -- example: ['156', '176']
+    mtgArenaId text, -- example: ['74983', '74986']
+    mtgjsonV4Id text, -- example: ['ad41be73-582f-58ed-abd4-a88c1f616ac3', '9eb2e54c-a12b-5e88-a9c0-d8c84c52d59c']
+    mtgoFoilId text, -- example: ['27501', '26993']
+    mtgoId text, -- example: ['27500', '26992']
+    multiverseId text, -- example: ['130550', '129465']
+    name text, -- example: ["Ancestor's Chosen", 'Angel of Mercy']
+    number text, -- example: ['1', '2']
+    originalReleaseDate text, -- example: ['2012/12/1', '2006/12/1']
+    originalText text, -- example: ['First strike (This creature deals combat', "Flying (This creature can't be blocked e"]
+    originalType text, -- example: ['Creature - Human Cleric', 'Creature - Angel']
+    otherFaceIds text, -- example: ['87f0062a-8321-5c16-960e-a12ce1df5839', 'f9f10d34-071c-57a6-b58c-7553abad5c20']
+    power text, -- example: ['4', '3']
+    printings text, -- example: ['10E,JUD,UMA', '10E,8ED,9ED,DDC,DVD,IMA,INV,JMP,MB1,P02,']
+    promoTypes text, -- example: ['boxtopper,boosterfun', 'boosterfun']
+    purchaseUrls text, -- example: ["{'cardKingdom': 'https://mtgjson.com/lin"]
+    rarity text, -- example: ['uncommon', 'common']
+    scryfallId text, -- example: ['7a5cd03c-4227-4551-aa4b-7d119f0468b5', '8f7980d4-da43-4d6d-ad16-14b8a34ae91d']
+    scryfallIllustrationId text, -- example: ['be2f7173-c8b7-4172-a388-9b2c6b3c16e5', 'e4d6c53f-e936-4be8-8b70-47c2be863b20']
+    scryfallOracleId text, -- example: ['fc2ccab7-cab1-4463-b73d-898070136d74', 'a2daaf32-dbfe-4618-892e-0da24f63a44a']
+    setCode text, -- example: ['10E', '2ED']
+    side text, -- example: ['a', 'b']
+    subtypes text, -- example: ['Human,Cleric', 'Angel']
+    supertypes text, -- example: ['Legendary', 'Basic']
+    tcgplayerProductId text, -- example: ['15032', '15033']
+    text text, -- example: ['First strike (This creature deals combat', 'Flying\nWhen Angel of Mercy enters the ba']
+    toughness text, -- example: ['4', '3']
+    type text, -- example: ['Creature — Human Cleric', 'Creature — Angel']
+    types text, -- example: ['Creature', 'Instant']
+    uuid text, -- example: ['00010d56-fe38-5e35-8aed-518019aa36a5', '0001e0d0-2dcd-5640-aadc-a84765cf5fc9']
+    variations text, -- example: ['b7c19924-b4bf-56fc-aa73-f586e940bd42', '8fd4e2eb-3eb4-50ea-856b-ef638fa47f8a']
+    watermark text, -- example: ['set', 'set (HOU)', 'set (LGN)']
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE foreign_data (
+    id integer, -- example: [1, 2]
+    flavorText text, -- example: ['„Es ist der Wille aller, und meine Hand,', '"La voluntad de todos, realizada por mi ']
+    `language` text, -- example: ['Italian', 'German', 'Spanish']
+    multiverseid integer, -- example: [148411, 150317]
+    name text, -- example: ['Ausgewählter der Ahnfrau', 'Elegido de la Antepasada']
+    text text, -- example: ['Erstschlag (Diese Kreatur fügt Kampfscha', 'Daña primero. (Esta criatura hace daño d']
+    type text, -- example: ['Kreatur — Mensch, Kleriker', 'Criatura — Clérigo humano']
+    uuid text, -- example: ['5f8287b1-5bb6-5f4c-ad17-316a40d5bb0c', '57aaebc1-850c-503d-9f6e-bb8d00d8bf7c']
+    PRIMARY KEY (id),
+    CONSTRAINT fk_foreign_data_uuid FOREIGN KEY (uuid) REFERENCES cards (uuid)
+);
+
+CREATE TABLE legalities (
+    id integer, -- example: [1, 2]
+    format text, -- example: ['commander', 'duel']
+    status text, -- example: ['Legal', 'Banned']
+    uuid text, -- example: ['5f8287b1-5bb6-5f4c-ad17-316a40d5bb0c', '57aaebc1-850c-503d-9f6e-bb8d00d8bf7c']
+    PRIMARY KEY (id),
+    CONSTRAINT fk_legalities_uuid FOREIGN KEY (uuid) REFERENCES cards (uuid)
+);
+
+CREATE TABLE sets (
+    id integer, -- example: [1, 2]
+    baseSetSize integer, -- example: [383, 302]
+    block text, -- example: ['Core Set', 'Mirrodin']
+    booster text, -- example: ["{'default': {'boosters': [{'contents': {"]
+    code text, -- example: ['10E', '2ED']
+    isFoilOnly integer, -- example: [0, 1]
+    isForeignOnly integer, -- example: [0, 1]
+    isNonFoilOnly integer, -- example: [0, 1]
+    isOnlineOnly integer, -- example: [0, 1]
+    isPartialPreview integer, -- example: [0, 1]
+    keyruneCode text, -- example: ['10E', '2ED']
+    mcmId integer, -- magic card market id, example: [74, 3204]
+    mcmIdExtras integer, -- magic card market ID Extras, example: [3209, 3459]
+    mcmName text, -- magic card market name, example: ['Tenth Edition', 'Double Masters']
+    mtgoCode text, -- magic the gathering online code, example: ['10E', '2XM']
+    name text, -- example: ['Tenth Edition', 'Unlimited Edition']
+    parentCode text, -- example: ['JMP', 'MH1']
+    releaseDate date, -- example: ['2007-07-13', '1993-12-01']
+    tcgplayerGroupId integer, -- example: [1, 115]
+    totalSetSize integer, -- example: [508, 302]
+    type text, -- example: ['core', 'masters']
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE set_translations (
+    id integer, -- example: [1, 2]
+    `language` text, -- example: ['Italian', 'Chinese Simplified', 'Chinese Traditional']
+    setCode text, -- example: ['10E', '4ED']
+    translation text, -- example: ['核心系列第十版', 'Dixième édition']
+    PRIMARY KEY (id),
+    CONSTRAINT fk_set_translations_setcode FOREIGN KEY (setCode) REFERENCES sets (code)
+);
+
+CREATE TABLE rulings (
+    id integer, -- example: [1, 2]
+    `date` date, -- example: ['2007-07-15', '2007-02-01']
+    text text, -- example: ['You draw the card when Bandage resolves,', 'If you double a negative life total, you']
+    uuid text, -- example: ['6d268c95-c176-5766-9a46-c14f739aba1c', '56f4935b-f6c5-59b9-88bf-9bcce20247ce']
+    PRIMARY KEY (id),
+    CONSTRAINT fk_rulings_uuid FOREIGN KEY (uuid) REFERENCES cards (uuid)
+);
+This schema describes the database's structure, including tables, columns, primary keys, foreign keys, and any relevant relationships or constraints.
+
+Question:
+Italian translation refers to language = 'Italian'; have a translation means translation is not null; base set number of under 100 refers to baseSetSize < 10
+Among the sets of cards that have an Italian translation, how many of them have a base set number of under 100?
+
+Instructions:
+- Make sure you only output the information that is asked in the question. If the question asks for a specific column, make sure to only include that column in the SELECT clause, nothing more.
+- The generated query should return all of the information asked in the question without any missing or extra information.
+- Before generating the final SQL query, please think through the steps of how to write the query.
+
+Output Format:
+In your answer, please enclose the generated SQL query in a code block:
+```sql
+-- Your SQL query
+```
+
+Take a deep breath and think step by step to find the correct SQL query.

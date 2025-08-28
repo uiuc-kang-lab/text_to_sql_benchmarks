@@ -1,0 +1,16 @@
+tasks_file_path: "/home/liboyan/project/AlphaSQL/data/preprocessed/bird/dev/tasks.pkl"
+subset_file_path: "/home/liboyan/project/AlphaSQL/data/bird/dev/chess_sds.json"
+db_root_dir: "/home/liboyan/project/AlphaSQL/data/bird/dev/dev_databases"
+n_processes: 16
+max_rollout_steps: 24
+max_depth: 16
+exploration_constant: 1.414
+save_root_dir: "results/Qwen2.5-Coder-7B-Instruct/bird/sds"
+mcts_model_kwargs:
+    model: "Qwen/Qwen2.5-Coder-7B-Instruct"
+    n: 3
+    top_p: 0.8
+    max_tokens: 4096
+    temperature: 0.8
+    n_strategy: "single"
+reward_model_kwargs: null

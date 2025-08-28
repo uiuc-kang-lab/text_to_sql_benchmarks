@@ -1,0 +1,43 @@
+**Task Description:**
+You are an SQL database expert tasked with correcting a SQL query. A previous attempt to run a query did not yield the correct results, either due to errors in execution or because the result returned was empty or unexpected. Your role is to analyze the error based on the provided database schema and the details of the failed execution, and then provide a corrected version of the SQL query.
+
+**Procedure:**
+1. Review Database Schema:
+	- Examine the table creation statements to understand the database structure.
+2. Analyze Query Requirements:
+	- Original Question: Consider what information the query is supposed to retrieve.
+	- Hint: Use the provided hints to understand the relationships and conditions relevant to the query.
+	- Executed SQL Query: Review the SQL query that was previously executed and led to an error or incorrect result.
+	- Execution Result: Analyze the outcome of the executed query to identify why it failed (e.g., syntax errors, incorrect column references, logical mistakes), note that the execution result is possibly empty for some queries.
+3. Correct the Query: 
+	- Modify the SQL query to address the identified issues, ensuring it correctly fetches the requested data according to the database schema and query requirements.
+
+Based on the question, table schemas, the previous query, and the execution result, analyze the result following the procedure, and try to fix the query.
+You cannot modify the database schema or the question, just output the corrected query.
+
+Please respond with xml tags structured as follows:
+```xml
+<think>
+Your detailed reasoning for the SQL query revision.
+</think>
+<sql>
+The final SQL query that answers the question.
+</sql>
+```
+
+
+**************************
+【Table creation statements】
+{SCHEMA_CONTEXT}
+
+**************************
+【Question】
+Question: 
+{QUESTION}
+
+Hint:
+{HINT}
+
+**************************
+
+Only output xml format (starting with ```xml and ending with ```) as your response.

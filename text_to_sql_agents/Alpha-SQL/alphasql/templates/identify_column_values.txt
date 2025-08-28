@@ -1,0 +1,42 @@
+You are an AI assistant to help me identify the potential column values (if needed to be used in the SQL query) that are essential for answering the question.
+
+Here is an example:
+
+Database Schema:
+CREATE TABLE generalinfo
+(
+	id_restaurant INTEGER not null primary key,
+	food_type TEXT null, -- Value Examples: `thai`| Column Description: the food type
+	city TEXT null, -- Column Description: the city where the restaurant is located in
+);
+
+CREATE TABLE location
+(
+	id_restaurant INTEGER not null primary key,
+	street_name TEXT null, -- Value Examples: `ave`, `san pablo ave`, `pablo ave`| Column Description: the street name of the restaurant
+	city TEXT null, -- Column Description: the city where the restaurant is located in
+	foreign key (id_restaurant) references generalinfo (id_restaurant) on update cascade on delete cascade,
+);
+
+Question:
+How many Thai restaurants can be found in San Pablo Ave, Albany? 
+
+Hint:
+Thai restaurant refers to food_type = 'thai'; San Pablo Ave Albany refers to street_name = 'san pablo ave' AND T1.city = 'albany'
+
+Answer:
+Since the restaurants are located in Albany, based on the schema information and the hint, I need to use `location`.`street_name` = 'san pablo ave' AND `generalinfo`.`city` = 'albany'.
+
+**************************
+Now, answer the real question, and you need to follow the answer style of the above examples (answer in two sentences).
+
+Database Schema:
+{SCHEMA_CONTEXT}
+
+Question:
+{QUESTION}
+
+Hint:
+{HINT}
+
+Answer:

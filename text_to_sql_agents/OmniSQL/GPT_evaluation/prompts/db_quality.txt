@@ -1,0 +1,27 @@
+Task Overview:
+You are a data science expert. Below, you are provided with a database schema DDL and your goal is to assess the quality of the DB schema. Please evaluate the following response based on the criteria outlined below. Now, focus on the quality of the schema, follows the instructions, and addresses the task.
+
+Evaluation Criteria:
+1. Normalization Compliance: Does the database follow normalization principles to minimize redundancy?
+2. Field Definition: Are the table and field names clear, concise, and descriptive? Do the data types of fields align with their intended use in real-world scenarios?
+3. Relationships Between Tables: Are the relationships between tables clearly defined and logically sound?
+4. Schema Complexity: Can the schema support complex queries, such as subqueries and joins, without logic issues?
+
+Leveling Criteria:
+Excellent: The query meets the requirement fully and flawlessly, with no issues or missing elements.
+Good: The query meets most of the requirements but has minor issues that do not significantly affect the outcome.
+Average: The query partially meets the requirements but contains some mistakes or oversights that impact the result.
+Poor: The query fails to meet key requirements and is mostly incorrect.
+
+Output Format:
+For each evaluation criterion, provide your response in the following JSON format. The evaluation for each criterion should include a level and a brief explanation of the reasoning behind it.
+{
+  "Normalization Compliance": ["level", "explanation"],
+  "Field Definition": ["level", "explanation"],
+  "Relationships Between Tables": ["level", "explanation"],
+  "Schema Complexity": ["level", "explanation"]
+}
+"level" should be one of: "Excellent", "Good", "Average", or "Poor".
+"explanation" should provide a brief rationale for your chosen level.
+
+Please think through the process step by step before making your final decision.

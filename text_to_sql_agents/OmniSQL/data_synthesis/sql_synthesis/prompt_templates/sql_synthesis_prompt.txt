@@ -1,0 +1,28 @@
+**Task Overview**
+Create an executable SQL query based on the provided information.
+
+**Database Schema**
+{schema_str}
+
+{sql_function_prompt}
+
+{db_value_prompt}
+
+**SQL Query Complexity**
+Ensure the SQL query matches the {complexity} level, defined as follows:
+{criterion}
+
+**Output Format Requirements**
+Enclose the SQL query in a code block:
+```sql
+  -- Your SQL query here
+```
+
+**SQL Query Requirements**
+1. Use the syntax specific to the {db_engine} database engine.
+2. Incorporate advanced functions if appropriate, but they are not mandatory.
+3. Address real-world data analysis needs. Avoid trivial or nonsensical queries.
+4. (Very important) Ensure the final SQL query selects {column_count} columns.
+
+**Answer**
+Let's proceed step by step.

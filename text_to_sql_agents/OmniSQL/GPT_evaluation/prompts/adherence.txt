@@ -1,0 +1,29 @@
+Task Overview:
+You are a data science expert evaluating whether an SQL query aligns with a given natural language question. Using the provided database schema, question, and query, assess how accurately the query follows the question. You should addresses the task based on the criteria below.
+
+Evaluation Criteria:
+1. Result Alignment: Does the SQL query return exactly the columns requested in the question, without including any extraneous or unnecessary columns?
+2. Structural Alignment: Does the structure of the SQL query accurately reflect the logic and intent of the natural language question?
+3. Efficiency of Solution: Does the SQL query avoid unrelated joins, operators, or functions, and is it constructed in an efficient manner to answer the question?
+4. Answer Adherence: Is the SQL query both acceptable and correct as a solution to the posed question, fully addressing its requirements?
+
+Leveling Criteria:
+Excellent: The SQL query meets the requirement fully and flawlessly, with no issues or missing elements.
+Good: The SQL query meets most of the requirements but has minor issues that do not significantly affect the outcome.
+Average: The SQL query partially meets the requirements but contains some mistakes or oversights that impact the result.
+Poor: The SQL query fails to meet key requirements and is mostly incorrect.
+
+Output Format:
+For each evaluation criterion, provide your decision in the following JSON format. The evaluation for each criterion should include a level and a brief explanation of the reasoning behind it.
+```json
+{
+  "Result Alignment": ["level", "explanation"],
+  "Structural Alignment": ["level", "explanation"],
+  "Efficiency of Solution": ["level", "explanation"],
+  "Answer Adherence": ["level", "explanation"]
+}
+```
+"level" should be one of: "Excellent", "Good", "Average", or "Poor".
+"explanation" should provide a brief rationale for your chosen level.
+
+Please think through the process step by step before making your final decision.

@@ -1,0 +1,280 @@
+Task Overview:
+You are a data science expert. Below, you are provided with a database schema and a natural language question. Your task is to understand the schema and generate a valid SQL query to answer the question.
+
+Database Engine:
+SQLite
+
+Database Schema:
+CREATE TABLE Player_Attributes (
+    id integer, -- example: [1, 2]
+    player_fifa_api_id integer, -- player federation international football association api id, example: [218353, 189615]
+    player_api_id integer, -- example: [505942, 155782]
+    `date` text, -- example: ['2016-02-18 00:00:00', '2015-11-19 00:00:00']
+    overall_rating integer, -- example: [67, 62]
+    potential integer, -- example: [71, 66]
+    preferred_foot text, -- example: ['right', 'left']
+    attacking_work_rate text, -- example: ['medium', 'high']
+    defensive_work_rate text, -- example: ['medium', 'high']
+    crossing integer, -- example: [49, 48]
+    finishing integer, -- example: [44, 43]
+    heading_accuracy integer, -- example: [71, 70]
+    short_passing integer, -- example: [61, 60]
+    volleys integer, -- example: [44, 43]
+    dribbling integer, -- example: [51, 50]
+    curve integer, -- example: [45, 44]
+    free_kick_accuracy integer, -- example: [39, 38]
+    long_passing integer, -- example: [64, 63]
+    ball_control integer, -- example: [49, 48]
+    acceleration integer, -- example: [60, 79]
+    sprint_speed integer, -- example: [64, 78]
+    agility integer, -- example: [59, 78]
+    reactions integer, -- example: [47, 46]
+    balance integer, -- example: [65, 90]
+    shot_power integer, -- example: [55, 54]
+    jumping integer, -- example: [58, 85]
+    stamina integer, -- example: [54, 79]
+    strength integer, -- example: [76, 56]
+    long_shots integer, -- example: [35, 34]
+    aggression integer, -- example: [71, 63]
+    interceptions integer, -- example: [70, 41]
+    positioning integer, -- example: [45, 44]
+    vision integer, -- example: [54, 53]
+    penalties integer, -- example: [48, 47]
+    marking integer, -- example: [65, 62]
+    standing_tackle integer, -- example: [69, 66]
+    sliding_tackle integer, -- example: [69, 66]
+    gk_diving integer, -- goalkeep diving, example: [6, 5]
+    gk_handling integer, -- goalkeep handling, example: [11, 10]
+    gk_kicking integer, -- goalkeep kicking, example: [10, 9]
+    gk_positioning integer, -- goalkeep positioning, example: [8, 7]
+    gk_reflexes integer, -- goalkeep reflexes, example: [8, 7]
+    PRIMARY KEY (id),
+    CONSTRAINT fk_player_attributes_player_fifa_api_id FOREIGN KEY (player_fifa_api_id) REFERENCES Player (player_fifa_api_id),
+    CONSTRAINT fk_player_attributes_player_api_id FOREIGN KEY (player_api_id) REFERENCES Player (player_api_id)
+);
+
+CREATE TABLE Player (
+    id integer, -- example: [3879, 401]
+    player_api_id integer, -- example: [2625, 2752]
+    player_name text, -- example: ['Aaron Mooy', 'Aaron Appindangoye', 'Aaron Cresswell']
+    player_fifa_api_id integer, -- player federation international football association api id, example: [2, 6]
+    birthday text, -- example: ['1992-02-29 00:00:00', '1989-12-15 00:00:00']
+    height integer, -- example: [182.88, 170.18]
+    weight integer, -- example: [187, 146]
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE League (
+    id integer, -- example: [1, 1729]
+    country_id integer, -- example: [1, 1729]
+    name text, -- example: ['Belgium Jupiler League', 'England Premier League']
+    PRIMARY KEY (id),
+    CONSTRAINT fk_league_country_id FOREIGN KEY (country_id) REFERENCES Country (id)
+);
+
+CREATE TABLE Country (
+    id integer, -- example: [1, 1729]
+    name text, -- example: ['Belgium', 'England']
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE Team (
+    id integer, -- example: [31446, 1513]
+    team_api_id integer, -- example: [1601, 1773]
+    team_fifa_api_id integer, -- team federation international football association api id, example: [673, 675]
+    team_long_name text, -- example: ['KRC Genk', 'Beerschot AC']
+    team_short_name text, -- example: ['GEN', 'BAC']
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE Team_Attributes (
+    id integer, -- example: [1, 2]
+    team_fifa_api_id integer, -- team federation international football association api id, example: [434, 77]
+    team_api_id integer, -- example: [9930, 8485]
+    `date` text, -- example: ['2010-02-22 00:00:00', '2014-09-19 00:00:00']
+    buildUpPlaySpeed integer, -- example: [60, 52]
+    buildUpPlaySpeedClass text, -- example: ['Balanced', 'Fast']
+    buildUpPlayDribbling integer, -- example: [48, 41]
+    buildUpPlayDribblingClass text, -- example: ['Little', 'Normal']
+    buildUpPlayPassing integer, -- example: [50, 56]
+    buildUpPlayPassingClass text, -- example: ['Mixed', 'Long']
+    buildUpPlayPositioningClass text, -- example: ['Organised', 'Free Form']
+    chanceCreationPassing integer, -- example: [60, 54]
+    chanceCreationPassingClass text, -- example: ['Normal', 'Risky']
+    chanceCreationCrossing integer, -- example: [65, 63]
+    chanceCreationCrossingClass text, -- example: ['Normal', 'Lots']
+    chanceCreationShooting integer, -- example: [55, 64]
+    chanceCreationShootingClass text, -- example: ['Normal', 'Lots']
+    chanceCreationPositioningClass text, -- example: ['Organised', 'Free Form']
+    defencePressure integer, -- example: [50, 47]
+    defencePressureClass text, -- example: ['Medium', 'Deep']
+    defenceAggression integer, -- example: [55, 44]
+    defenceAggressionClass text, -- example: ['Press', 'Double']
+    defenceTeamWidth integer, -- example: [45, 54]
+    defenceTeamWidthClass text, -- example: ['Normal', 'Wide']
+    defenceDefenderLineClass text, -- example: ['Cover', 'Offside Trap']
+    PRIMARY KEY (id),
+    CONSTRAINT fk_team_attributes_team_fifa_api_id FOREIGN KEY (team_fifa_api_id) REFERENCES Team (team_fifa_api_id),
+    CONSTRAINT fk_team_attributes_team_api_id FOREIGN KEY (team_api_id) REFERENCES Team (team_api_id)
+);
+
+CREATE TABLE `Match` (
+    id integer, -- example: [4769, 4770]
+    country_id integer, -- example: [1, 1729]
+    league_id integer, -- example: [1, 1729]
+    season text, -- example: ['2008/2009', '2009/2010']
+    stage integer, -- example: [1, 10]
+    `date` text, -- example: ['2008-08-17 00:00:00', '2008-08-16 00:00:00']
+    match_api_id integer, -- example: [483129, 483130]
+    home_team_api_id integer, -- example: [9987, 10000]
+    away_team_api_id integer, -- example: [9993, 9994]
+    home_team_goal integer, -- example: [1, 0]
+    away_team_goal integer, -- example: [1, 0]
+    home_player_X1 integer, -- example: [1, 2]
+    home_player_X2 integer, -- example: [2, 4]
+    home_player_X3 integer, -- example: [4, 6]
+    home_player_X4 integer, -- example: [6, 8]
+    home_player_X5 integer, -- example: [8, 6]
+    home_player_X6 integer, -- example: [2, 6]
+    home_player_X7 integer, -- example: [4, 8]
+    home_player_X8 integer, -- example: [6, 2]
+    home_player_X9 integer, -- example: [8, 4]
+    home_player_X10 integer, -- example: [4, 6]
+    home_player_X11 integer, -- example: [6, 4]
+    away_player_X1 integer, -- example: [1, 2]
+    away_player_X2 integer, -- example: [2, 4]
+    away_player_X3 integer, -- example: [4, 6]
+    away_player_X4 integer, -- example: [6, 8]
+    away_player_X5 integer, -- example: [8, 6]
+    away_player_X6 integer, -- example: [2, 4]
+    away_player_X7 integer, -- example: [4, 6]
+    away_player_X8 integer, -- example: [6, 8]
+    away_player_X9 integer, -- example: [8, 2]
+    away_player_X10 integer, -- example: [4, 6]
+    away_player_X11 integer, -- example: [6, 4]
+    home_player_Y1 integer, -- example: [1, 3]
+    home_player_Y2 integer, -- example: [3, 0]
+    home_player_Y3 integer, -- example: [3, 5]
+    home_player_Y4 integer, -- example: [3, 5]
+    home_player_Y5 integer, -- example: [3, 7]
+    home_player_Y6 integer, -- example: [7, 3]
+    home_player_Y7 integer, -- example: [7, 6]
+    home_player_Y8 integer, -- example: [7, 8]
+    home_player_Y9 integer, -- example: [7, 10]
+    home_player_Y10 integer, -- example: [10, 7]
+    home_player_Y11 integer, -- example: [10, 11]
+    away_player_Y1 integer, -- example: [1, 3]
+    away_player_Y2 integer, -- example: [3]
+    away_player_Y3 integer, -- example: [3, 7]
+    away_player_Y4 integer, -- example: [3, 5]
+    away_player_Y5 integer, -- example: [3, 7]
+    away_player_Y6 integer, -- example: [7, 3]
+    away_player_Y7 integer, -- example: [7, 6]
+    away_player_Y8 integer, -- example: [7, 8]
+    away_player_Y9 integer, -- example: [7, 10]
+    away_player_Y10 integer, -- example: [10, 7]
+    away_player_Y11 integer, -- example: [10, 11]
+    home_player_1 integer, -- example: [39890, 38327]
+    home_player_2 integer, -- example: [67950, 39580]
+    home_player_3 integer, -- example: [38788, 67958]
+    home_player_4 integer, -- example: [38312, 67959]
+    home_player_5 integer, -- example: [26235, 37112]
+    home_player_6 integer, -- example: [36393, 46004]
+    home_player_7 integer, -- example: [148286, 164732]
+    home_player_8 integer, -- example: [67898, 39631]
+    home_player_9 integer, -- example: [26916, 164352]
+    home_player_10 integer, -- example: [38801, 38423]
+    home_player_11 integer, -- example: [94289, 26502]
+    away_player_1 integer, -- example: [34480, 37937]
+    away_player_2 integer, -- example: [38388, 38293]
+    away_player_3 integer, -- example: [26458, 148313]
+    away_player_4 integer, -- example: [13423, 104411]
+    away_player_5 integer, -- example: [38389, 148314]
+    away_player_6 integer, -- example: [38798, 37202]
+    away_player_7 integer, -- example: [30949, 43158]
+    away_player_8 integer, -- example: [38253, 9307]
+    away_player_9 integer, -- example: [106013, 42153]
+    away_player_10 integer, -- example: [38383, 32690]
+    away_player_11 integer, -- example: [46552, 38782]
+    goal text, -- example: ['<goal><value><comment>n</comment><stats>']
+    shoton text, -- example: ['<shoton><value><stats><blocked>1</blocke']
+    shotoff text, -- example: ['<shotoff><value><stats><shotoff>1</shoto']
+    foulcommit text, -- example: ['<foulcommit><value><stats><foulscommitte']
+    card text, -- example: ['<card><value><comment>y</comment><stats>', '<card />']
+    `cross` text, -- example: ['<cross><value><stats><crosses>1</crosses']
+    corner text, -- example: ['<corner><value><stats><corners>1</corner']
+    possession text, -- example: ['<possession><value><comment>56</comment>', '<possession><value><comment>65</comment>']
+    B365H real, -- example: [1.73, 1.95]
+    B365D real, -- example: [3.4, 3.2]
+    B365A real, -- example: [5.0, 3.6]
+    BWH real, -- example: [1.75, 1.8]
+    BWD real, -- example: [3.35, 3.3]
+    BWA real, -- example: [4.2, 3.95]
+    IWH real, -- example: [1.85, 1.9]
+    IWD real, -- example: [3.2, 3.1]
+    IWA real, -- example: [3.5, 2.3]
+    LBH real, -- example: [1.8, 1.9]
+    LBD real, -- example: [3.3, 3.2]
+    LBA real, -- example: [3.75, 3.5]
+    PSH real, -- example: [5.1, 2.48]
+    PSD real, -- example: [3.82, 3.52]
+    PSA real, -- example: [1.76, 2.96]
+    WHH real, -- example: [1.7, 1.83]
+    WHD real, -- example: [3.3, 3.25]
+    WHA real, -- example: [4.33, 3.6]
+    SJH real, -- example: [1.9, 1.95]
+    SJD real, -- example: [3.3, 4.0]
+    SJA real, -- example: [4.0, 3.8]
+    VCH real, -- example: [1.65, 2.0]
+    VCD real, -- example: [3.4, 3.25]
+    VCA real, -- example: [4.5, 3.25]
+    GBH real, -- example: [1.78, 1.85]
+    GBD real, -- example: [3.25, 3.2]
+    GBA real, -- example: [4.0, 3.75]
+    BSH real, -- example: [1.73, 1.91]
+    BSD real, -- example: [3.4, 3.25]
+    BSA real, -- example: [4.2, 3.6]
+    PRIMARY KEY (id),
+    CONSTRAINT fk_match_home_team_api_id FOREIGN KEY (home_team_api_id) REFERENCES Team (team_api_id),
+    CONSTRAINT fk_match_away_team_api_id FOREIGN KEY (away_team_api_id) REFERENCES Team (team_api_id),
+    CONSTRAINT fk_match_home_player_1 FOREIGN KEY (home_player_1) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_home_player_2 FOREIGN KEY (home_player_2) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_home_player_3 FOREIGN KEY (home_player_3) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_home_player_4 FOREIGN KEY (home_player_4) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_home_player_5 FOREIGN KEY (home_player_5) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_home_player_6 FOREIGN KEY (home_player_6) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_home_player_7 FOREIGN KEY (home_player_7) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_home_player_8 FOREIGN KEY (home_player_8) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_home_player_9 FOREIGN KEY (home_player_9) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_home_player_10 FOREIGN KEY (home_player_10) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_home_player_11 FOREIGN KEY (home_player_11) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_away_player_1 FOREIGN KEY (away_player_1) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_away_player_2 FOREIGN KEY (away_player_2) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_away_player_3 FOREIGN KEY (away_player_3) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_away_player_4 FOREIGN KEY (away_player_4) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_away_player_5 FOREIGN KEY (away_player_5) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_away_player_6 FOREIGN KEY (away_player_6) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_away_player_7 FOREIGN KEY (away_player_7) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_away_player_8 FOREIGN KEY (away_player_8) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_away_player_9 FOREIGN KEY (away_player_9) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_away_player_10 FOREIGN KEY (away_player_10) REFERENCES Player (player_api_id),
+    CONSTRAINT fk_match_away_player_11 FOREIGN KEY (away_player_11) REFERENCES Player (player_api_id)
+);
+This schema describes the database's structure, including tables, columns, primary keys, foreign keys, and any relevant relationships or constraints.
+
+Question:
+Aaron Mooy refers to player_name = 'Aaron Mooy'; on 2016/2/4 refers to date LIKE '2016-02-04%';
+What was the overall rating for Aaron Mooy on 2016/2/4?
+
+Instructions:
+- Make sure you only output the information that is asked in the question. If the question asks for a specific column, make sure to only include that column in the SELECT clause, nothing more.
+- The generated query should return all of the information asked in the question without any missing or extra information.
+- Before generating the final SQL query, please think through the steps of how to write the query.
+
+Output Format:
+In your answer, please enclose the generated SQL query in a code block:
+```sql
+-- Your SQL query
+```
+
+Take a deep breath and think step by step to find the correct SQL query.

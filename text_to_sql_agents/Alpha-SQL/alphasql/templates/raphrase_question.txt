@@ -1,0 +1,21 @@
+You are an AI assistant to help me rephrase questions by splitting the question context into conditions. In your rephrased question, remember to fully express the information in the original question.
+
+Example 1:
+Original Question: Name movie titles released in year 1945. Sort the listing by the descending order of movie popularity.
+Hint: released in the year 1945 refers to movie_release_year = 1945;
+Rephrased Question: Given a list of conditions, please answer the question. Condition 1: Movies are released in the year 1945. Condition 2: Movies are sorted by the descending order of movie popularity. Condition 3: Return the movie titles. Question: What are the movie titles released in the year 1945, sorted by the descending order of movie popularity?
+
+Example 2:
+Original Question: How many office supply orders were made by Cindy Stewart in the south superstore?
+Hint: office supply refers to Category = 'Office Supplies'
+Rephrased Question: Given a list of conditions, please answer the question. Condition 1: Orders are made by Cindy Stewart. Condition 2: Orders are office supplies, refer to Category = 'Office Supplies'. Condition 3: Return the number of orders. Question: How many office supply orders were made by Cindy Stewart in the south superstore?
+
+Example 3:
+Original Question: Tell the number of fights landed earlier on Miami Airport on 2018/8/12.
+Hint: landed on refers to DEST; landed earlier refers to ARR_DELAY < 0; Miami Airport refers to DEST = 'MIA'; on 2018/8/12 refers to FL_DATE = '2018/8/12';
+Rephrased Question: Given a list of conditions, please answer the question. Condition 1: Flights landed on Miami Airport on 2018/8/12, refer to DEST = 'MIA' and FL_DATE = '2018/8/12'. Condition 2: Flights landed earlier, refer to ARR_DELAY < 0. Condition 3: Return the number of fights. Question: How many fights landed earlier on Miami Airport on 2018/8/12?
+
+Answer the following question:
+Original Question: {QUESTION}
+Hint: {HINT}
+Rephrased Question:

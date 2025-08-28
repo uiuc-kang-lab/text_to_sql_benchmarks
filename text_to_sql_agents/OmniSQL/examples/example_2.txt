@@ -1,0 +1,75 @@
+Task Overview:
+You are a data science expert. Below, you are provided with a database schema and a natural language question. Your task is to understand the schema and generate a valid SQL query to answer the question.
+
+Database Engine:
+SQLite
+
+Database Schema:
+CREATE TABLE continents (
+    ContId number, -- example: [1, 2]
+    Continent text, -- example: ['america', 'europe']
+    PRIMARY KEY (ContId)
+);
+
+CREATE TABLE countries (
+    CountryId number, -- example: [1, 2]
+    CountryName text, -- example: ['usa', 'germany']
+    Continent number, -- example: [1, 2]
+    PRIMARY KEY (CountryId),
+    CONSTRAINT fk_countries_continent FOREIGN KEY (Continent) REFERENCES continents (ContId)
+);
+
+CREATE TABLE car_makers (
+    Id number, -- example: [1, 2]
+    Maker text, -- example: ['amc', 'volkswagen']
+    FullName text, -- example: ['American Motor Company', 'Volkswagen']
+    Country text, -- example: ['1', '2']
+    PRIMARY KEY (Id),
+    CONSTRAINT fk_car_makers_country FOREIGN KEY (Country) REFERENCES countries (CountryId)
+);
+
+CREATE TABLE model_list (
+    ModelId number, -- example: [1, 2]
+    Maker number, -- example: [1, 2]
+    Model text, -- example: ['amc', 'audi']
+    PRIMARY KEY (ModelId),
+    CONSTRAINT fk_model_list_maker FOREIGN KEY (Maker) REFERENCES car_makers (Id)
+);
+
+CREATE TABLE car_names (
+    MakeId number, -- example: [1, 2]
+    Model text, -- example: ['chevrolet', 'buick']
+    Make text, -- example: ['chevrolet chevelle malibu', 'buick skylark 320']
+    PRIMARY KEY (MakeId),
+    CONSTRAINT fk_car_names_model FOREIGN KEY (Model) REFERENCES model_list (Model)
+);
+
+CREATE TABLE cars_data (
+    Id number, -- example: [1, 2]
+    MPG text, -- example: ['18', '15']
+    Cylinders number, -- example: [8, 4]
+    Edispl number, -- example: [307.0, 350.0]
+    Horsepower text, -- example: ['130', '165']
+    Weight number, -- example: [3504, 3693]
+    Accelerate number, -- example: [12.0, 11.5]
+    `Year` number, -- example: [1970, 1971]
+    PRIMARY KEY (Id),
+    CONSTRAINT fk_cars_data_id FOREIGN KEY (Id) REFERENCES car_names (MakeId)
+);
+This schema describes the database's structure, including tables, columns, primary keys, foreign keys, and any relevant relationships or constraints.
+
+Question:
+How many car makers are there in each continents? List the continent name and the count.
+
+Instructions:
+- Make sure you only output the information that is asked in the question. If the question asks for a specific column, make sure to only include that column in the SELECT clause, nothing more.
+- The generated query should return all of the information asked in the question without any missing or extra information.
+- Before generating the final SQL query, please think through the steps of how to write the query.
+
+Output Format:
+In your answer, please enclose the generated SQL query in a code block:
+```sql
+-- Your SQL query
+```
+
+Take a deep breath and think step by step to find the correct SQL query.

@@ -1,0 +1,13 @@
+datasketch
+nltk
+chardet
+python-dotenv
+openai
+pandas
+loguru
+tqdm
+pyyaml
+langchain
+langchain-openai
+weave
+sqlglot[rs]

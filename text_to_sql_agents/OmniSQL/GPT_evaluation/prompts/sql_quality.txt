@@ -1,0 +1,30 @@
+Task Overview:
+You are a data science expert. Below, you are provided with a SQL query and your goal is to assess the quality of SQL. Please evaluate the following response based on the criteria outlined below. Focus on the quality of the SQL query, follows the instructions, and addresses the task.
+
+
+Evaluation Criteria:
+1. SQL Correctness: Does the query correctly implement SQL syntax and logic without errors? Does it produce the expected results, assuming a reasonable dataset?
+2. SQL Efficiency: Does the query minimize computational resources? For example, does it avoid unnecessary joins, excessive subqueries, and redundant operations that could slow down performance?
+4. SQL Maintainability: Is the query easy to read and understand? Does it use appropriate formatting (e.g., indentation, spacing)? Are table and column names meaningful? Are complex sections of the query well-documented or logically structured?
+5. SQL Security: Does the query follow best practices for security? Does it avoid vulnerabilities like SQL injection (e.g., using parameterized queries)? Are user inputs handled safely?
+
+Leveling Criteria:
+Excellent: The SQL query meets the requirement fully and flawlessly, with no issues or missing elements.
+Good: The SQL query meets most of the requirements but has minor issues that do not significantly affect the outcome.
+Average: The SQL query partially meets the requirements but contains some mistakes or oversights that impact the result.
+Poor: The SQL query fails to meet key requirements and is mostly incorrect.
+
+Output Format:
+For each evaluation criterion, provide your decision in the following JSON format. The evaluation for each criterion should include a level and a brief explanation of the reasoning behind it.
+```json
+{
+  "SQL Correctness": ["level", "explanation"],
+  "SQL Efficiency": ["level", "explanation"],
+  "SQL Maintainability": ["level", "explanation"],
+  "SQL Security": ["level", "explanation"]
+}
+```
+"level" should be one of: "Excellent", "Good", "Average", or "Poor".
+"explanation" should provide a brief rationale for your chosen level.
+
+Please think through the process step by step before making your final decision.
