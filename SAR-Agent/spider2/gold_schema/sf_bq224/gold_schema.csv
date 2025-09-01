@@ -1,0 +1,12 @@
+full_table_name,DDL
+GITHUB_REPOS_DATE.MONTH._202204,"create or replace TABLE _202204 (
+	""type"" VARCHAR(16777216),
+	""public"" BOOLEAN,
+	""payload"" VARCHAR(16777216),
+	""repo"" VARIANT,
+	""actor"" VARIANT,
+	""org"" VARIANT,
+	""created_at"" NUMBER(38,0),
+	""id"" VARCHAR(16777216),
+	""other"" VARCHAR(16777216)
+);"

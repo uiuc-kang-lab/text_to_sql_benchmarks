@@ -1,0 +1,100 @@
+full_table_name,DDL
+F1.F1.PIT_STOPS,"create or replace TABLE PIT_STOPS (
+	""race_id"" NUMBER(38,0),
+	""driver_id"" NUMBER(38,0),
+	""stop"" NUMBER(38,0),
+	""lap"" NUMBER(38,0),
+	""time"" VARCHAR(16777216),
+	""duration"" VARCHAR(16777216),
+	""milliseconds"" NUMBER(38,0),
+	""seconds"" FLOAT
+);"
+F1.F1.RACES,"create or replace TABLE RACES (
+	""race_id"" NUMBER(38,0),
+	""year"" NUMBER(38,0),
+	""round"" NUMBER(38,0),
+	""circuit_id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""date"" VARCHAR(16777216),
+	""time"" VARCHAR(16777216),
+	""url"" VARCHAR(16777216),
+	""fp1_date"" VARCHAR(16777216),
+	""fp1_time"" VARCHAR(16777216),
+	""fp2_date"" VARCHAR(16777216),
+	""fp2_time"" VARCHAR(16777216),
+	""fp3_date"" VARCHAR(16777216),
+	""fp3_time"" VARCHAR(16777216),
+	""quali_date"" VARCHAR(16777216),
+	""quali_time"" VARCHAR(16777216),
+	""sprint_date"" VARCHAR(16777216),
+	""sprint_time"" VARCHAR(16777216)
+);"
+F1.F1.LAP_POSITIONS,"create or replace TABLE LAP_POSITIONS (
+	""race_id"" NUMBER(38,0),
+	""driver_id"" NUMBER(38,0),
+	""lap"" NUMBER(38,0),
+	""position"" NUMBER(38,0),
+	""lap_type"" VARCHAR(16777216)
+);"
+F1.F1.RETIREMENTS,"create or replace TABLE RETIREMENTS (
+	""race_id"" NUMBER(38,0),
+	""driver_id"" NUMBER(38,0),
+	""lap"" NUMBER(38,0),
+	""position_order"" NUMBER(38,0),
+	""status_id"" NUMBER(38,0),
+	""retirement_type"" VARCHAR(16777216)
+);"
+F1.F1.LAP_TIMES_EXT,"create or replace TABLE LAP_TIMES_EXT (
+	""race_id"" NUMBER(38,0),
+	""driver_id"" NUMBER(38,0),
+	""lap"" NUMBER(38,0),
+	""position"" NUMBER(38,0),
+	""time"" VARCHAR(16777216),
+	""milliseconds"" NUMBER(38,0),
+	""seconds"" FLOAT,
+	""running_milliseconds"" NUMBER(38,0)
+);"
+F1.F1.RESULTS,"create or replace TABLE RESULTS (
+	""result_id"" NUMBER(38,0),
+	""race_id"" NUMBER(38,0),
+	""driver_id"" NUMBER(38,0),
+	""constructor_id"" NUMBER(38,0),
+	""number"" FLOAT,
+	""grid"" NUMBER(38,0),
+	""position"" FLOAT,
+	""position_text"" VARCHAR(16777216),
+	""position_order"" NUMBER(38,0),
+	""points"" FLOAT,
+	""laps"" NUMBER(38,0),
+	""time"" VARCHAR(16777216),
+	""milliseconds"" FLOAT,
+	""fastest_lap"" FLOAT,
+	""rank"" FLOAT,
+	""fastest_lap_time"" VARCHAR(16777216),
+	""fastest_lap_speed"" VARCHAR(16777216),
+	""status_id"" NUMBER(38,0)
+);"
+F1.F1.RACES_EXT,"create or replace TABLE RACES_EXT (
+	""race_id"" NUMBER(38,0),
+	""year"" NUMBER(38,0),
+	""round"" NUMBER(38,0),
+	""circuit_id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""date"" VARCHAR(16777216),
+	""time"" VARCHAR(16777216),
+	""url"" VARCHAR(16777216),
+	""fp1_date"" VARCHAR(16777216),
+	""fp1_time"" VARCHAR(16777216),
+	""fp2_date"" VARCHAR(16777216),
+	""fp2_time"" VARCHAR(16777216),
+	""fp3_date"" VARCHAR(16777216),
+	""fp3_time"" VARCHAR(16777216),
+	""quali_date"" VARCHAR(16777216),
+	""quali_time"" VARCHAR(16777216),
+	""sprint_date"" VARCHAR(16777216),
+	""sprint_time"" VARCHAR(16777216),
+	""is_pit_data_available"" NUMBER(38,0),
+	""short_name"" VARCHAR(16777216),
+	""has_sprint"" NUMBER(38,0),
+	""max_points"" NUMBER(38,0)
+);"

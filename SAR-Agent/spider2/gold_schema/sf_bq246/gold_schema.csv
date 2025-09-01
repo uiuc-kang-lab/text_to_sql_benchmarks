@@ -1,0 +1,30 @@
+full_table_name,DDL
+PATENTSVIEW.PATENTSVIEW.USPATENTCITATION,"create or replace TABLE USPATENTCITATION (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""citation_id"" VARCHAR(16777216),
+	""date"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""kind"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""category"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0)
+);"
+PATENTSVIEW.PATENTSVIEW.APPLICATION,"create or replace TABLE APPLICATION (
+	""id"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""series_code"" VARCHAR(16777216),
+	""number"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""date"" VARCHAR(16777216)
+);"
+PATENTSVIEW.PATENTSVIEW.CPC_CURRENT,"create or replace TABLE CPC_CURRENT (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""section_id"" VARCHAR(16777216),
+	""subsection_id"" VARCHAR(16777216),
+	""group_id"" VARCHAR(16777216),
+	""subgroup_id"" VARCHAR(16777216),
+	""category"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0)
+);"

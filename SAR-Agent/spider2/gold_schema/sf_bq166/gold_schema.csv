@@ -1,0 +1,7 @@
+full_table_name,DDL
+TCGA_MITELMAN.PROD.CYTOBANDS_HG38,"create or replace TABLE CYTOBANDS_HG38 (
+	""chromosome"" VARCHAR(16777216),
+	""cytoband_name"" VARCHAR(16777216),
+	""hg38_start"" NUMBER(38,0),
+	""hg38_stop"" NUMBER(38,0)
+);"

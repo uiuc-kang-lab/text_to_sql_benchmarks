@@ -1,0 +1,62 @@
+full_table_name,DDL
+SQLITE_SAKILA.SQLITE_SAKILA.FILM_ACTOR,"create or replace TABLE FILM_ACTOR (
+	""actor_id"" NUMBER(38,0),
+	""film_id"" NUMBER(38,0),
+	""last_update"" VARCHAR(16777216)
+);"
+SQLITE_SAKILA.SQLITE_SAKILA.PAYMENT,"create or replace TABLE PAYMENT (
+	""payment_id"" NUMBER(38,0),
+	""customer_id"" NUMBER(38,0),
+	""staff_id"" NUMBER(38,0),
+	""rental_id"" FLOAT,
+	""amount"" FLOAT,
+	""payment_date"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"
+SQLITE_SAKILA.SQLITE_SAKILA.RENTAL,"create or replace TABLE RENTAL (
+	""rental_id"" NUMBER(38,0),
+	""rental_date"" VARCHAR(16777216),
+	""inventory_id"" NUMBER(38,0),
+	""customer_id"" NUMBER(38,0),
+	""return_date"" VARCHAR(16777216),
+	""staff_id"" NUMBER(38,0),
+	""last_update"" VARCHAR(16777216)
+);"
+SQLITE_SAKILA.SQLITE_SAKILA.CUSTOMER,"create or replace TABLE CUSTOMER (
+	""customer_id"" NUMBER(38,0),
+	""store_id"" NUMBER(38,0),
+	""first_name"" VARCHAR(16777216),
+	""last_name"" VARCHAR(16777216),
+	""email"" VARCHAR(16777216),
+	""address_id"" NUMBER(38,0),
+	""active"" VARCHAR(16777216),
+	""create_date"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"
+SQLITE_SAKILA.SQLITE_SAKILA.INVENTORY,"create or replace TABLE INVENTORY (
+	""inventory_id"" NUMBER(38,0),
+	""film_id"" NUMBER(38,0),
+	""store_id"" NUMBER(38,0),
+	""last_update"" VARCHAR(16777216)
+);"
+SQLITE_SAKILA.SQLITE_SAKILA.ACTOR,"create or replace TABLE ACTOR (
+	""actor_id"" NUMBER(38,0),
+	""first_name"" VARCHAR(16777216),
+	""last_name"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"
+SQLITE_SAKILA.SQLITE_SAKILA.FILM,"create or replace TABLE FILM (
+	""film_id"" NUMBER(38,0),
+	""title"" VARCHAR(16777216),
+	""description"" VARCHAR(16777216),
+	""release_year"" VARCHAR(16777216),
+	""language_id"" NUMBER(38,0),
+	""original_language_id"" VARCHAR(16777216),
+	""rental_duration"" NUMBER(38,0),
+	""rental_rate"" FLOAT,
+	""length"" NUMBER(38,0),
+	""replacement_cost"" FLOAT,
+	""rating"" VARCHAR(16777216),
+	""special_features"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"

@@ -1,0 +1,1 @@
+{"NOAA_GLOBAL_FORECAST_SYSTEM.NOAA_GLOBAL_FORECAST_SYSTEM.NOAA_GFS0P25": {"creation_time": {"column_type": "NUMBER", "column_description": null}, "geography": {"column_type": "BINARY", "column_description": null}, "forecast": {"column_type": "VARIANT", "column_description": null}, "geography_polygon": {"column_type": "BINARY", "column_description": null}}}

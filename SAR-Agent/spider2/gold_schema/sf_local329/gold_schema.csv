@@ -1,0 +1,8 @@
+full_table_name,DDL
+LOG.LOG.FORM_LOG,"create or replace TABLE FORM_LOG (
+	""stamp"" VARCHAR(16777216),
+	""session"" VARCHAR(16777216),
+	""action"" VARCHAR(16777216),
+	""path"" VARCHAR(16777216),
+	""status"" VARCHAR(16777216)
+);"

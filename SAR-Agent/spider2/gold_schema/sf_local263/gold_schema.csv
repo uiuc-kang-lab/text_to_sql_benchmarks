@@ -1,0 +1,15 @@
+full_table_name,DDL
+STACKING.STACKING.MODEL,"create or replace TABLE MODEL (
+	""name"" VARCHAR(16777216),
+	""version"" NUMBER(38,0),
+	""step"" NUMBER(38,0),
+	""L1_model"" VARCHAR(16777216)
+);"
+STACKING.STACKING.MODEL_SCORE,"create or replace TABLE MODEL_SCORE (
+	""name"" VARCHAR(16777216),
+	""version"" NUMBER(38,0),
+	""step"" NUMBER(38,0),
+	""model"" VARCHAR(16777216),
+	""train_score"" FLOAT,
+	""test_score"" FLOAT
+);"

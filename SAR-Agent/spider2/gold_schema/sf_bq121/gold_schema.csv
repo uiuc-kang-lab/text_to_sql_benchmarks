@@ -1,0 +1,24 @@
+full_table_name,DDL
+STACKOVERFLOW.STACKOVERFLOW.USERS,"create or replace TABLE USERS (
+	""id"" NUMBER(38,0),
+	""display_name"" VARCHAR(16777216),
+	""about_me"" VARCHAR(16777216),
+	""age"" VARCHAR(16777216),
+	""creation_date"" NUMBER(38,0),
+	""last_access_date"" NUMBER(38,0),
+	""location"" VARCHAR(16777216),
+	""reputation"" NUMBER(38,0),
+	""up_votes"" NUMBER(38,0),
+	""down_votes"" NUMBER(38,0),
+	""views"" NUMBER(38,0),
+	""profile_image_url"" VARCHAR(16777216),
+	""website_url"" VARCHAR(16777216)
+);"
+STACKOVERFLOW.STACKOVERFLOW.BADGES,"create or replace TABLE BADGES (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""date"" NUMBER(38,0),
+	""user_id"" NUMBER(38,0),
+	""class"" NUMBER(38,0),
+	""tag_based"" BOOLEAN
+);"

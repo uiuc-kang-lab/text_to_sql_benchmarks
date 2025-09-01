@@ -1,0 +1,1 @@
+{"LOG.LOG.FORM_LOG": {"status": {"column_type": "TEXT", "column_description": null}, "action": {"column_type": "TEXT", "column_description": null}, "session": {"column_type": "TEXT", "column_description": null}, "path": {"column_type": "TEXT", "column_description": null}, "stamp": {"column_type": "TEXT", "column_description": null}}}

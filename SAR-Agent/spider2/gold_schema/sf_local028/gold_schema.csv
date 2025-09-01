@@ -1,0 +1,11 @@
+full_table_name,DDL
+BRAZILIAN_E_COMMERCE.BRAZILIAN_E_COMMERCE.OLIST_ORDERS,"create or replace TABLE OLIST_ORDERS (
+	""order_id"" VARCHAR(16777216),
+	""customer_id"" VARCHAR(16777216),
+	""order_status"" VARCHAR(16777216),
+	""order_purchase_timestamp"" VARCHAR(16777216),
+	""order_approved_at"" VARCHAR(16777216),
+	""order_delivered_carrier_date"" VARCHAR(16777216),
+	""order_delivered_customer_date"" VARCHAR(16777216),
+	""order_estimated_delivery_date"" VARCHAR(16777216)
+);"

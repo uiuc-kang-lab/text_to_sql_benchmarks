@@ -1,0 +1,27 @@
+full_table_name,DDL
+CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Fact_CensusValues_ACS2021,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Fact_CensusValues_ACS2021 (
+    CensusValue FLOAT,
+    MetricID TEXT,
+    BlockGroupID TEXT
+);"
+CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Dim_CensusGeography,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Dim_CensusGeography (
+    StateAbbrev TEXT,
+    BlockGroupPolygon TEXT,
+    BlockGroupCode TEXT,
+    StateCountyTractID TEXT,
+    TractCode TEXT,
+    AmtLand NUMBER,
+    BlockGroupCentroidLon TEXT,
+    StateName TEXT,
+    BlockGroupName TEXT,
+    MTFCC TEXT,
+    CountyName TEXT,
+    GeographyYear TEXT,
+    AmtWater NUMBER,
+    BlockGroupCentroidLat TEXT,
+    BlockGroupID TEXT,
+    BlockGroupCentroidPoints TEXT,
+    FuncStat TEXT,
+    StateFIPS TEXT,
+    CountyFIPS TEXT
+);"

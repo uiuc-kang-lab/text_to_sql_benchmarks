@@ -1,0 +1,18 @@
+full_table_name,DDL
+CENSUS_BUREAU_ACS_2.GEO_US_BOUNDARIES.ZIP_CODES,"create or replace TABLE ZIP_CODES (
+	""zip_code"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""county"" VARCHAR(16777216),
+	""state_fips_code"" VARCHAR(16777216),
+	""state_code"" VARCHAR(16777216),
+	""state_name"" VARCHAR(16777216),
+	""fips_class_code"" VARCHAR(16777216),
+	""mtfcc_feature_class_code"" VARCHAR(16777216),
+	""functional_status"" VARCHAR(16777216),
+	""area_land_meters"" FLOAT,
+	""area_water_meters"" FLOAT,
+	""internal_point_lat"" FLOAT,
+	""internal_point_lon"" FLOAT,
+	""internal_point_geom"" BINARY(8388608),
+	""zip_code_geom"" BINARY(8388608)
+);"

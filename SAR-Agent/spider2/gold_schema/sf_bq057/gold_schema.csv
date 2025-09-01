@@ -1,0 +1,20 @@
+full_table_name,DDL
+CRYPTO.CRYPTO_BITCOIN.TRANSACTIONS,"create or replace TABLE TRANSACTIONS (
+	""hash"" VARCHAR(16777216),
+	""size"" NUMBER(38,0),
+	""virtual_size"" NUMBER(38,0),
+	""version"" NUMBER(38,0),
+	""lock_time"" NUMBER(38,0),
+	""block_hash"" VARCHAR(16777216),
+	""block_number"" NUMBER(38,0),
+	""block_timestamp"" NUMBER(38,0),
+	""block_timestamp_month"" DATE,
+	""input_count"" NUMBER(38,0),
+	""output_count"" NUMBER(38,0),
+	""input_value"" NUMBER(38,9),
+	""output_value"" NUMBER(38,9),
+	""is_coinbase"" BOOLEAN,
+	""fee"" NUMBER(38,9),
+	""inputs"" VARIANT,
+	""outputs"" VARIANT
+);"

@@ -1,0 +1,11 @@
+full_table_name,DDL
+BANK_SALES_TRADING.BANK_SALES_TRADING.BITCOIN_PRICES,"create or replace TABLE BITCOIN_PRICES (
+	""ticker"" VARCHAR(16777216),
+	""market_date"" VARCHAR(16777216),
+	""price"" FLOAT,
+	""open"" FLOAT,
+	""high"" FLOAT,
+	""low"" FLOAT,
+	""volume"" VARCHAR(16777216),
+	""change"" VARCHAR(16777216)
+);"

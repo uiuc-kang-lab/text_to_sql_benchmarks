@@ -1,0 +1,9 @@
+full_table_name,DDL
+LOG.LOG.ACTIVITY_LOG,"create or replace TABLE ACTIVITY_LOG (
+	""stamp"" VARCHAR(16777216),
+	""session"" VARCHAR(16777216),
+	""action"" VARCHAR(16777216),
+	""option"" VARCHAR(16777216),
+	""path"" VARCHAR(16777216),
+	""search_type"" VARCHAR(16777216)
+);"

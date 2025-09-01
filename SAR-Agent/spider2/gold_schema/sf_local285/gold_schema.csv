@@ -1,0 +1,31 @@
+full_table_name,DDL
+BANK_SALES_TRADING.BANK_SALES_TRADING.VEG_CAT,"create or replace TABLE VEG_CAT (
+	""index"" NUMBER(38,0),
+	""item_code"" NUMBER(38,0),
+	""item_name"" VARCHAR(16777216),
+	""category_code"" NUMBER(38,0),
+	""category_name"" VARCHAR(16777216)
+);"
+BANK_SALES_TRADING.BANK_SALES_TRADING.VEG_WHSLE_DF,"create or replace TABLE VEG_WHSLE_DF (
+	""index"" NUMBER(38,0),
+	""whsle_date"" VARCHAR(16777216),
+	""item_code"" NUMBER(38,0),
+	""whsle_px_rmb-kg"" FLOAT
+);"
+BANK_SALES_TRADING.BANK_SALES_TRADING.VEG_LOSS_RATE_DF,"create or replace TABLE VEG_LOSS_RATE_DF (
+	""index"" NUMBER(38,0),
+	""item_code"" NUMBER(38,0),
+	""item_name"" VARCHAR(16777216),
+	""loss_rate_%"" FLOAT
+);"
+BANK_SALES_TRADING.BANK_SALES_TRADING.VEG_TXN_DF,"create or replace TABLE VEG_TXN_DF (
+	""index"" NUMBER(38,0),
+	""txn_date"" VARCHAR(16777216),
+	""txn_time"" VARCHAR(16777216),
+	""item_code"" NUMBER(38,0),
+	""qty_sold(kg)"" FLOAT,
+	""unit_selling_px_rmb/kg"" FLOAT,
+	""sale/return"" VARCHAR(16777216),
+	""discount(%)"" NUMBER(38,0),
+	""day_of_week"" VARCHAR(16777216)
+);"

@@ -1,0 +1,10 @@
+full_table_name,DDL
+ORACLE_SQL.ORACLE_SQL.PACKAGING_RELATIONS,"create or replace TABLE PACKAGING_RELATIONS (
+	""packaging_id"" NUMBER(38,0),
+	""contains_id"" NUMBER(38,0),
+	""qty"" NUMBER(38,0)
+);"
+ORACLE_SQL.ORACLE_SQL.PACKAGING,"create or replace TABLE PACKAGING (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"

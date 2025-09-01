@@ -1,0 +1,23 @@
+full_table_name,DDL
+SQLITE_SAKILA.SQLITE_SAKILA.RENTAL,"create or replace TABLE RENTAL (
+	""rental_id"" NUMBER(38,0),
+	""rental_date"" VARCHAR(16777216),
+	""inventory_id"" NUMBER(38,0),
+	""customer_id"" NUMBER(38,0),
+	""return_date"" VARCHAR(16777216),
+	""staff_id"" NUMBER(38,0),
+	""last_update"" VARCHAR(16777216)
+);"
+SQLITE_SAKILA.SQLITE_SAKILA.STAFF,"create or replace TABLE STAFF (
+	""staff_id"" NUMBER(38,0),
+	""first_name"" VARCHAR(16777216),
+	""last_name"" VARCHAR(16777216),
+	""address_id"" NUMBER(38,0),
+	""picture"" VARCHAR(16777216),
+	""email"" VARCHAR(16777216),
+	""store_id"" NUMBER(38,0),
+	""active"" NUMBER(38,0),
+	""username"" VARCHAR(16777216),
+	""password"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"

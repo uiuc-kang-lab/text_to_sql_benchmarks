@@ -1,0 +1,1 @@
+{"BANK_SALES_TRADING.BANK_SALES_TRADING.CUSTOMER_TRANSACTIONS": {"customer_id": {"column_type": "NUMBER", "column_description": null}, "txn_date": {"column_type": "TEXT", "column_description": null}, "txn_amount": {"column_type": "NUMBER", "column_description": null}, "txn_type": {"column_type": "TEXT", "column_description": null}}}

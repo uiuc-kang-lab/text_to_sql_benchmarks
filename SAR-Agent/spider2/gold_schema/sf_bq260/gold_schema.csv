@@ -1,0 +1,18 @@
+full_table_name,DDL
+THELOOK_ECOMMERCE.THELOOK_ECOMMERCE.USERS,"create or replace TABLE USERS (
+	""id"" NUMBER(38,0),
+	""first_name"" VARCHAR(16777216),
+	""last_name"" VARCHAR(16777216),
+	""email"" VARCHAR(16777216),
+	""age"" NUMBER(38,0),
+	""gender"" VARCHAR(16777216),
+	""state"" VARCHAR(16777216),
+	""street_address"" VARCHAR(16777216),
+	""postal_code"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""latitude"" FLOAT,
+	""longitude"" FLOAT,
+	""traffic_source"" VARCHAR(16777216),
+	""created_at"" NUMBER(38,0)
+);"

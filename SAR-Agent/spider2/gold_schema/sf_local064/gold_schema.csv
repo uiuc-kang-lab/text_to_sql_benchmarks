@@ -1,0 +1,7 @@
+full_table_name,DDL
+BANK_SALES_TRADING.BANK_SALES_TRADING.CUSTOMER_TRANSACTIONS,"create or replace TABLE CUSTOMER_TRANSACTIONS (
+	""customer_id"" NUMBER(38,0),
+	""txn_date"" VARCHAR(16777216),
+	""txn_type"" VARCHAR(16777216),
+	""txn_amount"" NUMBER(38,0)
+);"

@@ -1,0 +1,41 @@
+full_table_name,DDL
+DEPS_DEV_V1.DEPS_DEV_V1.PROJECTS,"create or replace TABLE PROJECTS (
+	""SnapshotAt"" NUMBER(38,0),
+	""Type"" VARCHAR(16777216),
+	""Name"" VARCHAR(16777216),
+	""OpenIssuesCount"" NUMBER(38,0),
+	""StarsCount"" NUMBER(38,0),
+	""ForksCount"" NUMBER(38,0),
+	""Licenses"" VARIANT,
+	""Description"" VARCHAR(16777216),
+	""Homepage"" VARCHAR(16777216),
+	""OSSFuzz"" VARIANT
+);"
+DEPS_DEV_V1.DEPS_DEV_V1.PACKAGEVERSIONS,"create or replace TABLE PACKAGEVERSIONS (
+	""SnapshotAt"" NUMBER(38,0),
+	""System"" VARCHAR(16777216),
+	""Name"" VARCHAR(16777216),
+	""Version"" VARCHAR(16777216),
+	""Licenses"" VARIANT,
+	""Links"" VARIANT,
+	""Advisories"" VARIANT,
+	""VersionInfo"" VARIANT,
+	""Hashes"" VARIANT,
+	""DependenciesProcessed"" BOOLEAN,
+	""DependencyError"" BOOLEAN,
+	""UpstreamPublishedAt"" NUMBER(38,0),
+	""Registries"" VARIANT,
+	""SLSAProvenance"" VARIANT,
+	""UpstreamIdentifiers"" VARIANT,
+	""Purl"" VARCHAR(16777216)
+);"
+DEPS_DEV_V1.DEPS_DEV_V1.PACKAGEVERSIONTOPROJECT,"create or replace TABLE PACKAGEVERSIONTOPROJECT (
+	""SnapshotAt"" NUMBER(38,0),
+	""System"" VARCHAR(16777216),
+	""Name"" VARCHAR(16777216),
+	""Version"" VARCHAR(16777216),
+	""ProjectType"" VARCHAR(16777216),
+	""ProjectName"" VARCHAR(16777216),
+	""RelationProvenance"" VARCHAR(16777216),
+	""RelationType"" VARCHAR(16777216)
+);"

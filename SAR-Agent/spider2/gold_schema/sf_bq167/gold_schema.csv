@@ -1,0 +1,16 @@
+full_table_name,DDL
+META_KAGGLE.META_KAGGLE.FORUMMESSAGEVOTES,"create or replace TABLE FORUMMESSAGEVOTES (
+	""Id"" NUMBER(38,0),
+	""ForumMessageId"" NUMBER(38,0),
+	""FromUserId"" NUMBER(38,0),
+	""ToUserId"" NUMBER(38,0),
+	""VoteDate"" DATE
+);"
+META_KAGGLE.META_KAGGLE.USERS,"create or replace TABLE USERS (
+	""Id"" NUMBER(38,0),
+	""UserName"" VARCHAR(16777216),
+	""DisplayName"" VARCHAR(16777216),
+	""RegisterDate"" VARCHAR(16777216),
+	""PerformanceTier"" NUMBER(38,0),
+	""Country"" VARCHAR(16777216)
+);"

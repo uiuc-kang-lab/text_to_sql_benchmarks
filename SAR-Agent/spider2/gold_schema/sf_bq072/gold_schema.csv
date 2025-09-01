@@ -1,0 +1,57 @@
+full_table_name,DDL
+DEATH.DEATH.DEATHRECORDS,"create or replace TABLE DEATHRECORDS (
+	""HispanicOrigin"" NUMBER(38,0),
+	""RaceRecode3"" NUMBER(38,0),
+	""RaceImputationFlag"" NUMBER(38,0),
+	""HispanicOriginRaceRecode"" NUMBER(38,0),
+	""NumberOfRecordAxisConditions"" NUMBER(38,0),
+	""NumberOfEntityAxisConditions"" NUMBER(38,0),
+	""CauseRecode39"" NUMBER(38,0),
+	""InfantCauseRecode130"" NUMBER(38,0),
+	""CauseRecode113"" NUMBER(38,0),
+	""CauseRecode358"" NUMBER(38,0),
+	""PlaceOfInjury"" NUMBER(38,0),
+	""Autopsy"" VARCHAR(16777216),
+	""RaceRecode5"" NUMBER(38,0),
+	""InjuryAtWork"" VARCHAR(16777216),
+	""Id"" NUMBER(38,0),
+	""AgeRecode27"" NUMBER(38,0),
+	""MannerOfDeath"" NUMBER(38,0),
+	""Education2003Revision"" NUMBER(38,0),
+	""MethodOfDisposition"" VARCHAR(16777216),
+	""CurrentDataYear"" NUMBER(38,0),
+	""DayOfWeekOfDeath"" NUMBER(38,0),
+	""ActivityCode"" NUMBER(38,0),
+	""AgeRecode52"" NUMBER(38,0),
+	""MaritalStatus"" VARCHAR(16777216),
+	""AgeRecode12"" NUMBER(38,0),
+	""PlaceOfDeathAndDecedentsStatus"" NUMBER(38,0),
+	""InfantAgeRecode22"" NUMBER(38,0),
+	""ResidentStatus"" NUMBER(38,0),
+	""AgeType"" NUMBER(38,0),
+	""Race"" NUMBER(38,0),
+	""MonthOfDeath"" NUMBER(38,0),
+	""Age"" NUMBER(38,0),
+	""AgeSubstitutionFlag"" NUMBER(38,0),
+	""BridgedRaceFlag"" NUMBER(38,0),
+	""Icd10Code"" VARCHAR(16777216),
+	""Sex"" VARCHAR(16777216),
+	""Education1989Revision"" NUMBER(38,0),
+	""EducationReportingFlag"" NUMBER(38,0)
+);"
+DEATH.DEATH.RACE,"create or replace TABLE RACE (
+	""Description"" VARCHAR(16777216),
+	""Code"" NUMBER(38,0)
+);"
+DEATH.DEATH.ENTITYAXISCONDITIONS,"create or replace TABLE ENTITYAXISCONDITIONS (
+	""Id"" NUMBER(38,0),
+	""DeathRecordId"" NUMBER(38,0),
+	""Part"" NUMBER(38,0),
+	""Line"" FLOAT,
+	""Sequence"" NUMBER(38,0),
+	""Icd10Code"" VARCHAR(16777216)
+);"
+DEATH.DEATH.ICD10CODE,"create or replace TABLE ICD10CODE (
+	""Description"" VARCHAR(16777216),
+	""Code"" VARCHAR(16777216)
+);"

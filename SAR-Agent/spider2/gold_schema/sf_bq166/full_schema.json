@@ -1,0 +1,1 @@
+{"TCGA_MITELMAN.PROD.CYTOBANDS_HG38": {"cytoband_name": {"column_type": "TEXT", "column_description": null}, "hg38_stop": {"column_type": "NUMBER", "column_description": null}, "hg38_start": {"column_type": "NUMBER", "column_description": null}, "chromosome": {"column_type": "TEXT", "column_description": null}}}

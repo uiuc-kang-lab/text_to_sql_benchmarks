@@ -1,0 +1,19 @@
+full_table_name,DDL
+GITHUB_REPOS.GITHUB_REPOS.LANGUAGES,"create or replace TABLE LANGUAGES (
+	""repo_name"" VARCHAR(16777216),
+	""language"" VARIANT
+);"
+GITHUB_REPOS.GITHUB_REPOS.SAMPLE_COMMITS,"create or replace TABLE SAMPLE_COMMITS (
+	""commit"" VARCHAR(16777216),
+	""tree"" VARCHAR(16777216),
+	""parent"" VARIANT,
+	""author"" VARIANT,
+	""committer"" VARIANT,
+	""subject"" VARCHAR(16777216),
+	""message"" VARCHAR(16777216),
+	""trailer"" VARIANT,
+	""difference"" VARIANT,
+	""difference_truncated"" BOOLEAN,
+	""repo_name"" VARCHAR(16777216),
+	""encoding"" VARCHAR(16777216)
+);"

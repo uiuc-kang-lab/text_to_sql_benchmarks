@@ -1,0 +1,7 @@
+full_table_name,DDL
+GOOGLE_ADS.GOOGLE_ADS_TRANSPARENCY_CENTER.REMOVED_CREATIVE_STATS,"create or replace TABLE REMOVED_CREATIVE_STATS (
+	""creative_page_url"" VARCHAR(16777216),
+	""region_stats"" VARIANT,
+	""audience_selection_approach_info"" VARIANT,
+	""disapproval"" VARIANT
+);"

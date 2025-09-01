@@ -1,0 +1,36 @@
+full_table_name,DDL
+IPL.IPL.PLAYER,"create or replace TABLE PLAYER (
+	""player_id"" NUMBER(38,0),
+	""player_name"" VARCHAR(16777216),
+	""dob"" VARCHAR(16777216),
+	""batting_hand"" VARCHAR(16777216),
+	""bowling_skill"" VARCHAR(16777216),
+	""country_name"" VARCHAR(16777216)
+);"
+IPL.IPL.BATSMAN_SCORED,"create or replace TABLE BATSMAN_SCORED (
+	""match_id"" NUMBER(38,0),
+	""over_id"" NUMBER(38,0),
+	""ball_id"" NUMBER(38,0),
+	""runs_scored"" NUMBER(38,0),
+	""innings_no"" NUMBER(38,0)
+);"
+IPL.IPL.BALL_BY_BALL,"create or replace TABLE BALL_BY_BALL (
+	""match_id"" NUMBER(38,0),
+	""over_id"" NUMBER(38,0),
+	""ball_id"" NUMBER(38,0),
+	""innings_no"" NUMBER(38,0),
+	""team_batting"" NUMBER(38,0),
+	""team_bowling"" NUMBER(38,0),
+	""striker_batting_position"" NUMBER(38,0),
+	""striker"" NUMBER(38,0),
+	""non_striker"" NUMBER(38,0),
+	""bowler"" NUMBER(38,0)
+);"
+IPL.IPL.EXTRA_RUNS,"create or replace TABLE EXTRA_RUNS (
+	""match_id"" NUMBER(38,0),
+	""over_id"" NUMBER(38,0),
+	""ball_id"" NUMBER(38,0),
+	""extra_type"" VARCHAR(16777216),
+	""extra_runs"" NUMBER(38,0),
+	""innings_no"" NUMBER(38,0)
+);"

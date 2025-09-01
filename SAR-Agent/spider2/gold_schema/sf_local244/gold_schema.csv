@@ -1,0 +1,19 @@
+full_table_name,DDL
+MUSIC.MUSIC.INVOICELINE,"create or replace TABLE INVOICELINE (
+	""InvoiceLineId"" NUMBER(38,0),
+	""InvoiceId"" NUMBER(38,0),
+	""TrackId"" NUMBER(38,0),
+	""UnitPrice"" FLOAT,
+	""Quantity"" NUMBER(38,0)
+);"
+MUSIC.MUSIC.TRACK,"create or replace TABLE TRACK (
+	""TrackId"" NUMBER(38,0),
+	""Name"" VARCHAR(16777216),
+	""AlbumId"" NUMBER(38,0),
+	""MediaTypeId"" NUMBER(38,0),
+	""GenreId"" NUMBER(38,0),
+	""Composer"" VARCHAR(16777216),
+	""Milliseconds"" NUMBER(38,0),
+	""Bytes"" NUMBER(38,0),
+	""UnitPrice"" FLOAT
+);"

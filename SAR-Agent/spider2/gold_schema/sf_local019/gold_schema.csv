@@ -1,0 +1,43 @@
+full_table_name,DDL
+WWE.WWE.WRESTLERS,"create or replace TABLE WRESTLERS (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"
+WWE.WWE.BELTS,"create or replace TABLE BELTS (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"
+WWE.WWE.CARDS,"create or replace TABLE CARDS (
+	""id"" NUMBER(38,0),
+	""table_id"" NUMBER(38,0),
+	""location_id"" NUMBER(38,0),
+	""promotion_id"" NUMBER(38,0),
+	""event_date"" VARCHAR(16777216),
+	""event_id"" NUMBER(38,0),
+	""url"" VARCHAR(16777216),
+	""info_html"" VARCHAR(16777216),
+	""match_html"" VARCHAR(16777216)
+);"
+WWE.WWE.MATCHES,"create or replace TABLE MATCHES (
+	""id"" NUMBER(38,0),
+	""card_id"" NUMBER(38,0),
+	""winner_id"" VARCHAR(16777216),
+	""win_type"" VARCHAR(16777216),
+	""loser_id"" VARCHAR(16777216),
+	""match_type_id"" VARCHAR(16777216),
+	""duration"" VARCHAR(16777216),
+	""title_id"" VARCHAR(16777216),
+	""title_change"" NUMBER(38,0)
+);"
+WWE.WWE.LOCATIONS,"create or replace TABLE LOCATIONS (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"
+WWE.WWE.PROMOTIONS,"create or replace TABLE PROMOTIONS (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"
+WWE.WWE.EVENTS,"create or replace TABLE EVENTS (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"
