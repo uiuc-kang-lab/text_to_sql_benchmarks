@@ -33,7 +33,7 @@ def read_sqlite_query(query: str, explaination: str, database_id: str, instance_
     with open(f'./analyze_result/{instance_id}/query_result.txt', 'a') as f:
         f.write(f'Explaination of the query: {explaination}\n')
     try:
-        conn = sqlite3.connect(f'./data_minidev/MINIDEV/dev_databases/{database_id}/{database_id}.sqlite')
+        conn = sqlite3.connect(f'./bird/dev_databases/{database_id}/{database_id}.sqlite')
         cursor = conn.cursor()
         cursor.execute(query)
         result = cursor.fetchall()

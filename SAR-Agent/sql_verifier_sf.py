@@ -9,12 +9,9 @@ import os
 import json
 import logging
 from typing import Dict, List, Any, Optional, Set, Tuple, Callable
-from dataclasses import dataclass
-import anthropic
 from openai import OpenAI
 from datetime import datetime
 import pandas as pd
-from pydantic import BaseModel
 from llm_interface import LLMInterface
 import random
 from prompt_preprocess import get_prompt, get_prompt_bird

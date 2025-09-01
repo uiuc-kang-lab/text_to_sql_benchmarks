@@ -64,7 +64,7 @@ def main():
     # Initialize agent
 
     data_list = []
-    with open('./data_minidev/MINIDEV/mini_dev_sqlite.json', 'r') as f:
+    with open('./bird/mini_dev_sqlite.json', 'r') as f:
         data_list = json.load(f)
     data_list.sort(key=lambda x: x['question_id'])
     count = 0
