@@ -83,11 +83,10 @@ We include 16 open-source agents from the BIRD leaderboard under text_to_sql_age
 - Each agent folder under text_to_sql_agents contains a results/ subfolder with generated queries for both the original and corrected subsets (see each agent’s README for file names).
 - To compute execution accuracy, run the evaluation script, for example:
   ```
-  python evaluate.py 
-  ```
-  and for the corrected subset:
-  ```
-  python evaluate.py 
+  python evaluate.py \
+    --pred ./CHESS/results/dev.json \
+    --gold ./data/dev/dev.json \
+    --db_path ./data/dev/dev_databases
   ```
 
 ### Run agents yourself (optional)
