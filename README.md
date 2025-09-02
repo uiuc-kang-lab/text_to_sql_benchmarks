@@ -74,9 +74,6 @@ Example invocations:
 
 We include 16 open-source agents from the BIRD leaderboard under text_to_sql_agents. For convenience, we also include the generated SQL outputs used in our study.
 
-### Data setup
-
-- Download the original and corrected BIRD Dev subsets 
 
 ### Use released outputs
 
@@ -90,6 +87,16 @@ We include 16 open-source agents from the BIRD leaderboard under text_to_sql_age
   ```
 
 ### Run agents yourself (optional)
+
+#### Data setup
+
+- Download the original and corrected BIRD Dev subsets https://drive.google.com/file/d/1lhWvaI15UnAa7Mjs1dtKiBEfLRzJJpEz/view?usp=sharing
+
+```
+gdown 1lhWvaI15UnAa7Mjs1dtKiBEfLRzJJpEz
+```
+
+#### Run agents on the original and corrected Dev subset 
 
 - Each agent folder contains a README with environment setup, checkpoints, and run commands.
 - You can follow their README files to run agents yourself.
