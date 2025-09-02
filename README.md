@@ -16,62 +16,57 @@ Repository layout
 - SAR-Agent: implementation of SAR-Agent
 - text_to_sql_agents: code and outputs for the 16 open-source agents we re-evaluated
 
-## Quick start
-
-- Reproduce SAR-Agent runs (OpenAI o3):
-  1) Install dependencies
-  2) Prepare databases (BIRD or Spider 2.0-Snow)
-  3) Set your OpenAI API key
-  4) Run SAR-Agent with the provided scripts/configs
-
-- Reproduce agent re-evaluations:
-  1) Download both the original and corrected BIRD Dev subsets
-  2) Use the released agent outputs, or run agents as instructed in each agent’s folder
-  3) Run the evaluation scripts to compute execution accuracy and rankings
 
 ## SAR-Agent
 
 We used OpenAI’s o3 model in our experiments.
 
 Prerequisites
-- Python 3.9+
-- pip or conda
-- Access to the relevant databases (BIRD or Spider 2.0-Snow)
+- Python 3.12
 
 Install
-```
-cd SAR-Agent
-pip install -r requirements.txt
-```
+
+  ```
+  cd SAR-Agent
+  pip install -r requirements.txt
+  ```
 
 Set credentials
 - OpenAI:
-    ```
-    export OPENAI_API_KEY='<your_api_key>'
-    ```
+```
+export OPENAI_API_KEY='<your_api_key>'
+```
 
 ### Data setup
 
 BIRD
-- Download the BIRD Dev set and databases from the official BIRD repository or website.
-- Place databases under, e.g., data/bird/databases
-- Place the Dev split under, e.g., data/bird/dev/
-- If using our corrected subset (100 examples), place it under, e.g., data/bird/dev/corrected/
+- Download the data from https://drive.google.com/file/d/1H_CoROs_rr-11cNg7UeP_cN9PxvGR1qf/view?usp=drive_link.
+- Place databases and files under, e.g., ./bird
 
 Spider 2.0-Snow
 - Request Snowflake access via the Spider 2.0 repository: https://github.com/xlang-ai/Spider2.git
 - Configure Snowflake credentials.
 
-Note: Replace placeholder paths with your actual locations. Ensure DB servers are reachable where applicable.
+```
+gdown 1H_CoROs_rr-11cNg7UeP_cN9PxvGR1qf
+unzip bird.zip
+```
 
 ### Run SAR-Agent
 
 Example invocations:
 - BIRD:
   ```
+  python sql_verifier.py
   ```
 - Spider 2.0-Snow:
   ```
+  python sql_verifier_sf.py
+  ```
+
+- Spider 2.0-Snow-0713:
+  ```
+  python sql_verifier_sf.py --old_sf
   ```
 
 

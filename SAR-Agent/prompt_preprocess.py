@@ -36,7 +36,7 @@ def get_prompt_bird(data: dict, single: bool = False):
     question = data['question']
     gold_query = data['SQL']
     external_knowledge = data['evidence']
-    with open(f'./data_minidev/MINIDEV/dev_databases/{db_name}/full_schema.json', 'r') as f:
+    with open(f'./bird/dev_databases/{db_name}/full_schema.json', 'r') as f:
         full_schema = json.load(f)
     schema = '\n'.join([f"{k}: {v}" for k, v in full_schema.items()])
     input_prompt = prompt.format(question=question, schema=schema, external_knowledge=external_knowledge, gold_query=gold_query)

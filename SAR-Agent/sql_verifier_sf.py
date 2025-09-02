@@ -16,6 +16,7 @@ from llm_interface import LLMInterface
 import random
 from prompt_preprocess import get_prompt, get_prompt_bird
 from db_interface import get_function_call,get_function_call_bird,post_process
+import argparse
 
 # Configure logging
 logging.basicConfig(
@@ -50,14 +51,17 @@ class SARAgent:
         """Get the total cost of all API calls made through this interface."""
         return self.llm.get_total_cost()
 
-def get_data_list():
+def get_data_list(old_sf: bool = False):
     data_list = []
     processed_data_list = []
     for file in os.listdir('./spider2/sql'):
         data_list.append(file.split('.')[0])
         
     question_list = {}
-    with open('./spider2/spider2-snow.jsonl', 'r') as f:
+    file_name = './spider2/spider2-snow.jsonl'
+    if old_sf:
+        file_name = './spider2/spider2-snow-0713.jsonl'
+    with open(file_name, 'r') as f:
         for line in f:
             data = json.loads(line)
             question_list[data['instance_id']] = data
@@ -71,8 +75,11 @@ def main():
     api_key = os.getenv("ANTHROPIC_API_KEY" if 'claude' in model.lower() else "OPENAI_API_KEY")
     
     # Initialize agent
-
-    gold_data_list = get_data_list()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--old_sf', action='store_true', help='Use old spider2-snow.jsonl')
+    args = parser.parse_args()
+    old_sf = args.old_sf
+    gold_data_list = get_data_list(old_sf)
     gold_data_list.sort(key=lambda x: x['instance_id'])
     count = 0
     
