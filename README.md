@@ -1,4 +1,5 @@
 # Pervasive Annotation Errors Break Text-to-SQL Benchmarks and Leaderboards
+[![License](https://img.shields.io/badge/License-CC%20BY%20SA%204.0-orange.svg)](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
 <p align="center">
   <a href="https://arxiv.org/abs/2601.08778">Paper</a> 
 </p>
