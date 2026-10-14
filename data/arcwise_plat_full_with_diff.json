@@ -73,7 +73,7 @@
   },
   {
     "question_id": "1486",
-    "question": "How much more SMEs pay in Czech koruna than in euros? ",
+    "question": "How many more SME customers pay in Czech koruna than in euros?",
     "evidence": "Amount of more SMEs = Total of SMEs pay using Currency CZK - Total of SMEs pay using Currency EUR",
     "SQL": "SELECT SUM(Currency = 'CZK') - SUM(Currency = 'EUR') FROM customers WHERE Segment = 'SME'",
     "db_id": "debit_card_specializing",
@@ -218,7 +218,8 @@
     "question_id": "1533",
     "question": "For all the people who paid more than 29.00 per unit of product id No.5. Give their consumption status in the August of 2012.",
     "evidence": "August of 2012 refers to the Date value = '201208' ; Price per unit of product = Price / Amount;",
-    "SQL": "SELECT T2.Consumption FROM transactions_1k AS T1 INNER JOIN yearmonth AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Price / T1.Amount > 29.00 AND T1.ProductID = 5 AND T2.Date = '201208'",
+    "SQL": "WITH qualifying_customers AS (SELECT DISTINCT CustomerID FROM transactions_1k WHERE Price / Amount > 29.00 AND ProductID = 5) SELECT T2.Consumption FROM qualifying_customers AS T1 INNER JOIN yearmonth AS T2 ON T1.CustomerID = T2.CustomerID WHERE T2.Date = '201208' ORDER BY T1.CustomerID",
+    "original_SQL": "SELECT T2.Consumption FROM transactions_1k AS T1 INNER JOIN yearmonth AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Price / T1.Amount > 29.00 AND T1.ProductID = 5 AND T2.Date = '201208'",
     "db_id": "debit_card_specializing"
   },
   {
